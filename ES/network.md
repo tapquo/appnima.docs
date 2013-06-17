@@ -152,7 +152,7 @@ Devolverá un `200 Ok` junto con lista de usuarios que siguen al usuario indicad
 ```
 
 
-## GET /stats
+## GET /info
 -------------
 Si quieres tener una visión general de un determinado usuario dentro de la red social de tu aplicación utiliza este recurso, que al igual que en los recursos anteriores solo necesita del id del usuario como parámetro:
 
