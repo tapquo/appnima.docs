@@ -3,7 +3,7 @@ USER
 
 Este módulo recoge toda la funcionalidad para incluir un usuario de tu proyecto dentro la plataforma App/nima. Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
 
-    http://appnima-user.eu01.aws.af.cm/{RECURSO}
+    http://appnima.com/{RECURSO}
 
 Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificadas con tu `Appnima.key` o bien con el par de datos `client` y `secret`. Ahora veamos los recursos que puedes utilizar, para ello el primer parametro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo parametro el nombre del recurso.
 
@@ -45,6 +45,7 @@ Si ha ido todo bien retorna un `201 Created` junto con el objeto:
 ## POST /oauth2/token
 ---------------------
 Una vez que tenemos un usuario registrado para tu aplicación ahora tienes que pedir el token Oauth 2 que a partir de ahora será la clave para hacer todas las peticiones a App/nima. Para ello debes enviar los siguientes parámetros con la cabecera "http authorization basic"(con el client_id:client_secret codificados en Base64):
+
 ```Authorization: basic client_id:client_secret```
 
 ```json
@@ -196,5 +197,15 @@ Si el parámetro es correcto se recibe un `200 Ok` junto con el objeto:
 ```json
     {
 		message:	'Request accepted.'
+	}
+```
+
+## POST /user/ticket
+--------------
+Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. Envía como parámetro junto a la petición el texto de la consulta:
+
+```json
+    {
+		question:	'[SUGGESTION] Bigger buttons'
 	}
 ```
