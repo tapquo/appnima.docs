@@ -30,6 +30,13 @@ Realizar el login de un usuario es tan sencillo como llamar al recurso con los p
 
 `Appnima.User.login javi@tapquo.com, USER_PASSWORD`
 
+
+Storage
+------
+App/nima te proporciona recursos para mantener en memoria la información de sesión de tu usuario
+
+
+
 Información sobre el usuario
 ------
 ¿Necesitas todos los datos registrados de tu usuario? Gracias al protocolo de autenticación OAuth2 no es necesario ningún parámetro junto a la petición. Espera la respuesta `200 Ok` y obtendrás un objeto como el que sigue:
@@ -270,6 +277,84 @@ Registrar visita
 Con App/nima tus usuarios pueden registrar que están en un establecimiento o lugar. Junto a la petición envía los parámetros `ID` y `REFERENCE` del sitio:
 
 `Appnima.Location.checkin "28319319833", "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m"`
+
+
+Listar sitios visitados
+------
+Obtén la lista de lugares registrados por un usuario. Para esta petición no es necesario añadir ningún parámetro, utiliza este recurso de la siguiente forma:
+
+`Appnima.Location.checkins "28319319833"`
+
+
+Amigos cercanos
+------
+Si lo necesitas App/nima puede ofrecer una lista de amigos cercanos a un punto determinado, personas que están registradas en la lista de followers o followings del usuario que consulta. Para ello, realiza la petición junto con la latitud y la longitud y opcionalmente el radio (así acotarás la búsqueda):
+
+`Appnima.Location.friends "43.6525842", "-79.3834173, 100"`
+
+
+Personas cercanas
+------
+App/nima también te permite obtener un listado de personas fuera de las listar de followings y followers cercanas al usuario que consulta. La petición es similar a la anterior:
+
+`Appnima.Location.people "43.6525842", "-79.3834173, 100"`
+
+
+**PUSH**
+
+Notificaciones PUSH
+------
+Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto que quieres trasmitir y el content:
+
+`Appnima.Push.send "28319319833", "Mensaje", {"title": "JSON con los campos necesarios", "text": "Hola App/nima!"}`
+
+
+**SOCKET**
+
+
+Salas que participa un usuario
+------
+Obtén las salas donde un usuario está participando cuando utiliza el recurso de sockets. El recurso no necesita parámetros al ser llamado:
+
+`Appnima.Socket.`
+
+El objeto que se obtienes es como sigue:
+
+```json
+    [{
+		id:		        "ba54",
+		name:   	    "amigos",
+		created_at:		"2013-05-23T12:01:02.736Z"
+	},
+	{
+		id:	    	    "asf9a76y2t3ub",
+		name:   	    "appnima friends",
+		created_at:		"2013-02-23T12:01:02.736Z"
+	}
+	]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

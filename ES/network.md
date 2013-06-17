@@ -3,7 +3,7 @@ NETWORK
 
 Este modulo recoge toda la funcionalidad para crear una red social dentro de tu aplicación; buscar usuarios, seguirlos (o no seguirlos, tu decides), listas de seguidores... Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
 
-	http://appnima-user.eu01.aws.af.cm/network/{RECURSO}
+	http://api.appnima.com/network/{RECURSO}
 	
 Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificadas con tu `Appnima.key` o bien con el par de datos `client` y `secret`. Ahora veamos los recursos que puedes utilizar, para ello el primer parámetro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo parámetro el nombre del recurso.
 

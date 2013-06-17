@@ -5,7 +5,7 @@ Este módulo te permite obtener toda la funcionalidad respecto a la geolocalizac
 
 Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
 
-	http://appnima-user.eu01.aws.af.cm/location/{RECURSO}
+	http://api.appnima.com/location/{RECURSO}
 
 Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificadas con tu `Appnima.key` o bien con el par de datos `client` y `secret`. Ahora veamos los recursos que puedes utilizar: el primer parámetro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo el nombre del recurso.
 

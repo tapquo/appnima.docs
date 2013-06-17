@@ -3,7 +3,7 @@ PUSH
 
 Con este módulo puedes enviar notificaciones a los terminales registrados de los usuarios de tu aplicación. 
 
-	http://appnima-push.eu01.aws.af.cm/{RECURSO}
+	http://api.appnima.com/{RECURSO}
 	
 Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificadas con tu `Appnima.key` o bien con el par de datos `client` y `secret`. Ahora veamos los recursos que puedes utilizar, para ello el primer parametro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo parametro el nombre del recurso.
 
