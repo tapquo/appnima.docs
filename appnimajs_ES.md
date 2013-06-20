@@ -334,32 +334,82 @@ El objeto que se obtienes es como sigue:
 	]
 ```
 
+Grupos
+------
+Los grupos son salas persistentes de 1 a N usuarios con persistencia. Para trabajar con grupos se debe crear una instancia de grupo:
+
+`group = new Appnima.Socket.Group();`
+
+* Creación:
+
+	`group.create("name", ["2387569328yvc2","21y89ch3x8hg2032","2938tyh2g0ghh0i2bg8"]);`
+
+* Listar mis grupos:
+
+	`group.list().then(function(error, groups){[code]});`
+
+* Eliminar:
+
+	`group.remove("id")`
+	
+Chat
+----
+Los chats son salas de 1 a N personas sin persistencia. Para trabajar con Chtas primero se debe crear una instancia de Chat:
+
+`chat = new Appnima.Socket.Chat()`
+
+* Creación:
+
+`chat.create("name", ["2387569328yvc2","21y89ch3x8hg2032","2938tyh2g0ghh0i2bg8"])`
+
+Emiter
+------
+El emiter es una sala en la que el autor de la misma es el unico que puede mandar mensajes y los receptores se deben conectar usando `Appnima.Socket.Listener`. Para crearlo primero hay que crear una instancia de Emiter:
+
+`room = new Appnima.Socket.Emiter()`
+
+* Creación:
+
+`room.create("context")`
 
 
+Listener
+--------
+El listener se conecta a las salas creadas por un emiter y recibe los mensajes que envía. Para crearlo primero hay que crear una instancia de Listener, dicha instancia se conectará automáticamente a la sala:
 
+`listener = new Appnima.Socket.Listener("context")`
 
+Application
+-----------
+El canal de aplicación permite a los usuarios de una aplicación comunicarse entre ellos. Para conectarse al canal solo hace falta crear una instancia del socket de aplicación:
 
+`application = new Appnima.Socket.Application()`
 
+Inbox
+-----
+El Inbox permite a un usuario recibir mensajes de otros usuarios. Para ello crearemos una instancia de Inbox:
 
+`inbox = new Appnima.Socket.Inbox()`
 
+User
+----
+Socket.User permite el envío de mensajes al inbox de un user. Para ello primero tenemos que crear una instancia:
 
+`user = new Appnima.Socket.User("user id")`
 
+Métodos de Socket
+-----------------
+Estos métodos son los necesarios para la gestión de los tipos de socket vistos anteriormente:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* `instance.connect("id")`: Permite conectarse a una sala de Group o Chat
+* `instance.disconnect()`: Se desconecta de una sala
+* `instance.allowUSers(["","",""…])`: Permite añadir usuarios permitidos en Groups y Chats
+* `instance.disallowUsers(["","",""…])`: Elimina usuarios de la lista de admitidos
+* `instance.send(message)`: Envía un mensaje a todos los usuarios de la sala (emisor incluido)
+* `instance.broadcast(message)`: Envía un mensaje a todos los usuarios de la sala excepto al emisor
+* `instance.onConnect(callback)`: Llama al callback cuando se conecta a la sala
+* `instance.onError(callback)`: Llama al callback cuando sucede un error
+* `instance.onMessage(callback)`: Llama ala callback cuando se recibe un mensaje
 
 
 
