@@ -1,6 +1,11 @@
-APPNIMA.JS
+APPNIMA.JS
 ====
 Utiliza appnima.js para realizar de forma sencilla las peticiones a los recursos de APP/NIMA.
+
+Configuración
+-------------
+Para tener appnima.js listo para trabajar solo tienes que fijar el valor de la variable `Appnima.key` la key que te proporciona appnima al crear una aplicación:
+`Appnima.key = "fIiyFiBiufbifiBiu4iuiuGBIGbiUIUiIbnobyOlhPNXB5R3FoRmhIYFKkhfUYVKVhfIGUu"`
 
 
 Registrar un usuario
@@ -9,20 +14,6 @@ Para registrar un usuario en tu aplicación únicamente necesitas pasar como par
 
 Appnima.User.signup `javi@tapquo.com`, `USER_PASSWORD`
 
-
-Oauth
-------
-Recuerda que son necesarias las credenciales del usuario para todas las peticiones a App/nima. Obtén el token mediante la cabecera  "http authorization basic"(con el client_id:client_secret codificados en Base64):
-
-```Authorization: basic client_id:client_secret```
-
-```json
-    {
-        grant_type: "password",
-        mail:       "javi@tapquo.com",
-        password:   "USER_PASSWORD"
-    }
-```
 
 Login 
 ------
