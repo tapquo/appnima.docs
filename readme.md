@@ -86,7 +86,7 @@ state           : state parameter with response to identify the operation.
 
 The URL will be like this:
 
-	http://appnima.com/oauth2/authorize?scope=profile,push&response_type=code&client_id=519b84f0c1881dc1b3000002&redirect_uri=http://myapp.com&state=user48
+    http://api.appnima.com/oauth2/authorize?scope=profile,push&response_type=code&client_id=519b84f0c1881dc1b3000002&redirect_uri=http://myapp.com&state=user48
 
 The user will see a site where will be shown data application and permissions required. If rejected or something it is wrong with query, user will be redirect to site specifying the error.
 
@@ -287,7 +287,6 @@ You need use this resource when a user wishes to unsubscribe from your applicati
 
 
 ### Subscriptions
-
 #### POST /subscription
 Registered e-mail of users who want to receive information from your application or who want be invited to your application. You just need send like parameter the e-mail address:
 ```json
@@ -297,10 +296,19 @@ Registered e-mail of users who want to receive information from your application
 ```
 
 Responses are returned with `200 Ok` and the object:
-
 ```json
     {
         message:    'Request accepted.'
+    }
+```
+
+
+### Support
+#### POST /ticket
+Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. Envía como parámetro junto a la petición el texto de la consulta:
+```json
+    {
+        question:   '[SUGGESTION] Bigger buttons'
     }
 ```
 
@@ -818,10 +826,10 @@ To disconnect from a room just call the method `leave`.
 To send a message to a room just call the method `sendMessage` with an object as parameter (a message can be any type of data). This message will be received by all the room's users, also the sender, through a listener called `onMessage` and it will have the following format:
 ```json
     {
-		user:		    {"user that sends the message"},
-		message:   	    {"message sent"},
-		created_at:		"2013-05-23T12:01:02.736Z"
-	}
+        user:           {"user that sends the message"},
+        message:        {"message sent"},
+        created_at:     "2013-05-23T12:01:02.736Z"
+    }
 ```
 
 #### sendbroadcast
@@ -848,16 +856,16 @@ There are several room types, each one has different permissions depending the u
 Get a list of rooms where a user is participant. You just need call the resource and if the query was successful App/nima returns `200 Ok` and the list like this:
 ```json
     [{
-		id:		        "ba54",
-		name:   	    "amigos",
-		created_at:		"2013-05-23T12:01:02.736Z"
-	},
-	{
-		id:	    	    "asf9a76y2t3ub",
-		name:   	    "appnima friends",
-		created_at:		"2013-02-23T12:01:02.736Z"
-	}
-	]
+        id:             "ba54",
+        name:           "amigos",
+        created_at:     "2013-05-23T12:01:02.736Z"
+    },
+    {
+        id:             "asf9a76y2t3ub",
+        name:           "appnima friends",
+        created_at:     "2013-02-23T12:01:02.736Z"
+    }
+    ]
 ```
 
 
