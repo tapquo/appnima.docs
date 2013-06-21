@@ -30,7 +30,7 @@ All the backend is deployed around the world using platforms such as Amazon or G
 
 In summary, App/nima is a platform in a REST API way that provide you with the logical services of your projects, and depending the nature of your project maybe you won't need your own backend. Each logical service is hosted in different servers to obtain the biggest independent scalability, along the documentation we will watch the routes of each service.
 
-### Authentication
+### OAuth 2
 All App/nima services use the authentication protocol [**OAuth 2**](http://oauth.net/2/) looking for the largest compatibility with third party tools. If you are not an expert in Oauth 2 we recommend you to study it, because it is beeing the authentication protocol by default and companies like Google, Facebook or Twitter use it to connect with their APIs. Read the [documentation](http://) to start right now working with App/nima.
 
 ### No XML, just JSON
@@ -65,19 +65,17 @@ To talk with us or with other developers about the API, suscribe to our [**maili
 
 API REST
 ========
-2 Steps Authentication
-----------------------
-With this module App/nima get user token through the OAuth system called 2-step. The resource path is:
+Authentication
+--------------
+With this resource App/nima get user token through the OAuth system called 2-step. The resource path is:
 
-    http://appnima.com/{RECURSO}
+    http://appnima.com/{RESOURCE}
 
 The following explains how to get token using this method.
 
 
-
 #### Step 1: GET /oauth/authorize
 User will be redirect to another URL. This resource is called with the following parameters:
-
 ``` json
 response_type   : type of request. Should be `code`.
 client_id       : your public ID application.
@@ -88,8 +86,7 @@ state           : state parameter with response to identify the operation.
 
 The URL will be like this:
 
-    http://appnima.com/oauth2/authorize?scope=profile,push&response_type=code&client_id=519b84f0c1881dc1b3000002&redirect_uri=http://myapp.com&state=user48
-
+	http://appnima.com/oauth2/authorize?scope=profile,push&response_type=code&client_id=519b84f0c1881dc1b3000002&redirect_uri=http://myapp.com&state=user48
 
 The user will see a site where will be shown data application and permissions required. If rejected or something it is wrong with query, user will be redirect to site specifying the error.
 
@@ -98,7 +95,6 @@ If the request was successful, user will be redirect to a site with a field `cod
 
 #### Step 2: POST /oauth2/token
 After get `code`, token will be request. To do so, this resource will be called with header "http basic authorization" with application ID and secret Base64 encoded and the next parameters:
-
 ```json
     {
         grant_type: "code",
@@ -108,7 +104,6 @@ After get `code`, token will be request. To do so, this resource will be called 
 ```
 
 If the query was successful returns `201 Created` and the object:
-
 ```json
     {
         token_type:      "bearer",
@@ -121,7 +116,7 @@ If the query was successful returns `201 Created` and the object:
 
 User
 ----
-Use this module to add users of your project within App/nima platform. To do so, all request have to go to:
+Use this resource to add users of your project within App/nima platform. To do so, all request have to go to:
 
     http://api.appnima.com/user/{{resource}}
 
@@ -133,11 +128,8 @@ Remember all requests to App/nima should be identified by your `Appnima.key` or 
 
 
 ### Security
-lorem
-
 #### POST /signup
 All users of your application must be App/nima users. So the first step is register the user to get his token. Sends the request with the next parameters:
-
 ```json
     {
         mail:       "javi@tapquo.com",
@@ -146,7 +138,6 @@ All users of your application must be App/nima users. So the first step is regis
 ```
 
 You can send additional fields like:
-
 ```json
     {
         ...
@@ -156,7 +147,6 @@ You can send additional fields like:
     }
 ```
 Responses are returned with `201 Created` and the object:
-
 ```json
     {
         id:         "939349943434",
@@ -170,7 +160,6 @@ Responses are returned with `201 Created` and the object:
 
 #### POST /oauth2/token
 The second step is get the token Oauth2 authentication. It will be the key for all requests into App/nima. So, send the following parameters within the header "http basic authorization"(client_id:client_secret Base64 encoded):
-
 ```Authorization: basic client_id:client_secret```
 
 ```json
@@ -182,7 +171,6 @@ The second step is get the token Oauth2 authentication. It will be the key for a
 ```
 
 Responses are returned with `201 Created` and the object:
-
 ```json
     {
         token_type:      "bearer",
@@ -194,7 +182,6 @@ Responses are returned with `201 Created` and the object:
 
 #### POST /login
 Use this resource to find out user permissions into your application. Sends the request with the next parameters:
-
 ```json
     {
         mail:       "javi@tapquo.com",
@@ -205,12 +192,9 @@ Use this resource to find out user permissions into your application. Sends the 
 If the validation was successful App/nima returns `200 Ok` and the user data.
 
 
-
 ### Info
 #### GET /info
 Get user data with this resource. Due to Oauth2 Authentication you do not need any parameter, just wait the response `200 Ok` and the object:
-
-
 ```json
     {
         _id:            28319319832
@@ -227,7 +211,6 @@ Get user data with this resource. Due to Oauth2 Authentication you do not need a
 
 #### PUT /info
 Use this resource to update user data profile. Like **GET /user/info** you do not need identified the user. Just send the parameters you want modify:
-
 ```json
     {
         mail:       "javi@tapquo.com",
@@ -258,7 +241,6 @@ Responses are returned with `201 RESOURCE CREATED`.
 ### Terminal
 #### POST /terminal
 This resource allows you register the user device. Sends the request and the following parameters:
-
 ```json
     {
         type:       "phone",    /* computer, tablet, phone, tv */
@@ -273,7 +255,6 @@ Responses are returned with `201 RESOURCE CREATED`.
 
 #### GET /terminal
 Retrieves information about what devices accessed to your application. Like **GET /user/info** you do not need any parameter. App/nima returns `200 Ok` and the following object:
-
 ```json
     [{
         _id:        "5719721071057"
@@ -293,7 +274,6 @@ Retrieves information about what devices accessed to your application. Like **GE
 
 #### PUT /terminal
 Updadtes the device information with this resource. Just send:
-
 ```json
     {
         terminal:   "5719721071057"
@@ -310,7 +290,6 @@ You need use this resource when a user wishes to unsubscribe from your applicati
 
 #### POST /subscription
 Registered e-mail of users who want to receive information from your application or who want be invited to your application. You just need send like parameter the e-mail address:
-
 ```json
     {
         mail:       "javi@tapquo.com"
@@ -328,7 +307,7 @@ Responses are returned with `200 Ok` and the object:
 
 Network
 -------
-Use this module to create a social network into your application: find friends, follow people, unfollow, get list of friends… To do so, all request have to go to:
+Use this resource to create a social network into your application: find friends, follow people, unfollow, get list of friends… To do so, all request have to go to:
 
     http://api.appnima.com/network/{RESOURCE}
 
@@ -348,8 +327,6 @@ Search people into App/nima using this resource. You just need one parameter:
 ```
 
 Responses are returned with `200 Ok` and a list of users that match the search:
-
-
 ```json
     [{
         id:         120949303434,
@@ -389,8 +366,6 @@ Responses are returned with `200 Ok` and the object:
 
 #### POST /unfollow
 As **POST /follow** to unfollow a person you just need send with the request the ID user:
-
-
 ```json
     {
         user:       23094392049024
@@ -407,7 +382,6 @@ Responses are returned with `200 Ok` and the object:
 
 #### GET /following
 Retrieves the list of followings of a user. Sends the request and ID user:
-
 ```json
     {
         user:       23094392049024
@@ -415,7 +389,6 @@ Retrieves the list of followings of a user. Sends the request and ID user:
 ```
 
 App/nima returns `200 Ok` and the list:
-
 ```json
     [{
         id:         120949303434,
@@ -463,7 +436,6 @@ App/nima returns `200 Ok` and the list:
 ### Statistics
 #### GET /stats
 Get an overview about users network. Use this resource and ID user:
-
 ```json
     {
         user:       23094392049024
@@ -471,7 +443,6 @@ Get an overview about users network. Use this resource and ID user:
 ```
 
 App/nima returns `200 Ok` and user total *followers* and *followings*:
-
 ```json
     {
         following:  123,
@@ -489,7 +460,6 @@ If you need to know about relationship with another user, use this resource and 
 ```
 
 If the query was successful App/nima returns `200 Ok` and the object which describes the relationship between both users:
-
 ```json
     {
         following:  true,
@@ -501,7 +471,7 @@ If the query was successful App/nima returns `200 Ok` and the object which descr
 
 Messenger
 ---------
-This module provide you all resources to send and receive messages like e-mails, SMS and private messaging between users on your application. To do so, all request have to go to:
+This resource provide you all resources to send and receive messages like e-mails, SMS and private messaging between users on your application. To do so, all request have to go to:
 
     http://api.appnima.com/messenger/{RESOURCE}
 
@@ -513,7 +483,6 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 ### Mail
 #### POST /mail
 With this resource your users can send e-mail. You just need sends the request with the next parameters (subject is optional):
-
 ```json
     {
         user:       23094392049024,
@@ -523,8 +492,6 @@ With this resource your users can send e-mail. You just need sends the request w
 ```
 
 Responses are returned with `201 Created` and the object:
-
-
 ```json
     {
         message:    'E-mail sent successfully.'
@@ -534,7 +501,6 @@ Responses are returned with `201 Created` and the object:
 ### SMS
 #### POST /sms
 Also, App/nima provides SMS messaging. Your application can send messages to users who have phone number registered into the platform. Sends the request and the following parameters:
-
 ```json
     {
         user:       23094392049024,
@@ -543,8 +509,6 @@ Also, App/nima provides SMS messaging. Your application can send messages to use
 ```
 
 Responses are returned with `201 Created` and the object:
-
-
 ```json
     {
         message:    'SMS sent successfully.'
@@ -555,7 +519,6 @@ Responses are returned with `201 Created` and the object:
 ### Message
 #### POST /message
 If you need, App/nima gives private messaging between users on your application. Sends the request with the next parameters:
-
 ```json
     {
         user:       23094392049024,
@@ -565,7 +528,6 @@ If you need, App/nima gives private messaging between users on your application.
 ```
 
 The field subject is optional and App/nima returns `201 Created` and the object:
-
 ```json
     {
         message:    'Message sent successfully.'
@@ -573,10 +535,7 @@ The field subject is optional and App/nima returns `201 Created` and the object:
 ```
 
 #### GET /message/outbox
-context: outbox
-
 Users of your application can retrieves messages sent. Just use this resource with the next parameter:
-
 ```json
     {
         context:    outbox
@@ -584,7 +543,6 @@ Users of your application can retrieves messages sent. Just use this resource wi
 ```
 
 App/nima returns `200 Ok` and a list of messages:
-
 ```json
     {
         _id:            120949303434,
@@ -601,7 +559,6 @@ App/nima returns `200 Ok` and a list of messages:
 
 #### GET /message/inbox
 As **GET /message/outbox** shown to your users a list received messages. Just change de context:
-
 ```json
     {
         context:    inbox
@@ -609,7 +566,6 @@ As **GET /message/outbox** shown to your users a list received messages. Just ch
 ```
 
 And App/nima returns `200 Ok` and a list of messages:
-
 ```json
     {
         _id:            120949303434,
@@ -623,19 +579,15 @@ And App/nima returns `200 Ok` and a list of messages:
 ```
 
 #### PUT /message
-state: READ || DELETED
-
 Modify the state of a message using this resource. Sends the request and the following parameters:
-
 ```json
     {
         message:    23094392049024,
-        state:      "READ"
+        state:      "READ" /*READ or DELETED*/
     }
 ```
 
 Responses are returned with `200 Ok` and the object:
-
 ```json
     {
         message:            "Resource READ."
@@ -645,7 +597,7 @@ Responses are returned with `200 Ok` and the object:
 
 Location
 --------
-With this module you can work with geolocation. Retrieve information about places around a point or get information about people near someone or someplace. To do so, all request have to go to:
+With this resource you can work with geolocation. Retrieve information about places around a point or get information about people near someone or someplace. To do so, all request have to go to:
 
     http://api.appnima.com/location/{RESOURCE}
 
@@ -658,7 +610,6 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 ### Places
 #### GET /places
 Use this resource to get places around a point. You can determinate the range result with radius. Sends the request with latitude, longitude and optionally the radius (in meters):
-
 ```json
     {
         latitude:       "-33.9250334",
@@ -667,7 +618,6 @@ Use this resource to get places around a point. You can determinate the range re
     }
 ```
 Responses are returned with `200 Ok` and the list of places:
-
 ```json
     [{
         id:             120949303434,
@@ -692,7 +642,6 @@ Responses are returned with `200 Ok` and the list of places:
 
 #### GET /place
 With this resource you can request more details about a particular establishment. Sends the request with the next parameters:
-
 ```json
     {
         id:             "120949303434",
@@ -702,7 +651,6 @@ With this resource you can request more details about a particular establishment
 
 
 Responses are returned with `200 Ok` and the place detail:
-
 ```json
     {
         id:             120949303434,
@@ -725,7 +673,6 @@ Responses are returned with `200 Ok` and the place detail:
 
 #### POST /place
 Use this resource to create place data profile. . Sends the request with the next parameters:
-
 ```json
     {
         name: "San Mames",
@@ -739,7 +686,6 @@ Use this resource to create place data profile. . Sends the request with the nex
 ```
 
 Optionally you can add the next information:
-
 ```json
     {
         mail: "hello@sanmames.com",
@@ -754,7 +700,6 @@ Responses are returned with `201 Created`.
 ### Checkins
 #### POST /checkin
 Users from your applicaction can register visits into a place. Use this resource with the next parameters:
-
 ```json
     {
         id:             "120949303434",
@@ -763,7 +708,6 @@ Users from your applicaction can register visits into a place. Use this resource
 ```
 
 Responses are returned with `200 Ok` and the object:
-
 ```json
     {
         id:             120949303434,
@@ -781,8 +725,6 @@ Responses are returned with `200 Ok` and the object:
 
 #### GET /checkin
 Get a list of saved places by your users. Just send the user id:
-
-
 ```json
     {
         id:             "120949303434"
@@ -790,7 +732,6 @@ Get a list of saved places by your users. Just send the user id:
 ```
 
 Responses are returned with `200 Ok` and the object:
-
 ```json
     {
         id:             120949303434,
@@ -808,8 +749,6 @@ Responses are returned with `200 Ok` and the object:
 ### Search
 #### GET /friends
 Shown to your users information about friends near to a point. You just need send with de request the following parametrs:
-
-
 ```json
     {
         latitude:       "-33.9250334",
@@ -819,7 +758,6 @@ Shown to your users information about friends near to a point. You just need sen
 ```
 
 If the request was successful App/nima returns `200 Ok` and the user data:
-
 ```json
     {
         id:         120949303431,
@@ -831,7 +769,6 @@ If the request was successful App/nima returns `200 Ok` and the user data:
 
 #### GET /people
 As **GET /friends** you can provides information about people who are not into users list friends. The request is made with the same parameters:
-
 ```json
     {
         latitude:       "-33.9250334",
@@ -851,28 +788,82 @@ Remember all requests to App/nima should be identified by your `Appnima.key` or 
 
 So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
 
-### Rooms
+
+### Getting started
+To do real time communication, appnima connects to the rooms that have been created using socket.io. Now you will see the methods that are exposed to interact with them. Although we recommend using our library `Appnima.js` for this purpose.
+
+#### open
+To create a room we will call to the `open` method. This one will receive the following parameters:
+
+* User's token
+* Context (it will be used to identify the room for future connections)
+* Room name
+* Room Type
+* If we want that the room persist in time
+* Allowed users' id array
+
+If everythng is right the room will be created and the author will be automatically connected to it.
+
+#### join
+A user can be connected to a room if it is created and he has permission to connect to it. To do this `join` method must be called with the following parameters:
+
+* User's token (for anonymous session not required)
+* Context (identification of the room to connect)
+* Application id (in case of anonymous session it is mandatory)
+
+#### leave
+To disconnect from a room just call the method `leave`.
+
+#### sendmessage
+To send a message to a room just call the method `sendMessage` with an object as parameter (a message can be any type of data). This message will be received by all the room's users, also the sender, through a listener called `onMessage` and it will have the following format:
+```json
+    {
+		user:		    {"user that sends the message"},
+		message:   	    {"message sent"},
+		created_at:		"2013-05-23T12:01:02.736Z"
+	}
+```
+
+#### sendbroadcast
+This methods works as `sendMessage`, the unique difference is that the sender won't receive the message.
+
+#### allowusers
+Users can be added to the allowed user list using `allowUsers` method, to do this just call this method and use users' id array as parameter.
+
+#### disallowusers
+Users can be removed from the allowed user list using `disallowUsers` method, to do this just call this method and use users' id array as parameter.
+
+
+### Types and permissions
+There are several room types, each one has different permissions depending the user.
+
+* Private: Only users in the allowed list can connect, send and receive messages in this room.
+* Public: All the people can connect to this room, but only the owner can post.
+* Inbox: Only the owner can read messages, but any user can send messages.
+* Application: This room exists in all the applications so no one can create it, everyone can connect, receive or send messages in it.
+
+### HTTP Request
+
 #### GET /rooms
 Get a list of rooms where a user is participant. You just need call the resource and if the query was successful App/nima returns `200 Ok` and the list like this:
 ```json
     [{
-        id:             "ba54",
-        name:           "amigos",
-        created_at:     "2013-05-23T12:01:02.736Z"
-    },
-    {
-        id:             "asf9a76y2t3ub",
-        name:           "appnima friends",
-        created_at:     "2013-02-23T12:01:02.736Z"
-    }
-    ]
+		id:		        "ba54",
+		name:   	    "amigos",
+		created_at:		"2013-05-23T12:01:02.736Z"
+	},
+	{
+		id:	    	    "asf9a76y2t3ub",
+		name:   	    "appnima friends",
+		created_at:		"2013-02-23T12:01:02.736Z"
+	}
+	]
 ```
-
 
 
 Push
 ----
-Use this module to send push notifications to users devices. To do so, all request have to go to:
+Use this resource to send push notifications to users devices. To do so, all request have to go to:
 
     http://api.appnima.com/push/{RESOURCE}
 
@@ -881,7 +872,7 @@ Remember all requests to App/nima should be identified by your `Appnima.key` or 
 So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
 
 
-### POST /push
+#### POST /push
 This resource allows you to send push notifications to the user device. Sends the request and the following parameters:
 ```json
     {
@@ -891,6 +882,5 @@ This resource allows you to send push notifications to the user device. Sends th
         "text": "Hola App/nima!"
     }
 ```
-
 
 If the notification was successful App/nima returns `200 Ok`.
