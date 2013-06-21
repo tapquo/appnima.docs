@@ -4,7 +4,8 @@ Utiliza appnima.js para realizar de forma sencilla las peticiones a los recursos
 
 Configuración
 -------------
-Para tener appnima.js listo para trabajar solo tienes que fijar el valor de la variable `Appnima.key` la key que te proporciona appnima al crear una aplicación:
+Para tener appnima.js listo para trabajar solo tienes que fijar el valor de la variable `Appnima.key` con la key que te proporciona APP/NIMA al crear una aplicación:
+
 `Appnima.key = "fIiyFiBiufbifiBiu4iuiuGBIGbiUIUiIbnobyOlhPNXB5R3FoRmhIYFKkhfUYVKVhfIGUu"`
 
 
@@ -345,7 +346,7 @@ Los grupos son salas persistentes de 1 a N usuarios con persistencia. Para traba
 	
 Chat
 ----
-Los chats son salas de 1 a N personas sin persistencia. Para trabajar con Chtas primero se debe crear una instancia de Chat:
+Los chats son salas de 1 a N personas sin persistencia. Para trabajar con Chats primero se debe crear una instancia de Chat:
 
 `chat = new Appnima.Socket.Chat()`
 
