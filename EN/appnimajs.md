@@ -25,6 +25,15 @@ Appnima.js uses the promise pattern to handle each request, so to attach a callb
 		}
 	});
 
+onError
+-------
+Appnima.js has the capability to centralize the error management in a method. To use this, just assign to Appnima.onError a callback function that will receive the generated error:
+
+	Appnima.onError = function(error){
+		console.log("CODE: ", error.code);
+		console.log("TYPE: ", error.type);
+		console.log("MESSAGE: ", error.message);
+	};
 
 Registering a User
 ------------------

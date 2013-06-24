@@ -23,7 +23,17 @@ Appnima.js usa el patrón promesa para gestionar cada petición, por lo que para
 			console.log("Success", result);
 		}
 	});
+	
 
+onError
+-------
+Appnima.js tiene la capacidad de poder centralizar la gestión de los errores en un solo método. Para ello basta con asignarle a Appnima.onError una funcion de callback que recibirá el error generado:
+
+	Appnima.onError = function(error){
+		console.log("CODE: ", error.code);
+		console.log("TYPE: ", error.type);
+		console.log("MESSAGE: ", error.message);
+	};
 
 Registrar un usuario
 --------------------
