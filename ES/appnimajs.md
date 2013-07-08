@@ -47,7 +47,13 @@ Para registrar un usuario en tu aplicación únicamente necesitas pasar como par
 #### Login 
 Realizar el login de un usuario es tan sencillo como llamar al recurso con los parámetros mail y password:
 
-	Appnima.User.login ("javi@tapquo.com", "USER_PASSWORD");
+	Appnima.User.login("javi@tapquo.com", "USER_PASSWORD");
+
+
+#### Logout 
+Si quieres desloguear a un usuario de tu aplicación tan sencillo como llamar al método *logout* sin ningún parametro:
+
+	Appnima.User.logout();
 
 
 #### Información

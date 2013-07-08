@@ -51,6 +51,12 @@ Login a user is as easy as calling the resource with the email and password:
 	Appnima.User.login("javi@tapquo.com", "USER_PASSWORD");
 
 
+#### Logout 
+If you want to logout a user of your application as simple as calling the method *logout* without any parameter:
+
+	Appnima.User.logout();
+	
+
 #### Information
 Do you need all the data registered by a user? Just call this resource to get information:
 
