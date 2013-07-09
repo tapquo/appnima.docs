@@ -214,7 +214,6 @@ Use this resource to update user data profile. Like **GET /user/info** you do no
 ```json
     {
         mail:       "javi@tapquo.com",
-        password:   "PASSWORD",
         username:   "soyjavi",
         name:       "Javi Jimenez",
         avatar:     "http://USER_AVATAR_URL",
@@ -224,6 +223,16 @@ Use this resource to update user data profile. Like **GET /user/info** you do no
 ```
 
 If the request was successful App/nima returns `200 Ok` and the same object **GET /user**. If the user has not permission to modify his data App/nima returns `403 Forbidden`.
+
+
+#### POST /password:
+Change the user password sending the old one and the new one:
+```json
+    {
+        old_password:       "old_password",    
+        new_password:       "new_password"
+    }
+```
 
 
 #### POST /avatar

@@ -95,9 +95,9 @@ Puedes actualizar uno o varios campos de datos de tu usuario con este recurso. E
 
 
 #### Cambiar Password
-Para cambiar el password del usuario, utiliza este recurso enviando la nueva clave:
+Para cambiar el password del usuario, utiliza este recurso enviando la clave antigua y la nueva clave:
 
-	Appnima.User.password(USER_PASSWORD);
+	Appnima.User.password(OLD_PASSWORD, NEW_PASSWORD);
 
 
 #### Avatar

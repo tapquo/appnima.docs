@@ -99,7 +99,7 @@ The `info` resource also allows users to update their data. To do this just call
 #### Change Password
 To change user's pasword use this resource:
 
-	Appnima.User.password("USER_PASSWORD");
+	Appnima.User.password(OLD_PASSWORD, NEW_PASSWORD);
 
 
 #### Avatar

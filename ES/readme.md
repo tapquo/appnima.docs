@@ -207,7 +207,6 @@ Este recurso sirve para modificar los datos personales de un usuario dentro de t
 ```json
     {
         mail:       "javi@tapquo.com",
-        password:   "PASSWORD",
         username:   "soyjavi",
         name:       "Javi Jimenez",
         avatar:     "http://USER_AVATAR_URL",
@@ -217,6 +216,16 @@ Este recurso sirve para modificar los datos personales de un usuario dentro de t
 ```
 
 En el caso de que haya ido todo bien se devolverá el código `200 OK` junto con el mismo objeto **GET /user**. En el caso de que el usuario no tenga permiso para modificar sus datos App/nima devolverá un `403 Forbidden`.
+
+
+#### POST /password
+Este recurso sirve para cambiar la contraseña, para ello enviaremos los siguientes parámetros:
+```json
+    {
+        old_password:       "old_password",    
+        new_password:       "new_password"
+    }
+```
 
 
 #### POST /avatar
