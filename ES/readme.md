@@ -619,12 +619,13 @@ Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificad
 
 ### Places
 #### GET /places
-Con este recurso puedes obtienes una lista de lugares alrededor de un punto en un radio determinado. Envía como parámetros la latitud, longitud y opcionalmente el radio (en metros):
+Con este recurso puedes obtienes una lista de lugares alrededor de un punto. Envía como parámetros la latitud, longitud y opcionalmente la precisión que va desde 0 hasta 2 siendo 0 más preciso y 2 menos. Si prefieres trabajar con el radio, pasa la precisión como NULL y el radio en metros:
 ```json
     {
-        latitude:       "-33.9250334",
-        longitude:      "18.423883499999988",
-        radio:          "500"
+        latitude:      "-33.9250334",
+        longitude:     "18.423883499999988",
+        precision:		"NULL"
+        radio:         "500"
     }
 ```
 En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de lugares e información relacionada:
