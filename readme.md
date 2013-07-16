@@ -631,7 +631,7 @@ Use this resource to get places around a point. You can determinate the range re
     {
         latitude:      "-33.9250334",
         longitude:     "18.423883499999988",
-        precision:		"NULL"
+        precision:		"null"
         radio:         "500"
     }
 ```

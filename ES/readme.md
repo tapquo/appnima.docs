@@ -624,7 +624,7 @@ Con este recurso puedes obtienes una lista de lugares alrededor de un punto. Env
     {
         latitude:      "-33.9250334",
         longitude:     "18.423883499999988",
-        precision:		"NULL"
+        precision:		"null"
         radio:         "500"
     }
 ```
