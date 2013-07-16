@@ -662,22 +662,21 @@ Utiliza este recurso para obtener información detallada de un sitio en concreto
 Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto:
 ```json
     {
-        id:             120949303434,
-        address:        "Elorduigoitia Kalea",
-        country:        "ES"
-        created_at:     "2013-06-03T10:02:29.951Z"
-        locality:       "Mungia"
-        name:           "Cruz Roja Española"
-        phone:          "+34 946 74 21 51"
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        created_at:     "2013-05-25T21:08:12.087Z",
-        position:
-            0: 43.354585
-            1: -2.846662
-        postal_code:    "48100"
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        website:        "http://www.cruzroja.es/"
-    }
+		_id: 			"120949303434,"
+		address: 		"Elorduigoitia Kalea, 0, Mungia, Spain",
+		country: 		"ES"
+		locality: 		"Mungia"
+		name: 			"Cruz Roja Española"
+		phone: 			"+34 946 74 21 51"
+		position:
+			0: -2.846662 //Longitude
+			1: 43.354585 //Latitude,
+		postal_code: 	"48100"
+		reviews: 		Array[0]
+		types: Array[1]
+			0: "establishment"
+		website: 		"http://www.cruzroja.es/"
+	}
 ```
 
 #### POST /place
@@ -707,50 +706,58 @@ Si la consulta ha obtenido respuesta se devuelve un `201 Created`.
 
 ### Checkins
 #### POST /checkin
-Los usuarios de tu aplicación pueden registrar visitas a sitios concretos. Para ello utiliza este recurso pasando como parámetros:
+Los usuarios de tu aplicación pueden registrar visitas a sitios concretos. Para ello utiliza este recurso pasando el parámetro _id:
 ```json
     {
-        id:             "120949303434",
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m"
+        _id:            "120949303434"
     }
 ```
 
 Si todo ha salido bien, se devuelve un `200 Ok` junto con el objeto:
 ```json
     {
-        id:             120949303434,
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        created_at:     "2013-05-26T20:48:05.786Z",
-        latitude:       -33.9249,
-        longitude:      18.4241,
-        name:           "Wang Thai - V&A Waterfront",
-        phone:          "+27 21 421 8702",
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        vicinity:       "Queen Victoria Street, Cape Town"
-    }
+		_id:		    "120949303434",
+		address: 		"Calle de Trobika, 1, Mungia, Spain",
+		country: 		"ES",
+		name: 			"Policía Municipal",
+		phone:			"+34 946 15 66 77",
+		locality:		"Mungia",
+		position:
+			0: -2.846533 //Longitude
+			1: 43.354551 //Latitude,
+		postal_code: 	"48100",
+		reviews:		Array[0],
+		types: Array[2]
+			0: "police"
+			1: "establishment"
+	}
 ```
-
 #### GET /checkin
 Obtén la lista de sitios guardados por tus usuarios con este recurso. Para ello únicamente tienes que enviar el id del usuario en la petición:
 ```json
     {
-        id:             "120949303434"
+        _id:            "120949303434"
     }
 ```
 
 Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 ```json
     {
-        id:             120949303434,
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        created_at:     "2013-05-26T20:48:05.786Z",
-        latitude:       -33.9249,
-        longitude:      18.4241,
-        name:           "Wang Thai - V&A Waterfront",
-        phone:          "+27 21 421 8702",
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        vicinity:       "Queen Victoria Street, Cape Town"
-    }
+		_id:		    "120949303434",
+		address: 		"Calle de Trobika, 1, Mungia, Spain",
+		country: 		"ES",
+		name: 			"Policía Municipal",
+		phone:			"+34 946 15 66 77",
+		locality:		"Mungia",
+		position:
+			0: -2.846533 //Longitude
+			1: 43.354551 //Latitude,
+		postal_code: 	"48100",
+		reviews:		Array[0],
+		types: Array[2]
+			0: "police"
+			1: "establishment"
+	}
 ```
 
 ### Search
