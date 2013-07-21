@@ -635,56 +635,115 @@ Use this resource to get places around a point. You can determinate the range re
         radio:         "500"
     }
 ```
+To work with precision, type:
+```json
+    {
+        latitude:      "-33.9250334",
+        longitude:     "18.423883499999988",
+        precision:		"1"
+    }
+```
+
+
 Responses are returned with `200 Ok` and the list of places:
 ```json
     [{
-        id:             120949303434,
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        location:
-            0:  -33.9242692,
-            1:  18.4187029
-        place_name:     "Cape Town City Centre",
-        vicinity:       "Cape Town City Centre"
-    },
-    {
-        id:             120949303435,
-        created_at:     "2013-05-25T21:08:12.087Z",
-        location:
-            0:  -33.9249,
-            1:  18.4241
-        place_name:     "Wang Thai - V&A Waterfront",
-        vicinity:       "Queen Victoria Street, Cape Town"
-    }
+		address: 		"Neurketa Kalea, 8, Mungia, Spain",
+		country: 		"ES",
+		id: 			"51e9290db68307fe5900001d",
+		locality: 		"Mungia",
+		name: 			"Frus Surf",
+		phone: 			"+34 946 15 57 71",
+		position:
+			latitude: 		43.356091
+			longitude: 		-2.847759
+		postal_code: 	"48100",
+		types: 
+			0: 				"establishment"
+		website: 		"http://shop.frussurf.com/"
+ 	}, 
+ 	{
+		address: 		"Neurketa Kalea, 3, Mungia, Spain"
+		country: 		"ES"
+		id: 			"51e92893b68307fe59000017"
+		locality: 		"Mungia"
+		name: 			"Inmobiliaria Urrutia"
+		phone: 			"+34 946 15 66 95"
+		position: 
+			latitude: 		43.35618
+			longitude: 		-2.847939
+		postal_code: 	"48100"
+		types: 
+			0: 			"establishment"
+		website: "http://www.inmobiliariaurrutia.com/"
+ 	},
+ 	{
+		address: 		"Neurketa Kalea, 8, Mungia"
+		country: 		null
+		id: 			"cd547ea9e3c4fe9d8f8883942a6fa8ac73130905"
+		locality: 		null
+		name: 			"Bar Aketxe"
+		phone: 			null
+		position: 
+			latitude: 		43.356091
+			longitude: 		-2.847759
+		postal_code: 	null
+		reference: 		"CnRoAAAAUV3iCS__"
+		types: 
+		website: 		null
+ 	}
     ]
 ```
 
 #### GET /place
-With this resource you can request more details about a particular establishment. Sends the request with the next parameters:
+With this resource you can request more details about a particular establishment. If the place has `reference` attribute, sends the request like:
+
 ```json
     {
-        id:             "120949303434",
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m"
+        id:             "51e92bfab68307fe59000030",
+        reference:      "CoQBcwAAAGFG6LT0qt4U3kxuIuywXrFmvZaUvAZ5zjhZWXMQJtGlL1afAla1RS6PYuANvkWVPzGMh3YMWThOM1NFUm5satOXxKKmUb7_H19Tfep"
     }
 ```
 
+If the place has not `reference` sends the request like:
+
+```json
+    {
+        id:             "51e92bfab68307fe59000030",
+        reference:      "null"
+    }
+```
 
 Responses are returned with `200 Ok` and the place detail:
 ```json
     {
-		_id: 			"120949303434,"
-		address: 		"Elorduigoitia Kalea, 0, Mungia, Spain",
-		country: 		"ES"
-		locality: 		"Mungia"
-		name: 			"Cruz Roja Española"
-		phone: 			"+34 946 74 21 51"
-		position:
-			0: -2.846662 //Longitude
-			1: 43.354585 //Latitude,
-		postal_code: 	"48100"
-		reviews: 		Array[0]
-		types: Array[1]
-			0: "establishment"
-		website: 		"http://www.cruzroja.es/"
+		address: "Neurketa Kalea, 8, Mungia, Spain"
+		country: "ES"
+		id: "51e92bfab68307fe59000030"
+		locality: "Mungia"
+		name: "Bar Aketxe"
+		phone: "+34 946 74 18 40"
+		position: Object
+		latitude: 43.356091
+		longitude: -2.847759
+		postal_code: "48100"
+		reviews:
+			aspects: 
+				0: Object
+					rating: 1
+					type: "food"
+				1: Object
+					rating: 1
+					type: "decor"
+				2: Object
+					rating: 1
+					type: "service"
+			author_name: "jc ce"
+			author_url: "https://plus.google.com/101519756922440365704"
+			text: "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
+		types:
+			0: "bar"
+			1: "establishment"
 	}
 ```
 #### POST /place
@@ -718,56 +777,46 @@ Responses are returned with `201 Created`.
 Users from your applicaction can register visits into a place. Use this resource with the parameter _id:
 ```json
     {
-        id:             "120949303434"
+        id:            "51e92bfab68307fe59000030"
     }
 ```
 
 Responses are returned with `200 Ok` and the object:
 ```json
     {
-		_id:		    "120949303434",
-		address: 		"Calle de Trobika, 1, Mungia, Spain",
-		country: 		"ES",
-		name: 			"Policía Municipal",
-		phone:			"+34 946 15 66 77",
-		locality:		"Mungia",
-		position:
-			0: -2.846533 //Longitude
-			1: 43.354551 //Latitude,
-		postal_code: 	"48100",
-		reviews:		Array[0],
-		types: Array[2]
-			0: "police"
-			1: "establishment"
+    	status:     'ok'
 	}
 ```
+
 #### GET /checkin
 Get a list of saved places by your users. Just send the user id:
 ```json
     {
-        _id:            "120949303434"
+        id:            "51e930cad2eeaea678000010"
     }
 ```
 
 Responses are returned with `200 Ok` and the object:
 ```json
     {
-		_id:		    "120949303434",
-		address: 		"Calle de Trobika, 1, Mungia, Spain",
-		country: 		"ES",
-		name: 			"Policía Municipal",
-		phone:			"+34 946 15 66 77",
-		locality:		"Mungia",
-		position:
-			0: -2.846533 //Longitude
-			1: 43.354551 //Latitude,
-		postal_code: 	"48100",
-		reviews:		Array[0],
-		types: Array[2]
+		address: "Calle de Trobika, 1, Mungia, Spain"
+		country: "ES"
+		id: "51e930cad2eeaea678000010"
+		locality: "Mungia"
+		name: "Policía Municipal"
+		phone: "+34 946 15 66 77"
+		position: 
+			latitude: 43.354551
+			longitude: -2.846533
+		postal_code: "48100"
+		reviews: Array[0]
+		types:
 			0: "police"
 			1: "establishment"
 	}
-```### Search
+```
+
+### Search
 #### GET /friends
 Shown to your users information about friends near to a point. You just need send with de request the following parametrs:
 ```json
@@ -781,10 +830,10 @@ Shown to your users information about friends near to a point. You just need sen
 If the request was successful App/nima returns `200 Ok` and the user data:
 ```json
     {
-        id:         120949303431,
-        username:   "haas85",
-        name:       "Iñigo",
-        avatar:     "AVATAR_URL"
+		avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
+		id: "51aef6f4560d261d15000001"
+		name: Cata
+		username: "catalina@tapquo.com"
     }
 ```
 

@@ -619,7 +619,8 @@ Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificad
 
 ### Places
 #### GET /places
-Con este recurso puedes obtienes una lista de lugares alrededor de un punto. Envía como parámetros la latitud, longitud y opcionalmente la precisión que va desde 0 hasta 2 siendo 0 más preciso y 2 menos. Si prefieres trabajar con el radio, pasa la precisión como NULL y el radio en metros:
+Con este recurso puedes obtienes una lista de lugares alrededor de un punto. Envía como parámetros la latitud, longitud y opcionalmente la precisión para el resultado de la búsqueda. Este parámetro varía de 0 a 2 siendo 0 más preciso y 2 menos preciso. Si prefieres trabajar con el radio, pasa la precisión como NULL y el radio en metros:
+Trabajando con precisión:
 ```json
     {
         latitude:      "-33.9250334",
@@ -628,55 +629,114 @@ Con este recurso puedes obtienes una lista de lugares alrededor de un punto. Env
         radio:         "500"
     }
 ```
+Trabajando con radio:
+```json
+    {
+        latitude:      "-33.9250334",
+        longitude:     "18.423883499999988",
+        precision:		"1"
+    }
+```
+
 En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de lugares e información relacionada:
 ```json
     [{
-        id:             120949303434,
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m",
-        location:
-            0:  -33.9242692,
-            1:  18.4187029
-        place_name:     "Cape Town City Centre",
-        vicinity:       "Cape Town City Centre"
-    },
-    {
-        id:             120949303435,
-        created_at:     "2013-05-25T21:08:12.087Z",
-        location:
-            0:  -33.9249,
-            1:  18.4241
-        place_name:     "Wang Thai - V&A Waterfront",
-        vicinity:       "Queen Victoria Street, Cape Town"
-    }
+		address: 		"Neurketa Kalea, 8, Mungia, Spain",
+		country: 		"ES",
+		id: 			"51e9290db68307fe5900001d",
+		locality: 		"Mungia",
+		name: 			"Frus Surf",
+		phone: 			"+34 946 15 57 71",
+		position:
+			latitude: 		43.356091
+			longitude: 		-2.847759
+		postal_code: 	"48100",
+		types: 
+			0: 				"establishment"
+		website: 		"http://shop.frussurf.com/"
+ 	}, 
+ 	{
+		address: 		"Neurketa Kalea, 3, Mungia, Spain"
+		country: 		"ES"
+		id: 			"51e92893b68307fe59000017"
+		locality: 		"Mungia"
+		name: 			"Inmobiliaria Urrutia"
+		phone: 			"+34 946 15 66 95"
+		position: 
+			latitude: 		43.35618
+			longitude: 		-2.847939
+		postal_code: 	"48100"
+		types: 
+			0: 			"establishment"
+		website: "http://www.inmobiliariaurrutia.com/"
+ 	},
+ 	{
+		address: 		"Neurketa Kalea, 8, Mungia"
+		country: 		null
+		id: 			"cd547ea9e3c4fe9d8f8883942a6fa8ac73130905"
+		locality: 		null
+		name: 			"Bar Aketxe"
+		phone: 			null
+		position: 
+			latitude: 		43.356091
+			longitude: 		-2.847759
+		postal_code: 	null
+		reference: 		"CnRoAAAAUV3iCS__"
+		types: 
+		website: 		null
+ 	}
     ]
 ```
 
 #### GET /place
-Utiliza este recurso para obtener información detallada de un sitio en concreto. Envía junto con la petición los parámetros id y reference:
+Utiliza este recurso para obtener información detallada de un sitio en concreto. Envía junto con la petición los parámetros `id` y `reference`. Si no hay `reference`, pasa ese parámetro como `null`:
+
+Si el places no tienes reference la consulta es:
 ```json
     {
-        id:             "120949303434",
-        reference:      "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m"
+        id:             "51e92bfab68307fe59000030",
+        reference:      "null"
+    }
+```
+
+Si el place tiene `reference` envía la petición de la siguiente forma:
+```json
+    {
+        id:             "51e92bfab68307fe59000030",
+        reference:      "CoQBcwAAAGFG6LT0qt4U3kxuIuywXrFmvZaUvAZ5zjhZWXMQJtGlL1afAla1RS6PYuANvkWVPzGMh3YMWThOM1NFUm5satOXxKKmUb7_H19Tfep"
     }
 ```
 
 Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto:
 ```json
     {
-		_id: 			"120949303434,"
-		address: 		"Elorduigoitia Kalea, 0, Mungia, Spain",
-		country: 		"ES"
-		locality: 		"Mungia"
-		name: 			"Cruz Roja Española"
-		phone: 			"+34 946 74 21 51"
-		position:
-			0: -2.846662 //Longitude
-			1: 43.354585 //Latitude,
-		postal_code: 	"48100"
-		reviews: 		Array[0]
-		types: Array[1]
-			0: "establishment"
-		website: 		"http://www.cruzroja.es/"
+		address: "Neurketa Kalea, 8, Mungia, Spain"
+		country: "ES"
+		id: "51e92bfab68307fe59000030"
+		locality: "Mungia"
+		name: "Bar Aketxe"
+		phone: "+34 946 74 18 40"
+		position: Object
+		latitude: 43.356091
+		longitude: -2.847759
+		postal_code: "48100"
+		reviews:
+			aspects: 
+				0: Object
+					rating: 1
+					type: "food"
+				1: Object
+					rating: 1
+					type: "decor"
+				2: Object
+					rating: 1
+					type: "service"
+			author_name: "jc ce"
+			author_url: "https://plus.google.com/101519756922440365704"
+			text: "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
+		types:
+			0: "bar"
+			1: "establishment"
 	}
 ```
 
@@ -707,55 +767,43 @@ Si la consulta ha obtenido respuesta se devuelve un `201 Created`.
 
 ### Checkins
 #### POST /checkin
-Los usuarios de tu aplicación pueden registrar visitas a sitios concretos. Para ello utiliza este recurso pasando el parámetro _id:
+Los usuarios de tu aplicación pueden registrar visitas a sitios concretos. Para ello utiliza este recurso pasando el parámetro id:
 ```json
     {
-        _id:            "120949303434"
+        id:            "51e92bfab68307fe59000030"
     }
 ```
 
 Si todo ha salido bien, se devuelve un `200 Ok` junto con el objeto:
 ```json
     {
-		_id:		    "120949303434",
-		address: 		"Calle de Trobika, 1, Mungia, Spain",
-		country: 		"ES",
-		name: 			"Policía Municipal",
-		phone:			"+34 946 15 66 77",
-		locality:		"Mungia",
-		position:
-			0: -2.846533 //Longitude
-			1: 43.354551 //Latitude,
-		postal_code: 	"48100",
-		reviews:		Array[0],
-		types: Array[2]
-			0: "police"
-			1: "establishment"
+    	status:     'ok'
 	}
 ```
+
 #### GET /checkin
 Obtén la lista de sitios guardados por tus usuarios con este recurso. Para ello únicamente tienes que enviar el id del usuario en la petición:
 ```json
     {
-        _id:            "120949303434"
+        id:            "51e930cad2eeaea678000010"
     }
 ```
 
 Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 ```json
     {
-		_id:		    "120949303434",
-		address: 		"Calle de Trobika, 1, Mungia, Spain",
-		country: 		"ES",
-		name: 			"Policía Municipal",
-		phone:			"+34 946 15 66 77",
-		locality:		"Mungia",
-		position:
-			0: -2.846533 //Longitude
-			1: 43.354551 //Latitude,
-		postal_code: 	"48100",
-		reviews:		Array[0],
-		types: Array[2]
+		address: "Calle de Trobika, 1, Mungia, Spain"
+		country: "ES"
+		id: "51e930cad2eeaea678000010"
+		locality: "Mungia"
+		name: "Policía Municipal"
+		phone: "+34 946 15 66 77"
+		position: 
+			latitude: 43.354551
+			longitude: -2.846533
+		postal_code: "48100"
+		reviews: Array[0]
+		types:
 			0: "police"
 			1: "establishment"
 	}
@@ -775,10 +823,10 @@ Proporciona a tus usuarios información sobre amigos cercanos a un punto determi
 Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 ```json
     {
-        id:         120949303431,
-        username:   "haas85",
-        name:       "Iñigo",
-        avatar:     "AVATAR_URL"
+		avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
+		id: "51aef6f4560d261d15000001"
+		name: Cata
+		username: "catalina@tapquo.com"
     }
 ```
 
@@ -793,6 +841,17 @@ De la misma forma que puedes mostrar a un usuarios qué amigos están a su alred
         radio:          "500"
     }
 ```
+
+Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
+```json
+    {
+		avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
+		id: "51aef6f4560d261d15000001"
+		name: Cata
+		username: "catalina@tapquo.com"
+    }
+```
+
 
 
 Socket
