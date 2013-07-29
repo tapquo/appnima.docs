@@ -631,7 +631,6 @@ Use this resource to get places around a point. You can determinate the range re
     {
         latitude:      "-33.9250334",
         longitude:     "18.423883499999988",
-        precision:		"null"
         radio:         "500"
     }
 ```
@@ -658,6 +657,7 @@ Responses are returned with `200 Ok` and the list of places:
 			latitude: 		43.356091
 			longitude: 		-2.847759
 		postal_code: 	"48100",
+		reference: 		null,
 		types: 
 			0: 				"establishment"
 		website: 		"http://shop.frussurf.com/"
@@ -672,7 +672,8 @@ Responses are returned with `200 Ok` and the list of places:
 		position: 
 			latitude: 		43.35618
 			longitude: 		-2.847939
-		postal_code: 	"48100"
+		postal_code: 	"48100",
+		reference: 		null,
 		types: 
 			0: 			"establishment"
 		website: "http://www.inmobiliariaurrutia.com/"
@@ -709,8 +710,7 @@ If the place has not `reference` sends the request like:
 
 ```json
     {
-        id:             "51e92bfab68307fe59000030",
-        reference:      "null"
+        id:             "51e92bfab68307fe59000030"
     }
 ```
 

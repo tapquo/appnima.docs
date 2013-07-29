@@ -619,17 +619,18 @@ Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificad
 
 ### Places
 #### GET /places
-Con este recurso puedes obtienes una lista de lugares alrededor de un punto. Envía como parámetros la latitud, longitud y opcionalmente la precisión para el resultado de la búsqueda. Este parámetro varía de 0 a 2 siendo 0 más preciso y 2 menos preciso. Si prefieres trabajar con el radio, pasa la precisión como NULL y el radio en metros:
-Trabajando con precisión:
+Con este recurso puedes obtienes una lista de lugares alrededor de un punto. Envía como parámetros la `latitud`, `longitud` y opcionalmente la `precisión` o el `radio` para acotar el resultado. La precisión varía de 0 a 2 siendo 0 más preciso y 2 menos preciso:
+
+Filtro por `radio`:
+
 ```json
     {
         latitude:      "-33.9250334",
         longitude:     "18.423883499999988",
-        precision:		"null"
         radio:         "500"
     }
 ```
-Trabajando con radio:
+Filtro por `precisión`:
 ```json
     {
         latitude:      "-33.9250334",
@@ -651,6 +652,7 @@ En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de
 			latitude: 		43.356091
 			longitude: 		-2.847759
 		postal_code: 	"48100",
+		reference: 		null,
 		types: 
 			0: 				"establishment"
 		website: 		"http://shop.frussurf.com/"
@@ -666,6 +668,7 @@ En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de
 			latitude: 		43.35618
 			longitude: 		-2.847939
 		postal_code: 	"48100"
+		reference: 		null,
 		types: 
 			0: 			"establishment"
 		website: "http://www.inmobiliariaurrutia.com/"
@@ -689,13 +692,12 @@ En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de
 ```
 
 #### GET /place
-Utiliza este recurso para obtener información detallada de un sitio en concreto. Envía junto con la petición los parámetros `id` y `reference`. Si no hay `reference`, pasa ese parámetro como `null`:
+Utiliza este recurso para obtener información detallada de un sitio en concreto. Envía junto con la petición los parámetros `id` y `reference`.
 
-Si el places no tienes reference la consulta es:
+Si el place no tienes reference la consulta es se realia de la siguiente forma:
 ```json
     {
-        id:             "51e92bfab68307fe59000030",
-        reference:      "null"
+        id:             "51e92bfab68307fe59000030"
     }
 ```
 
