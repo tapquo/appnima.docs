@@ -34,6 +34,9 @@ Appnima.js has the capability to centralize the error management in a method. To
 		console.log("MESSAGE: ", error.message);
 	};
 	
+Token Management
+----------------
+App/nima uses a token to access the resources. When a token is expired the server will return a `480` error code, to refresh the token the method `Appnima.User.token()` must be called. It will do all the necessary transactions to update your token so you can continue working.
 
 User
 ====

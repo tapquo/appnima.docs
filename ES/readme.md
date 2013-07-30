@@ -92,7 +92,13 @@ El usuario verá una página en la que se le presentan los datos de la aplicaci�
 Si ha ido todo bien se redirigirá a la página con un campo `code` que especifica un código con el que continuar el proceso.
 
 #### Paso 2: POST /oauth2/token
-Una vez tengamos el `code` se solicitará el token. Para ello se llamará al recurso /oauth2/token a través de una petición POST con la cabecera basic con el id y el secret de la applicación codificados en base64 y los siguientes parámetros:
+Una vez tengamos el `code` se solicitará el token. Para ello se llamará al recurso /oauth2/token a través de una petición POST con la cabecera "http basic authorization" con el key de appnima y los siguientes parámetros:
+```header
+    {
+        Authorization: "basic APPNIMA-KEY"
+    }
+```
+
 ```json
     {
         grant_type: "code",
@@ -110,7 +116,13 @@ Si ha ido todo bien retorna un `201 Created` junto con el objeto:
     }
 ```
 #### Refresh Token: POST /oauth2/token
-Con este método se renueva tanto el `access_token` como el `refresh_token`. Para ello envía con la petición el parámetro `refresh_token` actual:
+Cuando se trata de acceder a un recurso y este devuelve un código de error `480` significa que el token ha expirado y que hay que refrescarlo, para ello usa este método que renueva tanto el `access_token` como el `refresh_token`. Para ello envía la cabecera "http basic authorization" con el key de appnima y el parámetro `refresh_token` actual:
+```header
+    {
+        Authorization: "basic APPNIMA-KEY"
+    }
+```
+
 
 ```json
     {

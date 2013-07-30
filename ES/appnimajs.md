@@ -30,8 +30,12 @@ Appnima.js tiene la capacidad de poder centralizar la gestión de los errores en
 	Appnima.onError = function(error){
 		console.log("CODE: ", error.code);
 		console.log("TYPE: ", error.type);
-		console.log("MESSAGE: ", error.message);
+		console.log("MESSAGE: ", error.message);				
 	};
+
+Gestión de Token
+----------------
+App/nima usa un token para acceder a los recursos. Cuando el token expire el servidor devolverá un código de error `480`, para refrescar el token hay que llamar al método `Appnima.User.token()`. Este se encargará de hacer todas las transacciones necesarias para poder seguir trabajando.
 
 
 User

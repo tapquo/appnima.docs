@@ -75,7 +75,7 @@ The following explains how to get token using this method.
 
 
 #### Step 1: GET /oauth/authorize
-User will be redirect to another URL. This resource is called with the following parameters:
+User will be redirected to another URL. This resource is called with the following parameters:
 ``` json
 response_type   : type of request. Should be `code`.
 client_id       : your public ID application.
@@ -94,7 +94,14 @@ If the request was successful, user will be redirect to a site with a field `cod
 
 
 #### Step 2: POST /oauth2/token
-After get `code`, token will be request. To do so, this resource will be called with header "http basic authorization" with application ID and secret Base64 encoded and the next parameters:
+After get `code`, token will be request. To do so, this resource will be called with "http basic authorization"  header with your appnima key and the parameters:
+```header
+	{ 
+		Authorization: "basic APPNIMA-KEY" 
+	}
+```
+
+
 ```json
     {
         grant_type: "code",
@@ -112,11 +119,17 @@ If the query was successful returns `201 Created` and the object:
     }
 ```
 
-#### Refresh Token: POST /oauth2/token
-Use this resource to refresh `access_token` and `refresh_token` values. Sends the request like:
+#### Refreshing Token: POST /oauth2/token
+When you try to access to a server's resource but it returns an error code `480` indicates that the token is expired, to refresh the `access_token` and `refresh_token` values use this resource using the "http authorization basic" header with your appnima key and the parameters:
+```header
+	{ 
+		Authorization: "basic APPNIMA-KEY" 
+	}
+```
 
 ```json
     {
+    	grant_type:          "refresh_token",
         refresh_token:       "n72c03ty202ugx2gu2u"
     }
 ```
