@@ -109,6 +109,25 @@ Si ha ido todo bien retorna un `201 Created` junto con el objeto:
         access_token:    "eh024hg02g2onvev29"
     }
 ```
+#### Refresh Token: POST /oauth2/token
+Con este método se renueva tanto el `access_token` como el `refresh_token`. Para ello envía con la petición el parámetro `refresh_token` actual:
+
+```json
+    {
+        refresh_token:       "n72c03ty202ugx2gu2u"
+    }
+```
+
+Si todo ha salido bien App/nima devuelve el siguiente objeto:
+
+```json
+    {
+        access_token: 		'cd776kk02g2ata629',
+  		expires_in: 		'2013-08-06T06:58:37.298Z',
+  		refresh_token: 		'kuo54jk02g9lmoovp9',
+	  	scope: 				[ 'profile' ]
+    }
+```
 
 
 USER

@@ -112,7 +112,25 @@ If the query was successful returns `201 Created` and the object:
     }
 ```
 
+#### Refresh Token: POST /oauth2/token
+Use this resource to refresh `access_token` and `refresh_token` values. Sends the request like:
 
+```json
+    {
+        refresh_token:       "n72c03ty202ugx2gu2u"
+    }
+```
+
+Response returns the following object:
+
+```json
+    {
+        access_token: 		'cd776kk02g2ata629`',
+  		expires_in: 		'2013-08-06T06:58:37.298Z',
+  		refresh_token: 		'kuo54jk02g9lmoovp9',
+	  	scope: 				[ 'profile' ]
+    }
+```
 
 User
 ----
