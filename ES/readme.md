@@ -217,21 +217,24 @@ En caso de que la validación haya sido correcta App/nima devolver un `200 Ok` c
 
 ### Info
 #### GET /info
-Si necesitas obtener los datos del usuario debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envies ningún parámetro. Solo deberás esperar a la respuesta `200 Ok` con los siguientes parámetros:
+Si necesitas obtener los datos del usuario debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envies ningún parámetro. Solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
 ```json
     {
-        _id:            28319319832
-        mail:           "javi@tapquo.com",
-        username:       "soyjavi",
-        name:           "Javi Jimenez",
-        avatar:         "http://USER_AVATAR_URL",
-        bio:            "Founder & CTO at @tapquo",
-        phone:          "PHONE_NUMBER",
-        token:          "USER_TOKEN",
-        refresh_token:  "REFRESH_TOKEN"
+        id:            28319319832
+        mail:          "javi@tapquo.com",
+        username:      "soyjavi",
+        name:          "Javi Jimenez",
+        avatar:        "http://USER_AVATAR_URL",
+        language:		"spanish",
+        country:		"ES",
+        bio:           "Founder & CTO at @tapquo",
+        phone:         "PHONE_NUMBER",
+        site: 			"http://USER_URL",
+        position:
+			latitude: 		43.356091
+			longitude: 		-2.847759
     }
 ```
-
 
 #### PUT /info
 Este recurso sirve para modificar los datos personales de un usuario dentro de tu aplicación, al igual que en el recurso **GET /user/info** no es necesario identificar al usuario por parámetro. Puedes enviar todos los parámetros que aparecen a continuación (aunque no es obligatorio enviarlos todos):

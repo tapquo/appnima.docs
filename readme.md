@@ -225,18 +225,22 @@ If the validation was successful App/nima returns `200 Ok` and the user data.
 
 ### Info
 #### GET /info
-Get user data with this resource. Due to Oauth2 Authentication you do not need any parameter, just wait the response `200 Ok` and the object:
+Get user data with this resource. Due to Oauth2 Authentication you do not need any parameter, just wait the response `200 Ok` and APP/NIMA will returns:
 ```json
     {
-        _id:            28319319832
-        mail:           "javi@tapquo.com",
-        username:       "soyjavi",
-        name:           "Javi Jimenez",
-        avatar:         "http://USER_AVATAR_URL",
-        bio:            "Founder & CTO at @tapquo",
-        phone:          "PHONE_NUMBER",
-        token:          "USER_TOKEN",
-        refresh_token:  "REFRESH_TOKEN"
+        id:            28319319832
+        mail:          "javi@tapquo.com",
+        username:      "soyjavi",
+        name:          "Javi Jimenez",
+        avatar:        "http://USER_AVATAR_URL",
+        language:		"spanish",
+        country:		"ES",
+        bio:           "Founder & CTO at @tapquo",
+        phone:         "PHONE_NUMBER",
+        site: 			"http://USER_URL",
+        position:
+			latitude: 		43.356091
+			longitude: 		-2.847759
     }
 ```
 
