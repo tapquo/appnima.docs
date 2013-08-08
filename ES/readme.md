@@ -229,10 +229,7 @@ Si necesitas obtener los datos del usuario debes utilizar este recurso y como es
         country:		"ES",
         bio:           "Founder & CTO at @tapquo",
         phone:         "PHONE_NUMBER",
-        site: 			"http://USER_URL",
-        position:
-			latitude: 		43.356091
-			longitude: 		-2.847759
+        site: 			"http://USER_URL"
     }
 ```
 

@@ -237,10 +237,7 @@ Get user data with this resource. Due to Oauth2 Authentication you do not need a
         country:		"ES",
         bio:           "Founder & CTO at @tapquo",
         phone:         "PHONE_NUMBER",
-        site: 			"http://USER_URL",
-        position:
-			latitude: 		43.356091
-			longitude: 		-2.847759
+        site: 			"http://USER_URL"
     }
 ```
 
