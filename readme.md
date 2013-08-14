@@ -879,6 +879,28 @@ As **GET /friends** you can provides information about people who are not into u
     }
 ```
 
+### User
+#### GET /user
+You can use this resource to obtain the last user location stored. Just sends the request without parameters. App/nima will return the following object:
+
+```json
+    {
+        latitude:       "-33.9250334",
+        longitude:      "18.423883499999988"
+    }
+```
+
+#### POST /user
+If you need save user position use this resource. Sends the request with latitude and longitude like:
+
+```json
+    {
+        latitude:       "-33.9250334",
+        longitude:      "18.423883499999988"
+    }
+```
+If the request was successful, App/nima will return `201 Created` message.
+
 
 Socket
 ------

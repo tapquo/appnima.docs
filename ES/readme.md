@@ -217,7 +217,7 @@ En caso de que la validación haya sido correcta App/nima devolver un `200 Ok` c
 
 ### Info
 #### GET /info
-Si necesitas obtener los datos del usuario debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envies ningún parámetro. Solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
+Si necesitas obtener los datos del usuario debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envíes ningún parámetro. Solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
 ```json
     {
         id:            28319319832
@@ -885,6 +885,25 @@ Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
     }
 ```
 
+### User
+#### GET /user
+Este recurso te será útil cuando quieras obtener la última posición almacenada de tu usuario. Para ello solo tienes que realizar la petición y no es necesario enviar ningún parámetro. Si todo ha ido bien App/nima devolverá el siguiente objeto:
+
+```json
+    {
+        latitude:       "-33.9250334",
+        longitude:      "18.423883499999988"
+    }
+```
+#### POST /user
+Utiliza este recurso para almacenar la posición de tu usuario. Envía junto con la petición su latitud y longitud:
+```json
+    {
+        latitude:       "-33.9250334",
+        longitude:      "18.423883499999988"
+    }
+```
+Si todo ha salido bien, App/nima devolverá un `201 Created`.
 
 
 Socket
