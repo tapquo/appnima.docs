@@ -253,7 +253,7 @@ En el caso de que haya ido todo bien se devolverá el código `200 OK` junto con
 Este recurso sirve para cambiar la contraseña, para ello enviaremos los siguientes parámetros:
 ```json
     {
-        old_password:       "old_password",    
+        old_password:       "old_password",
         new_password:       "new_password"
     }
 ```
@@ -684,10 +684,10 @@ En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de
 			longitude: 		-2.847759
 		postal_code: 	"48100",
 		reference: 		null,
-		types: 
+		types:
 			0: 				"establishment"
 		website: 		"http://shop.frussurf.com/"
- 	}, 
+ 	},
  	{
 		address: 		"Neurketa Kalea, 3, Mungia, Spain"
 		country: 		"ES"
@@ -695,12 +695,12 @@ En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de
 		locality: 		"Mungia"
 		name: 			"Inmobiliaria Urrutia"
 		phone: 			"+34 946 15 66 95"
-		position: 
+		position:
 			latitude: 		43.35618
 			longitude: 		-2.847939
 		postal_code: 	"48100"
 		reference: 		null,
-		types: 
+		types:
 			0: 			"establishment"
 		website: "http://www.inmobiliariaurrutia.com/"
  	},
@@ -711,12 +711,12 @@ En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de
 		locality: 		null
 		name: 			"Bar Aketxe"
 		phone: 			null
-		position: 
+		position:
 			latitude: 		43.356091
 			longitude: 		-2.847759
 		postal_code: 	null
 		reference: 		"CnRoAAAAUV3iCS__"
-		types: 
+		types:
 		website: 		null
  	}
     ]
@@ -754,7 +754,7 @@ Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto
 		longitude: -2.847759
 		postal_code: "48100"
 		reviews:
-			aspects: 
+			aspects:
 				0: Object
 					rating: 1
 					type: "food"
@@ -831,7 +831,7 @@ Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 		locality: "Mungia"
 		name: "Policía Municipal"
 		phone: "+34 946 15 66 77"
-		position: 
+		position:
 			latitude: 43.354551
 			longitude: -2.846533
 		postal_code: "48100"
@@ -985,6 +985,69 @@ Un usuario puede obtener el listado de salas de sockets en las que participa, pa
     }
     ]
 ```
+
+
+WebRTC
+------
+App/nima dispone de un servidor que se encarga de gestionar conexiones entre usuarios de appnima para así poder realizar comunicaciones webRTC.
+
+    http://webrtc.appnima.com/
+
+WebRTC (Web Real-Time Communication) es una API que está siendo elaborada por la World Wide Web Consortium (W3C) para permitir a las aplicaciones del navegador realizar llamadas de voz, chat de vídeo y uso compartido de archivos P2P sin necesidad de instalar ningún plugin.
+
+### Comenzando
+Para crear una conexión webRTC Appnima dispone de un servidor socket.io que se encarga de realizar el `signaling` entre 2 usuarios de appnima. Se recomienda utilizar la libreria `Appnima.js` para este propósito, o en su defecto, utilizar la libreria de cliente de socket.io.
+
+Más información sobre [**socket.io**](http://socket.io/)
+
+### Métodos de llamada al servidor WebRTC:
+
+#### connect
+Para conectar con el servidor de WebRTC se llamará al método `connect`. Este recibirá un único parámetro que será el token proporcionado en el login de usuario.
+
+Una vez se haya conectado el usuario, podrá tanto realizar llamadas como recibir llamadas de otros usuarios.
+
+#### offer
+Para solicitar una llamada a otro usuario se debe utilizar el método `offer` y para ello se le pasarán los siguientes parámetros:
+
+* Token del usuario (obligatorio)
+* Id de usuario al que se quiere llamar (obligatorio)
+* SessionDescription: objeto devuelto mediante el método de la API de WebRTC PeerConnection.createOffer (obligatorio).
+
+#### answer
+Para aceptar o responder a una llamada de otro usuario se debe utilizar el método `answer` y para ello se le pasarán los iguientes parámetros:
+
+* Token del usuario (obligatorio)
+* Id de usuario del que quiere responder la llamada (obligatorio)
+* SessionDescription: objeto devuelto mediante el método de la API de WebRTC PeerConnection.createAnswer (obligatorio). Debe enviarse el objeto completo y serializado: JSON.serialize(objetoDescription)
+
+#### ice
+Una vez creada la conexión entre dos usuarios, el usuario que recibe la llamada deberá emitir al servidor los cambios de sus servidores "ice" asociados a su conexión P2P.
+
+La API de webRTC dispone de un evento `onicecandidate` al que el cliente deberá suscribirse y emitir la información recibida a este método `ice` con los siguientes parámteros:
+
+* Token del usuario (obligatorio)
+* Candidato: El parámetro candidate del objeto recibido en la suscripcion a `onicecandidate`. Este objeto debe enviarse serializado.
+
+### Métodos de vuelta desde el servidor WebRTC:
+
+#### offer
+El usuario recibe una oferta de conversación de algún amigo suyo. Como parámetro recibirá la información del usuario
+
+#### answer
+Cuando un amigo acepta una conversación, este evento será lanzado en el cliente que ha realizado la llamada. Dispondrá como parámetro el amigo que ha contestado serializado.
+
+#### connected
+Se ha conectado algún amigo. Como parámetro llegará la información de este amigo serializada.
+
+#### disconnected
+Se ha desconectado algún amigo. Como parámetro llegará la información de este amigo serializada.
+
+#### ice
+Cuando hay cambios de los servidores del que recibe la llamada, al que ha realizado la llamada le llegará la información de los nuevos servidores ICE.
+
+#### error
+Método lanzado cuando ocurre algún error en el servidor.
 
 
 Push
