@@ -116,7 +116,7 @@ Tus usuarios pueden subir su propio fichero de avatar desde su equipo. Para subi
     Appnima.User.avatar(USER_AVATAR);
 
 #### Post
-Los usuarios puedes crear mensajes (post) o modificar los que hayan creado dentro de una aplicación. Para ello tiene que mandar los siguientes parámetros junto con la petición:
+Los usuarios pueden crear mensajes (post) o modificar los que hayan creado dentro de una aplicación. Para ello tienen que mandar los siguientes parámetros junto con la petición:
 
     data = {
         id: POST_ID
@@ -354,18 +354,18 @@ Listar mis grupos:
 Eliminar:
 
     group.remove("id");
-    
+
 Cambiar nombre de grupo:
-  
-	group.rename("id", "name");
-  
+
+    group.rename("id", "name");
+
 Obtener los mensajes del grupo. El segundo parametro indica el numero de la página que se quiere obtener, siendo 0 la primera página, de esta forma los mensajes irán llegando de 50 en 50:
 
-	group.messages("id", 0);
-	
+    group.messages("id", 0);
+
 Eliminar el contador de mensajes no leídos de ese grupo, el primer parametro debe de ser la id del grupo:
 
-	group.deleteUnreadCount("id", callback); 
+    group.deleteUnreadCount("id", callback);
 
 
 Chat
@@ -408,10 +408,10 @@ Inbox
 El Inbox permite a un usuario recibir mensajes de otros usuarios. Los mensajes solo los recibirá el que crea la sala, pero cualquier usuario de la aplicación podrá escribirle. Para ello crearemos una instancia de Inbox:
 
     inbox = new Appnima.Socket.Inbox();
-    
+
 Obtener el número de mensajes no leídos por grupos:
 
-	inbox.unreadCount(callback);
+    inbox.unreadCount(callback);
 
 Usuario
 -------
@@ -426,7 +426,7 @@ Estos métodos son los necesarios para la gestión de los tipos de socket vistos
 
 * `instance.connect("id")`: Permite conectarse a una sala de Group o Chat
 
-* `instance.disconnect()`: Se desconecta de una sala 
+* `instance.disconnect()`: Se desconecta de una sala
 
 * `instance.allowUSers(["","",""…])`: Permite añadir usuarios permitidos en Groups y Chats
 
@@ -443,9 +443,9 @@ Estos métodos son los necesarios para la gestión de los tipos de socket vistos
 * `instance.onError(callback)`: Llama al callback cuando sucede un error
 
 * `instance.onMessage(callback)`: Llama al callback cuando se recibe un mensaje, el mensaje será un objeto con los atributos:
-	* content: "Contenido del mensaje"
-	* user: {"Usuario que lo envía"}
-	* data: {"Información extra enviada por el emisor"}  
-	* created_at: "2013-11-16T05:55:02.736Z"
+    * content: "Contenido del mensaje"
+    * user: {"Usuario que lo envía"}
+    * data: {"Información extra enviada por el emisor"}
+    * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Llama al callback cuando uno o varios usuarios han sido echados de un grupo
