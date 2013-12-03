@@ -273,6 +273,54 @@ Este recurso sirve para subir un avatar, para ello enviaremos los siguientes par
 
 En el caso de que haya ido todo bien se devolverá el código `201 RESOURCE CREATED`.
 
+### Post (Mensaje)
+
+#### POST/post
+Un post se trata de un mensaje público y el usuario con este recurso puede crearlo. Para ello debe enviar los parámetros junto con la petición:
+
+```json
+    {
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+El único campo obligatorio a la hora de crear un post es el ```content``` que se trata del contenido del mensaje.
+
+Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
+```json
+    {
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+        _id:        "57592807235"
+        avatar:      "http://AVATAR_URL",
+        created_at:   "2013-12-02 08:00:58.784Z",
+        mail:      "soyjavi@tapquo.com",
+        name:    "javi",
+        username:    "soyjavi"
+    }
+   }
+```
+
+#### POST/put
+Este recurso sirve para modificar un post creado anteriormente. Para ello, el usuario debe enviar los parámetros junto con la petición:
+
+```json
+    {
+        id: POST_ID,
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+
+Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los mismos parámetros que en el `POST`.
+
 
 ### Terminal
 #### POST /terminal
