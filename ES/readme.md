@@ -321,6 +321,21 @@ Este recurso sirve para modificar un post creado anteriormente. Para ello, el us
 
 Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los mismos parámetros que en el `POST`.
 
+#### GET/post
+Este recurso sirve para obtener un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea obtener y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y el post concreto del mismo estilo que en el `POST`.
+
+### Timeline
+#### GET/timeline
+Este recurso sirve para obtener la lista de posts de un determinado usuario. Si lo que deseas es obtener los posts de tu usuario de la sesión no tienes que enviar ningún parámetro junto con la petición. Te devolverá la lista de posts tanto tuyos como de los usuarios a los que sigues (following) ordenados del más antiguo al más reciente.
+
+En cambio, si lo que deseas es obtener los posts de otro usuario, debes enviar los siguientes parámetros:
+```json
+    { id: 4234324432432}
+```
+Se trata de la id del usuario del que quieres obtener los post. En este caso, unicamente te devolverá la lista de los post que ha creado ese usuario.
+
+Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá APP/NIMA.
+
 
 ### Terminal
 #### POST /terminal
@@ -993,22 +1008,11 @@ Un usuario puede conectarse a una sala siempre y cuando ya esté creada y tenga 
 En caso de querer desconectarse de una sala se llamará al método `leave`.
 
 #### sendmessage
-Para enviar un mensaje a una sala basta con llamar al método `sendMessage` y pasarle como parámetro un objeto con los atributos:
-
-```json
-    {
-        content:        "Texto del mensaje",
-        data:			 {"Cualquier tipo de atributos extra"}
-    }
-```
-
-Este mensaje llegará a todos los usuarios conectados a la sala, emisor incluido, se recibirá a través del listener `onMessage` y tendrá el siguiente formato:
-
+Para enviar un mensaje a una sala basta con llamar al método `sendMessage` y pasarle como parámetro un objeto (el mensaje puede ser cualquier tipo de dato). Este mensaje llegará a todos los usuarios conectados a la sala, emisor incluido, se recibirá a través del listener `onMessage` y tendrá el siguiente formato:
 ```json
     {
         user:           {"usuario que envía el mensaje"},
-        content:        "mensaje enviado",
-        data:			 {"Información extra enviada por el emisor"},
+        message:        {"mensaje enviado"},
         created_at:     "2013-05-23T12:01:02.736Z"
     }
 ```
