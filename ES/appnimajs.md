@@ -115,6 +115,19 @@ Tus usuarios pueden subir su propio fichero de avatar desde su equipo. Para subi
 
     Appnima.User.avatar(USER_AVATAR);
 
+#### Post
+Los usuarios puedes crear mensajes (post) o modificar los que hayan creado dentro de una aplicación. Para ello tiene que mandar los siguientes parámetros junto con la petición:
+
+    data = {
+        id: POST_ID
+        title: "Lorem Ipsum"
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+        image: "http://IMAGE_URL"
+    }
+
+    Appnima.User.post(data);
+
+Solo el campo ```content``` es obligatorio. Si no se manda el campo ```id```, se creará el post; en caso contrario, se actualizará dicho post.
 
 Terminal
 --------
