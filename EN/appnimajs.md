@@ -337,6 +337,18 @@ Remove group:
 
     group.remove("id");
 
+Change the name of the group:
+  
+	group.rename("id", "name");
+  
+Get the messages of the group. The second parameter is the page number, the first page is 0 and each page have 50 messages:
+
+	group.messages("id", 0);
+	
+Delete unread messages count, the first parameter is the group id:
+
+	group.deleteUnreadCount("id", callback);
+
 Chat
 ----
 Chats are rooms from 1 to N users without persistence. In chats, as happens in the groups, only allowed users can connect and send data.To work with Chats first of all a instance of Chat must be created:
@@ -379,6 +391,10 @@ The inbox allows a user to receive messages from other users. The messages will 
 
     inbox = new Appnima.Socket.Inbox();
 
+Get the unread messages count by group:
+
+	inbox.unreadCount(callback);
+
 
 User
 ----
@@ -392,11 +408,25 @@ Methods
 This methods are the same for all the socket types seen previously:
 
 * `instance.connect("id")`: Connect to a  Group or Chat
+
 * `instance.disconnect()`: Disconnect from a room
+
 * `instance.allowUSers(["","",""…])`: Add allowed users to Groups or Chats
+
 * `instance.disallowUsers(["","",""…])`: Remove users from allewed list
+
 * `instance.send(message)`: Send a message to all the users of a room, also the sender
+
 * `instance.broadcast(message)`: Send a message to all the users of a room, except the sender
+
 * `instance.onConnect(callback)`: Calls to the callback on room connection
+
 * `instance.onError(callback)`: Calls to the callback on error
-* `instance.onMessage(callback)`: Calls to the callback on message received
+
+* `instance.onMessage(callback)`: Calls to the callback on message received, the recived message will be an object like this:
+	* content:  "message content"
+	* user:	{"Information about the sender"}
+	* data: {"Extra information sendend"}
+	* created_at: "2013-11-16T05:55:02.736Z"
+	
+* `instance.onDisallow(callback)`: Calls to the callback when a user is disallowed from the group

@@ -945,11 +945,22 @@ Un usuario puede conectarse a una sala siempre y cuando ya esté creada y tenga 
 En caso de querer desconectarse de una sala se llamará al método `leave`.
 
 #### sendmessage
-Para enviar un mensaje a una sala basta con llamar al método `sendMessage` y pasarle como parámetro un objeto (el mensaje puede ser cualquier tipo de dato). Este mensaje llegará a todos los usuarios conectados a la sala, emisor incluido, se recibirá a través del listener `onMessage` y tendrá el siguiente formato:
+Para enviar un mensaje a una sala basta con llamar al método `sendMessage` y pasarle como parámetro un objeto con los atributos:
+
+```json
+    {
+        content:        "Texto del mensaje",
+        data:			 {"Cualquier tipo de atributos extra"}
+    }
+```
+
+Este mensaje llegará a todos los usuarios conectados a la sala, emisor incluido, se recibirá a través del listener `onMessage` y tendrá el siguiente formato:
+
 ```json
     {
         user:           {"usuario que envía el mensaje"},
-        message:        {"mensaje enviado"},
+        content:        "mensaje enviado",
+        data:			 {"Información extra enviada por el emisor"},
         created_at:     "2013-05-23T12:01:02.736Z"
     }
 ```
