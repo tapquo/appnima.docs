@@ -217,7 +217,14 @@ En caso de que la validación haya sido correcta App/nima devolver un `200 Ok` c
 
 ### Info
 #### GET /info
-Si necesitas obtener los datos del usuario de tu sesión debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envíes ningún parámetro a no ser der que desees obtener la información de cualquier usuario de App/nima. En ese caso solo tendrás que enviar la id de dicho usuario junto con la llamada al método. En ambos casos, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
+Si necesitas obtener los datos del usuario de tu sesión debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envíes ningún parámetro a no ser der que desees obtener la información de cualquier usuario de App/nima.
+
+En ese caso solo tendrás que enviar la id de dicho usuario junto con la llamada al método.
+    ```
+        243544654764
+    ```
+
+En ambos casos, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
 ```json
     {
         id:            28319319832
