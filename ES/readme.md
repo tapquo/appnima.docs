@@ -134,10 +134,10 @@ Si todo ha salido bien App/nima devuelve el siguiente objeto:
 
 ```json
     {
-        access_token: 		'cd776kk02g2ata629',
-  		expires_in: 		'2013-08-06T06:58:37.298Z',
-  		refresh_token: 		'kuo54jk02g9lmoovp9',
-	  	scope: 				[ 'profile' ]
+        access_token:       'cd776kk02g2ata629',
+        expires_in:         '2013-08-06T06:58:37.298Z',
+        refresh_token:      'kuo54jk02g9lmoovp9',
+        scope:              [ 'profile' ]
     }
 ```
 
@@ -217,7 +217,7 @@ En caso de que la validación haya sido correcta App/nima devolver un `200 Ok` c
 
 ### Info
 #### GET /info
-Si necesitas obtener los datos del usuario debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envíes ningún parámetro. Solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
+Si necesitas obtener los datos del usuario de tu sesión debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envíes ningún parámetro a no ser der que desees obtener la información de cualquier usuario de App/nima. En ese caso solo tendrás que enviar la id de dicho usuario junto con la llamada al método. En ambos casos, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
 ```json
     {
         id:            28319319832
@@ -225,15 +225,15 @@ Si necesitas obtener los datos del usuario debes utilizar este recurso y como es
         username:      "soyjavi",
         name:          "Javi Jimenez",
         avatar:        "http://USER_AVATAR_URL",
-        language:		"spanish",
-        country:		"ES",
+        language:       "spanish",
+        country:        "ES",
         bio:           "Founder & CTO at @tapquo",
         phone:         "PHONE_NUMBER",
-        site: 			"http://USER_URL"
+        site:           "http://USER_URL"
     }
 ```
 
-#### PUT /info
+#### PUT /update
 Este recurso sirve para modificar los datos personales de un usuario dentro de tu aplicación, al igual que en el recurso **GET /user/info** no es necesario identificar al usuario por parámetro. Puedes enviar todos los parámetros que aparecen a continuación (aunque no es obligatorio enviarlos todos):
 ```json
     {
@@ -666,59 +666,59 @@ Filtro por `precisión`:
     {
         latitude:      "-33.9250334",
         longitude:     "18.423883499999988",
-        precision:		"1"
+        precision:      "1"
     }
 ```
 
 En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de lugares e información relacionada:
 ```json
     [{
-		address: 		"Neurketa Kalea, 8, Mungia, Spain",
-		country: 		"ES",
-		id: 			"51e9290db68307fe5900001d",
-		locality: 		"Mungia",
-		name: 			"Frus Surf",
-		phone: 			"+34 946 15 57 71",
-		position:
-			latitude: 		43.356091
-			longitude: 		-2.847759
-		postal_code: 	"48100",
-		reference: 		null,
-		types:
-			0: 				"establishment"
-		website: 		"http://shop.frussurf.com/"
- 	},
- 	{
-		address: 		"Neurketa Kalea, 3, Mungia, Spain"
-		country: 		"ES"
-		id: 			"51e92893b68307fe59000017"
-		locality: 		"Mungia"
-		name: 			"Inmobiliaria Urrutia"
-		phone: 			"+34 946 15 66 95"
-		position:
-			latitude: 		43.35618
-			longitude: 		-2.847939
-		postal_code: 	"48100"
-		reference: 		null,
-		types:
-			0: 			"establishment"
-		website: "http://www.inmobiliariaurrutia.com/"
- 	},
- 	{
-		address: 		"Neurketa Kalea, 8, Mungia"
-		country: 		null
-		id: 			"cd547ea9e3c4fe9d8f8883942a6fa8ac73130905"
-		locality: 		null
-		name: 			"Bar Aketxe"
-		phone: 			null
-		position:
-			latitude: 		43.356091
-			longitude: 		-2.847759
-		postal_code: 	null
-		reference: 		"CnRoAAAAUV3iCS__"
-		types:
-		website: 		null
- 	}
+        address:        "Neurketa Kalea, 8, Mungia, Spain",
+        country:        "ES",
+        id:             "51e9290db68307fe5900001d",
+        locality:       "Mungia",
+        name:           "Frus Surf",
+        phone:          "+34 946 15 57 71",
+        position:
+            latitude:       43.356091
+            longitude:      -2.847759
+        postal_code:    "48100",
+        reference:      null,
+        types:
+            0:              "establishment"
+        website:        "http://shop.frussurf.com/"
+    },
+    {
+        address:        "Neurketa Kalea, 3, Mungia, Spain"
+        country:        "ES"
+        id:             "51e92893b68307fe59000017"
+        locality:       "Mungia"
+        name:           "Inmobiliaria Urrutia"
+        phone:          "+34 946 15 66 95"
+        position:
+            latitude:       43.35618
+            longitude:      -2.847939
+        postal_code:    "48100"
+        reference:      null,
+        types:
+            0:          "establishment"
+        website: "http://www.inmobiliariaurrutia.com/"
+    },
+    {
+        address:        "Neurketa Kalea, 8, Mungia"
+        country:        null
+        id:             "cd547ea9e3c4fe9d8f8883942a6fa8ac73130905"
+        locality:       null
+        name:           "Bar Aketxe"
+        phone:          null
+        position:
+            latitude:       43.356091
+            longitude:      -2.847759
+        postal_code:    null
+        reference:      "CnRoAAAAUV3iCS__"
+        types:
+        website:        null
+    }
     ]
 ```
 
@@ -743,34 +743,34 @@ Si el place tiene `reference` envía la petición de la siguiente forma:
 Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto:
 ```json
     {
-		address: "Neurketa Kalea, 8, Mungia, Spain"
-		country: "ES"
-		id: "51e92bfab68307fe59000030"
-		locality: "Mungia"
-		name: "Bar Aketxe"
-		phone: "+34 946 74 18 40"
-		position: Object
-		latitude: 43.356091
-		longitude: -2.847759
-		postal_code: "48100"
-		reviews:
-			aspects:
-				0: Object
-					rating: 1
-					type: "food"
-				1: Object
-					rating: 1
-					type: "decor"
-				2: Object
-					rating: 1
-					type: "service"
-			author_name: "jc ce"
-			author_url: "https://plus.google.com/101519756922440365704"
-			text: "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
-		types:
-			0: "bar"
-			1: "establishment"
-	}
+        address: "Neurketa Kalea, 8, Mungia, Spain"
+        country: "ES"
+        id: "51e92bfab68307fe59000030"
+        locality: "Mungia"
+        name: "Bar Aketxe"
+        phone: "+34 946 74 18 40"
+        position: Object
+        latitude: 43.356091
+        longitude: -2.847759
+        postal_code: "48100"
+        reviews:
+            aspects:
+                0: Object
+                    rating: 1
+                    type: "food"
+                1: Object
+                    rating: 1
+                    type: "decor"
+                2: Object
+                    rating: 1
+                    type: "service"
+            author_name: "jc ce"
+            author_url: "https://plus.google.com/101519756922440365704"
+            text: "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
+        types:
+            0: "bar"
+            1: "establishment"
+    }
 ```
 
 #### POST /place
@@ -810,8 +810,8 @@ Los usuarios de tu aplicación pueden registrar visitas a sitios concretos. Para
 Si todo ha salido bien, se devuelve un `200 Ok` junto con el objeto:
 ```json
     {
-    	status:     'ok'
-	}
+        status:     'ok'
+    }
 ```
 
 #### GET /checkin
@@ -825,21 +825,21 @@ Obtén la lista de sitios guardados por tus usuarios con este recurso. Para ello
 Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 ```json
     {
-		address: "Calle de Trobika, 1, Mungia, Spain"
-		country: "ES"
-		id: "51e930cad2eeaea678000010"
-		locality: "Mungia"
-		name: "Policía Municipal"
-		phone: "+34 946 15 66 77"
-		position:
-			latitude: 43.354551
-			longitude: -2.846533
-		postal_code: "48100"
-		reviews: Array[0]
-		types:
-			0: "police"
-			1: "establishment"
-	}
+        address: "Calle de Trobika, 1, Mungia, Spain"
+        country: "ES"
+        id: "51e930cad2eeaea678000010"
+        locality: "Mungia"
+        name: "Policía Municipal"
+        phone: "+34 946 15 66 77"
+        position:
+            latitude: 43.354551
+            longitude: -2.846533
+        postal_code: "48100"
+        reviews: Array[0]
+        types:
+            0: "police"
+            1: "establishment"
+    }
 ```
 
 ### Search
@@ -856,10 +856,10 @@ Proporciona a tus usuarios información sobre amigos cercanos a un punto determi
 Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 ```json
     {
-		avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
-		id: "51aef6f4560d261d15000001"
-		name: Cata
-		username: "catalina@tapquo.com"
+        avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
+        id: "51aef6f4560d261d15000001"
+        name: Cata
+        username: "catalina@tapquo.com"
     }
 ```
 
@@ -878,10 +878,10 @@ De la misma forma que puedes mostrar a un usuarios qué amigos están a su alred
 Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 ```json
     {
-		avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
-		id: "51aef6f4560d261d15000001"
-		name: Cata
-		username: "catalina@tapquo.com"
+        avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
+        id: "51aef6f4560d261d15000001"
+        name: Cata
+        username: "catalina@tapquo.com"
     }
 ```
 
