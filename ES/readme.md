@@ -344,6 +344,7 @@ Este recurso sirve para crear comentarios sobre un `post` o un `mensaje privado`
     { text: "Lorem ipsum"
       post: 2131434543543
       message: 4325436457645
+    }
 ```
 
 En cada mensaje solo se rellenará el campo *post* o el campo *message*, nunca los dos, puesto que un comentario no puede ser sobre un post y un mensaje a la vez.
