@@ -273,16 +273,6 @@ Este recurso sirve para subir un avatar, para ello enviaremos los siguientes par
 
 En el caso de que haya ido todo bien se devolverá el código `201 RESOURCE CREATED`.
 
-#### POST/comment
-Este recurso sirve para crear comentarios sobre un `post` o un `mensaje privado`. La idea de este recurso es que se puedan crear discusiones sobre lo primero y respuestas inmediatas sobre lo segundo. Para crear un comentario hay que enviar los siguientes parámetros:
-```json
-    { text: "Lorem ipsum"
-      post: 2131434543543
-      message: 4325436457645
-```
-
-En cada mensaje solo se rellenará el campo *post* o el campo *message*, nunca los dos, puesto que un comentario no puede ser sobre un post y un mensaje a la vez.
-
 ### Post (Mensaje)
 
 #### POST/post
@@ -346,6 +336,17 @@ En cambio, si lo que deseas es obtener los posts de otro usuario, debes enviar l
 Se trata de la id del usuario del que quieres obtener los post. En este caso, unicamente te devolverá la lista de los post que ha creado ese usuario.
 
 Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá APP/NIMA.
+
+### Comment
+#### POST/comment
+Este recurso sirve para crear comentarios sobre un `post` o un `mensaje privado`. La idea de este recurso es que se puedan crear discusiones sobre lo primero y respuestas inmediatas sobre lo segundo. Para crear un comentario hay que enviar los siguientes parámetros:
+```json
+    { text: "Lorem ipsum"
+      post: 2131434543543
+      message: 4325436457645
+```
+
+En cada mensaje solo se rellenará el campo *post* o el campo *message*, nunca los dos, puesto que un comentario no puede ser sobre un post y un mensaje a la vez.
 
 
 ### Terminal
