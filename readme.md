@@ -96,9 +96,9 @@ If the request was successful, user will be redirect to a site with a field `cod
 #### Step 2: POST /oauth2/token
 After get `code`, token will be request. To do so, this resource will be called with "http basic authorization"  header with your appnima key and the parameters:
 ```header
-	{ 
-		Authorization: "basic APPNIMA-KEY" 
-	}
+    {
+        Authorization: "basic APPNIMA-KEY"
+    }
 ```
 
 
@@ -122,14 +122,14 @@ If the query was successful returns `201 Created` and the object:
 #### Refreshing Token: POST /oauth2/token
 When you try to access to a server's resource but it returns an error code `480` indicates that the token is expired, to refresh the `access_token` and `refresh_token` values use this resource using the "http authorization basic" header with your appnima key and the parameters:
 ```header
-	{ 
-		Authorization: "basic APPNIMA-KEY" 
-	}
+    {
+        Authorization: "basic APPNIMA-KEY"
+    }
 ```
 
 ```json
     {
-    	grant_type:          "refresh_token",
+        grant_type:          "refresh_token",
         refresh_token:       "n72c03ty202ugx2gu2u"
     }
 ```
@@ -138,10 +138,10 @@ Response returns the following object:
 
 ```json
     {
-        access_token: 		'cd776kk02g2ata629`',
-  		expires_in: 		'2013-08-06T06:58:37.298Z',
-  		refresh_token: 		'kuo54jk02g9lmoovp9',
-	  	scope: 				[ 'profile' ]
+        access_token:       'cd776kk02g2ata629`',
+        expires_in:         '2013-08-06T06:58:37.298Z',
+        refresh_token:      'kuo54jk02g9lmoovp9',
+        scope:              [ 'profile' ]
     }
 ```
 
@@ -225,7 +225,10 @@ If the validation was successful App/nima returns `200 Ok` and the user data.
 
 ### Info
 #### GET /info
-Get user data with this resource. Due to Oauth2 Authentication you do not need any parameter, just wait the response `200 Ok` and APP/NIMA will returns:
+If you need to get data from the user, you should use this resource and how you're using the OAuth authentication protocol 2 is not required to send any der parameter unless you want to get the information of any user of App/nima.
+
+In that case you just have to send the id of the user with the method call.
+Get user data with this resource. Then, just wait the response `200 Ok` and APP/NIMA will returns:
 ```json
     {
         id:            28319319832
@@ -233,17 +236,17 @@ Get user data with this resource. Due to Oauth2 Authentication you do not need a
         username:      "soyjavi",
         name:          "Javi Jimenez",
         avatar:        "http://USER_AVATAR_URL",
-        language:		"spanish",
-        country:		"ES",
+        language:       "spanish",
+        country:        "ES",
         bio:           "Founder & CTO at @tapquo",
         phone:         "PHONE_NUMBER",
-        site: 			"http://USER_URL"
+        site:           "http://USER_URL"
     }
 ```
 
-#### PUT /info
-Use this resource to update user data profile. Like **GET /user/info** you do not need identified the user. Just send the parameters you want modify:
-```json
+#### PUT /update
+
+This resource is used to modify the personal data of a user within your application, as in the resource **GET/user/info** is not necessary to identify the user as parameter. You can send all the parameters below (but are not required to send them all):```json
     {
         mail:       "javi@tapquo.com",
         username:   "soyjavi",
@@ -253,7 +256,6 @@ Use this resource to update user data profile. Like **GET /user/info** you do no
         phone:      "PHONE_NUMBER"
     }
 ```
-
 If the request was successful App/nima returns `200 Ok` and the same object **GET /user**. If the user has not permission to modify his data App/nima returns `403 Forbidden`.
 
 
@@ -261,7 +263,7 @@ If the request was successful App/nima returns `200 Ok` and the same object **GE
 Change the user password sending the old one and the new one:
 ```json
     {
-        old_password:       "old_password",    
+        old_password:       "old_password",
         new_password:       "new_password"
     }
 ```
@@ -277,7 +279,91 @@ Upload user avatar with this resource. Sends the request and the following param
 
 Responses are returned with `201 RESOURCE CREATED`.
 
+### Post
+#### POST/post
+A post is a public message and the user can create with this resource. Only have to send this parameters with the request:
 
+```json
+    {
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+The only required field when creating a post is ```content``` that it is the content of the message.
+
+If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will returns the following parameters:
+```json
+    {
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+        _id:        "57592807235"
+        avatar:      "http://AVATAR_URL",
+        created_at:   "2013-12-02 08:00:58.784Z",
+        mail:      "soyjavi@tapquo.com",
+        name:    "javi",
+        username:    "soyjavi"
+    }
+   }
+```
+
+#### POST /put
+This resource is used to modify a previously created post. To do this, the user must send parameters with the request:
+
+```json
+    {
+        id: POST_ID,
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+If all goes well you only have to wait for the answer `200 ok` and APP/NIMA returns the same parameters as in the `POST`.
+
+#### GET/ post
+This resource is used to obtain a specific post. To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
+
+### Timeline
+#### GET/timeline
+This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.
+
+But if you want to get another user posts or only your own, you must send the following parameters:
+```json
+    { id: 4234324432432}
+```
+This is the id of the user you want to get the post. In this case, it will only return the list of the post that created this user.
+
+If all goes well you only have to wait for the `200 OK` response and the list of posts that will return APP/NIMA.
+
+There is also the option for you to return the list of posts with pagination, that is, that in each API call it returning part of the list of posts chronologically.
+
+To do this, you must send the following parameters:
+```json
+    { page: 0,
+      num_results: 5
+      last_data: "2013-12-02 08:00:58.784Z"
+    }
+```
+To this object, if you want, must be added the user *id*.
+
+*page* variable is the page number you want to obtain, that is, the part of the list you want to get. *num_results* is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same. Finally, *last_data* variable is the creation date of the last post received in the last call. This date is important because it will be the starting point of the next part of posts.
+
+### Comment
+#### POST/ comment
+This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
+```json
+    { text: "Lorem ipsum"
+      post: 2131434543543
+      message: 4325436457645
+    }
+```
+#### GET /post/comment
+This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
 
 ### Terminal
 #### POST /terminal
@@ -671,7 +757,7 @@ To work with precision, type:
     {
         latitude:      "-33.9250334",
         longitude:     "18.423883499999988",
-        precision:		"1"
+        precision:      "1"
     }
 ```
 
@@ -679,52 +765,52 @@ To work with precision, type:
 Responses are returned with `200 Ok` and the list of places:
 ```json
     [{
-		address: 		"Neurketa Kalea, 8, Mungia, Spain",
-		country: 		"ES",
-		id: 			"51e9290db68307fe5900001d",
-		locality: 		"Mungia",
-		name: 			"Frus Surf",
-		phone: 			"+34 946 15 57 71",
-		position:
-			latitude: 		43.356091
-			longitude: 		-2.847759
-		postal_code: 	"48100",
-		reference: 		null,
-		types: 
-			0: 				"establishment"
-		website: 		"http://shop.frussurf.com/"
- 	}, 
- 	{
-		address: 		"Neurketa Kalea, 3, Mungia, Spain"
-		country: 		"ES"
-		id: 			"51e92893b68307fe59000017"
-		locality: 		"Mungia"
-		name: 			"Inmobiliaria Urrutia"
-		phone: 			"+34 946 15 66 95"
-		position: 
-			latitude: 		43.35618
-			longitude: 		-2.847939
-		postal_code: 	"48100",
-		reference: 		null,
-		types: 
-			0: 			"establishment"
-		website: "http://www.inmobiliariaurrutia.com/"
- 	},
- 	{
-		address: 		"Neurketa Kalea, 8, Mungia"
-		country: 		null
-		id: 			"cd547ea9e3c4fe9d8f8883942a6fa8ac73130905"
-		locality: 		null
-		name: 			"Bar Aketxe"
-		phone: 			null
-		position: 
-			latitude: 		43.356091
-			longitude: 		-2.847759
-		postal_code: 	null
-		reference: 		"CnRoAAAAUV3iCS__"
-		types: 
-		website: 		null
- 	}
+        address:        "Neurketa Kalea, 8, Mungia, Spain",
+        country:        "ES",
+        id:             "51e9290db68307fe5900001d",
+        locality:       "Mungia",
+        name:           "Frus Surf",
+        phone:          "+34 946 15 57 71",
+        position:
+            latitude:       43.356091
+            longitude:      -2.847759
+        postal_code:    "48100",
+        reference:      null,
+        types:
+            0:              "establishment"
+        website:        "http://shop.frussurf.com/"
+    },
+    {
+        address:        "Neurketa Kalea, 3, Mungia, Spain"
+        country:        "ES"
+        id:             "51e92893b68307fe59000017"
+        locality:       "Mungia"
+        name:           "Inmobiliaria Urrutia"
+        phone:          "+34 946 15 66 95"
+        position:
+            latitude:       43.35618
+            longitude:      -2.847939
+        postal_code:    "48100",
+        reference:      null,
+        types:
+            0:          "establishment"
+        website: "http://www.inmobiliariaurrutia.com/"
+    },
+    {
+        address:        "Neurketa Kalea, 8, Mungia"
+        country:        null
+        id:             "cd547ea9e3c4fe9d8f8883942a6fa8ac73130905"
+        locality:       null
+        name:           "Bar Aketxe"
+        phone:          null
+        position:
+            latitude:       43.356091
+            longitude:      -2.847759
+        postal_code:    null
+        reference:      "CnRoAAAAUV3iCS__"
+        types:
+        website:        null
+    }
     ]
 ```
 
@@ -749,34 +835,34 @@ If the place has not `reference` sends the request like:
 Responses are returned with `200 Ok` and the place detail:
 ```json
     {
-		address: "Neurketa Kalea, 8, Mungia, Spain"
-		country: "ES"
-		id: "51e92bfab68307fe59000030"
-		locality: "Mungia"
-		name: "Bar Aketxe"
-		phone: "+34 946 74 18 40"
-		position: Object
-		latitude: 43.356091
-		longitude: -2.847759
-		postal_code: "48100"
-		reviews:
-			aspects: 
-				0: Object
-					rating: 1
-					type: "food"
-				1: Object
-					rating: 1
-					type: "decor"
-				2: Object
-					rating: 1
-					type: "service"
-			author_name: "jc ce"
-			author_url: "https://plus.google.com/101519756922440365704"
-			text: "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
-		types:
-			0: "bar"
-			1: "establishment"
-	}
+        address: "Neurketa Kalea, 8, Mungia, Spain"
+        country: "ES"
+        id: "51e92bfab68307fe59000030"
+        locality: "Mungia"
+        name: "Bar Aketxe"
+        phone: "+34 946 74 18 40"
+        position: Object
+        latitude: 43.356091
+        longitude: -2.847759
+        postal_code: "48100"
+        reviews:
+            aspects:
+                0: Object
+                    rating: 1
+                    type: "food"
+                1: Object
+                    rating: 1
+                    type: "decor"
+                2: Object
+                    rating: 1
+                    type: "service"
+            author_name: "jc ce"
+            author_url: "https://plus.google.com/101519756922440365704"
+            text: "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
+        types:
+            0: "bar"
+            1: "establishment"
+    }
 ```
 #### POST /place
 Use this resource to create place data profile. . Sends the request with the next parameters:
@@ -816,8 +902,8 @@ Users from your applicaction can register visits into a place. Use this resource
 Responses are returned with `200 Ok` and the object:
 ```json
     {
-    	status:     'ok'
-	}
+        status:     'ok'
+    }
 ```
 
 #### GET /checkin
@@ -831,21 +917,21 @@ Get a list of saved places by your users. Just send the user id:
 Responses are returned with `200 Ok` and the object:
 ```json
     {
-		address: "Calle de Trobika, 1, Mungia, Spain"
-		country: "ES"
-		id: "51e930cad2eeaea678000010"
-		locality: "Mungia"
-		name: "Policía Municipal"
-		phone: "+34 946 15 66 77"
-		position: 
-			latitude: 43.354551
-			longitude: -2.846533
-		postal_code: "48100"
-		reviews: Array[0]
-		types:
-			0: "police"
-			1: "establishment"
-	}
+        address: "Calle de Trobika, 1, Mungia, Spain"
+        country: "ES"
+        id: "51e930cad2eeaea678000010"
+        locality: "Mungia"
+        name: "Policía Municipal"
+        phone: "+34 946 15 66 77"
+        position:
+            latitude: 43.354551
+            longitude: -2.846533
+        postal_code: "48100"
+        reviews: Array[0]
+        types:
+            0: "police"
+            1: "establishment"
+    }
 ```
 
 ### Search
@@ -862,10 +948,10 @@ Shown to your users information about friends near to a point. You just need sen
 If the request was successful App/nima returns `200 Ok` and the user data:
 ```json
     {
-		avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
-		id: "51aef6f4560d261d15000001"
-		name: Cata
-		username: "catalina@tapquo.com"
+        avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
+        id: "51aef6f4560d261d15000001"
+        name: Cata
+        username: "catalina@tapquo.com"
     }
 ```
 
