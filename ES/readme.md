@@ -339,7 +339,7 @@ Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de post
 
 ### Comment
 #### POST/comment
-Este recurso sirve para crear comentarios sobre un `post` o un `mensaje privado`. La idea de este recurso es que se puedan crear discusiones sobre lo primero y respuestas inmediatas sobre lo segundo. Para crear un comentario hay que enviar los siguientes parámetros:
+Este recurso sirve para crear comentarios sobre un `post`. La idea de este recurso es que se puedan crear discusiones sobre los post. Para crear un comentario hay que enviar los siguientes parámetros:
 ```json
     { text: "Lorem ipsum"
       post: 2131434543543
@@ -347,13 +347,8 @@ Este recurso sirve para crear comentarios sobre un `post` o un `mensaje privado`
     }
 ```
 
-En cada mensaje solo se rellenará el campo *post* o el campo *message*, nunca los dos, puesto que un comentario no puede ser sobre un post y un mensaje a la vez.
-
 #### GET/post/comment
 Este recurso sirve para obtener todos los comentarios de un post. Solamente hay que enviar la id de dicho *post* para que éste te devuelva la lista de los comentarios.
-
-#### GET/message/comment
-Este recurso sirve para obtener todos los comentarios de un mensaje privado. Con enviar la id de dicho *mensaje*, APP/NIMA te devolverá la lista de los comentarios.
 
 ### Terminal
 #### POST /terminal
