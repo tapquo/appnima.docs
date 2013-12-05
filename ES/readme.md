@@ -329,13 +329,26 @@ Este recurso sirve para obtener un post concreto. Para ello, el usuario solament
 #### GET/timeline
 Este recurso sirve para obtener la lista de posts de un determinado usuario. Si lo que deseas es obtener los posts de tu usuario de la sesión no tienes que enviar ningún parámetro junto con la petición. Te devolverá la lista de posts tanto tuyos como de los usuarios a los que sigues (following) ordenados del más antiguo al más reciente.
 
-En cambio, si lo que deseas es obtener los posts de otro usuario, debes enviar los siguientes parámetros:
+En cambio, si lo que deseas es obtener los posts de otro usuario o solamente los tuyos propios, debes enviar los siguientes parámetros:
 ```json
     { id: 4234324432432}
 ```
 Se trata de la id del usuario del que quieres obtener los post. En este caso, unicamente te devolverá la lista de los post que ha creado ese usuario.
 
 Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá APP/NIMA.
+
+También existe la opción de que te devuelva la lista de post con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de posts cronologicamente.
+
+Para ello, debes enviar los siguientes parámetros:
+```json
+    { page: 0,
+      num_results: 5
+      last_data: "2013-12-02 08:00:58.784Z"
+    }
+```
+A ese objeto se le debe añadir, si se desea, lo explicado anteriormente de la *id* del usuario.
+
+La variable *page* se trata del número de página que deseas obtener; esto es, el trozo de la lista de post que deseas. *num_results* es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de posts. Por último, la variable *last_data* se trata de la fecha de creación del último post recibido en la última llamada realizada. Es importante esta fecha ya que será el punto de comienzo de la siguiente tanda de posts.
 
 ### Comment
 #### POST/comment
