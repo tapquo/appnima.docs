@@ -572,7 +572,7 @@ Devolverá un `200 Ok` junto con lista de usuarios que siguen al usuario indicad
 
 
 ### Estadísticas
-#### GET /stats
+#### GET /info
 Si quieres tener una visión general de un determinado usuario dentro de la red social de tu aplicación utiliza este recurso, que al igual que en los recursos anteriores solo necesita del id del usuario como parámetro:
 ```json
     {
@@ -580,11 +580,21 @@ Si quieres tener una visión general de un determinado usuario dentro de la red 
     }
 ```
 
-Devolverá un `200 Ok` junto con los totales de *followers* y *followings* que tiene el usuario indicado:
+Devolverá un `200 Ok` junto con los totales de *followers* y *followings* que tiene el usuario indicado y la lista de ambos:
 ```json
     {
-        following:  123,
-        followers:  343
+        following:
+            users: [
+                {name: javi
+                 username: soyjavi
+                 bio: Lorem ipsum
+                 mail: soyjavi@tapquo.com
+                }
+                ]
+            count: 1,
+        followers:
+            users: []
+            count: 0
     }
 ```
 

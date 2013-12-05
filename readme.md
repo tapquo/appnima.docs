@@ -569,7 +569,7 @@ App/nima returns `200 Ok` and the list:
 ```
 
 ### Statistics
-#### GET /stats
+#### GET /info
 Get an overview about users network. Use this resource and ID user:
 ```json
     {
@@ -577,11 +577,20 @@ Get an overview about users network. Use this resource and ID user:
     }
 ```
 
-App/nima returns `200 Ok` and user total *followers* and *followings*:
+App/nima returns `200 Ok` and user total *followers* and *followings* and list of both:
 ```json
     {
-        following:  123,
-        followers:  343
+        following:
+            users: [{
+                name: javi
+                username: soyjavi
+                bio: Lorem ipsum
+                mail: soyjavi@tapquo.com
+            }]
+            count: 1,
+        followers:
+            users: []
+            count: 0
     }
 ```
 

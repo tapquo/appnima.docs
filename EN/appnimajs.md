@@ -256,7 +256,7 @@ With this resource you can get the list of people that follow a user. It works a
 
 
 #### Information
-This resource returns a user's relationships' stats. If we use a user's id as parameter it will return his stats, if not, logged user's stats:
+This resource returns a user's relationships' stats and list of followers and followings. If we use a user's id as parameter it will return his stats, if not, logged user's stats:
 
     Appnima.Network.info();
 
@@ -352,16 +352,16 @@ Remove group:
     group.remove("id");
 
 Change the name of the group:
-  
-	group.rename("id", "name");
-  
+
+    group.rename("id", "name");
+
 Get the messages of the group. The second parameter is the page number, the first page is 0 and each page have 50 messages:
 
-	group.messages("id", 0);
-	
+    group.messages("id", 0);
+
 Delete unread messages count, the first parameter is the group id:
 
-	group.deleteUnreadCount("id", callback);
+    group.deleteUnreadCount("id", callback);
 
 Chat
 ----
@@ -407,7 +407,7 @@ The inbox allows a user to receive messages from other users. The messages will 
 
 Get the unread messages count by group:
 
-	inbox.unreadCount(callback);
+    inbox.unreadCount(callback);
 
 
 User
@@ -438,9 +438,9 @@ This methods are the same for all the socket types seen previously:
 * `instance.onError(callback)`: Calls to the callback on error
 
 * `instance.onMessage(callback)`: Calls to the callback on message received, the recived message will be an object like this:
-	* content:  "message content"
-	* user:	{"Information about the sender"}
-	* data: {"Extra information sendend"}
-	* created_at: "2013-11-16T05:55:02.736Z"
-	
+    * content:  "message content"
+    * user: {"Information about the sender"}
+    * data: {"Extra information sendend"}
+    * created_at: "2013-11-16T05:55:02.736Z"
+
 * `instance.onDisallow(callback)`: Calls to the callback when a user is disallowed from the group
