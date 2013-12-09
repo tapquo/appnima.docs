@@ -540,6 +540,20 @@ App/nima returns `200 Ok` and the list:
     ]
 ```
 
+Like in *timeline*, there is the option of getting this data using pagination. To do this, you have to add the following parameters to your call:
+
+
+```json
+    {
+     user: 543534534534534534
+     page: 0
+     num_results: 5
+    }
+```
+
+
+The meaning of the variable *page* and *num_results* is the same as in the case of the call to **Timeline**. The only difference between the two calls is that in this case dont need to send the variable of the last date.
+
 #### GET /followers
 As **GET /following** you can retrieve a list of followers of a user.
 
@@ -567,6 +581,7 @@ App/nima returns `200 Ok` and the list:
     }
     ]
 ```
+Like has been explained in **GET /followings**, there is also the option of getting the data using pagination. The dynamic is the same.
 
 ### Statistics
 #### GET /info

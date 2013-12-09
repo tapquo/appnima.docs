@@ -246,6 +246,11 @@ With this resource you can get the list of people that a user is following. It w
 
     Appnima.Network.following("28319319832");
 
+On the other hand, there is also the option for you to return the list with pagination, that is, that in each API call returning part of the list of users. This should be sent only two variables along with the user id:
+
+    Appnima.Network.following("28319319832", 0, 5);
+
+The first variable is the page number you want to obtain, that is, the part of the list you want to get. Second number is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same.
 
 #### Followers
 With this resource you can get the list of people that follow a user. It works as the previous parameter, accepting an optional user id parameter:
@@ -254,6 +259,7 @@ With this resource you can get the list of people that follow a user. It works a
 
     Appnima.Network.followers("28319319832");
 
+Like as explained above, it is also possible to obtain results with pagination. The mode of this is the same as getting the users you follow.
 
 #### Information
 This resource returns a user's relationships' stats and list of followers and followings. If we use a user's id as parameter it will return his stats, if not, logged user's stats:

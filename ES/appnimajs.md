@@ -245,6 +245,11 @@ Obtienes la lista de tu usuario loqueado. Si llamas al recurso pasando como par�
 
     Appnima.Network.following("28319319832");
 
+Por otro lado, también existe la opción de que te devuelva la lista de gente a la que sigues con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de usuarios. Para ello unicamente se debe enviar dos variables más junto con la id del usuario del que quieres obtener los datos:
+
+    Appnima.Network.following("28319319832", 0, 4);
+
+El primer valor se trata del número de página que deseas obtener; esto es, el trozo de la lista de usuarios que deseas. La segunda variable es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de usuarios.
 
 #### Seguidores
 De la misma forma que lo anterior, puedes utilizar este recurso de dos maneras: si no pasas parámetro obtienes la lista de seguidores del usuario loqueado:
@@ -255,6 +260,7 @@ Si pasas la ID de un usuario de tu plataforma obtienes su lista de seguidores:
 
     Appnima.Network.followers("28319319832");
 
+Al igual que en lo explicado anteriormente, también existe la posibilidad de obtener los resultados con paginación. El modo de uso es igual que en la obtención de los usuarios a los que sigues.
 
 #### Información
 Con este recurso puedes obtener una visión general del estado de relaciones de un usuario. Puedes conocer de forma ágil cuantos seguidores tiene y a cuantas personas sigue, a la vez que obtienes la lista de ambos. Esta información la puedes obtener de cualquier usuario de tu aplicación si pasas como parámetro su ID:

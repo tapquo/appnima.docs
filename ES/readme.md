@@ -539,6 +539,18 @@ Devolverá un `200 Ok` junto con lista de usuarios que sigue el usuario indicado
     ]
 ```
 
+Al igual que en el *timeline*, existe la opción de obtener estos datos mediante paginación. Para ello, simplemente tienes que añadir los siguientes parámetros a tu llamada:
+
+```json
+    {
+     user: 543534534534534534
+     page: 0
+     num_results: 5
+    }
+```
+
+El significado de las variables *page* y *num_results* es el mismo que en el caso de la llamada al **Timeline**. La única diferencia de ambas llamadas es que en este caso no hace falta enviar la variable de la última fecha del último dato obtenido.
+
 #### GET /followers
 Funciona de igual manera que **GET /following**  y esta vez tendrás que enviar como parámetro el usuario del que quieres conocer la lista de usuarios que le están siguiendo:
 ```json
@@ -570,6 +582,7 @@ Devolverá un `200 Ok` junto con lista de usuarios que siguen al usuario indicad
     ]
 ```
 
+Al igual que lo que se ha explicado anteriormente en **GET/ followings**, también existe la opción de obtener los datos mediante paginación. La dinámica es la misma.
 
 ### Estadísticas
 #### GET /info
