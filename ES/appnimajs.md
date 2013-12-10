@@ -96,6 +96,7 @@ Puedes actualizar uno o varios campos de datos de tu usuario con este recurso. E
         username: "haas85",
         name: "Inigo",
         avatar: "http://AVATAR_URL",
+        picture: "http://PICTURE_URL",
         phone: "29306832906",
         site: "http://tapquo.com",
         bio: ""

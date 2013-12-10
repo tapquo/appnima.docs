@@ -245,6 +245,7 @@ Este recurso sirve para modificar los datos personales de un usuario dentro de t
         username:   "soyjavi",
         name:       "Javi Jimenez",
         avatar:     "http://USER_AVATAR_URL",
+        picture:    "http://USER_PICTURE_URL",
         bio:        "Founder & CTO at @tapquo",
         phone:      "PHONE_NUMBER"
     }

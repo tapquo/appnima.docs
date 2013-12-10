@@ -96,6 +96,7 @@ The `update` resource also allows users to update their data. To do this just ca
         username: "haas85",
         name: "Inigo",
         avatar: "http://AVATAR_URL",
+        picture: "http://PICTURE_URL",
         phone: "29306832906",
         site: "http://tapquo.com",
         bio: ""
