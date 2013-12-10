@@ -328,6 +328,15 @@ If all goes well you only have to wait for the answer `200 ok` and APP/NIMA retu
 #### GET/ post
 This resource is used to obtain a specific post. To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
 
+#### GET /post/info
+This resource is used to obtain counter of user's list of posts. If you want to get your own counter, you dont have to send anything. However, if you want to get counter of other user, you may send this user's *id* in the call:
+
+```json
+    {
+        user: 42342354543543
+    }
+```
+
 ### Timeline
 #### GET/timeline
 This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.

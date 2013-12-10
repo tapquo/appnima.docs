@@ -324,6 +324,14 @@ Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te dev
 #### GET/post
 Este recurso sirve para obtener un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea obtener y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y el post concreto del mismo estilo que en el `POST`.
 
+#### GET/post/info
+Este recurso sirve para obtener el contador de los post del usuario. Si deseas obtener el contador de tus propios post, no debes enviarle ningún parámetro, pero en cambio si lo que deseas obtener es el contador de post de otro usuario, tienes que enviarle la *id* de dicho usuario junto con la llamada.
+
+```json
+    {
+        user: 4231312321312323
+    }
+```
 
 ### Timeline
 #### GET/timeline
