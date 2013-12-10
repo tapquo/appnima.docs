@@ -89,7 +89,7 @@ The object you will receive in both cases is:
 
 
 #### Update
-The `info` resource also allows users to update their data. To do this just call it using as parameter a dictionary that contains all this optional fields:
+The `update` resource also allows users to update their data. To do this just call it using as parameter a dictionary that contains all this optional fields:
 
     data = {
         mail: "inigo@tapquo.com",
