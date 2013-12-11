@@ -466,25 +466,33 @@ Si necesitas buscar usuarios dentro de tu aplicación debes utilizar este recurs
 En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios coincidentes a esa búsqueda:
 ```json
     [{
-        id:         120949303434,
-        username:   "soyjavi",
-        name:       "Javi",
-        avatar:     "AVATAR_URL"
+        id:          120949303434,
+        username:    "soyjavi",
+        name:        "Javi",
+        avatar:      "AVATAR_URL",
+        is_follow:   true,
+        is_follower: false
     },
     {
         id:         120949303433,
         username:   "cataflu",
         name:       "Catalina",
-        avatar:     "AVATAR_URL"
+        avatar:     "AVATAR_URL",
+        is_follow:   false,
+        is_follower: false
     },
     {
         id:         120949303431,
         username:   "haas85",
         name:       "Iñigo",
-        avatar:     "AVATAR_URL"
+        avatar:     "AVATAR_URL",
+        is_follow:   true,
+        is_follower: true
     }
     ]
 ```
+
+La variable *is_follow* devuelve si el usuario logueado sigue a esa persona, mientras que la variable *is_follower* devuelve si dicho usuario sigue a la persona logueada.
 
 #### POST /follow
 Si necesitas seguir a un usuario utiliza este recurso junto con el parámetro:
