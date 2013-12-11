@@ -574,24 +574,29 @@ Devolverá un `200 Ok` junto con lista de usuarios que siguen al usuario indicad
         id:         120949303434,
         username:   "soyjavi",
         name:       "Javi",
-        avatar:     "AVATAR_URL"
+        avatar:     "AVATAR_URL",
+        is_follow:   true
     },
     {
         id:         120949303433,
         username:   "cataflu",
         name:       "Catalina",
-        avatar:     "AVATAR_URL"
+        avatar:     "AVATAR_URL",
+        is_follow:   false
     },
     {
         id:         120949303431,
         username:   "haas85",
         name:       "Iñigo",
-        avatar:     "AVATAR_URL"
+        avatar:     "AVATAR_URL",
+        is_follow:   false
     }
     ]
 ```
 
 Al igual que lo que se ha explicado anteriormente en **GET/ followings**, también existe la opción de obtener los datos mediante paginación. La dinámica es la misma.
+
+Como se puede observar, en este caso, la llamada devuelve una variable más en cada objeto. Dicha variable indica si el usuario logueado sigue a esa persona o no.
 
 ### Estadísticas
 #### GET /info

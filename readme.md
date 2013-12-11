@@ -582,16 +582,20 @@ App/nima returns `200 Ok` and the list:
         username:   "soyjavi",
         name:       "Javi",
         avatar:     "AVATAR_URL"
+        is_follow:  true
     },
     {
         id:         120949303431,
         username:   "haas85",
         name:       "Iñigo",
-        avatar:     "AVATAR_URL"
+        avatar:     "AVATAR_URL",
+        is_follow:  false
     }
     ]
 ```
 Like has been explained in **GET /followings**, there is also the option of getting the data using pagination. The dynamic is the same.
+
+As can be seen, in this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
 
 ### Statistics
 #### GET /info
