@@ -478,28 +478,28 @@ Responses are returned with `200 Ok` and a list of users that match the search:
         username:   "soyjavi",
         name:       "Javi",
         avatar:     "AVATAR_URL",
-        is_follow:  true,
-        is_follower: false
+        follower:   true,
+        following:  false
     },
     {
         id:         120949303433,
         username:   "cataflu",
         name:       "Catalina",
         avatar:     "AVATAR_URL",
-        is_follow:  true,
-        is_follower: false
+        follower:   true,
+        following:  true
     },
     {
         id:         120949303431,
         username:   "haas85",
         name:       "Iñigo",
         avatar:     "AVATAR_URL",
-        is_follow:  true,
-        is_follower: false
+        follower:   false,
+        following:  false
     }
     ]
 ```
-The variable *is_follow* indicate that user is loggued is follow or not that user, and the variable *is_following* indicate that user follow or not loggued user.
+The variable *following* indicate that user is loggued is follow or not that user, and the variable *follower* indicate that user follow or not loggued user.
 
 #### POST /follow
 To follow a user you can use this resource with the ID user:
