@@ -334,6 +334,28 @@ Este recurso sirve para obtener el contador de los post del usuario. Si deseas o
     }
 ```
 
+### Favoritos
+#### POST /like/post
+Este recurso sirve para hacer favorito un post en concreto o para quitar un favorito ya hecho. Para ello, solo hay que enviar el *id* de dicho post.
+```
+    json{
+            post: 87438957439857439853
+        }
+```
+
+Si es la primera vez que marca como favorito, APP/NIMA devolverá la respuesta `200 OK`. En cambio, si ya había marcado como favorito antes, se borrará dicho favorito y APP/NIMA devolverá un mensaje: *unliked*.
+
+#### GET /like/post
+Este recurso, si todo va bien, devolverá la lista de los *post* a los que el usuario logueado ha marcado como favorito. Para ello, no hace falta enviar nada.
+
+#### GET /post/likers
+Este recurso sirve para obtener todos los usuarios que han hecho favorito a un *post* en concreto. Para ello, solamente hay que enviar la *id* de dicho post.
+```
+    json{
+            post: 87438957439857439853
+        }
+```
+
 ### Timeline
 #### GET/timeline
 Este recurso sirve para obtener la lista de posts de un determinado usuario. Si lo que deseas es obtener los posts de tu usuario de la sesión no tienes que enviar ningún parámetro junto con la petición. Te devolverá la lista de posts tanto tuyos como de los usuarios a los que sigues (following) ordenados del más antiguo al más reciente.
