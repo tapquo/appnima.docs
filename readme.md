@@ -338,29 +338,6 @@ This resource is used to obtain counter of user's list of posts. If you want to 
     }
 ```
 
-### Likes
-#### POST /like/post
-This resource is used to do favorite particular post or to remove a favorite already done. To do this, you just have to send the *id* of that post.
-
-```json
-    {
-        post: 498342893788734
-    }
-```
-If this is the first time you mark as favorite, APP NIMA return the `200 OK` response. But if you had liked before, delete that favorite and APP/NIMA return a message: *unliked*.
-
-#### GET /like/post
-This resource, if all goes well, return the list of the *posts* of the user has logged liked. To do this, you do not send anything.
-
-#### GET /post/likers
-This resource used to get all users who have liked an specific *post*. To do this, you only need to send the *id* of that post.
-
-```json
-    {
-        post: 498342893788734
-    }
-```
-
 ### Timeline
 #### GET/timeline
 This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.
@@ -385,6 +362,30 @@ To do this, you must send the following parameters:
 To this object, if you want, must be added the user *id*.
 
 *page* variable is the page number you want to obtain, that is, the part of the list you want to get. *num_results* is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same. Finally, *last_data* variable is the creation date of the last post received in the last call. This date is important because it will be the starting point of the next part of posts.
+
+### Likes
+#### POST /like/post
+This resource is used to do favorite particular post or to remove a favorite already done. To do this, you just have to send the *id* of that post.
+
+```json
+    {
+        post: 498342893788734
+    }
+```
+If this is the first time you mark as favorite, APP NIMA return the `200 OK` response. But if you had liked before, delete that favorite and APP/NIMA return a message: *unliked*.
+
+#### GET /like/post
+This resource, if all goes well, return the list of the *posts* of the user has logged liked. To do this, you do not send anything.
+Here there is also the possibility of using *pagination* to list post as explained in the resource **TIMELINE**.
+
+#### GET /post/likers
+This resource used to get all users who have liked an specific *post*. To do this, you only need to send the *id* of that post.
+
+```json
+    {
+        post: 498342893788734
+    }
+```
 
 ### Comment
 #### POST/ comment
