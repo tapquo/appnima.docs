@@ -338,6 +338,51 @@ This resource is used to obtain counter of user's list of posts. If you want to 
     }
 ```
 
+#### GET /post/search
+This resource is used to find the *posts* that having in its content a particular word. You have to send the word that you want to search:
+```json
+    {
+        query: "Lorem"
+    }
+```
+In this example, APP/NIMA will return all *posts* in its field *content* have the word "Lorem". An example would be:
+```json
+    [{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    },{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Loremipsum es un ejemplo.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    }
+    ]
+   }
+```
+There also search through *pagination* to be explained in the following resource.
+
 ### Timeline
 #### GET/timeline
 This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.

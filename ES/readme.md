@@ -334,6 +334,53 @@ Este recurso sirve para obtener el contador de los post del usuario. Si deseas o
     }
 ```
 
+#### GET /post/search
+Este recurso sirve para buscar los *posts* que tengan en su contenido una palabra en concreto. Para ello simplemente habría que enviar la palabra que queremos buscar:
+```json
+    {
+        query: "Lorem"
+    }
+```
+
+En este ejemplo, APP/NIMA nos devolverá todos los *posts* que en su campo *content* tengan la palabra "Lorem". Un ejemplo sería el siguiente:
+```json
+    [{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    },{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Loremipsum es un ejemplo.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    }
+    ]
+   }
+```
+
+También existe de buscar mediante *paginación* que se explicará en el siguiente recurso.
+
 ### Timeline
 #### GET/timeline
 Este recurso sirve para obtener la lista de posts de un determinado usuario. Si lo que deseas es obtener los posts de tu usuario de la sesión no tienes que enviar ningún parámetro junto con la petición. Te devolverá la lista de posts tanto tuyos como de los usuarios a los que sigues (following) ordenados del más antiguo al más reciente.
