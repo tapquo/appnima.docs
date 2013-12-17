@@ -117,22 +117,6 @@ Your users can upload their own avatar file. To upload an avatar use this resour
 
     Appnima.User.avatar(USER_AVATAR);
 
-
-#### Post
-Users can create posts or modify those that have created in application. To do this, you must send this parameters with the request:
-
-    data = {
-        id: POST_ID
-        title: "Lorem Ipsum"
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        image: "http://IMAGE_URL"
-    }
-
-    Appnima.User.post(data);
-
-Only ```content``` field is required. If ```id``` field is not sent, it will create the post, otherwise, will update this post.
-
-
 Terminal
 --------
 
@@ -225,6 +209,23 @@ To delete a message cal this resource using the message id as parameter:
 
     Appnima.Messenger.deleteMessage("28319319832");
 
+
+Posts
+--------
+
+#### Post
+Users can create posts or modify those that have created in application. To do this, you must send this parameters with the request:
+
+    data = {
+        id: POST_ID
+        title: "Lorem Ipsum"
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+        image: "http://IMAGE_URL"
+    }
+
+    Appnima.Messenger.post(data);
+
+Only ```content``` field is required. If ```id``` field is not sent, it will create the post, otherwise, will update this post.
 
 Relathionships
 ==============

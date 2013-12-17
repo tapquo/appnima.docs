@@ -263,7 +263,6 @@ Este recurso sirve para cambiar la contraseña, para ello enviaremos los siguien
     }
 ```
 
-
 #### POST /avatar
 Este recurso sirve para subir un avatar, para ello enviaremos los siguientes parámetros:
 ```json
@@ -273,139 +272,6 @@ Este recurso sirve para subir un avatar, para ello enviaremos los siguientes par
 ```
 
 En el caso de que haya ido todo bien se devolverá el código `201 RESOURCE CREATED`.
-
-### Post (Mensaje)
-
-#### POST/post
-Un post se trata de un mensaje público y el usuario con este recurso puede crearlo. Para ello debe enviar los parámetros junto con la petición:
-
-```json
-    {
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
-    }
-```
-El único campo obligatorio a la hora de crear un post es el ```content``` que se trata del contenido del mensaje.
-
-Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
-```json
-    {
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-        _id:        "57592807235"
-        avatar:      "http://AVATAR_URL",
-        created_at:   "2013-12-02 08:00:58.784Z",
-        mail:      "soyjavi@tapquo.com",
-        name:    "javi",
-        username:    "soyjavi"
-    }
-   }
-```
-
-#### POST/put
-Este recurso sirve para modificar un post creado anteriormente. Para ello, el usuario debe enviar los parámetros junto con la petición:
-
-```json
-    {
-        id: POST_ID,
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
-    }
-```
-
-Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los mismos parámetros que en el `POST`.
-
-#### GET/post
-Este recurso sirve para obtener un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea obtener y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y el post concreto del mismo estilo que en el `POST`.
-
-#### GET/post/info
-Este recurso sirve para obtener el contador de los post del usuario. Si deseas obtener el contador de tus propios post, no debes enviarle ningún parámetro, pero en cambio si lo que deseas obtener es el contador de post de otro usuario, tienes que enviarle la *id* de dicho usuario junto con la llamada.
-
-```json
-    {
-        user: 4231312321312323
-    }
-```
-
-#### GET /post/search
-Este recurso sirve para buscar los *posts* que tengan en su contenido una palabra en concreto. Para ello simplemente habría que enviar la palabra que queremos buscar:
-```json
-    {
-        query: "Lorem"
-    }
-```
-
-En este ejemplo, APP/NIMA nos devolverá todos los *posts* que en su campo *content* tengan la palabra "Lorem". Un ejemplo sería el siguiente:
-```json
-    [{
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-         _id:        "57592807235"
-         avatar:      "http://AVATAR_URL",
-         created_at:   "2013-12-02 08:00:58.784Z",
-         mail:      "soyjavi@tapquo.com",
-         name:    "javi",
-         username:    "soyjavi"
-        }
-    },{
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Loremipsum es un ejemplo.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-         _id:        "57592807235"
-         avatar:      "http://AVATAR_URL",
-         created_at:   "2013-12-02 08:00:58.784Z",
-         mail:      "soyjavi@tapquo.com",
-         name:    "javi",
-         username:    "soyjavi"
-        }
-    }
-    ]
-   }
-```
-
-También existe de buscar mediante *paginación* que se explicará en el siguiente recurso.
-
-### Timeline
-#### GET/timeline
-Este recurso sirve para obtener la lista de posts de un determinado usuario. Si lo que deseas es obtener los posts de tu usuario de la sesión no tienes que enviar ningún parámetro junto con la petición. Te devolverá la lista de posts tanto tuyos como de los usuarios a los que sigues (following) ordenados del más antiguo al más reciente.
-
-En cambio, si lo que deseas es obtener los posts de otro usuario o solamente los tuyos propios, debes enviar los siguientes parámetros:
-```json
-    { id: 4234324432432}
-```
-Se trata de la id del usuario del que quieres obtener los post. En este caso, unicamente te devolverá la lista de los post que ha creado ese usuario.
-
-Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá APP/NIMA.
-
-También existe la opción de que te devuelva la lista de post con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de posts cronologicamente.
-
-Para ello, debes enviar los siguientes parámetros:
-```json
-    { page: 0,
-      num_results: 5
-      last_data: "2013-12-02 08:00:58.784Z"
-    }
-```
-A ese objeto se le debe añadir, si se desea, lo explicado anteriormente de la *id* del usuario.
-
-La variable *page* se trata del número de página que deseas obtener; esto es, el trozo de la lista de post que deseas. *num_results* es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de posts. Por último, la variable *last_data* se trata de la fecha de creación del último post recibido en la última llamada realizada. Es importante esta fecha ya que será el punto de comienzo de la siguiente tanda de posts.
-
 ### Favoritos
 #### POST /like/post
 Este recurso sirve para hacer favorito un post en concreto o para quitar un favorito ya hecho. Para ello, solo hay que enviar el *id* de dicho post.
@@ -419,7 +285,7 @@ Si es la primera vez que marca como favorito, APP/NIMA devolverá la respuesta `
 
 #### GET /like/post
 Este recurso, si todo va bien, devolverá la lista de los *post* a los que el usuario logueado ha marcado como favorito. Para ello, no hace falta enviar nada.
-En este caso también está la posibilidad de obtener los post mediante *paginación* como se ha explicado en el recurso de **TIMELINE**.
+En este caso también está la posibilidad de obtener los post mediante *paginación* como se explica en el método de **TIMELINE** en el recurso de ```MESSENGER```.
 
 #### GET /post/likers
 Este recurso sirve para obtener todos los usuarios que han hecho favorito a un *post* en concreto. Para ello, solamente hay que enviar la *id* de dicho post.
@@ -625,7 +491,7 @@ Devolverá un `200 Ok` junto con lista de usuarios que sigue el usuario indicado
     ]
 ```
 
-Al igual que en el *timeline*, existe la opción de obtener estos datos mediante paginación. Para ello, simplemente tienes que añadir los siguientes parámetros a tu llamada:
+Al igual que en el *timeline* del recurso de ```MESSENGER```, existe la opción de obtener estos datos mediante paginación. Para ello, simplemente tienes que añadir los siguientes parámetros a tu llamada:
 
 ```json
     {
@@ -843,6 +709,138 @@ Si todo ha salido bien, devolverá un `200 Ok`junto con el mensaje de confirmaci
         message:            "Resource READ."
     }
 ```
+
+### Post (Mensaje)
+
+#### POST/post
+Un post se trata de un mensaje público y el usuario con este recurso puede crearlo. Para ello debe enviar los parámetros junto con la petición:
+
+```json
+    {
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+El único campo obligatorio a la hora de crear un post es el ```content``` que se trata del contenido del mensaje.
+
+Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
+```json
+    {
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+        _id:        "57592807235"
+        avatar:      "http://AVATAR_URL",
+        created_at:   "2013-12-02 08:00:58.784Z",
+        mail:      "soyjavi@tapquo.com",
+        name:    "javi",
+        username:    "soyjavi"
+    }
+   }
+```
+
+#### POST/put
+Este recurso sirve para modificar un post creado anteriormente. Para ello, el usuario debe enviar los parámetros junto con la petición:
+
+```json
+    {
+        id: POST_ID,
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+
+Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los mismos parámetros que en el `POST`.
+
+#### GET/post
+Este recurso sirve para obtener un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea obtener y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y el post concreto del mismo estilo que en el `POST`.
+
+#### GET/user/post
+Este recurso sirve para obtener el contador de los post del usuario. Si deseas obtener el contador de tus propios post, no debes enviarle ningún parámetro, pero en cambio si lo que deseas obtener es el contador de post de otro usuario, tienes que enviarle la *id* de dicho usuario junto con la llamada.
+
+```json
+    {
+        user: 4231312321312323
+    }
+```
+
+#### GET /post/search
+Este recurso sirve para buscar los *posts* que tengan en su contenido una palabra en concreto. Para ello simplemente habría que enviar la palabra que queremos buscar:
+```json
+    {
+        query: "Lorem"
+    }
+```
+
+En este ejemplo, APP/NIMA nos devolverá todos los *posts* que en su campo *content* tengan la palabra "Lorem". Un ejemplo sería el siguiente:
+```json
+    [{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    },{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Loremipsum es un ejemplo.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    }
+    ]
+   }
+```
+
+También existe de buscar mediante *paginación* que se explicará en el siguiente recurso.
+
+### Timeline
+#### GET/user/timeline
+Este recurso sirve para obtener la lista de posts de un determinado usuario. Si lo que deseas es obtener los posts de tu usuario de la sesión no tienes que enviar ningún parámetro junto con la petición. Te devolverá la lista de posts tanto tuyos como de los usuarios a los que sigues (following) ordenados del más antiguo al más reciente.
+
+En cambio, si lo que deseas es obtener los posts de otro usuario o solamente los tuyos propios, debes enviar los siguientes parámetros:
+```json
+    { id: 4234324432432}
+```
+Se trata de la id del usuario del que quieres obtener los post. En este caso, unicamente te devolverá la lista de los post que ha creado ese usuario.
+
+Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá APP/NIMA.
+
+También existe la opción de que te devuelva la lista de post con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de posts cronologicamente.
+
+Para ello, debes enviar los siguientes parámetros:
+```json
+    { page: 0,
+      num_results: 5
+      last_data: "2013-12-02 08:00:58.784Z"
+    }
+```
+A ese objeto se le debe añadir, si se desea, lo explicado anteriormente de la *id* del usuario.
+
+La variable *page* se trata del número de página que deseas obtener; esto es, el trozo de la lista de post que deseas. *num_results* es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de posts. Por último, la variable *last_data* se trata de la fecha de creación del último post recibido en la última llamada realizada. Es importante esta fecha ya que será el punto de comienzo de la siguiente tanda de posts.
 
 
 Location
