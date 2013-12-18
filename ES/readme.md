@@ -734,13 +734,26 @@ Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te dev
         create_at:      "2013-12-02 08:00:58.784Z"
         image:          "http://IMAGE_URL",
         owner:          {
-        _id:        "57592807235"
-        avatar:      "http://AVATAR_URL",
-        created_at:   "2013-12-02 08:00:58.784Z",
-        mail:      "soyjavi@tapquo.com",
-        name:    "javi",
-        username:    "soyjavi"
-    }
+            _id: "57592807235"
+            avatar: "http://AVATAR_URL",
+            created_at: "2013-12-02 08:00:58.784Z",
+            mail: "soyjavi@tapquo.com",
+            name: "javi",
+            username: "soyjavi"
+        },
+        owner_profile:   {
+            _id:"4324324324234",
+            id: "57592807235",
+            application: "24234234",
+            mail: soyjavi@tapquo.com,
+            username: soyjavi,
+            name: javi,
+            bio: Lorem Ipsum Bla bla bla,
+            avatar: "http://AVATAR_URL",
+            picture: "http://PICTURE_URL",
+            phone: 545435435435,
+            site: www.taqpuo.com
+        }
    }
 ```
 

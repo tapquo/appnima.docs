@@ -303,13 +303,26 @@ If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will
         create_at:      "2013-12-02 08:00:58.784Z"
         image:          "http://IMAGE_URL",
         owner:          {
-        _id:        "57592807235"
-        avatar:      "http://AVATAR_URL",
-        created_at:   "2013-12-02 08:00:58.784Z",
-        mail:      "soyjavi@tapquo.com",
-        name:    "javi",
-        username:    "soyjavi"
-    }
+            _id: "57592807235"
+            avatar: "http://AVATAR_URL",
+            created_at: "2013-12-02 08:00:58.784Z",
+            mail: "soyjavi@tapquo.com",
+            name: "javi",
+            username: "soyjavi"
+        },
+        owner_profile: {
+            _id: "432423423",
+            id: "57592807235",
+            application: "5425435453",
+            mail: soyjavi@tapquo.com,
+            username: soyjavi,
+            name: javi,
+            bio: Lorem Ipsum Bla bla bla,
+            avatar: "http://AVATAR_URL",
+            picture: "http://PICTURE_URL",
+            phone: 4324324234,
+            site: www.tapquo.com
+        }
    }
 ```
 
