@@ -745,14 +745,14 @@ Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te dev
             _id:"4324324324234",
             id: "57592807235",
             application: "24234234",
-            mail: soyjavi@tapquo.com,
-            username: soyjavi,
-            name: javi,
-            bio: Lorem Ipsum Bla bla bla,
+            mail: "soyjavi@tapquo.com",
+            username: "soyjavi",
+            name: "javi",
+            bio: "Lorem Ipsum Bla bla bla",
             avatar: "http://AVATAR_URL",
             picture: "http://PICTURE_URL",
-            phone: 545435435435,
-            site: www.taqpuo.com
+            phone: "545435435435",
+            site: "www.taqpuo.com"
         }
    }
 ```

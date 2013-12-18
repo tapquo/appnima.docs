@@ -314,14 +314,14 @@ If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will
             _id: "432423423",
             id: "57592807235",
             application: "5425435453",
-            mail: soyjavi@tapquo.com,
-            username: soyjavi,
-            name: javi,
-            bio: Lorem Ipsum Bla bla bla,
+            mail: "soyjavi@tapquo.com",
+            username: "soyjavi",
+            name: "javi",
+            bio: "Lorem Ipsum Bla bla bla",
             avatar: "http://AVATAR_URL",
             picture: "http://PICTURE_URL",
-            phone: 4324324234,
-            site: www.tapquo.com
+            phone: "4324324234",
+            site: "www.tapquo.com"
         }
    }
 ```
