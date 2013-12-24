@@ -441,21 +441,25 @@ This resource used to get all users who have liked an specific *post*. To do thi
 
 ```json
     {
-        post: 498342893788734
+        post: "Lorem Impsum…"
+        id: 84935746435693
     }
 ```
 
 ### Comment
-#### POST/ comment
+#### POST /comment
 This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
 ```json
-    { text: "Lorem ipsum"
-      post: 2131434543543
-      message: 4325436457645
+    { 
+      id: "post_id"
+      content: 4325436457645
     }
 ```
 #### GET /post/comment
 This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
+
+#### DELETE /comment
+This resource drops a comment, you have to send the comment id.
 
 ### Terminal
 #### POST /terminal

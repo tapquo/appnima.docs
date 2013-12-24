@@ -224,6 +224,21 @@ Los usuarios pueden crear mensajes (post) o modificar los que hayan creado dentr
 
 Solo el campo ```content``` es obligatorio. Si no se manda el campo ```id```, se creará el post; en caso contrario, se actualizará dicho post.
 
+#### Comentarios
+Un post puede tener comentarios.
+
+Añadir un comentario a un post, pasandole el id del post y el texto del comentario:
+
+	Appnima.Messenger.addComment("324685348953", "Lorem impsum dolor sit...")
+
+Obtener comentarios de un post en concreto, pasando el id de el post en cuestión:
+
+	Appnima.Messenger.postComment("53485u452395")
+	
+Eliminar el comentario, pasando como párametro el id del comentario:
+
+	Appnima.Messenger.deleteComment("837456459643")
+
 Relaciones
 ==========
 #### Seguir

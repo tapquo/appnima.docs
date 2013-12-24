@@ -227,6 +227,21 @@ Users can create posts or modify those that have created in application. To do t
 
 Only ```content``` field is required. If ```id``` field is not sent, it will create the post, otherwise, will update this post.
 
+#### Comment
+A post can contain a list of comments.
+
+To add a comment into a post you have to pass the id of the post and the comment text:
+
+	Appnima.Messenger.addComment("324685348953", "Lorem impsum dolor sit...")
+	
+To get all the comments of a post, you have to pas the id os the post:
+
+	Appnima.Messenger.postComment("53485u452395")
+	
+To drop a comment, you have to pass the comment id:
+
+	Appnima.Messenger.deleteComment("837456459643")
+
 Relathionships
 ==============
 #### Follow

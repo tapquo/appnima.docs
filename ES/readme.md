@@ -295,17 +295,21 @@ Este recurso sirve para obtener todos los usuarios que han hecho favorito a un *
         }
 ```
 ### Comment
-#### POST/comment
+#### POST /comment
 Este recurso sirve para crear comentarios sobre un `post`. La idea de este recurso es que se puedan crear discusiones sobre los post. Para crear un comentario hay que enviar los siguientes parámetros:
 ```json
-    { text: "Lorem ipsum"
-      post: 2131434543543
-      message: 4325436457645
+    { 
+      id: "post_id"
+      content: "Lorem Impsum..."
     }
 ```
 
-#### GET/post/comment
+#### GET /post/comment
 Este recurso sirve para obtener todos los comentarios de un post. Solamente hay que enviar la id de dicho *post* para que éste te devuelva la lista de los comentarios.
+
+#### DELETE /comment
+Este recurso elimina un comentario, hay que enviar el id del post.
+
 
 ### Terminal
 #### POST /terminal
