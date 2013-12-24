@@ -437,6 +437,30 @@ El Inbox permite a un usuario recibir mensajes de otros usuarios. Los mensajes s
 Obtener el número de mensajes no leídos por grupos:
 
     inbox.unreadCount(callback);
+    
+Amigos que están conectados:
+
+	inbox.onlineUsers(callback);
+	
+Conexión de amigo:
+
+	inbox.friendConnection(callback);
+	
+Desconexión de amigo:
+
+	inbox.friendDisconnection(callback);
+	
+Enviar datos a seguidores:
+
+	inbox.sendToFollowers(data);
+	
+Enviar datos a amigos:
+
+	inbox.sendToFriends(data);
+	
+Enviar datos a un usuario en concreto:
+
+	inbox.sendToUser(user_id, data);
 
 Usuario
 -------

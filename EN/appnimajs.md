@@ -433,6 +433,30 @@ The inbox allows a user to receive messages from other users. The messages will 
 Get the unread messages count by group:
 
     inbox.unreadCount(callback);
+    
+Get online friends:
+
+	inbox.onlineUsers(callback);
+	
+Friend connection:
+
+	inbox.friendConnection(callback);
+	
+Friend disconnection:
+
+	inbox.friendDisconnection(callback);
+	
+Send data to followers:
+
+	inbox.sendToFollowers(data);
+	
+Send data to friends:
+
+	inbox.sendToFriends(data);
+	
+Send data to an user:
+
+	inbox.sendToUser(user_id, data);
 
 
 User
