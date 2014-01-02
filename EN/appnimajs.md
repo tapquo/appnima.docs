@@ -232,15 +232,15 @@ A post can contain a list of comments.
 
 To add a comment into a post you have to pass the id of the post and the comment text:
 
-	Appnima.Messenger.addComment("324685348953", "Lorem impsum dolor sit...")
-	
+    Appnima.Messenger.addComment("324685348953", "Lorem impsum dolor sit...")
+
 To get all the comments of a post, you have to pas the id os the post:
 
-	Appnima.Messenger.postComment("53485u452395")
-	
+    Appnima.Messenger.postComment("53485u452395")
+
 To drop a comment, you have to pass the comment id:
 
-	Appnima.Messenger.deleteComment("837456459643")
+    Appnima.Messenger.deleteComment("837456459643")
 
 Relathionships
 ==============
@@ -433,30 +433,30 @@ The inbox allows a user to receive messages from other users. The messages will 
 Get the unread messages count by group:
 
     inbox.unreadCount(callback);
-    
+
 Get online friends:
 
-	inbox.onlineUsers(callback);
-	
+    inbox.onOnlineFriends(callback);
+
 Friend connection:
 
-	inbox.friendConnection(callback);
-	
+    inbox.onFriendConnected(callback);
+
 Friend disconnection:
 
-	inbox.friendDisconnection(callback);
-	
+    inbox.onFriendDisconnected(callback);
+
 Send data to followers:
 
-	inbox.sendToFollowers(data);
-	
+    inbox.sendToFollowers(data);
+
 Send data to friends:
 
-	inbox.sendToFriends(data);
-	
+    inbox.sendToFriends(data);
+
 Send data to an user:
 
-	inbox.sendToUser(user_id, data);
+    inbox.sendToUser(user_id, data);
 
 
 User

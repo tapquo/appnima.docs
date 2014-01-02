@@ -229,15 +229,15 @@ Un post puede tener comentarios.
 
 Añadir un comentario a un post, pasandole el id del post y el texto del comentario:
 
-	Appnima.Messenger.addComment("324685348953", "Lorem impsum dolor sit...")
+    Appnima.Messenger.addComment("324685348953", "Lorem impsum dolor sit...")
 
 Obtener comentarios de un post en concreto, pasando el id de el post en cuestión:
 
-	Appnima.Messenger.postComment("53485u452395")
-	
+    Appnima.Messenger.postComment("53485u452395")
+
 Eliminar el comentario, pasando como párametro el id del comentario:
 
-	Appnima.Messenger.deleteComment("837456459643")
+    Appnima.Messenger.deleteComment("837456459643")
 
 Relaciones
 ==========
@@ -437,30 +437,30 @@ El Inbox permite a un usuario recibir mensajes de otros usuarios. Los mensajes s
 Obtener el número de mensajes no leídos por grupos:
 
     inbox.unreadCount(callback);
-    
+
 Amigos que están conectados:
 
-	inbox.onlineUsers(callback);
-	
+    inbox.onOnlineFriends(callback);
+
 Conexión de amigo:
 
-	inbox.friendConnection(callback);
-	
+    inbox.onFriendConnected(callback);
+
 Desconexión de amigo:
 
-	inbox.friendDisconnection(callback);
-	
+    inbox.onFriendDisconnected(callback);
+
 Enviar datos a seguidores:
 
-	inbox.sendToFollowers(data);
-	
+    inbox.sendToFollowers(data);
+
 Enviar datos a amigos:
 
-	inbox.sendToFriends(data);
-	
+    inbox.sendToFriends(data);
+
 Enviar datos a un usuario en concreto:
 
-	inbox.sendToUser(user_id, data);
+    inbox.sendToUser(user_id, data);
 
 Usuario
 -------
