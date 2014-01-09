@@ -208,37 +208,6 @@ Elimina un mensaje llamando al recurso pasando el id del mensaje como parámetro
 
     Appnima.Messenger.deleteMessage("28319319832");
 
-Posts
---------
-#### Post
-Los usuarios pueden crear mensajes (post) o modificar los que hayan creado dentro de una aplicación. Para ello tienen que mandar los siguientes parámetros junto con la petición:
-
-    data = {
-        id: POST_ID
-        title: "Lorem Ipsum"
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        image: "http://IMAGE_URL"
-    }
-
-    Appnima.Messenger.post(data);
-
-Solo el campo ```content``` es obligatorio. Si no se manda el campo ```id```, se creará el post; en caso contrario, se actualizará dicho post.
-
-#### Comentarios
-Un post puede tener comentarios.
-
-Añadir un comentario a un post, pasandole el id del post y el texto del comentario:
-
-    Appnima.Messenger.addComment("324685348953", "Lorem impsum dolor sit...")
-
-Obtener comentarios de un post en concreto, pasando el id de el post en cuestión:
-
-    Appnima.Messenger.postComment("53485u452395")
-
-Eliminar el comentario, pasando como párametro el id del comentario:
-
-    Appnima.Messenger.deleteComment("837456459643")
-
 Relaciones
 ==========
 #### Seguir
@@ -303,6 +272,244 @@ Los usuarios de tu aplicación pueden buscar a otros usuarios mediante este recu
     Appnima.Network.search("javi@tapquo.com");
 
 
+Posts
+--------
+#### Crear
+Los usuarios pueden crear mensajes (post) dentro de una aplicación. Para ello tienen que mandar los siguientes parámetros junto con la petición:
+
+    title   = "Lorem Ipsum"
+    content = "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    image   = "http://IMAGE_URL"
+
+    Appnima.Network.Post.create(content, title, image);
+
+Solo el campo ```content``` es obligatorio. Un ejemplo de como crear un ```post```unicamente con el contenido es el siguiente:
+
+    Appnima.Network.Post.create(content);
+
+Esta llamada te devolverá un objeto con los datos del nuevo post como el siguiente:
+
+    post = {
+        id         : 4234325425234,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
+        },
+        comments   : [],
+        likes      : [],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
+    }
+
+#### Modificar
+El usuario puede moficiar los post que haya creado. Para ello tiene que enviar los siguientes parámetros:
+
+    post_id = 124523132
+    content = "Lorem Ipsum update content"
+    title   = "Lorem Ipsum update title"
+    image   = "http://IMAGE_URL"
+
+    Appnima.Network.Post.update(post_id, content, title, image);
+
+No es obligatorio mandar los datos que no se vayan a modificar. Dos ejemplos de esto sería:
+
+    Appnima.Network.Post.update(post_id, content, null, image);
+    Appnima.Network.Post.update(post_id, content, title);
+
+Como se puede observar, en el primer caso, se quiere modificar el contenido y la imagen pero el título no, por lo que ese campo hay que mandarlo a nulo.
+
+En el segundo caso, se quiere modificar el contenido y el título, y como la imagen es el último parámetro no hace falta pasarlo a nulo. Lo mismo pasaría en el siguiente caso:
+
+    Appnima.Network.Post.update(post_id, content);
+
+En este caso solo se quiere modificar el contenido y por lo tanto, las demás variables que van detrás no haría falta mandarlas en nulo.
+
+Este método devolverá ```message: "Successful"``` si todo ha ido bien:
+
+#### Borrar
+El usuario que ha creado un post puede borrarlo. Para ello solamente tiene que enviar la id del post que desea borrar:
+
+    post_id = 124523132
+
+    Appnima.Network.Post.remove(post_id);
+
+Como en el método anterior, si todo ha ido bien devolverá un mensaje de ```message: "Successful"```
+
+#### Obtener un post
+El usuario puede obtener la información de un post concreto enviando la ```id``` de dicho post.
+
+    post_id = 124523132
+
+    Appnima.Network.Post.get(post_id);
+
+Esta llamada devolverá el siguiente objeto:
+
+    post = {
+        id         : 4234325425234,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
+        },
+        comments   : [
+                {
+                    id: 4324234,
+                    content: "Comment 1",
+                    created_at: comment_created_data,
+                    owner: {
+                        avatar: http://AVATAR_URL,
+                        id: 3425425425,
+                        name: user,
+                        username: username
+                    }
+                }
+            ],
+        likes      : [
+            2131432412343214,
+            4231432565265463
+        ],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
+    }
+
+La lista de likes se trata de las ids de los usuarios que han hecho ```like``` a ese post.
+
+#### Búsqueda
+El usuario puede buscar un post en concreto mediante el texto de su contenido, o si le manda simplemente una palabra, le devolverá todos los post que contengan esa palabra en su contenido.
+
+    query = "lorem"
+    page  = 1
+    num_results = 12
+    last_data = last_data
+
+    Appnima.Network.Post.search(query, page, num_results, las_data);
+
+Como se puede observar, en este caso se desean obtener los resultados mediante paginación, como se ha explicado anteriormente. Pero si no se desease usarla, simplemente habría que hacer la llamada de la siguiente manera:
+
+    Appnima.Network.Post.search(query);
+
+En este caso, ambas formas devolverán un array con los post que ha encontrado, o un array vacío si no coincide ninguno.
+
+#### Contador
+Este método se usa para obtener el contador de los post que el usuario tiene. La respuesta sería ```posts_count: 8```. En este ejemplo, el usuario de la sesión habría creado 8 post.
+
+    Appnima.Network.Post.counter();
+    Appnima.Network.Post.counter(424234234324);
+
+Si al método se le envía una id de un usuario, devolverá el contador de dicho usuario.
+
+#### Timeline
+Este método sirve para obtener un listado de post. Habría dos formas diferentes de obtenerlos con dos resultados diferentes. Un caso sería el siguiente:
+
+    Appnima.Network.Post.timeline();
+    Appnima.Network.Post.timeline(null, page, num_results, last_data);
+
+En este caso, en la primera llamada se obtendría el ```timeline```del usuario de la sesión. Esto es, una lista de post creados por el y por los usuarios a los que sigue. (Un ejemplo fácil de entender sería el timeline de ```Twitter```).
+
+En la seguna llamada es lo mismo, solo que se desea obtener los posts mediante paginación.
+El otro caso sería el siguiente:
+
+    Appnima.Network.Post.timeline(4543534534543);
+    Appnima.Network.Post.timeline(4543534534543, page, num_results, last_data);
+
+En este caso se está obteniendo el timeline de un usuario en concreto, esto es, los post que él ha escrito. (Siguiente con el ejemplo de Twitter, este caso sería cuando entras en el perfil de un usuario en concreto). Como se puede observar, también se puede hacer mediante paginación.
+
+#### Crear comentarios
+Un post puede tener comentarios, y con esta llamada se puede realizar.
+
+    post_id = 424231423423
+    content = Este es mi comentario
+
+    Appnima.Network.Post.createComment(post_id, content);
+
+En este caso es obligatorio mandarle ambos campos y la llamada devolverá ```message: "Successful"```.
+
+#### Borrar comentario
+El usuario que ha creado un comentario también tiene la posibilidad de borrarlo. Para ello deberá llamar a la siguiente función:
+
+    Appnima.Network.Post.createComment(4234324234234);
+
+Hay que pasarle la id del comentario que se desea borrar y la API devolverá ```message: "Successful"``` si todo ha ido bien.
+
+
+#### Obtener comentario
+Para obtener los comentarios de un post en concreto el usuario debe usar el siguiente recurso pasándole la id del post:
+
+    Appnima.Network.Post.comments(424231423423);
+
+Esta llamada devolverá el siguiente array de objetos:
+
+    comments   : [
+                {
+                    id: 4324234,
+                    content: "Comment 1",
+                    created_at: comment_created_data,
+                    owner: {
+                        avatar: http://AVATAR_URL,
+                        id: 3425425425,
+                        name: user,
+                        username: username
+                    }
+                },
+                {
+                    id: 43265453745,
+                    content: "Comment 2",
+                    created_at: comment_created_data,
+                    owner: {
+                        avatar: http://AVATAR_URL,
+                        id: 3425425425,
+                        name: user,
+                        username: username
+                    }
+                }
+            ]
+
+#### Hacer favorito un post
+El usuario puede hacer favorito un post, o quitar dicho "like". Para ello el usuario debe enviar la id del post junto con la llamada:
+
+    Appnima.Network.Post.like(424231423423);
+
+Si es la primera vez que hace favorito un post, este se creará, pero por el contrario, si este post ya tiene favorito, ese favorito desaparecerá y la próxima vez que se llame a este método volverá a ser para hacer favorito.
+Si todo ha ido bien devolverá ```message: "Successful"```.
+
+#### Obtener los usuarios que han hecho favorito un post
+Si el usuario desea obtener todos los usuarios que han hecho favorito a un post en concreto, simplemente debe enviar la id de dicho post junto con la siguiente llamada:
+
+    Appnima.Network.Post.likeUsers(424231423423);
+
+Este método devolverá un array de objetos con todos los usuarios.
+
+    users   : [
+                {
+                    id: 54364758,
+                    name: user1,
+                    username: usernam1,
+                    avatar: http://AVATAR_URL,
+                    bio: biouser1
+                }
+            ]
+
+#### Obtener todos los post favoritos de un usuario
+Si se desea obtener los post favoritos de un usuario, hay que llamar al siguiente recurso:
+
+    Appnima.Network.Post.userLike();
+
+En este caso la API devolverá una lista de post, los cuales son favoritos para el usuario de la sesión.
+
+    Appnima.Network.Post.userLike(432635645654);
+
+En este caso la API devolverá una lista de post que son favoritos para el usuario de dicha id.
+También se pueden obtener mediante paginación. La llamada para ambos casos seria:
+
+    Appnima.Network.Post.userLike(null, page, num_results, last_data);
+    Appnima.Network.Post.userLike(432635645654, page, num_results, last_data);
 
 Geolocalización
 ===============
