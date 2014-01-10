@@ -251,7 +251,7 @@ Al igual que en lo explicado anteriormente, también existe la posibilidad de ob
 Hay que mencionar, que en este caso, cada objeto del array devolverá un campo más indicando si el usuario logueado sigue a esa persona o no.
 
 #### Información
-Con este recurso puedes obtener una visión general del estado de relaciones de un usuario. Puedes conocer de forma ágil cuantos seguidores tiene y a cuantas personas sigue, a la vez que obtienes la lista de ambos. Esta información la puedes obtener de cualquier usuario de tu aplicación si pasas como parámetro su ID:
+Con este recurso puedes obtener una visión general del estado de relaciones de un usuario. Puedes conocer de forma ágil cuantos seguidores tiene y a cuantas personas sigue. Esta información la puedes obtener de cualquier usuario de tu aplicación si pasas como parámetro su ID:
 
     Appnima.Network.info("28319319832");
 
