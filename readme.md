@@ -280,187 +280,6 @@ Upload user avatar with this resource. Sends the request and the following param
 
 Responses are returned with `201 RESOURCE CREATED`.
 
-### Post
-#### POST/post
-A post is a public message and the user can create with this resource. Only have to send this parameters with the request:
-
-```json
-    {
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
-    }
-```
-The only required field when creating a post is ```content``` that it is the content of the message.
-
-If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will returns the following parameters:
-```json
-    {
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-            _id: "57592807235"
-            avatar: "http://AVATAR_URL",
-            created_at: "2013-12-02 08:00:58.784Z",
-            mail: "soyjavi@tapquo.com",
-            name: "javi",
-            username: "soyjavi"
-        },
-        owner_profile: {
-            _id: "432423423",
-            id: "57592807235",
-            application: "5425435453",
-            mail: "soyjavi@tapquo.com",
-            username: "soyjavi",
-            name: "javi",
-            bio: "Lorem Ipsum Bla bla bla",
-            avatar: "http://AVATAR_URL",
-            picture: "http://PICTURE_URL",
-            phone: "4324324234",
-            site: "www.tapquo.com"
-        }
-   }
-```
-
-#### POST /put
-This resource is used to modify a previously created post. To do this, the user must send parameters with the request:
-
-```json
-    {
-        id: POST_ID,
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
-    }
-```
-If all goes well you only have to wait for the answer `200 ok` and APP/NIMA returns the same parameters as in the `POST`.
-
-#### GET/ post
-This resource is used to obtain a specific post. To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
-
-#### GET /post/info
-This resource is used to obtain counter of user's list of posts. If you want to get your own counter, you dont have to send anything. However, if you want to get counter of other user, you may send this user's *id* in the call:
-
-```json
-    {
-        user: 42342354543543
-    }
-```
-
-#### GET /post/search
-This resource is used to find the *posts* that having in its content a particular word. You have to send the word that you want to search:
-```json
-    {
-        query: "Lorem"
-    }
-```
-In this example, APP/NIMA will return all *posts* in its field *content* have the word "Lorem". An example would be:
-```json
-    [{
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-         _id:        "57592807235"
-         avatar:      "http://AVATAR_URL",
-         created_at:   "2013-12-02 08:00:58.784Z",
-         mail:      "soyjavi@tapquo.com",
-         name:    "javi",
-         username:    "soyjavi"
-        }
-    },{
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Loremipsum es un ejemplo.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-         _id:        "57592807235"
-         avatar:      "http://AVATAR_URL",
-         created_at:   "2013-12-02 08:00:58.784Z",
-         mail:      "soyjavi@tapquo.com",
-         name:    "javi",
-         username:    "soyjavi"
-        }
-    }
-    ]
-   }
-```
-There also search through *pagination* to be explained in the following resource.
-
-### Timeline
-#### GET/timeline
-This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.
-
-But if you want to get another user posts or only your own, you must send the following parameters:
-```json
-    { id: 4234324432432}
-```
-This is the id of the user you want to get the post. In this case, it will only return the list of the post that created this user.
-
-If all goes well you only have to wait for the `200 OK` response and the list of posts that will return APP/NIMA.
-
-There is also the option for you to return the list of posts with pagination, that is, that in each API call it returning part of the list of posts chronologically.
-
-To do this, you must send the following parameters:
-```json
-    { page: 0,
-      num_results: 5
-      last_data: "2013-12-02 08:00:58.784Z"
-    }
-```
-To this object, if you want, must be added the user *id*.
-
-*page* variable is the page number you want to obtain, that is, the part of the list you want to get. *num_results* is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same. Finally, *last_data* variable is the creation date of the last post received in the last call. This date is important because it will be the starting point of the next part of posts.
-
-### Likes
-#### POST /like/post
-This resource is used to do favorite particular post or to remove a favorite already done. To do this, you just have to send the *id* of that post.
-
-```json
-    {
-        post: 498342893788734
-    }
-```
-If this is the first time you mark as favorite, APP NIMA return the `200 OK` response. But if you had liked before, delete that favorite and APP/NIMA return a message: *unliked*.
-
-#### GET /like/post
-This resource, if all goes well, return the list of the *posts* of the user has logged liked. To do this, you do not send anything.
-Here there is also the possibility of using *pagination* to list post as explained in the resource **TIMELINE**.
-
-#### GET /post/likers
-This resource used to get all users who have liked an specific *post*. To do this, you only need to send the *id* of that post.
-
-```json
-    {
-        post: "Lorem Impsum…"
-        id: 84935746435693
-    }
-```
-
-### Comment
-#### POST /comment
-This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
-```json
-    { 
-      id: "post_id"
-      content: 4325436457645
-    }
-```
-#### GET /post/comment
-This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
-
-#### DELETE /comment
-This resource drops a comment, you have to send the comment id.
-
 ### Terminal
 #### POST /terminal
 This resource allows you register the user device. Sends the request and the following parameters:
@@ -473,7 +292,6 @@ This resource allows you register the user device. Sends the request and the fol
 ```
 
 Responses are returned with `201 RESOURCE CREATED`.
-
 
 
 #### GET /terminal
@@ -702,20 +520,10 @@ Get an overview about users network. Use this resource and ID user:
 App/nima returns `200 Ok` and user total *followers* and *followings* and list of both:
 ```json
     {
-        following:
-            users: [{
-                name: javi
-                username: soyjavi
-                bio: Lorem ipsum
-                mail: soyjavi@tapquo.com
-            }]
-            count: 1,
-        followers:
-            users: []
-            count: 0
+        following: 1,
+        followers: 0
     }
 ```
-
 
 #### GET /check
 If you need to know about relationship with another user, use this resource and his ID user:
@@ -733,6 +541,225 @@ If the query was successful App/nima returns `200 Ok` and the object which descr
     }
 ```
 
+
+### Post
+#### POST/post
+A post is a public message and the user can create with this resource. Only have to send this parameters with the request:
+
+```json
+    {
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+The only required field when creating a post is ```content``` that it is the content of the message.
+
+If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will returns the following parameters:
+```json
+     post = {
+        id         : 4234325425234,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
+        },
+        comments   : [],
+        likes      : [],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
+    }
+```
+
+#### POST /put
+This resource is used to modify a previously created post. To do this, the user must send parameters with the request:
+
+```json
+    {
+        id: POST_ID,
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+If all goes well you only have to wait for the answer `200 ok` and APP/NIMA returns `message: "Successful"`.
+
+#### GET/ post
+This resource is used to obtain a specific post. To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
+
+#### DELETE/post
+This resource is used to delete a specific post.To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
+
+#### GET /post/user
+This resource is used to obtain counter of user's list of posts. If you want to get your own counter, you dont have to send anything. However, if you want to get counter of other user, you may send this user's *id* in the call:
+
+```json
+    {
+        user: 42342354543543
+    }
+```
+
+#### GET /post/search
+This resource is used to find the *posts* that having in its content a particular word. You have to send the word that you want to search:
+```json
+    {
+        query: "Lorem"
+    }
+```
+In this example, APP/NIMA will return all *posts* in its field *content* have the word "Lorem". An example would be:
+```json
+    [id         : 5453435345,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
+        },
+        comments   : [
+                {
+                    id: 4324234,
+                    content: "Comment 1",
+                    created_at: comment_created_data,
+                    owner: {
+                        avatar: http://AVATAR_URL,
+                        id: 3425425425,
+                        name: user,
+                        username: username
+                    }
+                }
+            ],
+        likes      : [
+            {
+                avatar: http://AVATAR_URL,
+                id: 3425425425,
+                name: user,
+                username: username
+            },
+            {
+                avatar: http://AVATAR_URL,
+                id: 54236435767453,
+                name: user1,
+                username: username1
+            }
+        ],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
+        },id         : 4234325425234,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
+        },
+        comments   : [
+                {
+                    id: 4324234,
+                    content: "Comment 1",
+                    created_at: comment_created_data,
+                    owner: {
+                        avatar: http://AVATAR_URL,
+                        id: 3425425425,
+                        name: user,
+                        username: username
+                    }
+                }
+            ],
+        likes      : [
+            {
+                avatar: http://AVATAR_URL,
+                id: 3425425425,
+                name: user,
+                username: username
+            },
+            {
+                avatar: http://AVATAR_URL,
+                id: 54236435767453,
+                name: user1,
+                username: username1
+            }
+        ],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
+        }
+    ]
+   }
+```
+There also search through *pagination* to be explained in the following resource.
+
+### Timeline
+#### GET/timeline
+This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.
+
+But if you want to get another user posts or only your own, you must send the following parameters:
+```json
+    { username: username}
+```
+This is the id of the user you want to get the post. In this case, it will only return the list of the post that created this user.
+
+If all goes well you only have to wait for the `200 OK` response and the list of posts that will return APP/NIMA.
+
+There is also the option for you to return the list of posts with pagination, that is, that in each API call it returning part of the list of posts chronologically.
+
+To do this, you must send the following parameters:
+```json
+    { page: 0,
+      num_results: 5
+      last_data: "2013-12-02 08:00:58.784Z"
+    }
+```
+To this object, if you want, must be added the user *id*.
+
+*page* variable is the page number you want to obtain, that is, the part of the list you want to get. *num_results* is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same. Finally, *last_data* variable is the creation date of the last post received in the last call. This date is important because it will be the starting point of the next part of posts.
+
+### Likes
+#### POST /post/like
+This resource is used to do favorite particular post or to remove a favorite already done. To do this, you just have to send the *id* of that post.
+
+```json
+    {
+        post: 498342893788734
+    }
+```
+If this is the first time you mark as favorite, APP NIMA return the `200 OK` response. But if you had liked before, delete that favorite and APP/NIMA return a message: *unliked*.
+
+#### GET /post/user/like
+This resource, if all goes well, return the list of the *posts* of the user has logged liked. To do this, you must send the following parameter:
+```json
+    { username: username}
+```
+Here there is also the possibility of using *pagination* to list post as explained in the resource **TIMELINE**.
+
+#### GET /post/like/users
+This resource used to get all users who have liked an specific *post*. To do this, you only need to send the *id* of that post.
+
+```json
+    {
+        post: "Lorem Impsum…"
+        id: 84935746435693
+    }
+```
+
+### Comment
+#### POST /post/comment
+This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
+```json
+    {
+      id: "post_id"
+      content: 4325436457645
+    }
+```
+#### GET /post/comment
+This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
+
+#### DELETE /post/comment
+This resource drops a comment, you have to send the comment id.
 
 
 Messenger

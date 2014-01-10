@@ -507,19 +507,14 @@ Este método devolverá un array de objetos con todos los usuarios.
             ]
 
 #### Obtener todos los post favoritos de un usuario
-Si se desea obtener los post favoritos de un usuario, hay que llamar al siguiente recurso:
+Si se desea obtener los post favoritos de un usuario, hay que llamar al siguiente recurso pasándole el username del usuario de quien se desean los datos:
 
-    Appnima.Network.Post.userLike();
+    Appnima.Network.Post.userLike("username");
 
-En este caso la API devolverá una lista de post, los cuales son favoritos para el usuario de la sesión.
+La API devolverá una lista de post que son favoritos para el usuario con dicho username.
+También se pueden obtener mediante paginación. La llamada seria:
 
-    Appnima.Network.Post.userLike(432635645654);
-
-En este caso la API devolverá una lista de post que son favoritos para el usuario de dicha id.
-También se pueden obtener mediante paginación. La llamada para ambos casos seria:
-
-    Appnima.Network.Post.userLike(null, page, num_results, last_data);
-    Appnima.Network.Post.userLike(432635645654, page, num_results, last_data);
+    Appnima.Network.Post.userLike("username", page, num_results, last_data);
 
 Geolocalización
 ===============

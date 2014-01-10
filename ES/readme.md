@@ -272,44 +272,6 @@ Este recurso sirve para subir un avatar, para ello enviaremos los siguientes par
 ```
 
 En el caso de que haya ido todo bien se devolverá el código `201 RESOURCE CREATED`.
-### Favoritos
-#### POST /like/post
-Este recurso sirve para hacer favorito un post en concreto o para quitar un favorito ya hecho. Para ello, solo hay que enviar el *id* de dicho post.
-```
-    json{
-            post: 87438957439857439853
-        }
-```
-
-Si es la primera vez que marca como favorito, APP/NIMA devolverá la respuesta `200 OK`. En cambio, si ya había marcado como favorito antes, se borrará dicho favorito y APP/NIMA devolverá un mensaje: *unliked*.
-
-#### GET /like/post
-Este recurso, si todo va bien, devolverá la lista de los *post* a los que el usuario logueado ha marcado como favorito. Para ello, no hace falta enviar nada.
-En este caso también está la posibilidad de obtener los post mediante *paginación* como se explica en el método de **TIMELINE** en el recurso de ```MESSENGER```.
-
-#### GET /post/likers
-Este recurso sirve para obtener todos los usuarios que han hecho favorito a un *post* en concreto. Para ello, solamente hay que enviar la *id* de dicho post.
-```
-    json{
-            post: 87438957439857439853
-        }
-```
-### Comment
-#### POST /comment
-Este recurso sirve para crear comentarios sobre un `post`. La idea de este recurso es que se puedan crear discusiones sobre los post. Para crear un comentario hay que enviar los siguientes parámetros:
-```json
-    { 
-      id: "post_id"
-      content: "Lorem Impsum..."
-    }
-```
-
-#### GET /post/comment
-Este recurso sirve para obtener todos los comentarios de un post. Solamente hay que enviar la id de dicho *post* para que éste te devuelva la lista de los comentarios.
-
-#### DELETE /comment
-Este recurso elimina un comentario, hay que enviar el id del post.
-
 
 ### Terminal
 #### POST /terminal
@@ -554,21 +516,11 @@ Si quieres tener una visión general de un determinado usuario dentro de la red 
     }
 ```
 
-Devolverá un `200 Ok` junto con los totales de *followers* y *followings* que tiene el usuario indicado y la lista de ambos:
+Devolverá un `200 Ok` junto con los totales de *followers* y *followings* que tiene el usuario indicado:
 ```json
     {
-        following:
-            users: [
-                {name: javi
-                 username: soyjavi
-                 bio: Lorem ipsum
-                 mail: soyjavi@tapquo.com
-                }
-                ]
-            count: 1,
-        followers:
-            users: []
-            count: 0
+        following:1,
+        followers: 0
     }
 ```
 
@@ -730,35 +682,21 @@ El único campo obligatorio a la hora de crear un post es el ```content``` que s
 
 Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
 ```json
-    {
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-            _id: "57592807235"
-            avatar: "http://AVATAR_URL",
-            created_at: "2013-12-02 08:00:58.784Z",
-            mail: "soyjavi@tapquo.com",
-            name: "javi",
-            username: "soyjavi"
+     post = {
+        id         : 4234325425234,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
         },
-        owner_profile:   {
-            _id:"4324324324234",
-            id: "57592807235",
-            application: "24234234",
-            mail: "soyjavi@tapquo.com",
-            username: "soyjavi",
-            name: "javi",
-            bio: "Lorem Ipsum Bla bla bla",
-            avatar: "http://AVATAR_URL",
-            picture: "http://PICTURE_URL",
-            phone: "545435435435",
-            site: "www.taqpuo.com"
-        }
-   }
+        comments   : [],
+        likes      : [],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
+    }
 ```
 
 #### POST/put
@@ -773,12 +711,16 @@ Este recurso sirve para modificar un post creado anteriormente. Para ello, el us
     }
 ```
 
-Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los mismos parámetros que en el `POST`.
+Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve `message: "Successful"`.
 
 #### GET/post
 Este recurso sirve para obtener un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea obtener y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y el post concreto del mismo estilo que en el `POST`.
 
-#### GET/user/post
+
+#### DELETE/post
+Este recurso sirve para borrar un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea borrar y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y `message: "Successful"`.
+
+#### GET/post/user
 Este recurso sirve para obtener el contador de los post del usuario. Si deseas obtener el contador de tus propios post, no debes enviarle ningún parámetro, pero en cambio si lo que deseas obtener es el contador de post de otro usuario, tienes que enviarle la *id* de dicho usuario junto con la llamada.
 
 ```json
@@ -797,37 +739,83 @@ Este recurso sirve para buscar los *posts* que tengan en su contenido una palabr
 
 En este ejemplo, APP/NIMA nos devolverá todos los *posts* que en su campo *content* tengan la palabra "Lorem". Un ejemplo sería el siguiente:
 ```json
-    [{
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-         _id:        "57592807235"
-         avatar:      "http://AVATAR_URL",
-         created_at:   "2013-12-02 08:00:58.784Z",
-         mail:      "soyjavi@tapquo.com",
-         name:    "javi",
-         username:    "soyjavi"
+    [id         : 5453435345,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
+        },
+        comments   : [
+                {
+                    id: 4324234,
+                    content: "Comment 1",
+                    created_at: comment_created_data,
+                    owner: {
+                        avatar: http://AVATAR_URL,
+                        id: 3425425425,
+                        name: user,
+                        username: username
+                    }
+                }
+            ],
+        likes      : [
+            {
+                avatar: http://AVATAR_URL,
+                id: 3425425425,
+                name: user,
+                username: username
+            },
+            {
+                avatar: http://AVATAR_URL,
+                id: 54236435767453,
+                name: user1,
+                username: username1
+            }
+        ],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
+        },id         : 4234325425234,
+        content    : "Lorem Ipsum",
+        image      : "http://IMAGE_URL",
+        owner      : {
+            id       : 423423432423,
+            name     : user1,
+            username : username1,
+            avatar   : http://AVATAR_URL
+        },
+        comments   : [
+                {
+                    id: 4324234,
+                    content: "Comment 1",
+                    created_at: comment_created_data,
+                    owner: {
+                        avatar: http://AVATAR_URL,
+                        id: 3425425425,
+                        name: user,
+                        username: username
+                    }
+                }
+            ],
+        likes      : [
+            {
+                avatar: http://AVATAR_URL,
+                id: 3425425425,
+                name: user,
+                username: username
+            },
+            {
+                avatar: http://AVATAR_URL,
+                id: 54236435767453,
+                name: user1,
+                username: username1
+            }
+        ],
+        is_liked   : false,
+        created_at : POST_CREATED_DATA
         }
-    },{
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Loremipsum es un ejemplo.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-         _id:        "57592807235"
-         avatar:      "http://AVATAR_URL",
-         created_at:   "2013-12-02 08:00:58.784Z",
-         mail:      "soyjavi@tapquo.com",
-         name:    "javi",
-         username:    "soyjavi"
-        }
-    }
     ]
    }
 ```
@@ -839,9 +827,11 @@ También existe de buscar mediante *paginación* que se explicará en el siguien
 Este recurso sirve para obtener la lista de posts de un determinado usuario. Si lo que deseas es obtener los posts de tu usuario de la sesión no tienes que enviar ningún parámetro junto con la petición. Te devolverá la lista de posts tanto tuyos como de los usuarios a los que sigues (following) ordenados del más antiguo al más reciente.
 
 En cambio, si lo que deseas es obtener los posts de otro usuario o solamente los tuyos propios, debes enviar los siguientes parámetros:
+
 ```json
-    { id: 4234324432432}
+    { username: username}
 ```
+
 Se trata de la id del usuario del que quieres obtener los post. En este caso, unicamente te devolverá la lista de los post que ha creado ese usuario.
 
 Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá APP/NIMA.
@@ -858,6 +848,50 @@ Para ello, debes enviar los siguientes parámetros:
 A ese objeto se le debe añadir, si se desea, lo explicado anteriormente de la *id* del usuario.
 
 La variable *page* se trata del número de página que deseas obtener; esto es, el trozo de la lista de post que deseas. *num_results* es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de posts. Por último, la variable *last_data* se trata de la fecha de creación del último post recibido en la última llamada realizada. Es importante esta fecha ya que será el punto de comienzo de la siguiente tanda de posts.
+
+
+### Favoritos
+#### POST /post/like
+Este recurso sirve para hacer favorito un post en concreto o para quitar un favorito ya hecho. Para ello, solo hay que enviar el *id* de dicho post.
+```
+    json{
+            post: 87438957439857439853
+        }
+```
+
+Si es la primera vez que marca como favorito, APP/NIMA devolverá la respuesta `200 OK`. En cambio, si ya había marcado como favorito antes, se borrará dicho favorito y APP/NIMA devolverá un mensaje: *unliked*.
+
+#### GET /post/user/like
+Este recurso, si todo va bien, devolverá la lista de los *post* a los que el usuario logueado ha marcado como favorito. Para ello, debes enviar el siguiente parámetro:
+
+```json
+    { username: username}
+```
+
+En este caso también está la posibilidad de obtener los post mediante *paginación* como se explica en el método de **TIMELINE** en el recurso de ```MESSENGER```.
+
+#### GET /post/like/users
+Este recurso sirve para obtener todos los usuarios que han hecho favorito a un *post* en concreto. Para ello, solamente hay que enviar la *id* de dicho post.
+```
+    json{
+            post: 87438957439857439853
+        }
+```
+### Comment
+#### POST /comment
+Este recurso sirve para crear comentarios sobre un `post`. La idea de este recurso es que se puedan crear discusiones sobre los post. Para crear un comentario hay que enviar los siguientes parámetros:
+```json
+    {
+      id: "post_id"
+      content: "Lorem Impsum..."
+    }
+```
+
+#### GET /post/comment
+Este recurso sirve para obtener todos los comentarios de un post. Solamente hay que enviar la id de dicho *post* para que éste te devuelva la lista de los comentarios.
+
+#### DELETE /comment
+Este recurso elimina un comentario, hay que enviar el id del post.
 
 
 Location

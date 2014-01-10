@@ -503,19 +503,15 @@ This method return following data:
             ]
 
 #### Get all favorite posts from an user
-If you want to get the favorite post of user, you want to do this method:
+If you want to get the favorite post of user, you want to do this method sending user username:
 
-    Appnima.Network.Post.userLike();
+    Appnima.Network.Post.userLike("username");
 
-In this case the API will return a list of post, which are favorites for the session user.
+The API will return a list of post, which are favorites for the username's user.
 
-    Appnima.Network.Post.userLike(432635645654);
+They can also be obtained by pagination:
 
-In this case the API will return a list of post that are favorites for the user of id.
-They can also be obtained by pagination. Would call for both cases:
-
-    Appnima.Network.Post.userLike(null, page, num_results, last_data);
-    Appnima.Network.Post.userLike(432635645654, page, num_results, last_data);
+    Appnima.Network.Post.userLike("username", page, num_results, last_data);
 
 Location
 ========
