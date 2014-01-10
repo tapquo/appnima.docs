@@ -372,14 +372,24 @@ Esta llamada devolverá el siguiente objeto:
                 }
             ],
         likes      : [
-            2131432412343214,
-            4231432565265463
+            {
+                avatar: http://AVATAR_URL,
+                id: 3425425425,
+                name: user,
+                username: username
+            },
+            {
+                avatar: http://AVATAR_URL,
+                id: 54236435767453,
+                name: user1,
+                username: username1
+            }
         ],
         is_liked   : false,
         created_at : POST_CREATED_DATA
     }
 
-La lista de likes se trata de las ids de los usuarios que han hecho ```like``` a ese post.
+La lista de likes se trata de los usuarios que han hecho ```like``` a ese post.
 
 #### Búsqueda
 El usuario puede buscar un post en concreto mediante el texto de su contenido, o si le manda simplemente una palabra, le devolverá todos los post que contengan esa palabra en su contenido.

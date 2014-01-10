@@ -369,14 +369,24 @@ This call return following data:
                 }
             ],
         likes      : [
-            2131432412343214,
-            4231432565265463
+            {
+                avatar: http://AVATAR_URL,
+                id: 3425425425,
+                name: user,
+                username: username
+            },
+            {
+                avatar: http://AVATAR_URL,
+                id: 86765545678,
+                name: user1,
+                username: username1
+            },
         ],
         is_liked   : false,
         created_at : POST_CREATED_DATA
     }
 
-The list of likes is the ids of users who have made like this post.
+The list of likes are users who have made like this post.
 
 #### Search
 The user can search for a particular post by the text of its content, or if it sends just a word, it will return all posts that contain that word in their content.
