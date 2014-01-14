@@ -444,7 +444,7 @@ En este caso es obligatorio mandarle ambos campos y la llamada devolverá ```mes
 #### Borrar comentario
 El usuario que ha creado un comentario también tiene la posibilidad de borrarlo. Para ello deberá llamar a la siguiente función:
 
-    Appnima.Network.Post.createComment(4234324234234);
+    Appnima.Network.Post.deleteComment(4234324234234);
 
 Hay que pasarle la id del comentario que se desea borrar y la API devolverá ```message: "Successful"``` si todo ha ido bien.
 

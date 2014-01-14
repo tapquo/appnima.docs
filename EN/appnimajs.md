@@ -441,7 +441,7 @@ Call returns ```message: "Successful"```.
 #### Delete comment
 The user who created a comment can delete his comments with following method sending comment ```id```:
 
-    Appnima.Network.Post.createComment(4234324234234);
+    Appnima.Network.Post.deleteComment(4234324234234);
 
 Call returns ```message: "Successful"```.
 
