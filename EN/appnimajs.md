@@ -202,6 +202,11 @@ As we do with received messages we can get the list of of sent messages, just us
 To mark a message as read call this resource using the message id as parameter:
 
     Appnima.Messenger.readMessage("28319319832");
+   
+#### Summary
+This method allows you to obtain a list containing the last message you've sent or received by each user.
+
+	Appnima.Messenger.summary();  
 
 #### Search
 You can perform a search from your messages sent and received across a word or piece of word that contain both the message subject and body. This attribute will be passed as the word with which you want to search.

@@ -201,7 +201,12 @@ De la misma forma que con los mensajes recibidos, para obtener la lista de mensa
 Para marcar un mensaje como leído basta con llamar al recurso pasando el id del mensaje como parámetro:
 
     Appnima.Messenger.readMessage("28319319832");
-    
+
+#### Resumen
+Este método te permite obtener una lista que contenga el último mensaje que hayas mandado o recibido por cada usuario. 
+
+    Appnima.Messenger.summary();  
+      
 #### Buscar
 Es posible realizar una búsqueda entre tus mensajes enviados y recibidos a través de una palabra o trozo de palabra, tanto que la contengan en el asunto del mensaje como en el cuerpo. Para ello se le pasará como atributo la palabra con la cual quieres realizar la búsqueda.
 
