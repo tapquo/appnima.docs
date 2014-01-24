@@ -198,7 +198,7 @@ As we do with received messages we can get the list of of sent messages, just us
 
     Appnima.Messenger.messageOutbox();
 
-#### Conversatión
+#### Conversation
 For to get message exchanged with another user, both received as sent, is used this method, which receives as parameter the username of another user.
 
     Appnima.Messenger.conversation(username);  
