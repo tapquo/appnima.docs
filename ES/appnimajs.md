@@ -265,6 +265,11 @@ Al igual que en lo explicado anteriormente, también existe la posibilidad de ob
 
 Hay que mencionar, que en este caso, cada objeto del array devolverá un campo más indicando si el usuario logueado sigue a esa persona o no.
 
+#### Amigos
+También se pueden obtener los amigos del usuario de la sesión, es decir, aquellas personas que son seguidores tuyas y a la vez ellas te siguen a ti.
+
+    Appnima.Network.friends();
+
 #### Información
 Con este recurso puedes obtener una visión general del estado de relaciones de un usuario. Puedes conocer de forma ágil cuantos seguidores tiene y a cuantas personas sigue. Esta información la puedes obtener de cualquier usuario de tu aplicación si pasas como parámetro su ID:
 

@@ -262,6 +262,11 @@ Like as explained above, it is also possible to obtain results with pagination. 
 
 In this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
 
+#### Friends
+You can also obtain the user's friends of the session, namely, those who are followers of your while they follow you.
+
+    Appnima.Network.friends();
+
 #### Information
 This resource returns a user's relationships' stats and counts of followers and followings. If we use a user's id as parameter it will return his stats, if not, logged user's stats:
 
