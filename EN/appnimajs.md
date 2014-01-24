@@ -203,6 +203,10 @@ To mark a message as read call this resource using the message id as parameter:
 
     Appnima.Messenger.readMessage("28319319832");
 
+#### Search
+You can perform a search from your messages sent and received across a word or piece of word that contain both the message subject and body. This attribute will be passed as the word with which you want to search.
+
+    Appnima.Messenger.search("node");
 
 #### Delete message
 To delete a message cal this resource using the message id as parameter:
