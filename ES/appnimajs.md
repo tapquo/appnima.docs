@@ -196,6 +196,11 @@ Los mensajes intercambiados entre los usuarios de tu aplicación se pueden visua
 De la misma forma que con los mensajes recibidos, para obtener la lista de mensajes que se ha enviado, el recurso se llama de la siguiente forma:
 
     Appnima.Messenger.messageOutbox();
+    
+#### Conversación
+Para obtener los mensages intercambiados con otro usuario, tanto los recibidos como los enviados, se utiliza este método, que recibe como parámetro el username del otro usuario.
+
+    Appnima.Messenger.conversation(username);  
 
 #### Marcar como leído
 Para marcar un mensaje como leído basta con llamar al recurso pasando el id del mensaje como parámetro:
