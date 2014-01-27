@@ -196,11 +196,11 @@ Los mensajes intercambiados entre los usuarios de tu aplicación se pueden visua
 De la misma forma que con los mensajes recibidos, para obtener la lista de mensajes que se ha enviado, el recurso se llama de la siguiente forma:
 
     Appnima.Messenger.messageOutbox();
-    
+
 #### Conversación
 Para obtener los mensages intercambiados con otro usuario, tanto los recibidos como los enviados, se utiliza este método, que recibe como parámetro el username del otro usuario.
 
-    Appnima.Messenger.conversation(username);  
+    Appnima.Messenger.conversation(username);
 
 #### Marcar como leído
 Para marcar un mensaje como leído basta con llamar al recurso pasando el id del mensaje como parámetro:
@@ -208,12 +208,12 @@ Para marcar un mensaje como leído basta con llamar al recurso pasando el id del
     Appnima.Messenger.readMessage("28319319832");
 
 #### Resumen
-Este método te permite obtener una lista que contenga el último mensaje que hayas mandado o recibido por cada usuario. 
+Este método te permite obtener una lista que contenga el último mensaje que hayas mandado o recibido por cada usuario.
 
-    Appnima.Messenger.summary();  
-      
+    Appnima.Messenger.summary();
+
 #### Buscar
-Es posible realizar una búsqueda entre tus mensajes enviados y recibidos a través de una palabra o trozo de palabra, tanto que la contengan en el asunto del mensaje como en el cuerpo. Para ello se le pasará como atributo la palabra con la cual quieres realizar la búsqueda.
+Es posible realizar una búsqueda entre tus mensajes enviados y recibidos a través de una palabra, tanto que la contengan en el asunto del mensaje como en el cuerpo. Para ello se enviará como atributo la palabra con la cual quieres realizar la búsqueda.
 
     Appnima.Messenger.search("node");
 
@@ -266,7 +266,7 @@ Al igual que en lo explicado anteriormente, también existe la posibilidad de ob
 Hay que mencionar, que en este caso, cada objeto del array devolverá un campo más indicando si el usuario logueado sigue a esa persona o no.
 
 #### Amigos
-También se pueden obtener los amigos del usuario de la sesión, es decir, aquellas personas que son seguidores tuyas y a la vez ellas te siguen a ti.
+También se pueden obtener los amigos del usuario de la sesión, es decir, aquellas personas que son seguidores tuyos y a la vez ellas te siguen a ti.
 
     Appnima.Network.friends();
 

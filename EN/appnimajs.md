@@ -201,20 +201,20 @@ As we do with received messages we can get the list of of sent messages, just us
 #### Conversation
 For to get message exchanged with another user, both received as sent, is used this method, which receives as parameter the username of another user.
 
-    Appnima.Messenger.conversation(username);  
+    Appnima.Messenger.conversation(username);
 
 #### Mark as read
 To mark a message as read call this resource using the message id as parameter:
 
     Appnima.Messenger.readMessage("28319319832");
-   
+
 #### Summary
 This method allows you to obtain a list containing the last message you've sent or received by each user.
 
-	Appnima.Messenger.summary();  
+    Appnima.Messenger.summary();
 
 #### Search
-You can perform a search from your messages sent and received across a word or piece of word that contain both the message subject and body. This attribute will be passed as the word with which you want to search.
+You can do a search from your messages sent and received across a word that contain both the message subject such the message's body.
 
     Appnima.Messenger.search("node");
 
@@ -263,7 +263,7 @@ Like as explained above, it is also possible to obtain results with pagination. 
 In this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
 
 #### Friends
-You can also obtain the user's friends of the session, namely, those who are followers of your while they follow you.
+You can also obtain the session's friends, a friend is considered the user having a reinforced relationship (follower / following)
 
     Appnima.Network.friends();
 
