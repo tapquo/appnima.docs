@@ -446,8 +446,8 @@ En este caso, en la primera llamada se obtendría el ```timeline```del usuario d
 En la seguna llamada es lo mismo, solo que se desea obtener los posts mediante paginación.
 El otro caso sería el siguiente:
 
-    Appnima.Network.Post.timeline(4543534534543);
-    Appnima.Network.Post.timeline(4543534534543, page, num_results, last_data);
+    Appnima.Network.Post.timeline(username);
+    Appnima.Network.Post.timeline(username, page, num_results, last_data);
 
 En este caso se está obteniendo el timeline de un usuario en concreto, esto es, los post que él ha escrito. (Siguiente con el ejemplo de Twitter, este caso sería cuando entras en el perfil de un usuario en concreto). Como se puede observar, también se puede hacer mediante paginación.
 
