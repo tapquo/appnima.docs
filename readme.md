@@ -466,7 +466,7 @@ Like in *timeline*, there is the option of getting this data using pagination. T
 
 ```json
     {
-     user: 543534534534534534
+     username: username
      page: 0
      num_results: 5
     }

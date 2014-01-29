@@ -461,7 +461,7 @@ Al igual que en el *timeline* del recurso de ```MESSENGER```, existe la opción 
 
 ```json
     {
-     user: 543534534534534534
+     username: username
      page: 0
      num_results: 5
     }
