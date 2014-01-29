@@ -620,9 +620,9 @@ Obtener los mensajes del grupo. El segundo parametro indica el numero de la pág
 
     group.messages("id", 0);
 
-Eliminar el contador de mensajes no leídos de ese grupo, el primer parametro debe de ser la id del grupo:
+Eliminar el contador de mensajes no leídos de ese grupo, el parámetro requerido es el id de la room:
 
-    group.deleteUnreadCount("id", callback);
+    group.deleteUnreadCount("id");
 
 
 Chat
@@ -682,23 +682,9 @@ Desconexión de amigo:
 
     inbox.onFriendDisconnected(callback);
 
-Enviar datos a seguidores:
-
-    inbox.sendToFollowers(data);
-
-Enviar datos a amigos:
-
-    inbox.sendToFriends(data);
-
 Enviar datos a un usuario en concreto:
 
     inbox.sendToUser(user_id, data);
-
-Usuario
--------
-Socket.User permite el envío de mensajes al inbox de un user. Para ello primero tenemos que crear una instancia:
-
-    user = new Appnima.Socket.User("3907390629397");
 
 
 Métodos
@@ -709,24 +695,23 @@ Estos métodos son los necesarios para la gestión de los tipos de socket vistos
 
 * `instance.disconnect()`: Se desconecta de una sala
 
-* `instance.allowUSers(["","",""…])`: Permite añadir usuarios permitidos en Groups y Chats
+* `instance.allowUsers(["","",""…])`: Permite añadir usuarios permitidos en Groups y Chats
 
 * `instance.disallowUsers(["","",""…])`: Elimina usuarios de la lista de admitidos
 
-* `instance.send(message, optionalData)`: Envía un mensaje a todos los usuarios de la sala (emisor incluido). El segundo parametro es opcional y se utiliza para enviar un objeto con datos extra que nos podría interesar mandar.
+* `instance.send(message)`: Envía un mensaje a todos los usuarios de la sala (emisor incluido).
 
-* `instance.broadcast(message, optionalData)`: Envía un mensaje a todos los usuarios de la sala excepto al emisor. El segundo parametro es opcional y se utiliza para enviar un objeto con datos extra que nos podría interesar mandar.
-
-* `instance.broadcast(message)`: Envía un mensaje a todos los usuarios de la sala excepto al emisor
+* `instance.broadcast(message)`: Envía un mensaje a todos los usuarios de la sala excepto al emisor.
 
 * `instance.onConnect(callback)`: Llama al callback cuando se conecta a la sala
 
 * `instance.onError(callback)`: Llama al callback cuando sucede un error
 
+* `instance.onDisconnect(callback)`: Llama al callback cuando el socket se desconecta
+
 * `instance.onMessage(callback)`: Llama al callback cuando se recibe un mensaje, el mensaje será un objeto con los atributos:
     * content: "Contenido del mensaje"
     * user: {"Usuario que lo envía"}
-    * data: {"Información extra enviada por el emisor"}
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Llama al callback cuando uno o varios usuarios han sido echados de un grupo

@@ -1168,21 +1168,21 @@ To create a room we will call to the `open` method. This one will receive the fo
 * Room name
 * Room Type
 * If we want that the room persist in time
-* Allowed users' id array
+* Allowed user's id array
 
 If everythng is right the room will be created and the author will be automatically connected to it.
 
 #### join
 A user can be connected to a room if it is created and he has permission to connect to it. To do this `join` method must be called with the following parameters:
 
-* User's token (for anonymous session not required)
+* User's token
 * Context (identification of the room to connect)
-* Application id (in case of anonymous session it is mandatory)
+* Type (Room's type)
 
 #### leave
 To disconnect from a room just call the method `leave`.
 
-#### sendmessage
+#### sendMessage
 To send a message to a room just call the method `sendMessage` with an object as parameter (a message can be any type of data). This message will be received by all the room's users, also the sender, through a listener called `onMessage` and it will have the following format:
 ```json
     {
@@ -1192,14 +1192,14 @@ To send a message to a room just call the method `sendMessage` with an object as
     }
 ```
 
-#### sendbroadcast
+#### broadcastMessage
 This methods works as `sendMessage`, the unique difference is that the sender won't receive the message.
 
-#### allowusers
-Users can be added to the allowed user list using `allowUsers` method, to do this just call this method and use users' id array as parameter.
+#### allowUsers
+Users can be added to the allowed user list using `allowUsers` method, to do this just call this method and use users ids array as parameter.
 
-#### disallowusers
-Users can be removed from the allowed user list using `disallowUsers` method, to do this just call this method and use users' id array as parameter.
+#### disallowUsers
+Users can be removed from the allowed user list using `disallowUsers` method, to do this just call this method and use users ids array as parameter.
 
 
 ### Types and permissions

@@ -617,7 +617,7 @@ Get the messages of the group. The second parameter is the page number, the firs
 
 Delete unread messages count, the first parameter is the group id:
 
-    group.deleteUnreadCount("id", callback);
+    group.deleteUnreadCount("id");
 
 Chat
 ----
@@ -677,24 +677,9 @@ Friend disconnection:
 
     inbox.onFriendDisconnected(callback);
 
-Send data to followers:
-
-    inbox.sendToFollowers(data);
-
-Send data to friends:
-
-    inbox.sendToFriends(data);
-
 Send data to an user:
 
     inbox.sendToUser(user_id, data);
-
-
-User
-----
-Socket.User allows user to send messages to a user's inbox. Just create an instance:
-
-    user = new Appnima.Socket.User("user id");
 
 
 Methods
@@ -717,10 +702,11 @@ This methods are the same for all the socket types seen previously:
 
 * `instance.onError(callback)`: Calls to the callback on error
 
+* `instance.onDisconnect(callback)`: Calls to the callback when the socket disconnect
+
 * `instance.onMessage(callback)`: Calls to the callback on message received, the recived message will be an object like this:
     * content:  "message content"
     * user: {"Information about the sender"}
-    * data: {"Extra information sendend"}
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Calls to the callback when a user is disallowed from the group
