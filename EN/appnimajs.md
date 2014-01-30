@@ -201,20 +201,20 @@ As we do with received messages we can get the list of of sent messages, just us
 #### Conversation
 For to get message exchanged with another user, both received as sent, is used this method, which receives as parameter the username of another user.
 
-    Appnima.Messenger.conversation(username);  
+    Appnima.Messenger.conversation(username);
 
 #### Mark as read
 To mark a message as read call this resource using the message id as parameter:
 
     Appnima.Messenger.readMessage("28319319832");
-   
+
 #### Summary
 This method allows you to obtain a list containing the last message you've sent or received by each user.
 
-	Appnima.Messenger.summary();  
+    Appnima.Messenger.summary();
 
 #### Search
-You can perform a search from your messages sent and received across a word or piece of word that contain both the message subject and body. This attribute will be passed as the word with which you want to search.
+You can do a search from your messages sent and received across a word that contain both the message subject such the message's body.
 
     Appnima.Messenger.search("node");
 
@@ -263,7 +263,7 @@ Like as explained above, it is also possible to obtain results with pagination. 
 In this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
 
 #### Friends
-You can also obtain the user's friends of the session, namely, those who are followers of your while they follow you.
+You can also obtain the session's friends, a friend is considered the user having a reinforced relationship (follower / following)
 
     Appnima.Network.friends();
 
@@ -442,8 +442,8 @@ In this case, the first call would get the ```timeline``` of session user. This 
 In second call is the same, only to be get posts by pagination.
 The other case would be:
 
-    Appnima.Network.Post.timeline(4543534534543);
-    Appnima.Network.Post.timeline(4543534534543, page, num_results, last_data);
+    Appnima.Network.Post.timeline(username);
+    Appnima.Network.Post.timeline(username, page, num_results, last_data);
 
 In this case you are getting the timeline of a specific user, the post he has written. (Next to the example of Twitter, this case would be when you enter in to the profile of a particular user). As you can see, you can also do by pagination.
 
@@ -617,7 +617,7 @@ Get the messages of the group. The second parameter is the page number, the firs
 
 Delete unread messages count, the first parameter is the group id:
 
-    group.deleteUnreadCount("id", callback);
+    group.deleteUnreadCount("id");
 
 Chat
 ----
@@ -677,24 +677,9 @@ Friend disconnection:
 
     inbox.onFriendDisconnected(callback);
 
-Send data to followers:
-
-    inbox.sendToFollowers(data);
-
-Send data to friends:
-
-    inbox.sendToFriends(data);
-
 Send data to an user:
 
     inbox.sendToUser(user_id, data);
-
-
-User
-----
-Socket.User allows user to send messages to a user's inbox. Just create an instance:
-
-    user = new Appnima.Socket.User("user id");
 
 
 Methods
@@ -717,10 +702,11 @@ This methods are the same for all the socket types seen previously:
 
 * `instance.onError(callback)`: Calls to the callback on error
 
+* `instance.onDisconnect(callback)`: Calls to the callback when the socket disconnect
+
 * `instance.onMessage(callback)`: Calls to the callback on message received, the recived message will be an object like this:
     * content:  "message content"
     * user: {"Information about the sender"}
-    * data: {"Extra information sendend"}
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Calls to the callback when a user is disallowed from the group

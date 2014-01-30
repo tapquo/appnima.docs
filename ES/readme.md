@@ -461,7 +461,7 @@ Al igual que en el *timeline* del recurso de ```MESSENGER```, existe la opción 
 
 ```json
     {
-     user: 543534534534534534
+     username: username
      page: 0
      num_results: 5
     }
@@ -1189,14 +1189,14 @@ Si todo está correcto la sala se creará y automáticamente el autor estará co
 #### join
 Un usuario puede conectarse a una sala siempre y cuando ya esté creada y tenga permiso de conexión a la misma. Para ello se llamará al método `join` y se le pasarán los siguientes parámetros:
 
-* Token del usuario (obligatorio a no ser que sea sesión anónima)
+* Token del usuario
 * Contexto (identificador de la sala a la que se quiere conectar)
-* Id de aplicación (en caso de sesión anónima se requiere de este campo)
+* Tipo (tipo de la room a la que se quiere conectar)
 
 #### leave
 En caso de querer desconectarse de una sala se llamará al método `leave`.
 
-#### sendmessage
+#### sendMessage
 Para enviar un mensaje a una sala basta con llamar al método `sendMessage` y pasarle como parámetro un objeto (el mensaje puede ser cualquier tipo de dato). Este mensaje llegará a todos los usuarios conectados a la sala, emisor incluido, se recibirá a través del listener `onMessage` y tendrá el siguiente formato:
 ```json
     {
@@ -1206,13 +1206,13 @@ Para enviar un mensaje a una sala basta con llamar al método `sendMessage` y pa
     }
 ```
 
-#### sendbroadcast
+#### broadcastMessage
 Este método funciona igual que el método `sendMessage` con la única diferencia de que el emisor no recibirá el mensaje enviado.
 
-#### allowusers
+#### allowUsers
 Se pueden añadir usuarios a la lista de admitidos a través del método `allowUsers`, para ello bastará con llamar a este método y pasarle un array con los ids de los usuarios a admitir.
 
-#### disallowusers
+#### disallowUsers
 Se pueden eliminar usuarios de la lista de admitidos a través del método `disallowUsers`, para ello bastará con llamar a este método y pasarle un array con los ids de los usuarios a eliminar de la lista de admitidos.
 
 

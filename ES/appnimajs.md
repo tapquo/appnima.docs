@@ -196,11 +196,11 @@ Los mensajes intercambiados entre los usuarios de tu aplicación se pueden visua
 De la misma forma que con los mensajes recibidos, para obtener la lista de mensajes que se ha enviado, el recurso se llama de la siguiente forma:
 
     Appnima.Messenger.messageOutbox();
-    
+
 #### Conversación
 Para obtener los mensages intercambiados con otro usuario, tanto los recibidos como los enviados, se utiliza este método, que recibe como parámetro el username del otro usuario.
 
-    Appnima.Messenger.conversation(username);  
+    Appnima.Messenger.conversation(username);
 
 #### Marcar como leído
 Para marcar un mensaje como leído basta con llamar al recurso pasando el id del mensaje como parámetro:
@@ -208,12 +208,12 @@ Para marcar un mensaje como leído basta con llamar al recurso pasando el id del
     Appnima.Messenger.readMessage("28319319832");
 
 #### Resumen
-Este método te permite obtener una lista que contenga el último mensaje que hayas mandado o recibido por cada usuario. 
+Este método te permite obtener una lista que contenga el último mensaje que hayas mandado o recibido por cada usuario.
 
-    Appnima.Messenger.summary();  
-      
+    Appnima.Messenger.summary();
+
 #### Buscar
-Es posible realizar una búsqueda entre tus mensajes enviados y recibidos a través de una palabra o trozo de palabra, tanto que la contengan en el asunto del mensaje como en el cuerpo. Para ello se le pasará como atributo la palabra con la cual quieres realizar la búsqueda.
+Es posible realizar una búsqueda entre tus mensajes enviados y recibidos a través de una palabra, tanto que la contengan en el asunto del mensaje como en el cuerpo. Para ello se enviará como atributo la palabra con la cual quieres realizar la búsqueda.
 
     Appnima.Messenger.search("node");
 
@@ -266,7 +266,7 @@ Al igual que en lo explicado anteriormente, también existe la posibilidad de ob
 Hay que mencionar, que en este caso, cada objeto del array devolverá un campo más indicando si el usuario logueado sigue a esa persona o no.
 
 #### Amigos
-También se pueden obtener los amigos del usuario de la sesión, es decir, aquellas personas que son seguidores tuyas y a la vez ellas te siguen a ti.
+También se pueden obtener los amigos del usuario de la sesión, es decir, aquellas personas que son seguidores tuyos y a la vez ellas te siguen a ti.
 
     Appnima.Network.friends();
 
@@ -446,8 +446,8 @@ En este caso, en la primera llamada se obtendría el ```timeline```del usuario d
 En la seguna llamada es lo mismo, solo que se desea obtener los posts mediante paginación.
 El otro caso sería el siguiente:
 
-    Appnima.Network.Post.timeline(4543534534543);
-    Appnima.Network.Post.timeline(4543534534543, page, num_results, last_data);
+    Appnima.Network.Post.timeline(username);
+    Appnima.Network.Post.timeline(username, page, num_results, last_data);
 
 En este caso se está obteniendo el timeline de un usuario en concreto, esto es, los post que él ha escrito. (Siguiente con el ejemplo de Twitter, este caso sería cuando entras en el perfil de un usuario en concreto). Como se puede observar, también se puede hacer mediante paginación.
 
@@ -631,9 +631,9 @@ Obtener los mensajes del grupo. El segundo parametro indica el numero de la pág
 
     group.messages("id", 0);
 
-Eliminar el contador de mensajes no leídos de ese grupo, el primer parametro debe de ser la id del grupo:
+Eliminar el contador de mensajes no leídos de ese grupo, el parámetro requerido es el id de la room:
 
-    group.deleteUnreadCount("id", callback);
+    group.deleteUnreadCount("id");
 
 
 Chat
@@ -693,23 +693,9 @@ Desconexión de amigo:
 
     inbox.onFriendDisconnected(callback);
 
-Enviar datos a seguidores:
-
-    inbox.sendToFollowers(data);
-
-Enviar datos a amigos:
-
-    inbox.sendToFriends(data);
-
 Enviar datos a un usuario en concreto:
 
     inbox.sendToUser(user_id, data);
-
-Usuario
--------
-Socket.User permite el envío de mensajes al inbox de un user. Para ello primero tenemos que crear una instancia:
-
-    user = new Appnima.Socket.User("3907390629397");
 
 
 Métodos
@@ -720,24 +706,23 @@ Estos métodos son los necesarios para la gestión de los tipos de socket vistos
 
 * `instance.disconnect()`: Se desconecta de una sala
 
-* `instance.allowUSers(["","",""…])`: Permite añadir usuarios permitidos en Groups y Chats
+* `instance.allowUsers(["","",""…])`: Permite añadir usuarios permitidos en Groups y Chats
 
 * `instance.disallowUsers(["","",""…])`: Elimina usuarios de la lista de admitidos
 
-* `instance.send(message, optionalData)`: Envía un mensaje a todos los usuarios de la sala (emisor incluido). El segundo parametro es opcional y se utiliza para enviar un objeto con datos extra que nos podría interesar mandar.
+* `instance.send(message)`: Envía un mensaje a todos los usuarios de la sala (emisor incluido).
 
-* `instance.broadcast(message, optionalData)`: Envía un mensaje a todos los usuarios de la sala excepto al emisor. El segundo parametro es opcional y se utiliza para enviar un objeto con datos extra que nos podría interesar mandar.
-
-* `instance.broadcast(message)`: Envía un mensaje a todos los usuarios de la sala excepto al emisor
+* `instance.broadcast(message)`: Envía un mensaje a todos los usuarios de la sala excepto al emisor.
 
 * `instance.onConnect(callback)`: Llama al callback cuando se conecta a la sala
 
 * `instance.onError(callback)`: Llama al callback cuando sucede un error
 
+* `instance.onDisconnect(callback)`: Llama al callback cuando el socket se desconecta
+
 * `instance.onMessage(callback)`: Llama al callback cuando se recibe un mensaje, el mensaje será un objeto con los atributos:
     * content: "Contenido del mensaje"
     * user: {"Usuario que lo envía"}
-    * data: {"Información extra enviada por el emisor"}
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Llama al callback cuando uno o varios usuarios han sido echados de un grupo
