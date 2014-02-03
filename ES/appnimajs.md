@@ -581,6 +581,17 @@ Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cer
 APP/NIMA también te permite obtener un listado de personas cercanas al usuario que consulta. La petición es similar a la anterior:
 
     Appnima.Location.people("43.6525842", "-79.3834173, 100");
+    
+
+Calendario
+===============
+
+#### Crear
+APP/NIMA permite a los usuarios tener un sistema de calendarios donde gestionar sus eventos. 
+
+Para crear un nuevo calendario, se utiliza el siguiente comando que en envía como parámetro el nombre y el color del nuevo calendario.
+
+    Appnima.Calendar.create("mi calendario", "#FF66CC")
 
 
 
