@@ -674,13 +674,9 @@ Amigos que están conectados:
 
     inbox.onOnlineFriends(callback);
 
-Conexión de amigo:
+Conexión/Desconexión de amigo:
 
-    inbox.onFriendConnected(callback);
-
-Desconexión de amigo:
-
-    inbox.onFriendDisconnected(callback);
+    inbox.onFriendStatusChange(callback);
 
 Enviar datos a un usuario en concreto:
 
