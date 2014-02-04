@@ -716,7 +716,7 @@ A través de la siguiente función se pueden obtener los eventos de los calendar
 
 Si lo que se quiere es listar los eventos de una semana, se le envía como primer parámetro "week", como segundo parámetro el año de la semana, como tercer parámetro el número del mes de la semana, y como cuarto parámetro el día. Esta fecha corresponde con un día de la semana de la que se quiere obtener los eventos
 
-	Appnima.Calendar.listEvents("month", "2014", "02", "14")
+	Appnima.Calendar.listEvents("week", "2014", "02", "14")
 
 Si lo que se quiere es listar los eventos de un día, se le envía como primer parámetro "day", como segundo parámetro el año del día, como tercer parámetro el número del mes, y como cuarto parámetro el día. 
 
