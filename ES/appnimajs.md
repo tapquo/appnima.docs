@@ -572,7 +572,7 @@ Obtén la lista de check ins de un usuario. Para esta petición sólo es necesar
 Personas
 --------
 #### Amigos
-Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cerca, para ello es necesaria la latitud, longitud y el redio de busqueda:
+Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cerca, para ello es necesaria la latitud, longitud y el radio de busqueda:
 
     Appnima.Location.friends("43.6525842", "-79.3834173, 100");
 
@@ -589,10 +589,31 @@ Calendario
 #### Crear
 APP/NIMA permite a los usuarios tener un sistema de calendarios donde gestionar sus eventos. 
 
-Para crear un nuevo calendario, se utiliza el siguiente comando que en envía como parámetro el nombre y el color del nuevo calendario.
+Para crear un nuevo calendario, se utiliza el siguiente comando que envía como parámetro el nombre y el color del nuevo calendario.
 
     Appnima.Calendar.create("mi calendario", "#FF66CC")
+ 
+Esta función nos devuelve el nuevo calendario.
+    
+#### Modificar
+Tambien tenemos la opción de modificar los atributos de un calendario ya creado, tanto el nombre, como el color. Para ello, se utiliza el siguiente comando que envía como parámetro la "id" del calendario a modificar, el nuevo nombre y el nuevo color.
 
+	Appnima.Calendar.update(""28319319833", mi nuevo calendario", "#FF66CC")
+
+En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados.
+
+#### Borrar
+Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza el siguiente comando, enviando como parámetro la "id" del calendario que se desea borrar
+
+	Appnima.Calendar.remove(""28319319833")
+	
+En caso de que el calendario no exista, devuelve un error 404.
+
+
+#### Crear un evento
+A través del siguiente comando se puede crear un evento para un calendario. Se le debe envíar como parametros  
+
+    Appnima.Calendar.createEvent("mi calendario", "#FF66CC")
 
 
 Push
