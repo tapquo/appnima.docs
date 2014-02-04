@@ -614,7 +614,7 @@ Cabe la posibilidad de compartir un calendario con otros usuarios, para que así
 
 	Appnima.Calendar.shared("28319319833", "28319364941")
 	
-En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado.
+En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado. El atributo "shared" corresponde con la lista de usuarios a los que se les ha compartido el calendario.
 
     calendar   : { 
     				id: 52f0d497f4a9b16f47000002, 
