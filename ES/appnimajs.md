@@ -703,11 +703,70 @@ Esta función devuelve el nuevo evento:
      		}
      		
 #### Modificar un evento
-También se nos permite modificar un evento. Se le debe envíar como parametros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
+También se nos permite modificar un evento. Se le debe envíar como parametros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud.
 
     Appnima.Calendar.event(52f0e1e6d028ec6b6f000011, "partido de balonceso", "quedada para jugar un partido de baloncesto", "04-14-2014 09:00", "04-14-2014 11:00", null, "futbol,deporte", "c/ San Mames", "Bilbao", "España", "23.23", "-2.29")
     
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados con la estructura del objeto que se devuelve en la función de crear evento.
+
+#### Listar eventos
+A través de la siguiente función se pueden obtener los eventos de los calendarios en los que el usuario logueado es dueño, los eventos de los calendarios que le han compartido, y los eventos a los que se le han invitado. Se deben filtrar los eventos por tiempo. Si se quieren listar los eventos de un mes, como primer parámetro se le envía "month", como segundo parámetro se envía el año, y como segundo el número del mes del que se quieren listar los eventos. 
+
+	Appnima.Calendar.listEvents("month", "2014", "02")
+
+Si lo que se quiere es listar los eventos de una semana, se le envía como primer parámetro "week", como segundo parámetro el año de la semana, como tercer parámetro el número del mes de la semana, y como cuarto parámetro el día. Esta fecha corresponde con un día de la semana de la que se quiere obtener los eventos
+
+	Appnima.Calendar.listEvents("month", "2014", "02", "14")
+
+Si lo que se quiere es listar los eventos de un día, se le envía como primer parámetro "day", como segundo parámetro el año del día, como tercer parámetro el número del mes, y como cuarto parámetro el día. 
+
+	Appnima.Calendar.listEvents("day", "2014", "02", "14")
+
+Como resultado se obtiene una lista de eventos:
+
+	events : [ 
+				{ 
+					id: 52f0ed7893888c029200000f,
+    				calendar: 52f0ed7893888c0292000002,
+    				date_init: Sun Apr 20 2014 09:00:00 GMT+0200 (CEST),
+    				date_finish: Thu Mar 20 2014 11:00:00 GMT+0100 (CET),
+    				name: 'company dinner',
+    				description: 'This event is company dinner',
+    				place: 52f0ed7893888c029200000e,
+    				assistents: [ ],
+    				created_at: Tue Feb 04 2014 14:39:04 GMT+0100 (CET),
+    				tags: [ dinner,  enjoy ],
+    				owner:
+     						{ 
+     							id: 52eb667ab71cd7e4be00000c,
+       							username: 'a1@appnima.com-1391158906892',
+       							mail: 'a1@appnima.com',
+       							avatar: 'http://appnima.com/img/avatar.jpg',
+       							name: 'name' 
+       						} 
+       						
+       			},
+       			{
+       				id: 52f0ed7893888c029200000d,
+    				calendar: 52f0ed7893888c0292000002,
+    				date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+    				date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+    				name: 'bilboStack',
+    				description: 'This event is bilboStack',
+    				place: 52f0ed7893888c029200000c,
+    				assistents: [ ],
+    				created_at: Tue Feb 04 2014 14:39:04 GMT+0100 (CET),
+    				tags: [ learn ],
+    				owner:
+    						{ 
+    							id: 52eb667ab71cd7e4be00000c,
+       							username: 'a1@appnima.com-1391158906892',
+       							mail: 'a1@appnima.com',
+       							avatar: 'http://appnima.com/img/avatar.jpg',
+       							name: 'name' 
+       						}
+       			} 
+       		]
 
 #### Borrar un evento
 Cabe la posibilidad de eliminar un evento, para ello basta con ejecutar la siguiente función, enviando como parámeto la "id", del evento que se desee borrar
