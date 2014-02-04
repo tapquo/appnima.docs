@@ -596,18 +596,42 @@ Para crear un nuevo calendario, se utiliza el siguiente comando que envía como 
 Esta función nos devuelve el nuevo calendario.
     
 #### Modificar
-Tambien tenemos la opción de modificar los atributos de un calendario ya creado, tanto el nombre, como el color. Para ello, se utiliza el siguiente comando que envía como parámetro la "id" del calendario a modificar, el nuevo nombre y el nuevo color.
+Tambien tenemos la opción de modificar los atributos de un calendario ya creado, tanto el nombre, como el color. Para ello, se utiliza la siguiente función que envía como parámetro la "id" del calendario a modificar, el nuevo nombre y el nuevo color.
 
-	Appnima.Calendar.update(""28319319833", mi nuevo calendario", "#FF66CC")
+	Appnima.Calendar.update("28319319833", "mi nuevo calendario", "#FF66CC")
 
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados.
 
 #### Borrar
-Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza el siguiente comando, enviando como parámetro la "id" del calendario que se desea borrar
+Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza la siguiente función, enviando como parámetro la "id" del calendario que se desea borrar
 
-	Appnima.Calendar.remove(""28319319833")
+	Appnima.Calendar.remove("28319319833")
 	
 En caso de que el calendario no exista, devuelve un error 404.
+
+#### Compartir
+Cabe la posibilidad de compartir un calendario con otros usuarios, para que así, ellos también puedan ver los eventos que hay en dicho calendario. O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos para que ese usuario deje de ver dichos eventos. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetro, la "id" del calendario, y la "id" del usuario a invitar, ó a eliminar de la lista de compartidos. La función en caso de que el usuario ya esté en la lista lo elimina, si no lo añade.
+
+	Appnima.Calendar.shared("28319319833", "28319364941")
+	
+En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado.
+
+    calendar   : { 
+    				id: 52f0d497f4a9b16f47000002, 
+    				name: 'slid.us', 
+    				color: '#FF66CC',
+    				created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+    				owner: { 
+    					id: 52eb667ab71cd7e4be00000c,
+    					mail: 'a1@appnima.com',
+     					username: 'a1@appnima.com-1391158906892',
+     					name: 'name',
+     					avatar: 'http://appnima.com/img/avatar.jpg',
+     				},
+     				shared: [ 52eb667ab71cd7e4be000008 ] 
+     			}
+  				
+
 
 
 #### Crear un evento
