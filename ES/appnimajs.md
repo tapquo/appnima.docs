@@ -796,10 +796,10 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
        							name: 'name' 
        						} 
        			}
-#### Asistir a  a un evento.
+#### Asistir a un evento.
 También los eventos permiten saber qué usuarios van a asistir. Para confirmar la asistencia a un evento o para eliminar la asistencia a un evento se utiliza dicha función, en la cual se envía como parámetro, la "id" del evento, y la "id" del usuario a añadir, ó a eliminar de la lista de asistentes. La función en caso de que el usuario ya esté en la lista lo elimina, si no, lo añade.
 
-    Appnima.Calendar.assistentEventt("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004")
+    Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004")
 	
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "assistents" corresponde con la lista de usuarios que van a asistir al evento.
 
@@ -824,6 +824,57 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
        							name: 'name' 
        						} 
        			}
+#### Búsqueda de eventos.
+APP/NIMA te permite buscar eventos. La función envía como parámetro una palabra, y se busca una coincidencia con dicha palabra en el nombre y en la descripción de los eventos que tienes acceso. Es decir, aquellos que estén en un calendario donde seas el dueño o te los hayan compartido y aquellos eventos a los que te hayan invitado.
+
+    Appnima.Calendar.search("meeting")
+
+La función devuelve una lista de eventos que cumplan dichas coincidencias:
+
+	events : [ 
+				{ 
+					id: 52f0fa9eb70ed01fb9000018,
+    				calendar: 52f0fa9eb70ed01fb9000013,
+    				date_init: Sat Feb 22 2014 11:00:00 GMT+0100 (CET),
+    				date_finish: Sat Feb 22 2014 12:00:00 GMT+0100 (CET),
+    				name: 'meeting with juanjo',
+    				description: 'meeting with Juanjo in Near',
+    				place: 52f0fa9eb70ed01fb9000017,
+    				assistents: [ ],
+    				created_at: Tue Feb 04 2014 15:35:10 GMT+0100 (CET),
+    				tags: [ near ],
+    				guest: [ ],
+    				owner:
+    				 		{ 
+    				 			id: 52eb667ab71cd7e4be00000c,
+       							username: 'a1@appnima.com-1391158906892',
+       							mail: 'a1@appnima.com',
+       							avatar: 'http://appnima.com/img/avatar.jpg',
+       							name: 'name' 	
+       						} 
+       			},
+       			{
+       				id: 52f0fa9eb70ed01fb9000016,
+    				calendar: 52f0fa9eb70ed01fb9000013,
+    				date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
+    				date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
+    				name: 'meeting osakidetza updated',
+    				description: 'meeting to discuss changes in the implementation',
+    				place: 52f0fa9eb70ed01fb9000015,
+    				assistents: [ 52eb667ab71cd7e4be000004 ],
+    				created_at: Tue Feb 04 2014 15:35:10 GMT+0100 (CET),
+    				tags: [ app,  osakidetza ],
+    				guest: [ 52eb667ab71cd7e4be000004 ],
+    				owner: 
+    						{ 
+    							id: 52eb667ab71cd7e4be00000c,
+       							username: 'a1@appnima.com-1391158906892',
+       							mail: 'a1@appnima.com',
+       							avatar: 'http://appnima.com/img/avatar.jpg',
+       							name: 'name' 
+       						} 
+       			} 
+       		]
 
 #### Borrar un evento
 Cabe la posibilidad de eliminar un evento, para ello basta con ejecutar la siguiente función, enviando como parámeto la "id", del evento que se desee borrar
