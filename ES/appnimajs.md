@@ -707,7 +707,7 @@ También se nos permite modificar un evento. Se le debe envíar como parametros 
 
     Appnima.Calendar.event(52f0e1e6d028ec6b6f000011, "partido de balonceso", "quedada para jugar un partido de baloncesto", "04-14-2014 09:00", "04-14-2014 11:00", null, "futbol,deporte", "c/ San Mames", "Bilbao", "España", "23.23", "-2.29")
     
-En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados con la estructura del objeto que se devuelve en la función de crear evento.
+En caso de que el evento no exista, devuelve un error 404. Si por el contrario existe, devuelve el evento con los campos modificados con la estructura del objeto que se devuelve en la función de crear evento.
 
 #### Listar eventos
 A través de la siguiente función se pueden obtener los eventos de los calendarios en los que el usuario logueado es dueño, los eventos de los calendarios que le han compartido, y los eventos a los que se le han invitado. Se deben filtrar los eventos por tiempo. Si se quieren listar los eventos de un mes, como primer parámetro se le envía "month", como segundo parámetro se envía el año, y como segundo el número del mes del que se quieren listar los eventos. 
@@ -767,6 +767,63 @@ Como resultado se obtiene una lista de eventos:
        						}
        			} 
        		]
+       		
+#### Invitar a un evento.
+Otra funcionalidad que es posible, es la de invitar a un usuario a un evento, para que así, él también puedan ver dicho evento. O por el contrario, también se puede eliminar a un usuario de la lista de usuarios invitados para que ese usuario deje de ver dicho evento. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetro, la "id" del evento, y la "id" del usuario a invitar, ó a eliminar de la lista de invitados. La función en caso de que el usuario ya esté en la lista lo elimina, si no, lo añade.
+
+	Appnima.Calendar.guestEvent("52f0f4f313255536a8000005", "52eb667ab71cd7e4be000004")
+	
+En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "guest" corresponde con la lista de usuarios a los que se les ha invitado al evento.
+
+    event   : { 
+    				id: 52f0f4f313255536a8000005,
+    				calendar: 52f0f4f213255536a8000002,
+    				date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
+    				date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
+    				name: 'meeting osakidetza updated',
+    				description: 'meeting to discuss changes in the implementation',
+    				place: 52f0f4f313255536a8000004,
+    				assistents: [ ],
+    				created_at: Tue Feb 04 2014 15:10:59 GMT+0100 (CET),
+    				tags: [ app,  osakidetza ],
+    				guest: [ 52eb667ab71cd7e4be000004 ],
+    				owner:
+     						{ 
+     							id: 52eb667ab71cd7e4be00000c,
+       							username: 'a1@appnima.com-1391158906892',
+       							mail: 'a1@appnima.com',
+       							avatar: 'http://appnima.com/img/avatar.jpg',
+       							name: 'name' 
+       						} 
+       			}
+#### Asistir a  a un evento.
+También los eventos permiten saber qué usuarios van a asistir. Para confirmar la asistencia a un evento o para eliminar la asistencia a un evento se utiliza dicha función, en la cual se envía como parámetro, la "id" del evento, y la "id" del usuario a añadir, ó a eliminar de la lista de asistentes. La función en caso de que el usuario ya esté en la lista lo elimina, si no, lo añade.
+
+    Appnima.Calendar.assistentEventt("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004")
+	
+En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "assistents" corresponde con la lista de usuarios que van a asistir al evento.
+
+    event   : { 
+    				id: 52f0f84333e9d53db2000005,
+    				calendar: 52f0f84233e9d53db2000002,
+    				date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
+    				date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
+    				name: 'meeting osakidetza updated',
+    				description: 'meeting to discuss changes in the implementation',
+    				place: 52f0f84333e9d53db2000004,
+    				assistents: [ 52eb667ab71cd7e4be000004 ],
+    				created_at: Tue Feb 04 2014 15:25:07 GMT+0100 (CET),
+    				tags: [ app,  osakidetza ],
+    				guest: [ 52eb667ab71cd7e4be000004 ],
+    				owner: 
+    						{ 
+    							id: 52eb667ab71cd7e4be00000c,
+       							username: 'a1@appnima.com-1391158906892',
+       							mail: 'a1@appnima.com',
+       							avatar: 'http://appnima.com/img/avatar.jpg',
+       							name: 'name' 
+       						} 
+       			}
 
 #### Borrar un evento
 Cabe la posibilidad de eliminar un evento, para ello basta con ejecutar la siguiente función, enviando como parámeto la "id", del evento que se desee borrar
