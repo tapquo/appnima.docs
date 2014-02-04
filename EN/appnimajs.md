@@ -669,13 +669,9 @@ Get online friends:
 
     inbox.onOnlineFriends(callback);
 
-Friend connection:
+Friend connection/disconnection:
 
-    inbox.onFriendConnected(callback);
-
-Friend disconnection:
-
-    inbox.onFriendDisconnected(callback);
+    inbox.onFriendStatusChange(callback);
 
 Send data to an user:
 
