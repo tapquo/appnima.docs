@@ -595,20 +595,21 @@ Para crear un nuevo calendario, se utiliza el siguiente comando que envía como 
  
 Esta función nos devuelve el nuevo calendario:
 
-	{ 
-		id: 28319319833,
-		name: 'mi calendario',
-		color: '#FF66CC',
-		created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
-		owner:
-			{ 
-				id: 52eb667ab71cd7e4be00000c,
-     			username: 'a1@appnima.com-1391158906892',
-     			mail: 'a1@appnima.com',
-     			avatar: 'http://appnima.com/img/avatar.jpg',
-     			name: 'name' 
-     		},
-     	shared: [ ] }
+	calendar : { 
+					id: 28319319833,
+					name: 'mi calendario',
+					color: '#FF66CC',
+					created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+					owner:
+						{ 
+							id: 52eb667ab71cd7e4be00000c,
+     						username: 'a1@appnima.com-1391158906892',
+     						mail: 'a1@appnima.com',
+     						avatar: 'http://appnima.com/img/avatar.jpg',
+     						name: 'name' 
+     					},
+     				shared: [ ] 
+     			}
     
 #### Modificar
 Tambien tenemos la opción de modificar los atributos de un calendario ya creado, tanto el nombre, como el color. Para ello, se utiliza la siguiente función que envía como parámetro la "id" del calendario a modificar, el nuevo nombre y el nuevo color.
@@ -617,29 +618,21 @@ Tambien tenemos la opción de modificar los atributos de un calendario ya creado
 
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados:
 
-	{ 
-		id: 28319319833,
-		name: 'mi nuevo calendario',
-		color: '#FF66CC',
-		created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
-		owner:
-			{ 
-				id: 52eb667ab71cd7e4be00000c,
-     			username: 'a1@appnima.com-1391158906892',
-     			mail: 'a1@appnima.com',
-     			avatar: 'http://appnima.com/img/avatar.jpg',
-     			name: 'name' 
-     		},
-     	shared: [ ] }
-
-#### Borrar
-Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza la siguiente función, enviando como parámetro la "id" del calendario que se desea borrar
-
-	Appnima.Calendar.remove("28319319833")
-	
-En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
-
-	message: Successful
+	calendar : { 
+					id: 28319319833,
+					name: 'mi nuevo calendario',
+					color: '#FF66CC',
+					created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+					owner:
+							{ 
+								id: 52eb667ab71cd7e4be00000c,
+     							username: 'a1@appnima.com-1391158906892',
+     							mail: 'a1@appnima.com',
+     							avatar: 'http://appnima.com/img/avatar.jpg',
+     							name: 'name' 
+     						},
+     				shared: [ ] 
+     			}
 
 #### Compartir
 Cabe la posibilidad de compartir un calendario con otros usuarios, para que así, ellos también puedan ver los eventos que hay en dicho calendario. O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos para que ese usuario deje de ver dichos eventos. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetro, la "id" del calendario, y la "id" del usuario a invitar, ó a eliminar de la lista de compartidos. La función en caso de que el usuario ya esté en la lista lo elimina, si no lo añade.
@@ -663,6 +656,14 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
      				shared: [ 52eb667ab71cd7e4be000008 ] 
      			}
   				
+#### Borrar
+Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza la siguiente función, enviando como parámetro la "id" del calendario que se desea borrar
+
+	Appnima.Calendar.remove("28319319833")
+	
+En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
+
+	message: Successful
 
 #### Crear un evento
 A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
