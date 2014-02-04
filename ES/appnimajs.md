@@ -700,6 +700,13 @@ Esta función devuelve el nuevo evento:
      					name: 'name' 
      				} 
      		}
+     		
+#### Modificar un evento
+También se nos permite modificar un evento. Se le debe envíar como parametros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
+
+      Appnima.Calendar.event(52f0e1e6d028ec6b6f000011, "partido de balonceso", "quedada para jugar un partido de baloncesto", "04-14-2014 09:00", "04-14-2014 11:00", null, "futbol,deporte", "c/ San Mames", "Bilbao", "España", "23.23", "-2.29")
+    
+En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados con la estructura del objeto que se devuelve en la función de crear evento.
 
 Push
 ====
