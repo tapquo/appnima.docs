@@ -254,15 +254,6 @@ Este recurso sirve para modificar los datos personales de un usuario dentro de t
 En el caso de que haya ido todo bien se devolverá el código `200 OK` junto con el mismo objeto **GET /user**. En el caso de que el usuario no tenga permiso para modificar sus datos App/nima devolverá un `403 Forbidden`.
 
 
-#### POST /password
-Este recurso sirve para cambiar la contraseña, para ello enviaremos los siguientes parámetros:
-```json
-    {
-        old_password:       "old_password",
-        new_password:       "new_password"
-    }
-```
-
 #### POST /avatar
 Este recurso sirve para subir un avatar, para ello enviaremos los siguientes parámetros:
 ```json
@@ -272,6 +263,64 @@ Este recurso sirve para subir un avatar, para ello enviaremos los siguientes par
 ```
 
 En el caso de que haya ido todo bien se devolverá el código `201 RESOURCE CREATED`.
+
+### Contraseña
+APP/NIMA ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o cambiarla.
+
+#### POST /remember/password
+Este recurso sirve para recordar contraseña. Si se tiene backend de la aplicación, para recordar contraseña es necesario hacerlo en dos pasos, en caso de no tener, o no desear usar su propio backend, se podrá realizar en un paso.
+
+Si se desea hacer en un paso, hay que enviar los siguientes parámetros:
+
+```json
+    {
+        token: "fdfdfer2343243"
+    }
+```
+
+Este parámetro se trata del ```token```del usuario de APP/NIMA, esto es, el ```ACCESS_TOKEN``` del usuario. APP/NIMA se encargará de la gestión de la URL que se envia en el email, como se explica más adelante.
+
+Por otro lado, si se desea hacer en dos pasos, los parámetros que hay que envíar junto con la petición, y además del ```token``` del usuario, son los siguiente:
+
+
+```json
+    {
+        token: "fdfdfer2343243",
+        domain: "http://application_domain",
+        pwd_url: "reset_password"
+    }
+```
+El segundo parámetro se trata del dominio de la aplicación que llama a dicha funcionalidad y el último la url a la que se quiere llamar.
+
+Esta función envia un mail al usuario propietario del token de parte de APP/NIMA con una URL de la siguiente forma:
+
+    DOMINIO/URL/CODE -> http://application_domain/reset_password/25kj4fkwnfmndjkhgjk4h5nmf
+
+El código lo genera APP/NIMA y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña.
+
+#### POST /reset/password
+Como se ha dicho en el recurso anterior, recordar contraseña se puede hacer en dos pasos. En caso de hacerlo así, la segunda parte es llamar a este recurso. Este recurso por sí solo no se puede utilizar, ya que requiere del código generado en el recurso anterior.
+
+Para esto, como se puede observar, es necesario generar un endpoint en el backend de la aplicación con dicha URL en la que haya un formulario donde rellenar la nueva contraseña deseada. Por lo tanto habría que mandar al recurso los siguientes datos:
+
+```json
+    {
+        code: "jk23j4k32knm423klh6j56jhjl",
+        password: "1234509"
+    }
+```
+
+El primer parámetro es el código de la URL generada en el recurso anterior y el segundo parámetro es la nueva contraseña que el usuario quiere regenerar. Una vez hecho esto, APP/NIMA envía un email al usuario avisándole de que su contraseña ha sido modificada.
+
+#### PUT /password
+Este recurso sirve para cambiar la contraseña y el único requisito es estar identificado con APP/NIMA. Junto a la petición hay que enviarle los siguientes parámetros:
+
+```json
+    {
+        old_password: 123456
+        new_password: 098763
+    }
+```
 
 ### Terminal
 #### POST /terminal
