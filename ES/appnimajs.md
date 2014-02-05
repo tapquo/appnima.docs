@@ -664,9 +664,13 @@ En caso de que el calendario no exista, devuelve un error 404. Si por el contrar
                 }
 
 #### Compartir
-Cabe la posibilidad de compartir un calendario con otros usuarios, para que así, ellos también puedan ver los eventos que hay en dicho calendario. O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos para que ese usuario deje de ver dichos eventos. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetro, la "id" del calendario, y la "id" del usuario a invitar, ó a eliminar de la lista de compartidos. La función en caso de que el usuario ya esté en la lista lo elimina, si no lo añade.
+Cabe la posibilidad de compartir un calendario con otros usuarios, para que así, ellos también puedan ver los eventos que hay en dicho calendario. Para ello, sólo hay que realizar la llamada a la función que se muestra a continuación, enviando como parámetro la "id" del calendario, la "id" del usuario a invitar, y "add".
 
-    Appnima.Calendar.shared("28319319833", "28319364941")
+    Appnima.Calendar.shared("28319319833", "28319364941", "add")
+
+O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos, para que ese usuario deje de ver dichos eventos. Para ello, la llamada a la función es la misma que la de compartir, sólo que como tercer paramentro se envía "remove"
+
+    Appnima.Calendar.shared("28319319833", "28319364941", "remove")
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado. El atributo "shared" corresponde con la lista de usuarios a los que se les ha compartido el calendario.
 
@@ -798,11 +802,18 @@ Como resultado se obtiene una lista de eventos:
             ]
 
 #### Invitar a un evento.
-Otra funcionalidad que es posible, es la de invitar a un usuario a un evento, para que así, él también puedan ver dicho evento. O por el contrario, también se puede eliminar a un usuario de la lista de usuarios invitados para que ese usuario deje de ver dicho evento. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetro, la "id" del evento, y la "id" del usuario a invitar, ó a eliminar de la lista de invitados. La función en caso de que el usuario ya esté en la lista lo elimina, si no, lo añade.
+Otra funcionalidad que es posible, es la de invitar a un usuario a un evento, para que así, él también pueda ver dicho evento. O por el contrario, eliminar una invitación para que ese usuario deje de ver dicho evento. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetros, la "id" del evento, la "id" del usuario a invitar, y "add" o "remove", si se quiere añadir invitación, se envía "add" si por el contrario se quiere eliminar, se envía "remove".
 
+<<<<<<< HEAD
     Appnima.Calendar.guestEvent("52f0f4f313255536a8000005", "52eb667ab71cd7e4be000004")
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "guest" corresponde con la lista de usuarios a los que se les ha invitado al evento.
+=======
+    Appnima.Calendar.guestEvent("52f0f4f313255536a8000005", "52eb667ab71cd7e4be000004", "add")
+
+
+En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devuelve el evento actualizado. El atributo "guest" corresponde con la lista de usuarios a los que se les ha invitado al evento.
+>>>>>>> 2752097064b6e4fcf1a8398332d101396613604f
 
     event   : {
                     id: 52f0f4f313255536a8000005,
@@ -826,10 +837,15 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                             }
                 }
 #### Asistir a un evento.
-También los eventos permiten saber qué usuarios van a asistir. Para confirmar la asistencia a un evento o para eliminar la asistencia a un evento se utiliza dicha función, en la cual se envía como parámetro, la "id" del evento, y la "id" del usuario a añadir, ó a eliminar de la lista de asistentes. La función en caso de que el usuario ya esté en la lista lo elimina, si no, lo añade.
+También los eventos permiten saber qué usuarios van a asistir. Para confirmar la asistencia a un evento o para eliminarla se utiliza dicha función, en la cual, se envía como parámetro la "id" del evento, la "id" del usuario, y "add" o "remove". Si se quiere añadir invitación, se envía "add" si por el contrario se quiere eliminar, se envía "remove".
 
+<<<<<<< HEAD
     Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004")
 
+=======
+    Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004", "add")
+
+>>>>>>> 2752097064b6e4fcf1a8398332d101396613604f
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "assistents" corresponde con la lista de usuarios que van a asistir al evento.
 
     event   : {
