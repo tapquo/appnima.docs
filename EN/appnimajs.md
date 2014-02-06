@@ -252,16 +252,45 @@ To delete a message cal this resource using the message id as parameter:
 
 Relathionships
 ==============
+
+#### Search
+Find people on your application. Sends any string for mail or username attribute to search:
+
+    Appnima.Network.search("javi");
+ 
+The server returns `200 Ok` and the list that contains the query:
+
+```json
+    [{
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431f"
+        name		: "javi"
+        username	: "javi@javi.com"
+    },
+    {
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431e"
+        name		: "javier"
+        username	: "a3@appnima.com"
+    },
+    {
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431d"
+        name		: null
+        username	: "j.villar@javi.com"
+    }]
+```
+
 #### Follow
 You can follow a user using this resource, call this resource using the user to follow's id as parameter:
 
-    Appnima.Network.follow("28319319832");
+    Appnima.Network.follow("23094392049024112b431d");
 
 
 #### Unfollow
 You can unfollow a user using this resource, call this resource using the user to unfollow's id as parameter:
 
-    Appnima.Network.unfollow("28319319832");
+    Appnima.Network.unfollow("23094392049024112b431d");
 
 
 #### Following
@@ -269,11 +298,11 @@ With this resource you can get the list of people that a user is following. It w
 
     Appnima.Network.following();
 
-    Appnima.Network.following("28319319832");
+    Appnima.Network.following("23094392049024112b431d");
 
 On the other hand, there is also the option for you to return the list with pagination, that is, that in each API call returning part of the list of users. This should be sent only two variables along with the user id:
 
-    Appnima.Network.following("28319319832", 0, 5);
+    Appnima.Network.following("23094392049024112b431d", 0, 5);
 
 The first variable is the page number you want to obtain, that is, the part of the list you want to get. Second number is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same.
 
@@ -282,7 +311,7 @@ With this resource you can get the list of people that follow a user. It works a
 
     Appnima.Network.followers();
 
-    Appnima.Network.followers("28319319832");
+    Appnima.Network.followers("23094392049024112b431d");
 
 Like as explained above, it is also possible to obtain results with pagination. The mode of this is the same as getting the users you follow.
 
@@ -293,25 +322,31 @@ You can also obtain the session's friends, a friend is considered the user havin
 
     Appnima.Network.friends();
 
-#### Information
-This resource returns a user's relationships' stats and counts of followers and followings. If we use a user's id as parameter it will return his stats, if not, logged user's stats:
-
-    Appnima.Network.info();
-
-    Appnima.Network.info("28319319832");
+The server returns `200 Ok` and the next object:
+```json
+    [{
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    }]
+```
 
 
 #### Check
 With this resource yoa can get information about logged user's realtionship with other user, if I am following him and if he is my follower:
 
-    Appnima.Network.check("28319319833");
+    Appnima.Network.check("52f34ac66a7e665b222b6617");
 
+The server returns `200 Ok` and the next object:
 
-#### Search
-You can search for other users using this resource. For this use as parameter an email or username to search:
-
-    Appnima.Network.search("javi@tapquo.com");
-
+```json
+    {
+        following:  true,
+        follower:   false
+    }
+```
 
 Posts
 --------

@@ -298,8 +298,6 @@ Tan sencillo como el recurso anterior, para dejar de seguir a un usuario basta c
 El servicio devuelve un `200 Ok` y el objeto `message: "Successful"`
 
 
-#### Información
-
 #### Siguiendo
 Con este recurso puedes obtener la lista de persona a las que tu usuario sigue o puedes obtener la lista de otro usuario. Al llamar al recurso de la forma:
 
