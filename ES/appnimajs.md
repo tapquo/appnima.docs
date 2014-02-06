@@ -254,17 +254,51 @@ Elimina un mensaje llamando al recurso pasando el id del mensaje como parámetro
 
 Relaciones
 ==========
+#### Buscar
+Los usuarios de tu aplicación pueden buscar a otros usuarios mediante este recurso. Puedes enviar como parámetro el mail o parte del mail de un usuario o su nickname o parte de él.:
+
+    Appnima.Network.search("javi");
+
+
+En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios que coinciden con la búsqueda:
+```json
+    [{
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431f"
+        name		: "javi"
+        username	: "javi@javi.com"
+    },
+    {
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431e"
+        name		: "javier"
+        username	: "a3@appnima.com"
+    },
+    {
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431d"
+        name		: null
+        username	: "j.villar@javi.com"
+    }]
+```
+
 #### Seguir
 Para seguir a un usuario hay que llamar a este recurso junto con la ID del usuario al que se quiere seguir:
 
-    Appnima.Network.follow("28319319832");
+    Appnima.Network.follow("23094392049024112b431d");
+    
+El servicio devuelve un `200 Ok` y el objeto `message: "Successful"`
 
 
 #### Dejar de seguir
 Tan sencillo como el recurso anterior, para dejar de seguir a un usuario basta con pasar el ID del usuario:
 
-    Appnima.Network.unfollow("28319319832");
+    Appnima.Network.unfollow("23094392049024112b431d");
 
+El servicio devuelve un `200 Ok` y el objeto `message: "Successful"`
+
+
+### Información
 
 #### Siguiendo
 Con este recurso puedes obtener la lista de persona a las que tu usuario sigue o puedes obtener la lista de otro usuario. Al llamar al recurso de la forma:
@@ -273,11 +307,30 @@ Con este recurso puedes obtener la lista de persona a las que tu usuario sigue o
 
 Obtienes la lista de tu usuario loqueado. Si llamas al recurso pasando como parámetro la ID de algún usuario de tu aplicación, obtendrás su lista:
 
-    Appnima.Network.following("28319319832");
+    Appnima.Network.following("23094392049024112b431d");
+    
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
+```json
+	count: 2
+    [{
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    },
+    {
+        avatar  : "http://a1.jpg"
+        id      : "52f34ac66a7e444b666b6617"
+        mail    : "a1@appnima.com"
+        name    : "a1"
+        username: "a1@appnima.com-1391099964446-1391100156004"
+    }]
+```
 
 Por otro lado, también existe la opción de que te devuelva la lista de gente a la que sigues con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de usuarios. Para ello unicamente se debe enviar dos variables más junto con la id del usuario del que quieres obtener los datos:
 
-    Appnima.Network.following("28319319832", 0, 4);
+    Appnima.Network.following("23094392049024112b431d", 0, 4);
 
 El primer valor se trata del número de página que deseas obtener; esto es, el trozo de la lista de usuarios que deseas. La segunda variable es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de usuarios.
 
@@ -288,7 +341,7 @@ De la misma forma que lo anterior, puedes utilizar este recurso de dos maneras: 
 
 Si pasas la ID de un usuario de tu plataforma obtienes su lista de seguidores:
 
-    Appnima.Network.followers("28319319832");
+    Appnima.Network.followers("23094392049024112b431d");
 
 Al igual que en lo explicado anteriormente, también existe la posibilidad de obtener los resultados con paginación. El modo de uso es igual que en la obtención de los usuarios a los que sigues.
 
@@ -299,26 +352,32 @@ También se pueden obtener los amigos del usuario de la sesión, es decir, aquel
 
     Appnima.Network.friends();
 
-#### Información
-Con este recurso puedes obtener una visión general del estado de relaciones de un usuario. Puedes conocer de forma ágil cuantos seguidores tiene y a cuantas personas sigue. Esta información la puedes obtener de cualquier usuario de tu aplicación si pasas como parámetro su ID:
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
+```json
+    [{
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    }]
+```
 
-    Appnima.Network.info("28319319832");
-
-Si no pasas ningún parámetro lo que obtendrás es la lista del usuario logueado:
-
-    Appnima.Network.info();
-
-
+### Estadísticas
 #### Estado
 Con este recurso puedes obtener información respecto a la relación entre dos usuarios, saber si alguno está en la lista de seguidores o de personas a las que sigue. Para ello llama al recurso de la siguiente forma:
 
-    Appnima.Network.check("28319319833");
+    Appnima.Network.check("52f34ac66a7e665b222b6617");
 
 
-#### Buscar
-Los usuarios de tu aplicación pueden buscar a otros usuarios mediante este recurso. Para ello puedes pasar como parámetro el e-mail o el nickname del usuario que se quiere encontrar:
+En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con el objeto que representa la relación que tiene el usuario consultado con el usuario de tu aplicación:
 
-    Appnima.Network.search("javi@tapquo.com");
+```json
+    {
+        following:  true,
+        follower:   false
+    }
+```
 
 
 Posts
