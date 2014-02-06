@@ -23,7 +23,7 @@ A bit of history, 3 years ago in [**Tapquo**](http://tapquo.com) we found a comm
 If sometime you have had to develop some of this functionalities in any project, you are welcome to our platform because App/nima is thougth to help you as a developer. We want to give you a platform made to ease your life, we love software as much as you and we seek being better. Use App/nima.
 
 
-### Arquitecture
+### Architecture
 Probably now you have doubts of how App/nima can help you in being more efficient, but calm down we are going to explain you how it works. App/nima is completely based in the authentication protocol [**Oauth 2**](http://oauth.net/2/) and in the serialization via REST-style with JSON objects. If you have never used this paradigm don't worry, we are explaining step by step how to connect to the platform and will offer you explicit tools such as [**AppnimaJS**](http://) that will ease you the connection process.
 
 All the backend is deployed around the world using platforms such as Amazon or Google Cloud Engine, the ones which give us the ability to give allways the best response quality for our users. Don't worry, you won't have to be a *Jedy SysAdmin* because you will only have to communicate with our REST. The scalability is our duty, you will only have to worry about creating the best project and us in providing every day the best platform.
@@ -417,55 +417,49 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 
 ### Relationships
 #### GET /search
-Search people into App/nima using this resource. You just need one parameter:
+Search people into your application. Sends any string for mail or username attribute to search:
 ```json
     {
-        query:      "javi@tapquo.com"
+        query:      "javi"
     }
 ```
 
-Responses are returned with `200 Ok` and a list of users that match the search:
+The server returns `200 Ok` and the list that contains the query:
 ```json
     [{
-        id:         120949303434,
-        username:   "soyjavi",
-        name:       "Javi",
-        avatar:     "AVATAR_URL",
-        follower:   true,
-        following:  false
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431f"
+        name		: "javi"
+        username	: "javi@javi.com"
     },
     {
-        id:         120949303433,
-        username:   "cataflu",
-        name:       "Catalina",
-        avatar:     "AVATAR_URL",
-        follower:   true,
-        following:  true
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431e"
+        name		: "javier"
+        username	: "a3@appnima.com"
     },
     {
-        id:         120949303431,
-        username:   "haas85",
-        name:       "Iñigo",
-        avatar:     "AVATAR_URL",
-        follower:   false,
-        following:  false
-    }
-    ]
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431d"
+        name		: null
+        username	: "j.villar@javi.com"
+    }]
 ```
+
 The variable *following* indicate that user is loggued is follow or not that user, and the variable *follower* indicate that user follow or not loggued user.
 
 #### POST /follow
 To follow a user you can use this resource with the ID user:
 ```json
     {
-        user:       23094392049024
+        user: 	"23094392049024112b431d"
     }
 ```
 
 Responses are returned with `200 Ok` and the object:
 ```json
     {
-        status:     'ok'
+        message: "Successful"
     }
 ```
 
@@ -473,7 +467,7 @@ Responses are returned with `200 Ok` and the object:
 As **POST /follow** to unfollow a person you just need send with the request the ID user:
 ```json
     {
-        user:       23094392049024
+        user: 	"23094392049024112b431d"
     }
 ```
 
@@ -481,33 +475,52 @@ Responses are returned with `200 Ok` and the object:
 
 ```json
     {
-        status:     'ok'
+        message: "Successful"
     }
 ```
+
+### Information
+With these resources you can get the list of followings and followers of a user.
 
 #### GET /following
 Retrieves the list of followings of a user. Sends the request and ID user:
 ```json
     {
-        user:       23094392049024
+        user: 	"23094392049024112b431d"
     }
 ```
 
 App/nima returns `200 Ok` and the list:
 ```json
+	count: 4
     [{
-        id:         120949303434,
-        username:   "soyjavi",
-        name:       "Javi",
-        avatar:     "AVATAR_URL"
+        avatar  : "http://cata.jpg"
+        id      : "52f34ac66a7e665b666b6617"
+        mail    : "cata@cata.com"
+        name    : "cata"
+        username: "cata"
     },
     {
-        id:         120949303433,
-        username:   "cataflu",
-        name:       "Catalina",
-        avatar:     "AVATAR_URL"
-    }
-    ]
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    },
+    {
+        avatar  : "http://a1.jpg"
+        id      : "52f34ac66a7e444b666b6617"
+        mail    : "a1@appnima.com"
+        name    : "a1"
+        username: "a1@appnima.com-1391099964446-1391100156004"
+    },
+    {
+        avatar  : "http://avatar.jpg"
+        id      : "52f34ac66a7e665b666b6618"
+        mail    : "a2@appnima.com"
+        name    : "a2"
+        username: "a2@appnima.com"
+    }]
 ```
 
 Like in *timeline*, there is the option of getting this data using pagination. To do this, you have to add the following parameters to your call:
@@ -515,9 +528,9 @@ Like in *timeline*, there is the option of getting this data using pagination. T
 
 ```json
     {
-     username: username
-     page: 0
-     num_results: 5
+     username 		: username
+     page			: 0
+     num_results	: 5
     }
 ```
 
@@ -531,54 +544,68 @@ As **GET /following** you can retrieve a list of followers of a user.
 Retrieves the list of followings of a user. Sends the request and ID user:
 ```json
     {
-        user:       23094392049024
+        user:       "23094392049024112b431d"
+    }
+```
+
+App/nima returns `200 Ok` and the list:
+```json
+	count: 3
+    [{
+        avatar  : "http://cata.jpg"
+        id      : "52f34ac66a7e665b666b6617"
+        mail    : "cata@cata.com"
+        name    : "cata"
+        username: "cata"
+    },
+    {
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    },
+    {
+        avatar  : "http://a1.jpg"
+        id      : "52f34ac66a7e444b666b6617"
+        mail    : "oihane@oihane.com"
+        name    : "oihane"
+        username: "oihane"
+    }]
+```
+
+Like has been explained in **GET /followings**, there is also the option of getting the data using pagination. The dynamic is the same.
+
+As can be seen, in this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
+
+#### GET /friends
+
+With this resource you can get the list of friends of a user or user session. Sends the request with user id and obtain his friends. Sends without parameter and get friends of user session. Users of your application will become friends when they follow each other.
+
+Request structure:
+
+```json
+    {
+        user:       "23094392049024112b431d"
     }
 ```
 
 App/nima returns `200 Ok` and the list:
 ```json
     [{
-        id:         120949303434,
-        username:   "soyjavi",
-        name:       "Javi",
-        avatar:     "AVATAR_URL"
-        is_follow:  true
-    },
-    {
-        id:         120949303431,
-        username:   "haas85",
-        name:       "Iñigo",
-        avatar:     "AVATAR_URL",
-        is_follow:  false
-    }
-    ]
-```
-Like has been explained in **GET /followings**, there is also the option of getting the data using pagination. The dynamic is the same.
-
-As can be seen, in this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
-
-### Statistics
-#### GET /info
-Get an overview about users network. Use this resource and ID user:
-```json
-    {
-        user:       23094392049024
-    }
-```
-
-App/nima returns `200 Ok` and user total *followers* and *followings* and list of both:
-```json
-    {
-        following: 1,
-        followers: 0
-    }
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    }]
 ```
 
 #### GET /check
 If you need to know about relationship with another user, use this resource and his ID user:
 ```json
     {
-        user:       23094392049024
+        user:       "23094392049024112b431d"
     }
 ```
 

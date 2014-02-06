@@ -586,7 +586,6 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```
 
 
-### Estadísticas
 #### GET /check
 Este recurso sirve para saber la relación que tienes con un determinado usuario (tal vez te interese seguirlo o no) para ello tenemos que enviar el `id` del usuario a consultar de la siguiente manera:
 ```json
