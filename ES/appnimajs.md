@@ -660,7 +660,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
      				},
      				shared: [ 52eb667ab71cd7e4be000008 ] 
      			}
-  				
+  
 #### Borrar
 Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza la siguiente función, enviando como parámetro la "id" del calendario que se desea borrar
 
@@ -669,6 +669,85 @@ Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos
 En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
 
 	message: Successful
+	
+#### Actividad
+APP/NIMA también nos ofrece información de qué ha sucedido en un calendario. Si usamos la función que se muestra a continuación enviando como parámetro la "id" de un calendario, nos ofrece una lista de actividades que han sucedido en él, como son, modificar el calendario, crear, modificar o borrar un evento perteneciente al calendario, compartir el calendario o borrar a alguien de la lista de usuarios compartidos, invitar a alguien o quitarle de la lista de invitados de un evento de dicho calendario ó la asistencia o desasistencia de un usuario a un evento.
+
+	Appnima.Calendar.activityCalendar("28319319833")
+
+En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bien, nos devuelve un listado de actividades con la estructura que se muestra a continuación
+
+	activities : [ {
+                  id: 52f8ef8282652a000000000a,
+                  message: 'u1net has created the event',
+                  created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                  profile: {
+                             username: 'u1net',
+                             name: 'name',
+                             mail: 'a1@appnima.com',
+                             avatar: 'http://appnima.com/img/avatar.jpg',
+                             id: 52eb667ab71cd7e4be00000c
+                            },
+                  event: {
+                           id: 52f8ef8282652a0000000009,
+                           calendar: 52f8ef8282652a0000000004,
+                           date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+                           date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+                           name: 'BilboStack updated',
+                           description: 'This event is bilboStack',
+                           place: 52f8ef8282652a0000000008,
+                           assistents: [ 52eb667ab71cd7e4be000004 ],
+                           created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                           tags: [ learn ],
+                           guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
+                        },
+                  calendar: {
+                               id: 52f8ef8282652a0000000004,
+                               name: 'Mi calendario updated',
+                               color: '#FA58F4',
+                               created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                               owner: 52eb667ab71cd7e4be00000b,
+                               shared: [ ]
+                            },
+                  owner: {
+                           id: 52eb667ab71cd7e4be00000c,
+                           username: 'u1net',
+                           mail: 'a1@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           name: 'name'
+                         }
+                },
+                {
+                  id: 52f8ef8282652a0000000007,
+                  message: 'u1net has update the calendar',
+                  created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                  profile: {
+                             username: 'u1net',
+                             name: 'name',
+                             mail: 'a1@appnima.com',
+                             avatar: 'http://appnima.com/img/avatar.jpg',
+                             id: 52eb667ab71cd7e4be00000c
+                            },
+                  event: undefined,
+                  calendar: {
+                             id: 52f8ef8282652a0000000004,
+                             name: 'Mi calendario updated',
+                             color: '#FA58F4',
+                             created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                             owner: 52eb667ab71cd7e4be00000b,
+                             shared: [ ]
+                            },
+                  owner: {
+                           id: 52eb667ab71cd7e4be00000c,
+                           username: 'u1net',
+                           mail: 'a1@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           name: 'name'
+                          }
+                }]
+
+
+El evento y el calendario, es dónde se ha realizado la actividad, en caso de que el evento es null, es por que la actividad únicamente afecta al calendario.
 
 #### Crear un evento
 A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
