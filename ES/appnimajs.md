@@ -1055,13 +1055,97 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de haya v
 
 	message: Successful
 
+#### Actividad
+Al igual que con un calendario, APP/NIMA también nos ofrece información de qué ha sucedido en un evento en concreto. Con la función que se muestra a continuación enviando como parámetro la "id" de un evento, nos ofrece una lista de actividades que han sucedido en él, como son, modificar ese evento, invitar a alguien o quitarle de la lista de invitados o asistencia o desasistencia de un usuario.
 
-Push
-====
-Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto de la notificación y el contenido:
+	Appnima.Calendar.activityEvent("28319319833")
 
-    Appnima.Push.send("28319319833", "Mensaje", {"title": "JSON con los campos necesarios", "text": "Hola App/nima!"});
+En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bien, nos devuelve un listado de actividades con la estructura que se muestra a continuación
 
+	activities : [
+				{
+                id: 52f8f6a96946870000000034,
+                message: 'Has invited the event to u3net',
+                created_at: Mon Feb 10 2014 16:56:25 GMT+0100 (CET),
+                profile: {
+                           username: 'u3net',
+                           name: 'name',
+                           mail: 'a3@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           id: 52eb667ab71cd7e4be000004
+                          },
+                event: {
+                         id: 52f8f6a86946870000000009,
+                         calendar: 52f8f6a86946870000000004,
+                         date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+                         date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+                         name: 'BilboStack updated',
+                         description: 'This event is bilboStack',
+                         place: 52f8f6a86946870000000008,
+                         assistents: [ 52eb667ab71cd7e4be000004 ],
+                         created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                         tags: [ learn ],
+                         guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
+                        },
+                calendar: {
+                            id: 52f8f6a86946870000000004,
+                            name: 'Mi calendario updated',
+                            color: '#FA58F4',
+                            created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                            owner: 52eb667ab71cd7e4be00000b,
+                            shared: [ ]
+                          },
+                owner: {
+                         id: 52eb667ab71cd7e4be00000c,
+                         username: 'u1net',
+                         mail: 'a1@appnima.com',
+                         avatar: 'http://appnima.com/img/avatar.jpg',
+                         name: 'name'
+                        }
+              },
+              {
+                id: 52f8f6a9694687000000002c,
+                message: 'u1net has update the event',
+                created_at: Mon Feb 10 2014 16:56:25 GMT+0100 (CET),
+                profile: {
+                           username: 'u1net',
+                           name: 'name',
+                           mail: 'a1@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           id: 52eb667ab71cd7e4be00000c
+                          },
+                event: {
+                         id: 52f8f6a86946870000000009,
+                         calendar: 52f8f6a86946870000000004,
+                         date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+                         date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+                         name: 'BilboStack updated',
+                         description: 'This event is bilboStack',
+                         place: 52f8f6a86946870000000008,
+                         assistents: [ 52eb667ab71cd7e4be000004 ],
+                         created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                         tags: [ learn ],
+                         guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
+                        },
+                calendar: {
+                            id: 52f8f6a86946870000000004,
+                            name: 'Mi calendario updated',
+                            color: '#FA58F4',
+                            created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                            owner: 52eb667ab71cd7e4be00000b,
+                            shared: [ ]
+                          },
+                owner: {
+                         id: 52eb667ab71cd7e4be00000c,
+                         username: 'u1net',
+                         mail: 'a1@appnima.com',
+                         avatar: 'http://appnima.com/img/avatar.jpg',
+                         name: 'name'
+                        }
+                }]
+
+
+El evento y el calendario, es dónde se ha realizado la actividad. El campo "owner" es la persona que realiza la actividad y el campo "profile", es la persona a la que va dirigida la actividad.
 
 
 Push
