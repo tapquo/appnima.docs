@@ -832,7 +832,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
                 }]
 
 
-El evento y el calendario, es dónde se ha realizado la actividad, en caso de que el evento es null, es por que la actividad únicamente afecta al calendario.
+El evento y el calendario, es dónde se ha realizado la actividad. En caso de que el evento es null, es por que la actividad únicamente afecta al calendario. El campo "owner" es la persona que realiza la actividad y el campo "profile", es la persona a la que va dirigida la actividad.
 
 #### Crear un evento
 A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
