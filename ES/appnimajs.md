@@ -105,16 +105,45 @@ Puedes actualizar uno o varios campos de datos de tu usuario con este recurso. E
     Appnima.User.update(data);
 
 
-#### Cambiar Password
-Para cambiar el password del usuario, utiliza este recurso enviando la clave antigua y la nueva clave:
-
-    Appnima.User.password(OLD_PASSWORD, NEW_PASSWORD);
-
-
 #### Avatar
 Tus usuarios pueden subir su propio fichero de avatar desde su equipo. Para subir una imagen utiliza este recurso pasando el fichero codificado en Base64:
 
     Appnima.User.avatar(USER_AVATAR);
+
+Password
+--------
+APP/NIMA ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o cambiarla.
+
+#### Recordar contraseña
+Esta acción se realiza mediante dos funciones. Primero habría que llamar al siguiente método:
+
+    Appnima.User.rememberPassword("jdkdksj421432k", "http://application_domain", "reset_password");
+
+El primer parámetro se trata del ```token```del usuario de APP/NIMA, esto es, el ```ACCESS_TOKEN``` del usuario. El segundo parámetro se trata del dominio de la aplicación que llama a dicha funcionalidad y el último la url a la que se quiere llamar.
+
+Esta función envia un mail al usuario propietario del token de parte de APP/NIMA con una URL de la siguiente forma:
+
+    DOMINIO/URL/CODE -> http://application_domain/reset_password/25kj4fkwnfmndjkhgjk4h5nmf
+
+El código lo genera APP/NIMA y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña. Para esto, como se puede observar, es necesario generar un endpoint en el backend de la aplicación con dicha URL en la que haya un formulario donde rellenar la nueva contraseña deseada. Por lo tanto habría que llamar al siguiente método:
+
+    Appnima.User.resetPassword("25kj4fkwnfmndjkhgjk4h5nmf", "12345");
+
+El primer parámetro es el código de la URL generada en el paso anterior y el segundo parámetro es la nueva contraseña que el usuario quiere regenerar. Una vez hecho esto, APP/NIMA envía un email al usuario avisándole de que su contraseña ha sido modificada.
+
+En el caso de no tener backend en la aplicación, APP/NIMA le ofrece una vista en la que regenerar la contraseña al usuario. Para ello se debería llamar al método:
+
+    Appnima.User.rememberPassword("fdfadsfdsf");
+
+Pasándole únicamente el token del usuario del que se quiere regenerar el password y APP/NIMA le enviará un mail con la URL propia donde regenerar el password.
+
+#### Cambiar contraseña
+Con esta función se puede cambiar la contraseña directamente. El único requisito es que el usuario esté logueado con APP/NIMA, y después habría que llamar al siguiente método:
+
+    Appnima.User.changePassword("12345", "67890");
+
+El primer parámetro se trata de la vieja contraseña y el segundo de la nueva por la que se desea cambiar.
+
 
 Terminal
 --------
@@ -225,16 +254,48 @@ Elimina un mensaje llamando al recurso pasando el id del mensaje como parámetro
 
 Relaciones
 ==========
+#### Buscar
+Los usuarios de tu aplicación pueden buscar a otros usuarios mediante este recurso. Puedes enviar como parámetro el mail o parte del mail de un usuario o su nickname o parte de él.:
+
+    Appnima.Network.search("javi");
+
+
+En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios que coinciden con la búsqueda:
+```json
+    [{
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431f"
+        name		: "javi"
+        username	: "javi@javi.com"
+    },
+    {
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431e"
+        name		: "javier"
+        username	: "a3@appnima.com"
+    },
+    {
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431d"
+        name		: null
+        username	: "j.villar@javi.com"
+    }]
+```
+
 #### Seguir
 Para seguir a un usuario hay que llamar a este recurso junto con la ID del usuario al que se quiere seguir:
 
-    Appnima.Network.follow("28319319832");
+    Appnima.Network.follow("23094392049024112b431d");
+    
+El servicio devuelve un `200 Ok` y el objeto `message: "Successful"`
 
 
 #### Dejar de seguir
 Tan sencillo como el recurso anterior, para dejar de seguir a un usuario basta con pasar el ID del usuario:
 
-    Appnima.Network.unfollow("28319319832");
+    Appnima.Network.unfollow("23094392049024112b431d");
+
+El servicio devuelve un `200 Ok` y el objeto `message: "Successful"`
 
 
 #### Siguiendo
@@ -244,11 +305,30 @@ Con este recurso puedes obtener la lista de persona a las que tu usuario sigue o
 
 Obtienes la lista de tu usuario loqueado. Si llamas al recurso pasando como parámetro la ID de algún usuario de tu aplicación, obtendrás su lista:
 
-    Appnima.Network.following("28319319832");
+    Appnima.Network.following("23094392049024112b431d");
+    
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
+```json
+	count: 2
+    [{
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    },
+    {
+        avatar  : "http://a1.jpg"
+        id      : "52f34ac66a7e444b666b6617"
+        mail    : "a1@appnima.com"
+        name    : "a1"
+        username: "a1@appnima.com-1391099964446-1391100156004"
+    }]
+```
 
 Por otro lado, también existe la opción de que te devuelva la lista de gente a la que sigues con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de usuarios. Para ello unicamente se debe enviar dos variables más junto con la id del usuario del que quieres obtener los datos:
 
-    Appnima.Network.following("28319319832", 0, 4);
+    Appnima.Network.following("23094392049024112b431d", 0, 4);
 
 El primer valor se trata del número de página que deseas obtener; esto es, el trozo de la lista de usuarios que deseas. La segunda variable es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de usuarios.
 
@@ -259,7 +339,7 @@ De la misma forma que lo anterior, puedes utilizar este recurso de dos maneras: 
 
 Si pasas la ID de un usuario de tu plataforma obtienes su lista de seguidores:
 
-    Appnima.Network.followers("28319319832");
+    Appnima.Network.followers("23094392049024112b431d");
 
 Al igual que en lo explicado anteriormente, también existe la posibilidad de obtener los resultados con paginación. El modo de uso es igual que en la obtención de los usuarios a los que sigues.
 
@@ -270,26 +350,31 @@ También se pueden obtener los amigos del usuario de la sesión, es decir, aquel
 
     Appnima.Network.friends();
 
-#### Información
-Con este recurso puedes obtener una visión general del estado de relaciones de un usuario. Puedes conocer de forma ágil cuantos seguidores tiene y a cuantas personas sigue. Esta información la puedes obtener de cualquier usuario de tu aplicación si pasas como parámetro su ID:
-
-    Appnima.Network.info("28319319832");
-
-Si no pasas ningún parámetro lo que obtendrás es la lista del usuario logueado:
-
-    Appnima.Network.info();
-
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
+```json
+    [{
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    }]
+```
 
 #### Estado
 Con este recurso puedes obtener información respecto a la relación entre dos usuarios, saber si alguno está en la lista de seguidores o de personas a las que sigue. Para ello llama al recurso de la siguiente forma:
 
-    Appnima.Network.check("28319319833");
+    Appnima.Network.check("52f34ac66a7e665b222b6617");
 
 
-#### Buscar
-Los usuarios de tu aplicación pueden buscar a otros usuarios mediante este recurso. Para ello puedes pasar como parámetro el e-mail o el nickname del usuario que se quiere encontrar:
+En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con el objeto que representa la relación que tiene el usuario consultado con el usuario de tu aplicación:
 
-    Appnima.Network.search("javi@tapquo.com");
+```json
+    {
+        following:  true,
+        follower:   false
+    }
+```
 
 
 Posts
@@ -581,7 +666,7 @@ Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cer
 APP/NIMA también te permite obtener un listado de personas cercanas al usuario que consulta. La petición es similar a la anterior:
 
     Appnima.Location.people("43.6525842", "-79.3834173, 100");
-    
+
 
 Calendario
 ===============
@@ -969,6 +1054,14 @@ Cabe la posibilidad de eliminar un evento, para ello basta con ejecutar la sigui
 En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
 
 	message: Successful
+
+
+Push
+====
+Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto de la notificación y el contenido:
+
+    Appnima.Push.send("28319319833", "Mensaje", {"title": "JSON con los campos necesarios", "text": "Hola App/nima!"});
+
 
 
 Push

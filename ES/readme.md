@@ -254,15 +254,6 @@ Este recurso sirve para modificar los datos personales de un usuario dentro de t
 En el caso de que haya ido todo bien se devolverá el código `200 OK` junto con el mismo objeto **GET /user**. En el caso de que el usuario no tenga permiso para modificar sus datos App/nima devolverá un `403 Forbidden`.
 
 
-#### POST /password
-Este recurso sirve para cambiar la contraseña, para ello enviaremos los siguientes parámetros:
-```json
-    {
-        old_password:       "old_password",
-        new_password:       "new_password"
-    }
-```
-
 #### POST /avatar
 Este recurso sirve para subir un avatar, para ello enviaremos los siguientes parámetros:
 ```json
@@ -272,6 +263,64 @@ Este recurso sirve para subir un avatar, para ello enviaremos los siguientes par
 ```
 
 En el caso de que haya ido todo bien se devolverá el código `201 RESOURCE CREATED`.
+
+### Contraseña
+APP/NIMA ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o cambiarla.
+
+#### POST /remember/password
+Este recurso sirve para recordar contraseña. Si se tiene backend de la aplicación, para recordar contraseña es necesario hacerlo en dos pasos, en caso de no tener, o no desear usar su propio backend, se podrá realizar en un paso.
+
+Si se desea hacer en un paso, hay que enviar los siguientes parámetros:
+
+```json
+    {
+        token: "fdfdfer2343243"
+    }
+```
+
+Este parámetro se trata del ```token```del usuario de APP/NIMA, esto es, el ```ACCESS_TOKEN``` del usuario. APP/NIMA se encargará de la gestión de la URL que se envia en el email, como se explica más adelante.
+
+Por otro lado, si se desea hacer en dos pasos, los parámetros que hay que envíar junto con la petición, y además del ```token``` del usuario, son los siguiente:
+
+
+```json
+    {
+        token: "fdfdfer2343243",
+        domain: "http://application_domain",
+        pwd_url: "reset_password"
+    }
+```
+El segundo parámetro se trata del dominio de la aplicación que llama a dicha funcionalidad y el último la url a la que se quiere llamar.
+
+Esta función envia un mail al usuario propietario del token de parte de APP/NIMA con una URL de la siguiente forma:
+
+    DOMINIO/URL/CODE -> http://application_domain/reset_password/25kj4fkwnfmndjkhgjk4h5nmf
+
+El código lo genera APP/NIMA y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña.
+
+#### POST /reset/password
+Como se ha dicho en el recurso anterior, recordar contraseña se puede hacer en dos pasos. En caso de hacerlo así, la segunda parte es llamar a este recurso. Este recurso por sí solo no se puede utilizar, ya que requiere del código generado en el recurso anterior.
+
+Para esto, como se puede observar, es necesario generar un endpoint en el backend de la aplicación con dicha URL en la que haya un formulario donde rellenar la nueva contraseña deseada. Por lo tanto habría que mandar al recurso los siguientes datos:
+
+```json
+    {
+        code: "jk23j4k32knm423klh6j56jhjl",
+        password: "1234509"
+    }
+```
+
+El primer parámetro es el código de la URL generada en el recurso anterior y el segundo parámetro es la nueva contraseña que el usuario quiere regenerar. Una vez hecho esto, APP/NIMA envía un email al usuario avisándole de que su contraseña ha sido modificada.
+
+#### PUT /password
+Este recurso sirve para cambiar la contraseña y el único requisito es estar identificado con APP/NIMA. Junto a la petición hay que enviarle los siguientes parámetros:
+
+```json
+    {
+        old_password: 123456
+        new_password: 098763
+    }
+```
 
 ### Terminal
 #### POST /terminal
@@ -357,182 +406,196 @@ Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificad
 
 ### Relaciones
 #### GET /search
-Si necesitas buscar usuarios dentro de tu aplicación debes utilizar este recurso el cual únicamente recibe un único parámetro y con el cual App/nima hará todo el trabajo difícil buscando los mejores resultados:
+Utiliza este recurso para buscar ususarios dentro de tu aplicación. Puedes enviar como parámetro el mail o parte del mail de un usuario o su nickname o parte de él.
+
 ```json
     {
-        query:      "javi@tapquo.com"
+        query:      "javi"
     }
 ```
 
-En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios coincidentes a esa búsqueda:
+En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios que coinciden con la búsqueda:
 ```json
     [{
-        id:          120949303434,
-        username:    "soyjavi",
-        name:        "Javi",
-        avatar:      "AVATAR_URL",
-        follower:    true,
-        following:   false
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431f"
+        name		: "javi"
+        username	: "javi@javi.com"
     },
     {
-        id:         120949303433,
-        username:   "cataflu",
-        name:       "Catalina",
-        avatar:     "AVATAR_URL",
-        follower:   false,
-        following:  false
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431e"
+        name		: "javier"
+        username	: "a3@appnima.com"
     },
     {
-        id:         120949303431,
-        username:   "haas85",
-        name:       "Iñigo",
-        avatar:     "AVATAR_URL",
-        follower:   true,
-        following:  true
+        avatar		: "http://appnima.com/img/avatar.jpg"
+        id			: "59f34ac11a7e121b112b431d"
+        name		: null
+        username	: "j.villar@javi.com"
     }
     ]
 ```
 
-La variable *following* devuelve si el usuario logueado sigue a esa persona, mientras que la variable *follower* devuelve si dicho usuario sigue a la persona logueada.
-
 #### POST /follow
-Si necesitas seguir a un usuario utiliza este recurso junto con el parámetro:
+Para seguir a un usuario utiliza este recurso pasando como parámetro su `id`:
 ```json
     {
-        user:       23094392049024
+        user: 	"23094392049024112b431d"
     }
 ```
 
-Devolverá un `200 Ok` junto con el objeto:
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
     {
-        status:     'ok'
+        message: "Successful"
     }
 ```
 
 
 #### POST /unfollow
-Al igual que el recurso **POST /follow** funciona de igual manera y únicamente tendrás que enviar el parámetro:
+Para dejar de seguir un usuario utiliza este recurso de igual manera que **POST /follow**:
 ```json
     {
-        user:       23094392049024
+        user: 	"23094392049024112b431d"
     }
 ```
 
-Devolverá un `200 Ok` junto con el objeto:
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
     {
-        status:     'ok'
+        message:	"Successful"
     }
 ```
+
+### Información
+Con estos recursos podrás obtener la lista de followings y followers de un usuario así como el contador.
 
 #### GET /following
-Funciona de igual manera que **POST /follow**  y únicamente tendrás que enviar como parámetro el usuario del que quieres conocer la lista de usuarios que esta siguiendo:
+Con este recurso puedes obtener la lista de followings del usuario de sessión llamando al recurso sin pasar parámetro o puedes obtener la lista de followings de otro usuario pasando como parámetro su `id`:
+
 ```json
     {
-        user:       23094392049024
+        user:       "23094392049024112b431d"
     }
 ```
 
-Devolverá un `200 Ok` junto con lista de usuarios que sigue el usuario indicado:
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
+	count: 4
     [{
-        id:         120949303434,
-        username:   "soyjavi",
-        name:       "Javi",
-        avatar:     "AVATAR_URL"
+        avatar  : "http://cata.jpg"
+        id      : "52f34ac66a7e665b666b6617"
+        mail    : "cata@cata.com"
+        name    : "cata"
+        username: "cata"
     },
     {
-        id:         120949303433,
-        username:   "cataflu",
-        name:       "Catalina",
-        avatar:     "AVATAR_URL"
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
     },
     {
-        id:         120949303431,
-        username:   "haas85",
-        name:       "Iñigo",
-        avatar:     "AVATAR_URL"
-    }
-    ]
+        avatar  : "http://a1.jpg"
+        id      : "52f34ac66a7e444b666b6617"
+        mail    : "a1@appnima.com"
+        name    : "a1"
+        username: "a1@appnima.com-1391099964446-1391100156004"
+    },
+    {
+        avatar  : "http://avatar.jpg"
+        id      : "52f34ac66a7e665b666b6618"
+        mail    : "a2@appnima.com"
+        name    : "a2"
+        username: "a2@appnima.com"
+    }]
 ```
 
 Al igual que en el *timeline* del recurso de ```MESSENGER```, existe la opción de obtener estos datos mediante paginación. Para ello, simplemente tienes que añadir los siguientes parámetros a tu llamada:
 
 ```json
     {
-     username: username
-     page: 0
-     num_results: 5
+     username		: username
+     page			: 0
+     num_results	: 5
     }
 ```
 
 El significado de las variables *page* y *num_results* es el mismo que en el caso de la llamada al **Timeline**. La única diferencia de ambas llamadas es que en este caso no hace falta enviar la variable de la última fecha del último dato obtenido.
 
 #### GET /followers
-Funciona de igual manera que **GET /following**  y esta vez tendrás que enviar como parámetro el usuario del que quieres conocer la lista de usuarios que le están siguiendo:
+Funciona de igual manera que **GET /following**, puedes enviar la `id` del usuario del que quieres obtener la información o si no lo envías obtienes la lista de followers del usuario de la sesión:
 ```json
-    {
-        user:       23094392049024
+    ]{
+        user:       "23094392049024112b431d"
     }
 ```
 
-Devolverá un `200 Ok` junto con lista de usuarios que siguen al usuario indicado:
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
+	count: 3
     [{
-        id:         120949303434,
-        username:   "soyjavi",
-        name:       "Javi",
-        avatar:     "AVATAR_URL",
-        is_follow:   true
+        avatar  : "http://cata.jpg"
+        id      : "52f34ac66a7e665b666b6617"
+        mail    : "cata@cata.com"
+        name    : "cata"
+        username: "cata"
     },
     {
-        id:         120949303433,
-        username:   "cataflu",
-        name:       "Catalina",
-        avatar:     "AVATAR_URL",
-        is_follow:   false
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
     },
     {
-        id:         120949303431,
-        username:   "haas85",
-        name:       "Iñigo",
-        avatar:     "AVATAR_URL",
-        is_follow:   false
-    }
-    ]
+        avatar  : "http://a1.jpg"
+        id      : "52f34ac66a7e444b666b6617"
+        mail    : "oihane@oihane.com"
+        name    : "oihane"
+        username: "oihane"
+    }]
 ```
 
 Al igual que lo que se ha explicado anteriormente en **GET/ followings**, también existe la opción de obtener los datos mediante paginación. La dinámica es la misma.
 
 Como se puede observar, en este caso, la llamada devuelve una variable más en cada objeto. Dicha variable indica si el usuario logueado sigue a esa persona o no.
 
-### Estadísticas
-#### GET /info
-Si quieres tener una visión general de un determinado usuario dentro de la red social de tu aplicación utiliza este recurso, que al igual que en los recursos anteriores solo necesita del id del usuario como parámetro:
+#### GET /friends
+Con este recurso puedes obtener la lista de amigos de un usuario o del usuario de la sesión. Si no pasas parámentro a la petición la lista será del usuario de la sesión, en cambio si pasa la `id` de un usuario obtendrás sus amigos. Los usuarios de tu aplicación pasarán a ser amigos cuando de forma recíprocra se haga follow.
+
+Parámetro para la petición:
+
 ```json
     {
-        user:       23094392049024
+        user:       "23094392049024112b431d"
     }
 ```
 
-Devolverá un `200 Ok` junto con los totales de *followers* y *followings* que tiene el usuario indicado:
+Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
-    {
-        following:1,
-        followers: 0
-    }
+    [{
+        avatar  : "http://jany.jpg"
+        id      : "52f34ac66a7e665b222b6617"
+        mail    : "jany@jany.com"
+        name    : "jany"
+        username: "janixy91"
+    }]
 ```
+
 
 #### GET /check
-Este recurso sirve para saber la relación que tienes con un determinado usuario (tal vez te interese seguirlo o no) para ello tenemos que enviar el id del usuario a consultar de la siguiente manera:
+Este recurso sirve para saber la relación que tienes con un determinado usuario (tal vez te interese seguirlo o no) para ello tenemos que enviar el `id` del usuario a consultar de la siguiente manera:
 ```json
     {
-        user:       23094392049024
+        user:       "23094392049024112b431d"
     }
 ```
 
-En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con el objeto que representa la relación que tiene el usuario consultado con el usuario de tu aplicación (TOKEN):
+En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con el objeto que representa la relación que tiene el usuario consultado con el usuario de tu aplicación:
+
 ```json
     {
         following:  true,
