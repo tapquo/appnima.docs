@@ -745,6 +745,29 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
      				},
      				shared: [ 52eb667ab71cd7e4be000008 ] 
      			}
+#### Listar
+APP/NIMA nos da la opción de obtener todos los calendarios de los que el usuario logueado es dueño, y aquellos que se le han compartido . Para ello, basta con ejecutar la siguiente función:
+
+	Appnima.Calendar.list()
+
+Devuelve un array de calendarios:
+
+    calendar   : [
+    				{ 
+    					id: 28319319833, 
+    					name: 'slid.us', 
+    					color: '#FF66CC',
+    					created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+    					owner: { 
+    						id: 52eb667ab71cd7e4be00000c,
+    						mail: 'a1@appnima.com',
+     						username: 'a1@appnima.com-1391158906892',
+     						name: 'name',
+     						avatar: 'http://appnima.com/img/avatar.jpg',
+     					},
+     					shared: [ 52eb667ab71cd7e4be000008 ] 
+     			     }
+     			 ]
   
 #### Borrar
 Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza la siguiente función, enviando como parámetro la "id" del calendario que se desea borrar
