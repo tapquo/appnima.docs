@@ -765,7 +765,6 @@ O por el contrario, también se puede eliminar a un usuario de la lista de usuar
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado. El atributo "shared" corresponde con la lista de usuarios a los que se les ha compartido el calendario.
 
-<<<<<<< HEAD
     calendar   : { 
     				id: 28319319833, 
     				name: 'slid.us', 
@@ -803,24 +802,8 @@ Devuelve un array de calendarios:
      					shared: [ 52eb667ab71cd7e4be000008 ] 
      			     }
      			 ]
-  
-=======
-    calendar   : {
-                    id: 28319319833,
-                    name: 'slid.us',
-                    color: '#FF66CC',
-                    created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-                    owner: {
-                        id: 52eb667ab71cd7e4be00000c,
-                        mail: 'a1@appnima.com',
-                        username: 'a1@appnima.com-1391158906892',
-                        name: 'name',
-                        avatar: 'http://appnima.com/img/avatar.jpg',
-                    },
-                    shared: [ 52eb667ab71cd7e4be000008 ]
-                }
+ 
 
->>>>>>> d848cd28b6d40fb254e4198d9aaaa75f5d8bad67
 #### Borrar
 Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza la siguiente función, enviando como parámetro la "id" del calendario que se desea borrar
 
