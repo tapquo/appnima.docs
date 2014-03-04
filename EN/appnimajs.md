@@ -257,27 +257,27 @@ Relathionships
 Find people on your application. Sends any string for mail or username attribute to search:
 
     Appnima.Network.search("javi");
- 
+
 The server returns `200 Ok` and the list that contains the query:
 
 ```json
     [{
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431f"
-        name		: "javi"
-        username	: "javi@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431f"
+        name        : "javi"
+        username    : "javi@javi.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431e"
-        name		: "javier"
-        username	: "a3@appnima.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431e"
+        name        : "javier"
+        username    : "a3@appnima.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431d"
-        name		: null
-        username	: "j.villar@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431d"
+        name        : null
+        username    : "j.villar@javi.com"
     }]
 ```
 
@@ -351,17 +351,18 @@ The server returns `200 Ok` and the next object:
 Posts
 --------
 #### Create
-Users can create posts within an application. For this they have to send the following parameters with the request:
+Users can create posts within an application. For this they have to send the following object with wants parameters with the request:
 
-    title   = "Lorem Ipsum"
-    content = "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    image   = "http://IMAGE_URL"
+    parameters =
+      title   : "Lorem Ipsum",
+      content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      image   : "http://IMAGE_URL"
 
-    Appnima.Network.Post.create(content, title, image);
+    Appnima.Network.Post.create(parameters);
 
 Only ```content``` parameter is required. An example of how to create a ```post``` with only content is the following.
 
-    Appnima.Network.Post.create(content);
+    Appnima.Network.Post.create({content: "Lorem Ipsum"});
 
 This call will return an object with information on the new post:
 
@@ -384,23 +385,38 @@ This call will return an object with information on the new post:
 #### Update
 The user can update created post. To do this, user must send the following parameters:
 
-    post_id = 124523132
-    content = "Lorem Ipsum update content"
-    title   = "Lorem Ipsum update title"
-    image   = "http://IMAGE_URL"
+    parameters =
+        id      : "124523132",
+        content : "Lorem Ipsum update content",
+        title   : "Lorem Ipsum update title",
+        image   : "http://IMAGE_URL"
 
-    Appnima.Network.Post.update(post_id, content, title, image);
+    Appnima.Network.Post.update(parameters);
 
 Not required to send the data that will not be modified. Two examples of this would be:
 
-    Appnima.Network.Post.update(post_id, content, null, image);
-    Appnima.Network.Post.update(post_id, content, title);
+    parameters =
+        id      : "123456",
+        content : "Lorem Ipsum 2",
+        image   : "http://IMAGE_URL2"
+
+    Appnima.Network.Post.update(parameters);
+
+    parameters =
+        id      : "123456",
+        content : "Lorem Ipsum 1",
+        title   : "Lorem ipsum 2"
+    Appnima.Network.Post.update(parameters);
 
 As can be seen, in the first case, you want to change the content and the image but not the title, so you must send that field to null.
 
 In the second case, you want to change the content and the title and image as the last parameter is not necessary to pass null. The same would happen in the following case:
 
-    Appnima.Network.Post.update(post_id, content);
+    parameters =
+        id      : "121131331",
+        content : "Lorem ipsum new"
+
+    Appnima.Network.Post.update(parameters);
 
 In this case you only want to modify the content and therefore, other variables that go behind would not need to send in null.
 
@@ -410,18 +426,15 @@ This method returns ```message:" Successful "``` if all went well.
 The user can delete created post.
 El usuario que ha creado un post puede borrarlo. To do this only has to send the id of the post to be deleted:
 
-    post_id = 124523132
-
-    Appnima.Network.Post.remove(post_id);
+    Appnima.Network.Post.remove("124523132");
 
 As in the previous method, if all went well return a message ```message: "Successful"```
 
 #### Get a post
 The user can get the information of a concrete post sending ```id``` of that post.
 
-    post_id = 124523132
 
-    Appnima.Network.Post.get(post_id);
+    Appnima.Network.Post.get("124523132");
 
 This call return following data:
 
@@ -471,16 +484,17 @@ The list of likes are users who have made like this post.
 #### Search
 The user can search for a particular post by the text of its content, or if it sends just a word, it will return all posts that contain that word in their content.
 
-    query = "lorem"
-    page  = 1
-    num_results = 12
-    last_data = last_data
+    parameters =
+        query       : "lorem",
+        page        : 1,
+        num_results : 12,
+        last_data   : last_data
 
-    Appnima.Network.Post.search(query, page, num_results, las_data);
+    Appnima.Network.Post.search(parameters);
 
 As can be seen, in this case the results are to be obtained by pagination, as explained above. But if it does not wish to use it, you simply have to make the call as follows:
 
-    Appnima.Network.Post.search(query);
+    Appnima.Network.Post.search({query: "Lorem"});
 
 In this case, both methods return an array of the post has been found, or an empty array if none match.
 
@@ -488,22 +502,33 @@ In this case, both methods return an array of the post has been found, or an emp
 This method is used to obtain the counter of post that user created. The answer is ```posts_count:8 ```. In this example, the user of the session would have created eight post.
 
     Appnima.Network.Post.counter();
-    Appnima.Network.Post.counter(424234234324);
+    Appnima.Network.Post.counter("424234234324");
 
 If user sends an user id, method return counter of that user.
 
 #### Timeline
 This method is used to obtain a list of post. There would be two different ways of creating two different results. A case would be:
 
+    parameters =
+        page        : page,
+        num_results : 12,
+        last_data   : last_data
+
     Appnima.Network.Post.timeline();
-    Appnima.Network.Post.timeline(null, page, num_results, last_data);
+    Appnima.Network.Post.timeline(parameters);
 
 In this case, the first call would get the ```timeline``` of session user. This is a list of post that user created and those who user follow. (Easy example to understand is the timeline of ```Twitter```).
 
 In second call is the same, only to be get posts by pagination.
 The other case would be:
 
-    Appnima.Network.Post.timeline(username);
+    Appnima.Network.Post.timeline({username: "my_username"});
+
+    parameters =
+        username    : "my_username",
+        page        : 1,
+        num_results : 12,
+        last_data   : last_data
     Appnima.Network.Post.timeline(username, page, num_results, last_data);
 
 In this case you are getting the timeline of a specific user, the post he has written. (Next to the example of Twitter, this case would be when you enter in to the profile of a particular user). As you can see, you can also do by pagination.
@@ -511,24 +536,25 @@ In this case you are getting the timeline of a specific user, the post he has wr
 #### Create comment
 Posts may have comments, and with this call user can do comments.
 
-    post_id = 424231423423
-    content = Este es mi comentario
+    parameters =
+        id      : "424231423423",
+        content : "Este es mi comentario"
 
-    Appnima.Network.Post.createComment(post_id, content);
+    Appnima.Network.Post.createComment(parameters);
 
 Call returns ```message: "Successful"```.
 
 #### Delete comment
 The user who created a comment can delete his comments with following method sending comment ```id```:
 
-    Appnima.Network.Post.deleteComment(4234324234234);
+    Appnima.Network.Post.deleteComment("4234324234234");
 
 Call returns ```message: "Successful"```.
 
 #### Get comment
 To obtain all comments of post the user may to call this method sending ```id```of post:
 
-    Appnima.Network.Post.comments(424231423423);
+    Appnima.Network.Post.comments("424231423423");
 
 This call return following array of objects:
 
@@ -560,7 +586,7 @@ This call return following array of objects:
 #### Do like post
 The user can do favorite a concret post, or remove that "like". For this, the user must send the id of the post along with the call:
 
-    Appnima.Network.Post.like(424231423423);
+    Appnima.Network.Post.like("424231423423");
 
 If it is the first time that user do like a post, this will be created, but on the contrary, if this post already has favorite, the favorite will disappear and the next time this method is called again to be favorite.
 If all went well return ```message:" Successful "```.
@@ -568,7 +594,7 @@ If all went well return ```message:" Successful "```.
 #### Get users who have made a post favorite
 If the user wants to get all users who have a favorite post in particular, you simply send the id of the post along with the following call:
 
-    Appnima.Network.Post.likeUsers(424231423423);
+    Appnima.Network.Post.likeUsers("424231423423");
 
 This method return following data:
 
@@ -585,13 +611,19 @@ This method return following data:
 #### Get all favorite posts from an user
 If you want to get the favorite post of user, you want to do this method sending user username:
 
-    Appnima.Network.Post.userLike("username");
+    Appnima.Network.Post.userLike({username: "username"});
 
 The API will return a list of post, which are favorites for the username's user.
 
 They can also be obtained by pagination:
 
-    Appnima.Network.Post.userLike("username", page, num_results, last_data);
+    parameters =
+        username    : "username",
+        page        : 1,
+        num_results : 12,
+        last_data   : last_data
+
+    Appnima.Network.Post.userLike(parameters);
 
 Location
 ========
