@@ -893,9 +893,23 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
 El evento y el calendario, es dónde se ha realizado la actividad. En caso de que el evento es null, es por que la actividad únicamente afecta al calendario. El campo "owner" es la persona que realiza la actividad y el campo "profile", es la persona a la que va dirigida la actividad.
 
 #### Crear un evento
-A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
+A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros un objeto que contenga los siguientes parámetros: la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
 
-    Appnima.Calendar.event(52f0d497f4a9b16f47000002, "partido de futbol", "quedada para jugar un partido de fútbol", "04-14-2014 09:00", "04-14-2014 11:00", null, "futbol,deporte", "c/ San Mames", "Bilbao", "España", "23.23", "-2.29")
+	    
+	data =
+      calendar    : 52f0d497f4a9b16f47000002
+      name        : "partido de futbol"
+      description : "quedada para jugar un partido de fútbol"
+      init        : "04-14-2014 09:00"
+      finish      : "04-14-2014 11:00"
+      address     : "c/ San Mames"
+      locality    : "Bilbao
+      country     : "España"
+      latitude    : "23.23"
+      longitude   : "-2.29"
+      guest       : null
+      tags        :	"futbol,deporte"	
+
 
 Esta función devuelve el nuevo evento:
 
@@ -930,9 +944,22 @@ Esta función devuelve el nuevo evento:
             }
 
 #### Modificar un evento
-También se nos permite modificar un evento. Se le debe envíar como parametros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud.
+También se nos permite modificar un evento. Se le debe envíar un objeto que lleve como parámetros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud.
 
-    Appnima.Calendar.event(52f0e1e6d028ec6b6f000011, "partido de balonceso", "quedada para jugar un partido de baloncesto", "04-14-2014 09:00", "04-14-2014 11:00", null, "futbol,deporte", "c/ San Mames", "Bilbao", "España", "23.23", "-2.29")
+	data =
+	  event       : 52f0e1e6d028ec6b6f000011
+      calendar    : 52f0d497f4a9b16f47000002
+      name        : "partido de baloncesto"
+      description : "quedada para jugar un partido de baloncesto"
+      init        : "04-14-2014 09:00"
+      finish      : "04-14-2014 11:00"
+      address     : "c/ San Mames"
+      locality    : "Bilbao
+      country     : "España"
+      latitude    : "23.23"
+      longitude   : "-2.29"
+      guest       : null
+      tags        :	"futbol,deporte"	
 
 En caso de que el evento no exista, devuelve un error 404. Si por el contrario existe, devuelve el evento con los campos modificados con la estructura del objeto que se devuelve en la función de crear evento.
 
