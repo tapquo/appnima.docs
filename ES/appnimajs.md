@@ -303,9 +303,9 @@ Con este recurso puedes obtener la lista de persona a las que tu usuario sigue o
 
     Appnima.Network.following():
 
-Obtienes la lista de tu usuario loqueado. Si llamas al recurso pasando como parámetro la ID de algún usuario de tu aplicación, obtendrás su lista:
+Obtienes la lista de tu usuario loqueado. Si llamas al recurso pasando como parámetro un objeto con la ID de algún usuario de tu aplicación, obtendrás su lista:
 
-    Appnima.Network.following("23094392049024112b431d");
+    Appnima.Network.following({user: "23094392049024112b431d"});
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
@@ -328,7 +328,12 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
 Por otro lado, también existe la opción de que te devuelva la lista de gente a la que sigues con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de usuarios. Para ello unicamente se debe enviar dos variables más junto con la id del usuario del que quieres obtener los datos:
 
-    Appnima.Network.following("23094392049024112b431d", 0, 4);
+    parameters =
+        user: "23094392049024112b431d"
+        page: 0
+        num_results: 4
+
+    Appnima.Network.following(parameteres);
 
 El primer valor se trata del número de página que deseas obtener; esto es, el trozo de la lista de usuarios que deseas. La segunda variable es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de usuarios.
 
@@ -337,9 +342,9 @@ De la misma forma que lo anterior, puedes utilizar este recurso de dos maneras: 
 
     Appnima.Network.followers();
 
-Si pasas la ID de un usuario de tu plataforma obtienes su lista de seguidores:
+Si pasas un objeto con la ID de un usuario de tu plataforma obtienes su lista de seguidores:
 
-    Appnima.Network.followers("23094392049024112b431d");
+    Appnima.Network.followers({user: "23094392049024112b431d"});
 
 Al igual que en lo explicado anteriormente, también existe la posibilidad de obtener los resultados con paginación. El modo de uso es igual que en la obtención de los usuarios a los que sigues.
 
