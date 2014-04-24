@@ -386,6 +386,32 @@ Si el parámetro es correcto se recibe un `200 Ok` junto con el objeto:
 ```
 
 ### Soporte
+#### GET /user/ticket
+Utiliza este recurso para obtener un ticket en concreto. Para ello simplemente hay que mandar la ID del ticket que se quiere obtener.
+```json
+    parameters = { id : "1356f43524fa4" }
+```
+
+#### GET /user/ticket/search
+Utiliza este recurso para buscar un conjunto de tickets. Se puede filtrar por los siguientes campos:
+
+- user: Para obtener los tickets de este usuario en concreto.
+- reference: Para obtener los tickets por esta referencia.
+- type: Para obtener los tickets de este tipo.
+- solved: (true o false) Para obtener los tickets resueltos (true) o los pendientes (false)
+
+Se puede hacer búsqueda por un campo en concreto o por la mezcla de varios. En el ejemplo siguiente sería una búsqueda con todos los campos y el objeto a mandar seria el siguiente:
+
+```json
+    parameters = {
+        user      : "1356f43524fa4",
+        reference : "3542j5425i44d",
+        type      : 2
+        solved    : true
+    }
+```
+
+
 #### POST /user/ticket
 Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
 ```json

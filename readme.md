@@ -394,6 +394,32 @@ Responses are returned with `200 Ok` and the object:
 
 
 ### Support
+#### GET /user/ticket
+Use this resource to obtain a ticket specifically. Simply you have to send the ticket ID to be obtained.
+
+```json
+     parameters = {id: "1356f43524fa4"}
+```
+
+#### GET /user/ticket/search
+Use this resource to find a set of tickets. You can filter by the following fields:
+
+- User: For tickets for this particular user.
+- Reference: For tickets for this reference.
+- Type: For tickets of this type.
+- Solved: (true or false) For tickets resolved (true) or earrings (false)
+
+It can search for a particular field or by mixing several. The following example would be a query with all the fields and send the object would be:
+
+```json
+     parameters = {
+     user: "1356f43524fa4"
+     reference: "3542j5425i44d"
+     type 2
+     solved: true
+    }
+```
+
 #### POST /user/ticket
 Use this resource as ticket managing system to resolve incidences or attend consults from users. The request requires an object as follows:
 
