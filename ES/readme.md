@@ -386,14 +386,39 @@ Si el parámetro es correcto se recibe un `200 Ok` junto con el objeto:
 ```
 
 ### Soporte
-#### POST /ticket
-Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. Envía como parámetro junto a la petición el texto de la consulta:
+#### POST /user/ticket
+Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
 ```json
-    {
-        question:   '[SUGGESTION] Bigger buttons'
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",               reference   : "1356f43524fa4",
+        type        : "2"
     }
 ```
+El campo reference se utiliza por si se quiere añadir la ID de cualquier otro modelo, ya sea de APPNIMA o de otra base de datos.
+El campo type puede ser 0, 1 o 2. Si no se manda este campo, por defecto es 0.
 
+0 -> "question"
+1 -> "bug"
+3 -> "support"
+
+    Appnima.User.ticket(parameters);
+
+#### PUT /user/ticket
+Por otro lado, si se quiere modificar un ticket hay dos opciones:
+
+La primera sería poder modificar los datos del ticket. Esto es solo posible cuando el ticket aún no está respondido. Para ello simplemente hay que enviar los mismos datos que a la hora de crearlo, añadiendo la ID del ticket que se quiere modificar.
+
+La otra opción es contestar a un ticket. Para ello habría que mandar el siguiente objeto:
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+Una vez respondido al ticket, se envía un email al creador de dicho ticket.
+Para ambos casos habría que enviar los datos a la siguiente llamada:
+
+    Appnima.User.updateTicket(parameters);
 
 Network
 -------
@@ -417,22 +442,22 @@ Utiliza este recurso para buscar ususarios dentro de tu aplicación. Puedes envi
 En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios que coinciden con la búsqueda:
 ```json
     [{
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431f"
-        name		: "javi"
-        username	: "javi@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431f"
+        name        : "javi"
+        username    : "javi@javi.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431e"
-        name		: "javier"
-        username	: "a3@appnima.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431e"
+        name        : "javier"
+        username    : "a3@appnima.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431d"
-        name		: null
-        username	: "j.villar@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431d"
+        name        : null
+        username    : "j.villar@javi.com"
     }
     ]
 ```
@@ -441,7 +466,7 @@ En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok`
 Para seguir a un usuario utiliza este recurso pasando como parámetro su `id`:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
@@ -457,14 +482,14 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 Para dejar de seguir un usuario utiliza este recurso de igual manera que **POST /follow**:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
     {
-        message:	"Successful"
+        message:    "Successful"
     }
 ```
 
@@ -482,7 +507,7 @@ Con este recurso puedes obtener la lista de followings del usuario de sessión l
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
-	count: 4
+    count: 4
     [{
         avatar  : "http://cata.jpg"
         id      : "52f34ac66a7e665b666b6617"
@@ -517,9 +542,9 @@ Al igual que en el *timeline* del recurso de ```MESSENGER```, existe la opción 
 
 ```json
     {
-     username		: username
-     page			: 0
-     num_results	: 5
+     username       : username
+     page           : 0
+     num_results    : 5
     }
 ```
 
@@ -535,7 +560,7 @@ Funciona de igual manera que **GET /following**, puedes enviar la `id` del usuar
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
-	count: 3
+    count: 3
     [{
         avatar  : "http://cata.jpg"
         id      : "52f34ac66a7e665b666b6617"

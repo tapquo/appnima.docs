@@ -186,10 +186,37 @@ Si lo necesitas, puedes solicitar a tus usuarios que registren sus direcciones d
 
 Tickets
 -------
-Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición únicamente necesita el texto de la consulta:
+Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
+```json
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",               reference   : "1356f43524fa4",
+        type        : "2"
+    }
+```
+El campo reference se utiliza por si se quiere añadir la ID de cualquier otro modelo, ya sea de APPNIMA o de otra base de datos.
+El campo type puede ser 0, 1 o 2. Si no se manda este campo, por defecto es 0.
 
-    Appnima.User.ticket("[SUGGESTION] Botones más grandes");
+0 -> "question"
+1 -> "bug"
+3 -> "support"
 
+    Appnima.User.ticket(parameters);
+
+Por otro lado, si se quiere modificar un ticket hay dos opciones:
+
+La primera sería poder modificar los datos del ticket. Esto es solo posible cuando el ticket aún no está respondido. Para ello simplemente hay que enviar los mismos datos que a la hora de crearlo, añadiendo la ID del ticket que se quiere modificar.
+
+La otra opción es contestar a un ticket. Para ello habría que mandar el siguiente objeto:
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+Una vez respondido al ticket, se envía un email al creador de dicho ticket.
+Para ambos casos habría que enviar los datos a la siguiente llamada:
+
+    Appnima.User.updateTicket(parameters);
 
 Messenger
 =========

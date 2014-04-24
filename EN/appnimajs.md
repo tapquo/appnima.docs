@@ -185,10 +185,42 @@ If you need it, you can ask users to register their emails to get an invitation 
 
 Tickets
 -------
-Use this resource as ticket managing system to resolve incidences or attend consults from users. The resource only needs the text:
+Use this resource as ticket managing system to resolve incidences or attend consults from users. The request requires an object as follows:
 
-    Appnima.User.ticket("[SUGGESTION] Bigger buttons");
+```json
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+        reference   : "1356f43524fa4",
+        type        : "2"
+    }
+```
 
+The reference field is used if you want to add the ID of any other model, either APPNIMA or another database .
+The type field can be 0, 1 or 2. If this field is not sent, the default is 0 .
+
+0 - > "question"
+1 - > " bug"
+3 -> "support"
+
+    Appnima.User.ticket(parameters);
+    
+On the other hand, if you modify a ticket you have two options :
+
+The first would be to change the ticket. This is only possible when the ticket is not responded . To do this you just have to send the same data to create when adding the ID of the ticket to be modified .
+
+The other option is to answer a ticket. This would have to send the following criteria:
+
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+
+Once replied to ticket, an email is sent to the creator of that ticket.
+In both cases you have to send the data to the following call:
+
+    Appnima.User.updateTicket(parameters);
 
 
 Messenger
