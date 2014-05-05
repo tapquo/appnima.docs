@@ -218,6 +218,31 @@ Para ambos casos habría que enviar los datos a la siguiente llamada:
 
     Appnima.User.updateTicket(parameters);
 
+Si se desea obtener un ticket en concreto, habría que mandar la ID del ticket a la siguiente llamada de AppnimaJS:
+
+    ```json
+        parameters = { id: 325425324563654654}
+    ```
+
+    Appnima.User.getTicket(parameters);
+
+También existe la opción de buscar un conjunto de tickets. Para ello habría que enviar los siguientes parámetros:
+
+    ```json
+        parameters = {
+            reference : 325425324563654654,
+            type      : 0,
+            solved    : true,
+            user      : 43242465344789
+        }
+    ```
+
+El ejemplo anterior sería la opción de enviar todos los parámetros posibles. El atributo `solved` puede ser `true` o `false`o puede no enviarse. Si se envía a `true`se está diciendo que se desean los tickets que ya están contestados. Si se envía a `false` sería los que están pendientes de responder, y si no se envía ese atributo es porque se desea obtener cualquier ticket, ya sea respondido o no. Cualquiera de los atributos del objeto podría no enviarse.
+
+La llamada que hay que hacer para buscar los tickets sería la siguiente:
+
+    Appnima.User.searchTickets(parameters);
+
 Messenger
 =========
 Mail

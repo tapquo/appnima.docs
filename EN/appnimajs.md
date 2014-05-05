@@ -222,6 +222,30 @@ In both cases you have to send the data to the following call:
 
     Appnima.User.updateTicket(parameters);
 
+If you want to get a ticket in particular, would have to send the ID of the ticket to the next call of AppnimaJS :
+
+    ``` json
+        parameters = {id: 325425324563654654 }
+    ```
+
+    Appnima.User.getTicket(parameters);
+
+There is also the option of finding a set of tickets. This would send the following parameters:
+
+    ``` json
+        parameters = {
+            reference: 325425324563654654,
+            type: 0,
+            solved : true,
+            user: 43242465344789
+        }
+    ```
+
+The above example would be the option to send all possible parameters . The `solved` attribute can be `true` or `false` o can not be shipped. If sent like `true`, you would like answered tickets. If you send like `false` you would like tickets that not answered, and if that attribute is not sent it is because you want to get any ticket, whether answered or not. Any of the attributes of the object could not be sent.
+
+This call needs to be done to find the tickets would be:
+
+    Appnima.User.searchTickets(parameters);
 
 Messenger
 =========

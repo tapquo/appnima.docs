@@ -420,6 +420,8 @@ It can search for a particular field or by mixing several. The following example
     }
 ```
 
+In this case you can use the pagination. This option is the same as in the `POST` methods.
+
 #### POST /user/ticket
 Use this resource as ticket managing system to resolve incidences or attend consults from users. The request requires an object as follows:
 

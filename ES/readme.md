@@ -411,6 +411,8 @@ Se puede hacer búsqueda por un campo en concreto o por la mezcla de varios. En 
     }
 ```
 
+En este caso es posible usar la paginación. Esta opción es igual que en los `POST`.
+
 
 #### POST /user/ticket
 Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
