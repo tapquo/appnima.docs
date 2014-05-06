@@ -411,7 +411,7 @@ Se puede hacer búsqueda por un campo en concreto o por la mezcla de varios. En 
     }
 ```
 
-En este caso es posible usar la paginación. Esta opción es igual que en los `POST`.
+En este caso es posible usar la paginación. Esta opción es igual que en los `POST` salvo que no hay que enviar el atributo `last_data`.
 
 
 #### POST /user/ticket

@@ -243,6 +243,22 @@ La llamada que hay que hacer para buscar los tickets sería la siguiente:
 
     Appnima.User.searchTickets(parameters);
 
+Se puede utilizar paginación añadiendo dos atributos al objeto anterior:
+
+    ```json
+        parameters = {
+            reference   : 325425324563654654,
+            type        : 0,
+            solved      : true,
+            user        : 43242465344789,
+            num_results : 10,
+            page        : 2
+        }
+    ```
+
+La forma de paginación es igual que la paginación de los post pero no hay que enviar el atributo "last_data".
+
+
 Messenger
 =========
 Mail

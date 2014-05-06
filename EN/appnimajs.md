@@ -247,6 +247,21 @@ This call needs to be done to find the tickets would be:
 
     Appnima.User.searchTickets(parameters);
 
+You can use pagination sended this parameters:
+
+    ``` json
+        parameters = {
+            reference: 325425324563654654,
+            type: 0,
+            solved : true,
+            user: 43242465344789,
+            num_results: 10,
+            page: 1
+        }
+    ```
+Is the same method like in post pagination but there not send "last_data" attribute.
+
+
 Messenger
 =========
 
