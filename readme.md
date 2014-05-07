@@ -1327,3 +1327,139 @@ This resource allows you to send push notifications to the user device. Sends th
     }
 ```
 If the notification was successful App/nima returns `200 Ok`.
+
+Payments
+--------
+Use this resource to make purchases and payments through appnima payment gateway. To do so, all request have to go to:
+
+    http://api.appnima.com/payments/{RESOURCE}
+    
+Remember all requests to App/nima should be identified by your `Appnima.key` or key pair `client` and `secret`.
+
+So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
+
+## Purchases
+
+Purchases without money exchange requirements should be done through purchase option. The purchases of appnima are made in a two step procedure. The way to generate a correct purchase you must follow this sequence. Generation of a purchase and confirmation.
+
+#### POST /purchase
+With this method you generate a purchase into appnima,it generates with state 0 wich means that is pending of a confirmation.
+
+```json
+    {
+        reference:  "Reference you want for the purchase"
+    }
+```
+If the purchase was successfuly created App/nima returns `200 {token: "purchase_secret_token", amount: 0 "}`.
+
+#### POST /confirm
+To make efective the purchase generated in the previous step you must send a confirmation to Appnima with the security token and the amount set to 0
+
+
+```json
+    {
+        token: "purchase_secret_token,
+        amount: 0
+    }
+```
+If the purchase is confirmed you must receive a `200 {reference: "Reference you want for the purchase",payed_at: purchase_confirmation_date, state: purchase_state "}`.
+
+## Credit Cards
+Credit cards are the most extendend payment system nowadays.To make purchases that involve money first you have to set a payment method to a user. Appnima has his own way to handle credit card information. The way to set a credit card for you application users is very easy.
+
+#### POST /creditcard
+To create a credit card for a user you must send the credit card information. Number, cvc and expiration date.
+```json
+    {
+         number: "4242424242424242"
+         cvc: 123
+         expiration_date: "11/2015"    
+    }
+```
+If all has gone correctly Appnima will confirm with `200 {id: "credit_card_ID",number: "xxxxxxxxxxxx4242"}` and your user now will have this credit_card information attached to his profile.
+
+#### GET /creditcard
+You can attach as many credit cards to a user profile as you want, if you want to check how many credit cards a user you can call credit card without parameters.
+
+And you will receive all the ofuscated credit cards attached to your profile.
+
+#### DELETE /creditcard
+You can also can delete credit cards from your profile, the way to do it is sending the id of the credit card you want to erase.
+
+```json
+    {
+         id: "credit_card_ID"   
+    }
+```
+If the credit card information was successfuly deleted App/nima returns `200 Ok`.
+
+#### PUT /creditcard
+Also you can modify the values of a credit card attached to a profile, you only have to send the id with the parameters you want to update.
+```json
+    {
+         id: "credit_card_ID", 
+         number: "4343434343434343"
+    }
+```
+If the credit card information was successfuly updated App/nima returns `200 Ok`.
+
+## Payment Providers
+With Appnima you can do money charges via the most famous payment services as stripe. Yo only have to especify the payment provider in the purchase.
+
+### Stripe
+To tell Appniama you want to purchase via Stripe you only have to add the word stripe before the action.
+#### POST stripe/purchase
+With this method you generate a purchase into appnima,it generates with state 0 wich means that is pending of a confirmation. The diference is that now you must tell the credit card id werewith you want to make the charge and the total amountof the charge.
+
+```json
+    {
+        reference:  "Reference you want for the purchase",
+        credit_card: "credit_card_ID",
+        amount: 13500
+    }
+```
+If the purchase was successfuly created App/nima returns `200 {token: "purchase_secret_token", amount: 13500 "}`.
+
+#### POST stripe/confirm
+To make efective the purchase generated in the previous step you must send a confirmation to Appnima with the security token and the received amount.
+
+
+```json
+    {
+        token: "purchase_secret_token,
+        amount: 13500
+    }
+```
+If the purchase is confirmed you must receive a `200 {reference: "Reference you want for the purchase",payed_at: purchase_confirmation_date, state: purchase_state "}`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
