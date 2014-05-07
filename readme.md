@@ -1398,7 +1398,7 @@ Remember all requests to App/nima should be identified by your `Appnima.key` or 
 
 So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
 
-## Purchases
+### Purchases
 
 Purchases without money exchange requirements should be done through purchase option. The purchases of appnima are made in a two step procedure. The way to generate a correct purchase you must follow this sequence. Generation of a purchase and confirmation.
 
@@ -1424,7 +1424,7 @@ To make efective the purchase generated in the previous step you must send a con
 ```
 If the purchase is confirmed you must receive a `200 {reference: "Reference you want for the purchase",payed_at: purchase_confirmation_date, state: purchase_state "}`.
 
-## Credit Cards
+### Credit Cards
 Credit cards are the most extendend payment system nowadays.To make purchases that involve money first you have to set a payment method to a user. Appnima has his own way to handle credit card information. The way to set a credit card for you application users is very easy.
 
 #### POST /creditcard
@@ -1463,7 +1463,7 @@ Also you can modify the values of a credit card attached to a profile, you only 
 ```
 If the credit card information was successfuly updated App/nima returns `200 Ok`.
 
-## Payment Providers
+### Payment Providers
 With Appnima you can do money charges via the most famous payment services as stripe. Yo only have to especify the payment provider in the purchase.
 
 ### Stripe
@@ -1478,7 +1478,7 @@ With this method you generate a purchase into appnima,it generates with state 0 
         amount: 13500
     }
 ```
-If the purchase was successfuly created App/nima returns `200 {token: "purchase_secret_token", amount: 13500 "}`.
+If the purchase was successfuly created App/nima returns `200 {token: "purchase_secret_token", amount: 13500 }`.
 
 #### POST stripe/confirm
 To make efective the purchase generated in the previous step you must send a confirmation to Appnima with the security token and the received amount.
@@ -1490,7 +1490,7 @@ To make efective the purchase generated in the previous step you must send a con
         amount: 13500
     }
 ```
-If the purchase is confirmed you must receive a `200 {reference: "Reference you want for the purchase",payed_at: purchase_confirmation_date, state: purchase_state "}`.
+If the purchase is confirmed you must receive a `200 {reference: "Reference you want for the purchase",payed_at: purchase_confirmation_date, state: purchase_state }`.
 
 
 

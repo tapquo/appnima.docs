@@ -1382,3 +1382,126 @@ Estos métodos son los necesarios para la gestión de los tipos de socket vistos
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Llama al callback cuando uno o varios usuarios han sido echados de un grupo
+
+
+
+
+
+
+
+
+Payments
+========
+Para realizar compras y efectuar pagos de manera sencilla Appnima proporciona la funcionalidad payments. Con Appnima payments puedes realizar compras dentro de la aplicación, gestionar información de pago los usuarios y hacer efectivos los cobros.
+
+Importante recordar que debemos tener una sesión válida para poder hacer usor del módulos de pagos.
+
+Compras
+-------
+
+### Generar una compra
+Para efectuar compras que no necesiten de un intercambio monetario se utiliza el método purchase. Las compras se realizan en una secuencia de 2 pasos, generar una compra y confirmarla cuando se valide su veracidad. Primero se debe crear la compra y validarla posteriormente.
+
+	Appnima.Payments.purchase({reference: "Purchase reference"});
+	
+Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
+
+	{
+		token: "purchase_secret_token",
+		amount: 0
+	
+	}
+
+### Confirmar una compra
+
+Cuando confirmemos la compra debemos enviar el token secreto que se nos proporcionó cuando generamos la compra. Como la compra carece de importe el importe a cobrar debe ser cero.
+
+	Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
+
+Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
+
+	{
+		reference: "Reference you want for the purchase",
+		payed_at: purchase_confirmation_date,
+		state: purchase_state "
+	}
+
+Tarjetas de crédito
+-------------------
+El principal medio de pago online hoy en dia son las tarjetas de crédito pro ello con Appnima podemos asociar tarjetas de crédito al perfil de un usuario de manera sencilla. 
+
+### Crear tarjeta
+Para crear una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole los datos de una tarjeta en cuestión.
+
+	Appnima.Payments.createCreditCard(number: "4242424242424242", cvc: 123, expiration_date: "11/2015")
+
+Si el proceso se ha realizado con éxito Appnima te devolverá el siguiente mensaje:
+
+	{
+		id: "credit_card_ID",
+		number: "xxxxxxxxxxxx4242"
+	}
+	
+### Tarjetas de un usuario
+Para consultar todas las tarjetas de las que dispone un usuario tan solo hay que llamar a getCreditCards sin ningún argumento.
+
+	Appnima.Payments.getCreditCards()
+	
+Lo que nos devolverá un array con la información ofuscada de las tarjetas de crédito del usuario.
+
+### Borrar tarjeta
+Para borrar una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole el id de la tarjeta que queremos borrar.
+
+	Appnima.Payments.deleteCreditCard(id: "credit_card_ID")
+
+Si el proceso se ha realizado con éxito Appnima te devolverá un mensaje con código 200.
+
+### Modificar una tarjeta
+Para modificar la los datos de una tarjeta de crédito tan solo tenemos que pasarle el id de la tarjeta destino que queremos modificar con los campos que deseamos cambiar.
+
+	Appnima.Payments.updateCreditCard(id: "credit_card_ID", number: "4343434343434343")
+
+Appnima nos devolverá un mensaje de confirmación para notificarnos que el cambio se ha realizado con éxito.
+
+Payment Providers
+-----------------
+Cuando necesitemos realizar una compra que requiera un cobro sobre una tarjeta de crédito Appnima dispone de pasarelas de pago adaptadas a las necesidades de los usuarios.
+
+### Stripe
+Stripe es una de las principales pasarelas de pago hoy en día para realizar pagos mediante stripe tan solo tenemos que realizar una compra pero indicandole el medio de pago y el importe. El sistema es similar al de las compras que no requerían intercambio monetario. Generas la compra y la confirmas para realizar el cobro.
+
+#### Compra con Stripe
+Para realizar una compra con stripe tan solo tenemos que indicarle el id de la tarjeta sobre al que queremos realizar el cargo y la cantidad.
+
+      Appnima.Payments.stripePurchase(credit_card : "credit_card_ID", amount      : 10000 )
+
+Esto nos devolverá una confirmación con un token secreto de un solo uso y la cantidad:
+
+	 {
+	 	token: "purchase_secret_token",
+	 	 amount: 10000 
+	 }
+
+
+#### Confimación con Stripe
+Para hacer efectivo el cargo sobre la tarjeta es necesario confirmar para que la transacción se haga efectiva. Para ello debemos enviar el mensaje de confirmación con el token de seguridad y la cantidad para verificar la validez de la transacción.
+
+      Appnima.Payments.stripeConfirm(token: "purchase_secret_token", amount: 10000 )
+
+Si la confirmación es correcta recibiremos el siguiente mensaje, con el estado de la compra a 3 que nos indica que el pago se ha realizado con éxito.
+
+	{
+		reference: "Reference of the purchase",
+		payed_at: purchase_confirmation_date, 
+		state: purchase_state 
+	}
+
+
+
+
+
+
+
+
+
+
