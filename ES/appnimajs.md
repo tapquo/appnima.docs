@@ -186,9 +186,77 @@ Si lo necesitas, puedes solicitar a tus usuarios que registren sus direcciones d
 
 Tickets
 -------
-Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición únicamente necesita el texto de la consulta:
+Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
+```json
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",               reference   : "1356f43524fa4",
+        type        : "2"
+    }
+```
+El campo reference se utiliza por si se quiere añadir la ID de cualquier otro modelo, ya sea de APPNIMA o de otra base de datos.
+El campo type puede ser 0, 1 o 2. Si no se manda este campo, por defecto es 0.
 
-    Appnima.User.ticket("[SUGGESTION] Botones más grandes");
+0 -> "question"
+1 -> "bug"
+3 -> "support"
+
+    Appnima.User.ticket(parameters);
+
+Por otro lado, si se quiere modificar un ticket hay dos opciones:
+
+La primera sería poder modificar los datos del ticket. Esto es solo posible cuando el ticket aún no está respondido. Para ello simplemente hay que enviar los mismos datos que a la hora de crearlo, añadiendo la ID del ticket que se quiere modificar.
+
+La otra opción es contestar a un ticket. Para ello habría que mandar el siguiente objeto:
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+Una vez respondido al ticket, se envía un email al creador de dicho ticket.
+Para ambos casos habría que enviar los datos a la siguiente llamada:
+
+    Appnima.User.updateTicket(parameters);
+
+Si se desea obtener un ticket en concreto, habría que mandar la ID del ticket a la siguiente llamada de AppnimaJS:
+
+    ```json
+        parameters = { id: 325425324563654654}
+    ```
+
+    Appnima.User.getTicket(parameters);
+
+También existe la opción de buscar un conjunto de tickets. Para ello habría que enviar los siguientes parámetros:
+
+    ```json
+        parameters = {
+            reference : 325425324563654654,
+            type      : 0,
+            solved    : true,
+            user      : 43242465344789
+        }
+    ```
+
+El ejemplo anterior sería la opción de enviar todos los parámetros posibles. El atributo `solved` puede ser `true` o `false`o puede no enviarse. Si se envía a `true`se está diciendo que se desean los tickets que ya están contestados. Si se envía a `false` sería los que están pendientes de responder, y si no se envía ese atributo es porque se desea obtener cualquier ticket, ya sea respondido o no. Cualquiera de los atributos del objeto podría no enviarse.
+
+La llamada que hay que hacer para buscar los tickets sería la siguiente:
+
+    Appnima.User.searchTickets(parameters);
+
+Se puede utilizar paginación añadiendo dos atributos al objeto anterior:
+
+    ```json
+        parameters = {
+            reference   : 325425324563654654,
+            type        : 0,
+            solved      : true,
+            user        : 43242465344789,
+            num_results : 10,
+            page        : 2
+        }
+    ```
+
+La forma de paginación es igual que la paginación de los post pero no hay que enviar el atributo "last_data".
 
 
 Messenger

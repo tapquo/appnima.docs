@@ -394,13 +394,73 @@ Responses are returned with `200 Ok` and the object:
 
 
 ### Support
-#### POST /ticket
-Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. Envía como parámetro junto a la petición el texto de la consulta:
+#### GET /user/ticket
+Use this resource to obtain a ticket specifically. Simply you have to send the ticket ID to be obtained.
+
 ```json
-    {
-        question:   '[SUGGESTION] Bigger buttons'
+     parameters = {id: "1356f43524fa4"}
+```
+
+#### GET /user/ticket/search
+Use this resource to find a set of tickets. You can filter by the following fields:
+
+- User: For tickets for this particular user.
+- Reference: For tickets for this reference.
+- Type: For tickets of this type.
+- Solved: (true or false) For tickets resolved (true) or earrings (false)
+
+It can search for a particular field or by mixing several. The following example would be a query with all the fields and send the object would be:
+
+```json
+     parameters = {
+     user: "1356f43524fa4"
+     reference: "3542j5425i44d"
+     type 2
+     solved: true
+    }
+```
+
+In this case you can use the pagination. This option is the same as in the `POST` methods except that not send `last_data`attribute.
+
+#### POST /user/ticket
+Use this resource as ticket managing system to resolve incidences or attend consults from users. The request requires an object as follows:
+
+```json
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+        reference   : "1356f43524fa4",
+        type        : "2"
     }
 ```
+
+The reference field is used if you want to add the ID of any other model, either APPNIMA or another database .
+The type field can be 0, 1 or 2. If this field is not sent, the default is 0 .
+
+0 - > "question"
+1 - > " bug"
+3 -> "support"
+
+    Appnima.User.ticket(parameters);
+    
+#### PUT /user/ticket
+On the other hand, if you modify a ticket you have two options :
+
+The first would be to change the ticket. This is only possible when the ticket is not responded . To do this you just have to send the same data to create when adding the ID of the ticket to be modified .
+
+The other option is to answer a ticket. This would have to send the following criteria:
+
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+
+Once replied to ticket, an email is sent to the creator of that ticket.
+In both cases you have to send the data to the following call:
+
+    Appnima.User.updateTicket(parameters);
+
 
 
 Network
@@ -427,22 +487,22 @@ Search people into your application. Sends any string for mail or username attri
 The server returns `200 Ok` and the list that contains the query:
 ```json
     [{
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431f"
-        name		: "javi"
-        username	: "javi@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431f"
+        name        : "javi"
+        username    : "javi@javi.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431e"
-        name		: "javier"
-        username	: "a3@appnima.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431e"
+        name        : "javier"
+        username    : "a3@appnima.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431d"
-        name		: null
-        username	: "j.villar@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431d"
+        name        : null
+        username    : "j.villar@javi.com"
     }]
 ```
 
@@ -452,7 +512,7 @@ The variable *following* indicate that user is loggued is follow or not that use
 To follow a user you can use this resource with the ID user:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
@@ -467,7 +527,7 @@ Responses are returned with `200 Ok` and the object:
 As **POST /follow** to unfollow a person you just need send with the request the ID user:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
@@ -486,13 +546,13 @@ With these resources you can get the list of followings and followers of a user.
 Retrieves the list of followings of a user. Sends the request and ID user:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
 App/nima returns `200 Ok` and the list:
 ```json
-	count: 4
+    count: 4
     [{
         avatar  : "http://cata.jpg"
         id      : "52f34ac66a7e665b666b6617"
@@ -528,9 +588,9 @@ Like in *timeline*, there is the option of getting this data using pagination. T
 
 ```json
     {
-     username 		: username
-     page			: 0
-     num_results	: 5
+     username       : username
+     page           : 0
+     num_results    : 5
     }
 ```
 
@@ -550,7 +610,7 @@ Retrieves the list of followings of a user. Sends the request and ID user:
 
 App/nima returns `200 Ok` and the list:
 ```json
-	count: 3
+    count: 3
     [{
         avatar  : "http://cata.jpg"
         id      : "52f34ac66a7e665b666b6617"
