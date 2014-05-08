@@ -1433,7 +1433,7 @@ El principal medio de pago online hoy en dia son las tarjetas de crédito pro el
 ### Crear tarjeta
 Para crear una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole los datos de una tarjeta en cuestión.
 
-	Appnima.Payments.createCreditCard(number: "4242424242424242", cvc: 123, expiration_date: "11/2015")
+	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
 
 Si el proceso se ha realizado con éxito Appnima te devolverá el siguiente mensaje:
 
@@ -1452,14 +1452,14 @@ Lo que nos devolverá un array con la información ofuscada de las tarjetas de c
 ### Borrar tarjeta
 Para borrar una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole el id de la tarjeta que queremos borrar.
 
-	Appnima.Payments.deleteCreditCard(id: "credit_card_ID")
+	Appnima.Payments.deleteCreditCard({id: "credit_card_ID"})
 
 Si el proceso se ha realizado con éxito Appnima te devolverá un mensaje con código 200.
 
 ### Modificar una tarjeta
 Para modificar la los datos de una tarjeta de crédito tan solo tenemos que pasarle el id de la tarjeta destino que queremos modificar con los campos que deseamos cambiar.
 
-	Appnima.Payments.updateCreditCard(id: "credit_card_ID", number: "4343434343434343")
+	Appnima.Payments.updateCreditCard({id: "credit_card_ID", number: "4343434343434343"})
 
 Appnima nos devolverá un mensaje de confirmación para notificarnos que el cambio se ha realizado con éxito.
 
@@ -1473,7 +1473,7 @@ Stripe es una de las principales pasarelas de pago hoy en día para realizar pag
 #### Compra con Stripe
 Para realizar una compra con stripe tan solo tenemos que indicarle el id de la tarjeta sobre al que queremos realizar el cargo y la cantidad.
 
-      Appnima.Payments.stripePurchase(credit_card : "credit_card_ID", amount      : 10000 )
+      Appnima.Payments.stripePurchase({reference:"Purchase reference", credit_card : "credit_card_ID", amount      : 10000})
 
 Esto nos devolverá una confirmación con un token secreto de un solo uso y la cantidad:
 
@@ -1486,7 +1486,7 @@ Esto nos devolverá una confirmación con un token secreto de un solo uso y la c
 #### Confimación con Stripe
 Para hacer efectivo el cargo sobre la tarjeta es necesario confirmar para que la transacción se haga efectiva. Para ello debemos enviar el mensaje de confirmación con el token de seguridad y la cantidad para verificar la validez de la transacción.
 
-      Appnima.Payments.stripeConfirm(token: "purchase_secret_token", amount: 10000 )
+      Appnima.Payments.stripeConfirm({token: "purchase_secret_token", amount: 10000})
 
 Si la confirmación es correcta recibiremos el siguiente mensaje, con el estado de la compra a 3 que nos indica que el pago se ha realizado con éxito.
 

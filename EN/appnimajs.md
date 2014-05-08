@@ -875,3 +875,124 @@ This methods are the same for all the socket types seen previously:
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Calls to the callback when a user is disallowed from the group
+
+Payments
+========
+Appnimajs provides a easy purchase and payments methods, you only have to follow this rules to make any purchase or payment.
+
+
+Purchases
+---------
+Purchases without money exchange requirements should be done through purchase option. The purchases of appnima are made in a two step procedure. The way to generate a correct purchase you must follow this sequence. Generation of a purchase and confirmation of it.
+
+### Create a purchase
+To acomplish a purchase that has no money exchange needs first you have to call Appnima.js purchase method. The purchases follow a 2 step secuence,purchase generation and purchase confirmation. First step is purchase generation:
+
+	Appnima.Payments.purchase({reference: "Purchase reference"});
+	
+If everything goes right appnima returns us a single use token to confirm our purchase later.
+
+	{
+		token: "purchase_secret_token",
+		amount: 0
+	
+	}
+
+### Confirm a purchase
+
+To confirm a purchase you mus send back the purchase token that appnima returned us in the previous step. Remember you also have to send the amount in this case 0.
+
+
+	Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
+	
+When you confirm the purchase to appnima it will return the main information of the purchase, with a state with value 3 that means the purchase has confirmed correctly.
+
+
+	{
+		reference: "Reference you want for the purchase",
+		payed_at: purchase_confirmation_date,
+		state: purchase_state "
+	}
+
+CreditCards
+-----------
+
+To make payments posible Appnima stores your CreditCards information in a secure way so you dont have to send the credit card information any time you want to purchase something. 
+
+### Create a Credit Card
+To create a new credit card you only have to send credit card info with a valid session. Calling createCreditCard will attach a new credit card to a users profile only if it is not previously created.
+
+	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
+
+If the process ends correctly you mus receive this information:
+
+	{
+		id: "credit_card_ID",
+		number: "xxxxxxxxxxxx4242"
+	}
+	
+### Check a user Credit Cards
+To see all the credit cards a user has attached to his account you only have to call getCreditCards method.
+
+	Appnima.Payments.getCreditCards()
+	
+It will return us an array with all the credit cards information.
+
+### Delete a Credit Card
+For security reasons to delete a credit card you must do it with the ID of the credit card. Send the id through the method deleteCreditCard and the CreditCard will be erased.
+
+	Appnima.Payments.deleteCreditCard({id: "credit_card_ID"})
+
+If all goes right Appnima will return a code 200 Succesfull message.
+
+### Modify a Credit Card
+For same security reasons to update a credit card you must do it with the ID of the credit card. Send the id  and the parameters you want to change through the method updateCreditCard and the CreditCard information will be updated.
+
+	Appnima.Payments.updateCreditCard({id: "credit_card_ID", number: "4343434343434343"})
+
+Once again If all goes right Appnima will return a code 200 Succesfull message.
+
+Payment Providers
+-----------------
+When we need to create a purchase that needs money exchange requirements we must do it with one of the Appnima payment providers.
+
+### Stripe
+Stripe is a easy to usea payment gateway, is integrated with Appnima so you can make and pay purchases with the same 2 step purchasing secuence. Generate purchase and confirm it.
+
+#### Buy with Stripe
+To make a purchase with Stripe we only have to send 3 things, a reference for the purchase, the id of the credit card in wich you want to generate the charge and the amount you want to charge.
+
+      Appnima.Payments.stripePurchase({reference:"Purchase reference", credit_card : "credit_card_ID", amount: 10000})
+
+If everything goes right appnima returns us a single use token to confirm our purchase later:
+
+	 {
+	 	token: "purchase_secret_token",
+	 	 amount: 10000 
+	 }
+
+
+#### Stripe purchase confirmation
+To confirm a purchase you mus send back the purchase token that appnima returned us in the previous step. Remember you also have to send the amount.
+
+      Appnima.Payments.stripeConfirm({token: "purchase_secret_token", amount: 10000})
+
+When you confirm the purchase to appnima it will return the main information of the purchase, with a state with value 3 that means the purchase has confirmed correctly.
+
+	{
+		reference: "Reference of the purchase",
+		payed_at: purchase_confirmation_date, 
+		state: purchase_state 
+	}
+
+
+
+
+
+
+
+
+
+
+
+
