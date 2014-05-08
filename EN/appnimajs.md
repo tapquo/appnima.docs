@@ -888,7 +888,7 @@ Purchases without money exchange requirements should be done through purchase op
 ### Create a purchase
 To acomplish a purchase that has no money exchange needs first you have to call Appnima.js purchase method. The purchases follow a 2 step secuence,purchase generation and purchase confirmation. First step is purchase generation:
 
-	Appnima.Payments.purchase({reference: "Purchase reference"});
+	Appnima.Payments.purchase();
 	
 If everything goes right appnima returns us a single use token to confirm our purchase later.
 
@@ -909,7 +909,7 @@ When you confirm the purchase to appnima it will return the main information of 
 
 
 	{
-		reference: "Reference you want for the purchase",
+		id: "purchase_ID",
 		payed_at: purchase_confirmation_date,
 		state: purchase_state "
 	}
@@ -920,7 +920,7 @@ CreditCards
 To make payments posible Appnima stores your CreditCards information in a secure way so you dont have to send the credit card information any time you want to purchase something. 
 
 ### Create a Credit Card
-To create a new credit card you only have to send credit card info with a valid session. Calling createCreditCard will attach a new credit card to a users profile only if it is not previously created.
+To create a new credit card you only have to send credit card info with a valid session. Calling createCreditCard will attach a new credit card to a users profile only if it is not previously created.The cvc is an optional parameter.
 
 	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
 
@@ -960,9 +960,9 @@ When we need to create a purchase that needs money exchange requirements we must
 Stripe is a easy to usea payment gateway, is integrated with Appnima so you can make and pay purchases with the same 2 step purchasing secuence. Generate purchase and confirm it.
 
 #### Buy with Stripe
-To make a purchase with Stripe we only have to send 3 things, a reference for the purchase, the id of the credit card in wich you want to generate the charge and the amount you want to charge.
+To make a purchase with Stripe we only have to send 3 things, the id of the credit card in wich you want to generate the charge, the cvc of that credit card and the amount you want to charge.
 
-      Appnima.Payments.stripePurchase({reference:"Purchase reference", credit_card : "credit_card_ID", amount: 10000})
+      Appnima.Payments.stripePurchase({credit_card : "credit_card_ID",cvc:123, amount: 10000})
 
 If everything goes right appnima returns us a single use token to confirm our purchase later:
 
@@ -980,7 +980,7 @@ To confirm a purchase you mus send back the purchase token that appnima returned
 When you confirm the purchase to appnima it will return the main information of the purchase, with a state with value 3 that means the purchase has confirmed correctly.
 
 	{
-		reference: "Reference of the purchase",
+		id: "purchase_ID",
 		payed_at: purchase_confirmation_date, 
 		state: purchase_state 
 	}

@@ -1402,7 +1402,7 @@ Compras
 ### Generar una compra
 Para efectuar compras que no necesiten de un intercambio monetario se utiliza el método purchase. Las compras se realizan en una secuencia de 2 pasos, generar una compra y confirmarla cuando se valide su veracidad. Primero se debe crear la compra y validarla posteriormente.
 
-	Appnima.Payments.purchase({reference: "Purchase reference"});
+	Appnima.Payments.purchase();
 	
 Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
 
@@ -1421,7 +1421,7 @@ Cuando confirmemos la compra debemos enviar el token secreto que se nos proporci
 Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
 
 	{
-		reference: "Reference you want for the purchase",
+		id: "purchase_ID",
 		payed_at: purchase_confirmation_date,
 		state: purchase_state "
 	}
@@ -1431,7 +1431,7 @@ Tarjetas de crédito
 El principal medio de pago online hoy en dia son las tarjetas de crédito pro ello con Appnima podemos asociar tarjetas de crédito al perfil de un usuario de manera sencilla. 
 
 ### Crear tarjeta
-Para crear una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole los datos de una tarjeta en cuestión.
+Para crear una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole los datos de una tarjeta en cuestión. El cvc es opcional.
 
 	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
 
@@ -1471,15 +1471,15 @@ Cuando necesitemos realizar una compra que requiera un cobro sobre una tarjeta d
 Stripe es una de las principales pasarelas de pago hoy en día para realizar pagos mediante stripe tan solo tenemos que realizar una compra pero indicandole el medio de pago y el importe. El sistema es similar al de las compras que no requerían intercambio monetario. Generas la compra y la confirmas para realizar el cobro.
 
 #### Compra con Stripe
-Para realizar una compra con stripe tan solo tenemos que indicarle el id de la tarjeta sobre al que queremos realizar el cargo y la cantidad.
+Para realizar una compra con stripe tan solo tenemos que indicarle el id de la tarjeta sobre al que queremos realizar el cargo, el código de seguridad de esta y la cantidad.
 
-      Appnima.Payments.stripePurchase({reference:"Purchase reference", credit_card : "credit_card_ID", amount      : 10000})
+      Appnima.Payments.stripePurchase({credit_card : "credit_card_ID",cvc: 123, amount      : 10000})
 
 Esto nos devolverá una confirmación con un token secreto de un solo uso y la cantidad:
 
 	 {
 	 	token: "purchase_secret_token",
-	 	 amount: 10000 
+	 	amount: 10000 
 	 }
 
 
@@ -1491,7 +1491,7 @@ Para hacer efectivo el cargo sobre la tarjeta es necesario confirmar para que la
 Si la confirmación es correcta recibiremos el siguiente mensaje, con el estado de la compra a 3 que nos indica que el pago se ha realizado con éxito.
 
 	{
-		reference: "Reference of the purchase",
+		id: "purchase_ID",
 		payed_at: purchase_confirmation_date, 
 		state: purchase_state 
 	}

@@ -1405,11 +1405,6 @@ Purchases without money exchange requirements should be done through purchase op
 #### POST /purchase
 With this method you generate a purchase into appnima,it generates with state 0 wich means that is pending of a confirmation.
 
-```json
-    {
-        reference:  "Reference you want for the purchase"
-    }
-```
 If the purchase was successfuly created App/nima returns `200 {token: "purchase_secret_token", amount: 0 "}`.
 
 #### POST /confirm
@@ -1422,13 +1417,13 @@ To make efective the purchase generated in the previous step you must send a con
         amount: 0
     }
 ```
-If the purchase is confirmed you must receive a `200 {reference: "Reference you want for the purchase",payed_at: purchase_confirmation_date, state: purchase_state "}`.
+If the purchase is confirmed you must receive a `200 {id: "purchase_ID",payed_at: purchase_confirmation_date, state: purchase_state "}`.
 
 ### Credit Cards
 Credit cards are the most extendend payment system nowadays.To make purchases that involve money first you have to set a payment method to a user. Appnima has his own way to handle credit card information. The way to set a credit card for you application users is very easy.
 
 #### POST /creditcard
-To create a credit card for a user you must send the credit card information. Number, cvc and expiration date.
+To create a credit card for a user you must send the credit card information. Number, cvc (Optional) and expiration date.
 ```json
     {
          number: "4242424242424242"
@@ -1473,8 +1468,8 @@ With this method you generate a purchase into appnima,it generates with state 0 
 
 ```json
     {
-        reference:  "Reference you want for the purchase",
         credit_card: "credit_card_ID",
+        cvc: 123,
         amount: 13500
     }
 ```
@@ -1490,7 +1485,7 @@ To make efective the purchase generated in the previous step you must send a con
         amount: 13500
     }
 ```
-If the purchase is confirmed you must receive a `200 {reference: "Reference you want for the purchase",payed_at: purchase_confirmation_date, state: purchase_state }`.
+If the purchase is confirmed you must receive a `200 {id: "purchase_ID",payed_at: purchase_confirmation_date, state: purchase_state }`.
 
 
 
