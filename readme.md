@@ -1405,7 +1405,16 @@ Purchases without money exchange requirements should be done through purchase op
 #### POST /purchase
 With this method you generate a purchase into appnima,it generates with state 0 wich means that is pending of a confirmation.
 
-If the purchase was successfuly created App/nima returns `200 {token: "purchase_secret_token", amount: 0 "}`.
+Optionally you can send a reference object with the structure you want, just encode it with JSON.stringify method.
+
+```json
+    {
+        reference: '{ "id":"example id", "content": "example content", "number": 666 }'
+    }
+```
+
+
+If the purchase was successfuly created App/nima returns `200 confirmation {token: "purchase_secret_token", amount: 0 "}`.
 
 #### POST /confirm
 To make efective the purchase generated in the previous step you must send a confirmation to Appnima with the security token and the amount set to 0
@@ -1417,7 +1426,23 @@ To make efective the purchase generated in the previous step you must send a con
         amount: 0
     }
 ```
-If the purchase is confirmed you must receive a `200 {id: "purchase_ID",payed_at: purchase_confirmation_date, state: purchase_state "}`.
+If the purchase is confirmed you must receive a `200 purchase {id: "purchase_ID",payed_at: purchase_confirmation_date, state: purchase_state "}`.
+
+#### GET /purchase
+Get purchase without sending any parameters will show you all your profile purchases
+
+
+#### GET /purchase/search
+Search method will find you in your profile purchases the one who match with reference parameters. For example assuming your purchases have a reference.id and a content your search should be like this.
+
+```json
+    {
+        id: "example id",
+        content: "example content"
+    }
+```
+This method will return you all the purchases that match with te given reference parameters. Remind that this methos returns all type of purchases free and not free ones.
+
 
 ### Credit Cards
 Credit cards are the most extendend payment system nowadays.To make purchases that involve money first you have to set a payment method to a user. Appnima has his own way to handle credit card information. The way to set a credit card for you application users is very easy.
@@ -1432,6 +1457,17 @@ To create a credit card for a user you must send the credit card information. Nu
     }
 ```
 If all has gone correctly Appnima will confirm with `200 {id: "credit_card_ID",number: "xxxxxxxxxxxx4242"}` and your user now will have this credit_card information attached to his profile.
+
+You can add optionally a alias parameter such as you can identify easily your cards
+
+```json
+    {
+         number: "4242424242424242"
+         cvc: 123
+         expiration_date: "11/2015"  
+         alias: "my favourite card"  
+    }
+```
 
 #### GET /creditcard
 You can attach as many credit cards to a user profile as you want, if you want to check how many credit cards a user you can call credit card without parameters.
@@ -1474,6 +1510,17 @@ With this method you generate a purchase into appnima,it generates with state 0 
     }
 ```
 If the purchase was successfuly created App/nima returns `200 {token: "purchase_secret_token", amount: 13500 }`.
+
+Similarly as the free purchases you can add a reference object to the request:
+
+```json
+    {
+        credit_card: "credit_card_ID",
+        cvc: 123,
+        amount: 13500,
+        reference: '{ "id":"example id", "content": "example content" }'
+    }
+```
 
 #### POST stripe/confirm
 To make efective the purchase generated in the previous step you must send a confirmation to Appnima with the security token and the received amount.

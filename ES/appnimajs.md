@@ -1411,6 +1411,10 @@ Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuar
 		amount: 0
 	
 	}
+	
+De manera opcional puedes enviar un objecto reference para poder añadir información adicional a tu purchase, con el fin de localizarla mas facil o emitir una traza de la compra. El objeto reference puede tener la estructura que tu consideres oportuna pero ha de ser un tipo JSON válido. Puedes utilizar la función JSON.stringify para realizar el encoding.
+
+	Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
 
 ### Confirmar una compra
 
@@ -1441,6 +1445,10 @@ Si el proceso se ha realizado con éxito Appnima te devolverá el siguiente mens
 		id: "credit_card_ID",
 		number: "xxxxxxxxxxxx4242"
 	}
+	
+De manera opcional puedes incluir un alias en los parámetros de entrada para identificar tu tarjeta por un nombre.
+
+	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015", alias: "my favourite card"})
 	
 ### Tarjetas de un usuario
 Para consultar todas las tarjetas de las que dispone un usuario tan solo hay que llamar a getCreditCards sin ningún argumento.
@@ -1481,6 +1489,10 @@ Esto nos devolverá una confirmación con un token secreto de un solo uso y la c
 	 	token: "purchase_secret_token",
 	 	amount: 10000 
 	 }
+
+De manera opcional puedes enviar un objecto reference para poder añadir información adicional a tu purchase, con el fin de localizarla mas facil o emitir una traza de la compra. El objeto reference puede tener la estructura que tu consideres oportuna pero ha de ser un tipo JSON válido. Puedes utilizar la función JSON.stringify para realizar el encoding.
+
+	Appnima.Payments.purchase({credit_card : "credit_card_ID",cvc:123, amount: 10000, reference: '{ "id":"example id", "content": "example content"}'})
 
 
 #### Confimación con Stripe

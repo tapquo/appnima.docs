@@ -895,8 +895,10 @@ If everything goes right appnima returns us a single use token to confirm our pu
 	{
 		token: "purchase_secret_token",
 		amount: 0
-	
 	}
+Optionally you can send a reference object with the structure you want, just encode it with JSON.stringify method.
+
+	Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
 
 ### Confirm a purchase
 
@@ -914,6 +916,18 @@ When you confirm the purchase to appnima it will return the main information of 
 		state: purchase_state "
 	}
 
+### Get your purchases
+To know all the purchases your profile has done you only have to call getPurchases() and you will receive an array with all the purchases.
+
+	Appnima.Payments.getPurchases()
+
+### Search a purchase
+The search purchase method will find you in all your profile purchases the one whose reference values match.
+
+	Appnima.Payments.searchPurchase({content: "example content"})
+	
+This method returns an array with all the results that match with the input search parameters.
+
 CreditCards
 -----------
 
@@ -930,6 +944,10 @@ If the process ends correctly you mus receive this information:
 		id: "credit_card_ID",
 		number: "xxxxxxxxxxxx4242"
 	}
+
+You can also add an alias parameter to the appnima request to identify better your cards.
+
+	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015", alias: "my favourite card"})
 	
 ### Check a user Credit Cards
 To see all the credit cards a user has attached to his account you only have to call getCreditCards method.
@@ -970,6 +988,10 @@ If everything goes right appnima returns us a single use token to confirm our pu
 	 	token: "purchase_secret_token",
 	 	 amount: 10000 
 	 }
+	 
+Optionally you can send a reference object with the structure you want, just encode it with JSON.stringify method.
+
+	Appnima.Payments.purchase({credit_card : "credit_card_ID",cvc:123, amount: 10000, reference: '{ "id":"example id", "content": "example content"}'})
 
 
 #### Stripe purchase confirmation
