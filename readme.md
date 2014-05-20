@@ -461,7 +461,14 @@ In both cases you have to send the data to the following call:
 
     Appnima.User.updateTicket(parameters);
 
+#### DELETE /user/ticket
+You also can delete a comment sending a following parameters.
 
+```json
+    parameters = {
+        id : "40928300482390"
+    }
+```
 
 Network
 -------
@@ -887,13 +894,23 @@ This resource used to get all users who have liked an specific *post*. To do thi
 This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
 ```json
     {
-      id: "post_id"
-      content: 4325436457645
+      id      : "post_id"
+      content : "Lorem ipsume",
+      title   : "Lorem impsum"
     }
 ```
 #### GET /post/comment
 This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
 
+#### PUT /post/comment
+This resource update a comment and you only have to send id of comment and want to update attributes.
+```json
+    {
+      id      : "comment_id"
+      content : Lorem ipsum updated
+      title   : Lorem ipsum updated
+    }
+```
 #### DELETE /post/comment
 This resource drops a comment, you have to send the comment id.
 
@@ -1393,7 +1410,7 @@ Payments
 Use this resource to make purchases and payments through appnima payment gateway. To do so, all request have to go to:
 
     http://api.appnima.com/payments/{RESOURCE}
-    
+
 Remember all requests to App/nima should be identified by your `Appnima.key` or key pair `client` and `secret`.
 
 So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
@@ -1453,7 +1470,7 @@ To create a credit card for a user you must send the credit card information. Nu
     {
          number: "4242424242424242"
          cvc: 123
-         expiration_date: "11/2015"    
+         expiration_date: "11/2015"
     }
 ```
 If all has gone correctly Appnima will confirm with `200 {id: "credit_card_ID",number: "xxxxxxxxxxxx4242"}` and your user now will have this credit_card information attached to his profile.
@@ -1464,8 +1481,8 @@ You can add optionally a alias parameter such as you can identify easily your ca
     {
          number: "4242424242424242"
          cvc: 123
-         expiration_date: "11/2015"  
-         alias: "my favourite card"  
+         expiration_date: "11/2015"
+         alias: "my favourite card"
     }
 ```
 
@@ -1479,7 +1496,7 @@ You can also can delete credit cards from your profile, the way to do it is send
 
 ```json
     {
-         id: "credit_card_ID"   
+         id: "credit_card_ID"
     }
 ```
 If the credit card information was successfuly deleted App/nima returns `200 Ok`.
@@ -1488,7 +1505,7 @@ If the credit card information was successfuly deleted App/nima returns `200 Ok`
 Also you can modify the values of a credit card attached to a profile, you only have to send the id with the parameters you want to update.
 ```json
     {
-         id: "credit_card_ID", 
+         id: "credit_card_ID",
          number: "4343434343434343"
     }
 ```

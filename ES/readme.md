@@ -448,6 +448,15 @@ Para ambos casos habría que enviar los datos a la siguiente llamada:
 
     Appnima.User.updateTicket(parameters);
 
+#### DELETE /user/ticket
+También se puede eliminar un ticket pasándole la ID de dicho ticket.
+```json
+    {
+        id:      "33435463536456"
+    }
+```
+
+
 Network
 -------
 Este modulo recoge toda la funcionalidad para crear una red social dentro de tu aplicación; buscar usuarios, seguirlos (o no seguirlos, tu decides), listas de seguidores... Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
@@ -1005,6 +1014,16 @@ Este recurso sirve para crear comentarios sobre un `post`. La idea de este recur
 
 #### GET /post/comment
 Este recurso sirve para obtener todos los comentarios de un post. Solamente hay que enviar la id de dicho *post* para que éste te devuelva la lista de los comentarios.
+
+#### PUT /comment
+Este recurso modifica un comentario y hay que enviar el id del comentario junto con los campos que se desea modificar.
+```json
+    {
+      id      : "comment_id"
+      content : "Lorem Impsum... updated"
+      title   : "Lorem Impsum… updated"
+    }
+```
 
 #### DELETE /comment
 Este recurso elimina un comentario, hay que enviar el id del post.

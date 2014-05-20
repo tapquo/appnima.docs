@@ -258,6 +258,9 @@ Se puede utilizar paginación añadiendo dos atributos al objeto anterior:
 
 La forma de paginación es igual que la paginación de los post pero no hay que enviar el atributo "last_data".
 
+También se puede eliminar un ticket con el siguiente método:
+
+    Appnima.User.deleteTicket("938492898239048");
 
 Messenger
 =========
@@ -646,6 +649,18 @@ Un post puede tener comentarios, y con esta llamada se puede realizar.
     Appnima.Network.Post.createComment(parameters);
 
 En este caso es obligatorio mandarle ambos campos y la llamada devolverá ```message: "Successful"```.
+
+#### Modificar comentarios
+Con el siguiente método se puede modificar el comentario.
+
+    parameters =
+        id      : "424231423423"
+        title   : "Este es mi comentario modificado"
+        content : "Este es mi comentario modificado"
+
+    Appnima.Network.Post.updateComment(parameters);
+
+La llamada devolverá ```message: "Successful"```.
 
 #### Borrar comentario
 El usuario que ha creado un comentario también tiene la posibilidad de borrarlo. Para ello deberá llamar a la siguiente función:
@@ -1402,72 +1417,72 @@ Compras
 ### Generar una compra
 Para efectuar compras que no necesiten de un intercambio monetario se utiliza el método purchase. Las compras se realizan en una secuencia de 2 pasos, generar una compra y confirmarla cuando se valide su veracidad. Primero se debe crear la compra y validarla posteriormente.
 
-	Appnima.Payments.purchase();
-	
+    Appnima.Payments.purchase();
+
 Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
 
-	{
-		token: "purchase_secret_token",
-		amount: 0
-	
-	}
-	
+    {
+        token: "purchase_secret_token",
+        amount: 0
+
+    }
+
 De manera opcional puedes enviar un objecto reference para poder añadir información adicional a tu purchase, con el fin de localizarla mas facil o emitir una traza de la compra. El objeto reference puede tener la estructura que tu consideres oportuna pero ha de ser un tipo JSON válido. Puedes utilizar la función JSON.stringify para realizar el encoding.
 
-	Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
+    Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
 
 ### Confirmar una compra
 
 Cuando confirmemos la compra debemos enviar el token secreto que se nos proporcionó cuando generamos la compra. Como la compra carece de importe el importe a cobrar debe ser cero.
 
-	Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
+    Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
 
 Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
 
-	{
-		id: "purchase_ID",
-		payed_at: purchase_confirmation_date,
-		state: purchase_state "
-	}
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state "
+    }
 
 Tarjetas de crédito
 -------------------
-El principal medio de pago online hoy en dia son las tarjetas de crédito pro ello con Appnima podemos asociar tarjetas de crédito al perfil de un usuario de manera sencilla. 
+El principal medio de pago online hoy en dia son las tarjetas de crédito pro ello con Appnima podemos asociar tarjetas de crédito al perfil de un usuario de manera sencilla.
 
 ### Crear tarjeta
 Para crear una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole los datos de una tarjeta en cuestión. El cvc es opcional.
 
-	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
+    Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
 
 Si el proceso se ha realizado con éxito Appnima te devolverá el siguiente mensaje:
 
-	{
-		id: "credit_card_ID",
-		number: "xxxxxxxxxxxx4242"
-	}
-	
+    {
+        id: "credit_card_ID",
+        number: "xxxxxxxxxxxx4242"
+    }
+
 De manera opcional puedes incluir un alias en los parámetros de entrada para identificar tu tarjeta por un nombre.
 
-	Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015", alias: "my favourite card"})
-	
+    Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015", alias: "my favourite card"})
+
 ### Tarjetas de un usuario
 Para consultar todas las tarjetas de las que dispone un usuario tan solo hay que llamar a getCreditCards sin ningún argumento.
 
-	Appnima.Payments.getCreditCards()
-	
+    Appnima.Payments.getCreditCards()
+
 Lo que nos devolverá un array con la información ofuscada de las tarjetas de crédito del usuario.
 
 ### Borrar tarjeta
 Para borrar una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole el id de la tarjeta que queremos borrar.
 
-	Appnima.Payments.deleteCreditCard({id: "credit_card_ID"})
+    Appnima.Payments.deleteCreditCard({id: "credit_card_ID"})
 
 Si el proceso se ha realizado con éxito Appnima te devolverá un mensaje con código 200.
 
 ### Modificar una tarjeta
 Para modificar la los datos de una tarjeta de crédito tan solo tenemos que pasarle el id de la tarjeta destino que queremos modificar con los campos que deseamos cambiar.
 
-	Appnima.Payments.updateCreditCard({id: "credit_card_ID", number: "4343434343434343"})
+    Appnima.Payments.updateCreditCard({id: "credit_card_ID", number: "4343434343434343"})
 
 Appnima nos devolverá un mensaje de confirmación para notificarnos que el cambio se ha realizado con éxito.
 
@@ -1485,14 +1500,14 @@ Para realizar una compra con stripe tan solo tenemos que indicarle el id de la t
 
 Esto nos devolverá una confirmación con un token secreto de un solo uso y la cantidad:
 
-	 {
-	 	token: "purchase_secret_token",
-	 	amount: 10000 
-	 }
+     {
+        token: "purchase_secret_token",
+        amount: 10000
+     }
 
 De manera opcional puedes enviar un objecto reference para poder añadir información adicional a tu purchase, con el fin de localizarla mas facil o emitir una traza de la compra. El objeto reference puede tener la estructura que tu consideres oportuna pero ha de ser un tipo JSON válido. Puedes utilizar la función JSON.stringify para realizar el encoding.
 
-	Appnima.Payments.purchase({credit_card : "credit_card_ID",cvc:123, amount: 10000, reference: '{ "id":"example id", "content": "example content"}'})
+    Appnima.Payments.purchase({credit_card : "credit_card_ID",cvc:123, amount: 10000, reference: '{ "id":"example id", "content": "example content"}'})
 
 
 #### Confimación con Stripe
@@ -1502,11 +1517,11 @@ Para hacer efectivo el cargo sobre la tarjeta es necesario confirmar para que la
 
 Si la confirmación es correcta recibiremos el siguiente mensaje, con el estado de la compra a 3 que nos indica que el pago se ha realizado con éxito.
 
-	{
-		id: "purchase_ID",
-		payed_at: purchase_confirmation_date, 
-		state: purchase_state 
-	}
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state
+    }
 
 
 
