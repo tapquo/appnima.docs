@@ -1476,7 +1476,7 @@ De manera opcional puedes enviar un objecto reference para poder añadir informa
 
 Cuando confirmemos la compra debemos enviar el token secreto que se nos proporcionó cuando generamos la compra. Como la compra carece de importe el importe a cobrar debe ser cero.
 
-    Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
+    Appnima.Payments.confirm({token: "purchase_secret_token", amount: 0});
 
 Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
 
@@ -1509,7 +1509,7 @@ Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuar
 ### Confirmar una compra con Stripe
 Para confirmar la compra y que esta se haga efectiva, lo que implica el intercambio monetario, tan solo hay que confirmar la compra con los datos que se nos enviaron al crear dicha compra mas el id del provider en cuestion.
 
-    Appnima.Payments.purchase({provider:0, token: "purchase_secret_token", amount: 0});
+    Appnima.Payments.confirm({provider:0, token: "purchase_secret_token", amount: 0});
 
 Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
 
