@@ -1524,11 +1524,56 @@ Si la confirmación es correcta recibiremos el siguiente mensaje, con el estado 
     }
 
 
+Storage
+======
+Este módulo te permite almacenar y compartir ficheros.
 
 
+Upload
+----
+Para subir ficheros a APP/NIMA utiliza este recurso enviando la petición de la siguiente forma:
+
+    Appnima.Storage.upload(file, path)
+
+El path representa el árbol de directorios donde se alojará tu fichero. Es necesario pasar como mínimo `/`. Si la subida ha ido de forma correcta el servidor devuelve es siguiente objeto:
+
+    id          : "537c76808ffee6d7573a2dc3"
+    name        : "appnima.png"
+    owner       : "52cd7d57d3873a0000000002"
+    path        : "/"
+    size        : 14530
+    type        : "image/png"
+    created_at  : "2014-05-21T09:48:48.377Z"
 
 
+Download
+----
+Para descargar un fichero envía junto con la petición su ID:
 
+    Appnima.Storage.donwload(file_id);
+
+Si la petición se envía de forma correcta autmáticamente se bajará el fichero al equipo.
+
+
+Crear un directorio
+----
+Puedes crear un directorio en la estructura de directorios que elijas. Si la estructura no existe, se crea al momento. Así, para crear por ejemplo el directorio `photos` dentro de `dir1/dir2` debes asignar como `name` el valor photos y como `path` dir1/dir2
+
+    Appnima.Storage.createFolder(name, path);
+
+
+Ver el contenido de un directorio
+----
+Utiliza este recurso para ver el contenido de un directorio. El parámetro `folder` es la ruta completa del directorio que se quiere inspeccionar.
+
+    Appnima.Storage.dir(folder);
+    
+
+Buscar un fichero por nombre
+----
+Envía el nombre del fichero o parte de el para hacer su búsqueda
+
+    Appnima.Storage.search(term);
 
 
 
