@@ -1407,43 +1407,9 @@ Estos métodos son los necesarios para la gestión de los tipos de socket vistos
 
 Payments
 ========
-Para realizar compras y efectuar pagos de manera sencilla Appnima proporciona la funcionalidad payments. Con Appnima payments puedes realizar compras dentro de la aplicación, gestionar información de pago los usuarios y hacer efectivos los cobros.
+Para realizar compras y efectuar pagos de manera sencilla Appnima proporciona la funcionalidad payments. Con Appnima payments puedes realizar compras dentro de la aplicación, gestionar información de pago los usuarios y hacer efectivos los cobros. Para ello disponemos de varias opciones, compras que no necesiten intercambio monetario, compras con tarjetas de crédito a través de Stripe y compras con PayPal.
 
 Importante recordar que debemos tener una sesión válida para poder hacer usor del módulos de pagos.
-
-Compras
--------
-
-### Generar una compra
-Para efectuar compras que no necesiten de un intercambio monetario se utiliza el método purchase. Las compras se realizan en una secuencia de 2 pasos, generar una compra y confirmarla cuando se valide su veracidad. Primero se debe crear la compra y validarla posteriormente.
-
-    Appnima.Payments.purchase();
-
-Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
-
-    {
-        token: "purchase_secret_token",
-        amount: 0
-
-    }
-
-De manera opcional puedes enviar un objecto reference para poder añadir información adicional a tu purchase, con el fin de localizarla mas facil o emitir una traza de la compra. El objeto reference puede tener la estructura que tu consideres oportuna pero ha de ser un tipo JSON válido. Puedes utilizar la función JSON.stringify para realizar el encoding.
-
-    Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
-
-### Confirmar una compra
-
-Cuando confirmemos la compra debemos enviar el token secreto que se nos proporcionó cuando generamos la compra. Como la compra carece de importe el importe a cobrar debe ser cero.
-
-    Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
-
-Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
-
-    {
-        id: "purchase_ID",
-        payed_at: purchase_confirmation_date,
-        state: purchase_state "
-    }
 
 Tarjetas de crédito
 -------------------
@@ -1486,42 +1452,86 @@ Para modificar la los datos de una tarjeta de crédito tan solo tenemos que pasa
 
 Appnima nos devolverá un mensaje de confirmación para notificarnos que el cambio se ha realizado con éxito.
 
-Payment Providers
------------------
-Cuando necesitemos realizar una compra que requiera un cobro sobre una tarjeta de crédito Appnima dispone de pasarelas de pago adaptadas a las necesidades de los usuarios.
+Compras
+-------
 
-### Stripe
-Stripe es una de las principales pasarelas de pago hoy en día para realizar pagos mediante stripe tan solo tenemos que realizar una compra pero indicandole el medio de pago y el importe. El sistema es similar al de las compras que no requerían intercambio monetario. Generas la compra y la confirmas para realizar el cobro.
+### Generar una compra
+Para efectuar compras que no necesiten de un intercambio monetario se utiliza el método purchase. Las compras se realizan en una secuencia de 2 pasos, generar una compra y confirmarla cuando se valide su veracidad. Primero se debe crear la compra y validarla posteriormente.
 
-#### Compra con Stripe
-Para realizar una compra con stripe tan solo tenemos que indicarle el id de la tarjeta sobre al que queremos realizar el cargo, el código de seguridad de esta y la cantidad.
+    Appnima.Payments.purchase();
 
-      Appnima.Payments.stripePurchase({credit_card : "credit_card_ID",cvc: 123, amount      : 10000})
+Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
 
-Esto nos devolverá una confirmación con un token secreto de un solo uso y la cantidad:
-
-     {
+    {
         token: "purchase_secret_token",
-        amount: 10000
-     }
+        amount: 0
+
+    }
 
 De manera opcional puedes enviar un objecto reference para poder añadir información adicional a tu purchase, con el fin de localizarla mas facil o emitir una traza de la compra. El objeto reference puede tener la estructura que tu consideres oportuna pero ha de ser un tipo JSON válido. Puedes utilizar la función JSON.stringify para realizar el encoding.
 
-    Appnima.Payments.purchase({credit_card : "credit_card_ID",cvc:123, amount: 10000, reference: '{ "id":"example id", "content": "example content"}'})
+    Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
 
+### Confirmar una compra
 
-#### Confimación con Stripe
-Para hacer efectivo el cargo sobre la tarjeta es necesario confirmar para que la transacción se haga efectiva. Para ello debemos enviar el mensaje de confirmación con el token de seguridad y la cantidad para verificar la validez de la transacción.
+Cuando confirmemos la compra debemos enviar el token secreto que se nos proporcionó cuando generamos la compra. Como la compra carece de importe el importe a cobrar debe ser cero.
 
-      Appnima.Payments.stripeConfirm({token: "purchase_secret_token", amount: 10000})
+    Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
 
-Si la confirmación es correcta recibiremos el siguiente mensaje, con el estado de la compra a 3 que nos indica que el pago se ha realizado con éxito.
+Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
 
     {
         id: "purchase_ID",
         payed_at: purchase_confirmation_date,
-        state: purchase_state
+        state: purchase_state "
     }
+ 
+### Generar una compra con Stripe
+El proceso para comprar con stripe es similar al de crear una compra que no necesite intercambio monetario, un proceso de creación y confirmación de la compra. Con la diferencia que es necesario indicarle 4 parametros adicionales. El provider con el que vamos a realizar la compra, el id de una tarjeta de crédito del usuario, el código de confirmación de dicha tarjeta y la cantidad de la que queremos hacer el cargo. La cantidad en Euros.
+
+	Appnima.Payments.purchase({
+		provider          : 0,
+        credit_card       : credit_card_id,
+        cvc               : 123,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id stripe", "test_content": "stripe content", "number": 6161 }'
+        });
+        
+Como en el caso de las compras normales el parámetro reference sigue siendo opcional.
+Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
+
+    {
+        token: "purchase_secret_token",
+        amount: 0
+    }
+
+
+### Confirmar una compra con Stripe
+Para confirmar la compra y que esta se haga efectiva, lo que implica el intercambio monetario, tan solo hay que confirmar la compra con los datos que se nos enviaron al crear dicha compra mas el id del provider en cuestion.
+
+    Appnima.Payments.purchase({provider:0, token: "purchase_secret_token", amount: 0});
+
+Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
+
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state"
+    }
+  
+ 
+### Generar una compra con PayPal
+Las compras con paypal funcionan en un solo paso, cuando generas una compra con paypal appnima te devuelve una url de paypal para efectuar la compra, esa url es a la que deberas redireccionar al usuario para realizar la compra. Una vez realizado o cancelado el pago en PayPal recibiras una redirección de vuelta a donde hayas configurado tu aplicación en el site de appnima. El parámetro provider ira con el código 1 que identifica a PayPal como nuestro provider, la cantidad y reference si así lo deseamos.
+ 
+	Appnima.Payments.purchase({
+		provider          : 1,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id paypal", "description": "boat: 10000€", "number": 6161 }'
+        });
+        
+ En este caso el parámetro con la referencia es opcional pero enviando una description dentro de la referencia conseguiréis que esa información que visualice el usuario en el proceso de compra de PayPal.
+ 
+
 
 
 Storage
