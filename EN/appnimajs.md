@@ -185,11 +185,85 @@ If you need it, you can ask users to register their emails to get an invitation 
 
 Tickets
 -------
-Use this resource as ticket managing system to resolve incidences or attend consults from users. The resource only needs the text:
+Use this resource as ticket managing system to resolve incidences or attend consults from users. The request requires an object as follows:
 
-    Appnima.User.ticket("[SUGGESTION] Bigger buttons");
+```json
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+        reference   : "1356f43524fa4",
+        type        : "2"
+    }
+```
 
+The reference field is used if you want to add the ID of any other model, either APPNIMA or another database .
+The type field can be 0, 1 or 2. If this field is not sent, the default is 0 .
 
+0 - > "question"
+1 - > " bug"
+3 -> "support"
+
+    Appnima.User.ticket(parameters);
+    
+On the other hand, if you modify a ticket you have two options :
+
+The first would be to change the ticket. This is only possible when the ticket is not responded . To do this you just have to send the same data to create when adding the ID of the ticket to be modified .
+
+The other option is to answer a ticket. This would have to send the following criteria:
+
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+
+Once replied to ticket, an email is sent to the creator of that ticket.
+In both cases you have to send the data to the following call:
+
+    Appnima.User.updateTicket(parameters);
+
+If you want to get a ticket in particular, would have to send the ID of the ticket to the next call of AppnimaJS :
+
+    ``` json
+        parameters = {id: 325425324563654654 }
+    ```
+
+    Appnima.User.getTicket(parameters);
+
+There is also the option of finding a set of tickets. This would send the following parameters:
+
+    ``` json
+        parameters = {
+            reference: 325425324563654654,
+            type: 0,
+            solved : true,
+            user: 43242465344789
+        }
+    ```
+
+The above example would be the option to send all possible parameters . The `solved` attribute can be `true` or `false` o can not be shipped. If sent like `true`, you would like answered tickets. If you send like `false` you would like tickets that not answered, and if that attribute is not sent it is because you want to get any ticket, whether answered or not. Any of the attributes of the object could not be sent.
+
+This call needs to be done to find the tickets would be:
+
+    Appnima.User.searchTickets(parameters);
+
+You can use pagination sended this parameters:
+
+    ``` json
+        parameters = {
+            reference: 325425324563654654,
+            type: 0,
+            solved : true,
+            user: 43242465344789,
+            num_results: 10,
+            page: 1
+        }
+    ```
+Is the same method like in post pagination but there not send "last_data" attribute.
+
+You also can remove tickets with the following method.
+
+    Appnima.User.deleteTicket("492038409284709");
 
 Messenger
 =========
@@ -549,6 +623,19 @@ Posts may have comments, and with this call user can do comments.
 
 Call returns ```message: "Successful"```.
 
+#### Update comment
+User can update its comment.
+
+    parameters =
+        id      : "424231423423",
+        content : "Este es mi comentario modificado",
+        title   : "Este es el título modificado."
+
+    Appnima.Network.Post.updateComment(parameters);
+
+Call returns ```message: "Successful"```.
+
+
 #### Delete comment
 The user who created a comment can delete his comments with following method sending comment ```id```:
 
@@ -804,3 +891,147 @@ This methods are the same for all the socket types seen previously:
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Calls to the callback when a user is disallowed from the group
+
+
+Payments
+========
+To make purchases in a simple way Appnima provides you with the Payment functionality. With appnima you can make in app purchasing easy with AppnimaJS methods. You can choose between 3 types of purchases:
+
+1.  Free purchases
+2.	Purchases with credit cards (through Stripe)
+3.	Purchases with Paypal
+
+
+CreditCards
+-----------
+
+To make payments posible Appnima stores your CreditCards information in a secure way so you dont have to send the credit card information any time you want to purchase something.
+
+### Create a Credit Card
+To create a new credit card you only have to send credit card info with a valid session. Calling createCreditCard will attach a new credit card to a users profile only if it is not previously created.The cvc is an optional parameter.
+
+    Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
+
+If the process ends correctly you mus receive this information:
+
+    {
+        id: "credit_card_ID",
+        number: "xxxxxxxxxxxx4242"
+    }
+
+You can also add an alias parameter to the appnima request to identify better your cards.
+
+    Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015", alias: "my favourite card"})
+
+### Check a user Credit Cards
+To see all the credit cards a user has attached to his account you only have to call getCreditCards method.
+
+    Appnima.Payments.getCreditCards()
+
+It will return us an array with all the credit cards information.
+
+### Delete a Credit Card
+For security reasons to delete a credit card you must do it with the ID of the credit card. Send the id through the method deleteCreditCard and the CreditCard will be erased.
+
+    Appnima.Payments.deleteCreditCard({id: "credit_card_ID"})
+
+If all goes right Appnima will return a code 200 Succesfull message.
+
+### Modify a Credit Card
+For same security reasons to update a credit card you must do it with the ID of the credit card. Send the id  and the parameters you want to change through the method updateCreditCard and the CreditCard information will be updated.
+
+    Appnima.Payments.updateCreditCard({id: "credit_card_ID", number: "4343434343434343"})
+
+Once again If all goes right Appnima will return a code 200 Succesfull message.
+
+Purchases
+---------
+To make purchases through appnima you can do it in 3 different ways,free purchases, purchases using credit cards as payment method through Stripe and purchases with PayPal.
+
+To choose between this 3 options you only have to change the provider parameter. To make free purchases you have to omit the provider parameter, just dont send it. To choose Stripe you must send provider:0 and to choose PayPal you should choose provider:1.
+
+
+### Create a free purchase
+
+To make purchases that doesnt need money you can create free purchase just calling:
+
+    Appnima.Payments.purchase();
+
+If all goes right Appnima will send us a unique purchase token and the amount of the purchase.
+
+    {
+        token: "purchase_secret_token",
+        amount: 0
+
+    }
+
+If you want you can add a reference object with the structure you want encoded into a string chain with JSON.stringify. It must be a valid JSON.
+
+    Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
+
+### Confirm a purchase
+
+When we receive the token and amount from appnima it means that the purchase is pending of confirmation. You must confirm it with the same parameters you have received.
+
+    Appnima.Payments.confirm({token: "purchase_secret_token", amount: 0});
+
+If all goes right Appnima will send us the purchase information back with state set to 3.
+
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state "
+    }
+ 
+### Make a stripe purchase
+
+To make a purchase through stripe you should send provider parameter set to 0, and the credit card id with the cvc. Remember the amount currency is in EUR.
+
+	Appnima.Payments.purchase({
+		provider          : 0,
+        credit_card       : credit_card_id,
+        cvc               : 123,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id stripe", "test_content": "stripe content", "number": 6161 }'
+        });
+        
+If the purchase was successfuly created App/nima returns:
+
+    {
+        token: "purchase_secret_token",
+        amount: 120
+    }
+
+
+### Confirm a Stripe purchase
+To confirm a stripe purchasing you must send provider parameter set to 0, purchase token and the amount.
+
+    Appnima.Payments.confirm({provider:0, token: "purchase_secret_token", amount: 0});
+
+If the purchase was successfuly confirmed App/nima returns:
+
+
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state"
+    }
+  
+ 
+### Generate a PayPal purchase
+To create a paypal purchase you only have to set the provider parameter set to 1 and the amount needed, If you include the reference object with a description, description value will be shown in the Paypal gateway as purchase information. 
+
+	Appnima.Payments.purchase({
+		provider          : 1,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id paypal", "description": "boat: 10000€", "number": 6161 }'
+        });
+        
+
+
+
+
+
+
+
+

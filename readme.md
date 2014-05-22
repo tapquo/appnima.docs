@@ -394,14 +394,81 @@ Responses are returned with `200 Ok` and the object:
 
 
 ### Support
-#### POST /ticket
-Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. Envía como parámetro junto a la petición el texto de la consulta:
+#### GET /user/ticket
+Use this resource to obtain a ticket specifically. Simply you have to send the ticket ID to be obtained.
+
 ```json
-    {
-        question:   '[SUGGESTION] Bigger buttons'
+     parameters = {id: "1356f43524fa4"}
+```
+
+#### GET /user/ticket/search
+Use this resource to find a set of tickets. You can filter by the following fields:
+
+- User: For tickets for this particular user.
+- Reference: For tickets for this reference.
+- Type: For tickets of this type.
+- Solved: (true or false) For tickets resolved (true) or earrings (false)
+
+It can search for a particular field or by mixing several. The following example would be a query with all the fields and send the object would be:
+
+```json
+     parameters = {
+     user: "1356f43524fa4"
+     reference: "3542j5425i44d"
+     type 2
+     solved: true
+    }
+```
+
+In this case you can use the pagination. This option is the same as in the `POST` methods except that not send `last_data`attribute.
+
+#### POST /user/ticket
+Use this resource as ticket managing system to resolve incidences or attend consults from users. The request requires an object as follows:
+
+```json
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+        reference   : "1356f43524fa4",
+        type        : "2"
     }
 ```
 
+The reference field is used if you want to add the ID of any other model, either APPNIMA or another database .
+The type field can be 0, 1 or 2. If this field is not sent, the default is 0 .
+
+0 - > "question"
+1 - > " bug"
+3 -> "support"
+
+    Appnima.User.ticket(parameters);
+    
+#### PUT /user/ticket
+On the other hand, if you modify a ticket you have two options :
+
+The first would be to change the ticket. This is only possible when the ticket is not responded . To do this you just have to send the same data to create when adding the ID of the ticket to be modified .
+
+The other option is to answer a ticket. This would have to send the following criteria:
+
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+
+Once replied to ticket, an email is sent to the creator of that ticket.
+In both cases you have to send the data to the following call:
+
+    Appnima.User.updateTicket(parameters);
+
+#### DELETE /user/ticket
+You also can delete a comment sending a following parameters.
+
+```json
+    parameters = {
+        id : "40928300482390"
+    }
+```
 
 Network
 -------
@@ -427,22 +494,22 @@ Search people into your application. Sends any string for mail or username attri
 The server returns `200 Ok` and the list that contains the query:
 ```json
     [{
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431f"
-        name		: "javi"
-        username	: "javi@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431f"
+        name        : "javi"
+        username    : "javi@javi.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431e"
-        name		: "javier"
-        username	: "a3@appnima.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431e"
+        name        : "javier"
+        username    : "a3@appnima.com"
     },
     {
-        avatar		: "http://appnima.com/img/avatar.jpg"
-        id			: "59f34ac11a7e121b112b431d"
-        name		: null
-        username	: "j.villar@javi.com"
+        avatar      : "http://appnima.com/img/avatar.jpg"
+        id          : "59f34ac11a7e121b112b431d"
+        name        : null
+        username    : "j.villar@javi.com"
     }]
 ```
 
@@ -452,7 +519,7 @@ The variable *following* indicate that user is loggued is follow or not that use
 To follow a user you can use this resource with the ID user:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
@@ -467,7 +534,7 @@ Responses are returned with `200 Ok` and the object:
 As **POST /follow** to unfollow a person you just need send with the request the ID user:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
@@ -486,13 +553,13 @@ With these resources you can get the list of followings and followers of a user.
 Retrieves the list of followings of a user. Sends the request and ID user:
 ```json
     {
-        user: 	"23094392049024112b431d"
+        user:   "23094392049024112b431d"
     }
 ```
 
 App/nima returns `200 Ok` and the list:
 ```json
-	count: 4
+    count: 4
     [{
         avatar  : "http://cata.jpg"
         id      : "52f34ac66a7e665b666b6617"
@@ -528,9 +595,9 @@ Like in *timeline*, there is the option of getting this data using pagination. T
 
 ```json
     {
-     username 		: username
-     page			: 0
-     num_results	: 5
+     username       : username
+     page           : 0
+     num_results    : 5
     }
 ```
 
@@ -550,7 +617,7 @@ Retrieves the list of followings of a user. Sends the request and ID user:
 
 App/nima returns `200 Ok` and the list:
 ```json
-	count: 3
+    count: 3
     [{
         avatar  : "http://cata.jpg"
         id      : "52f34ac66a7e665b666b6617"
@@ -827,13 +894,23 @@ This resource used to get all users who have liked an specific *post*. To do thi
 This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
 ```json
     {
-      id: "post_id"
-      content: 4325436457645
+      id      : "post_id"
+      content : "Lorem ipsume",
+      title   : "Lorem impsum"
     }
 ```
 #### GET /post/comment
 This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
 
+#### PUT /post/comment
+This resource update a comment and you only have to send id of comment and want to update attributes.
+```json
+    {
+      id      : "comment_id"
+      content : Lorem ipsum updated
+      title   : Lorem ipsum updated
+    }
+```
 #### DELETE /post/comment
 This resource drops a comment, you have to send the comment id.
 
@@ -1327,3 +1404,188 @@ This resource allows you to send push notifications to the user device. Sends th
     }
 ```
 If the notification was successful App/nima returns `200 Ok`.
+
+Payments
+--------
+Use this resource to make purchases and payments through appnima payment gateway. To do so, all request have to go to:
+
+    http://api.appnima.com/payments/{RESOURCE}
+
+Remember all requests to App/nima should be identified by your `Appnima.key` or key pair `client` and `secret`.
+
+So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
+
+### Credit Cards
+Credit cards are the most extendend payment system nowadays.To make purchases that involve money first you have to set a payment method to a user. Appnima has his own way to handle credit card information. The way to set a credit card for you application users is very easy.
+
+#### POST /creditcard
+To create a credit card for a user you must send the credit card information. Number, cvc (Optional) and expiration date.
+```json
+    {
+         number: "4242424242424242"
+         cvc: 123
+         expiration_date: "11/2015"
+    }
+```
+If all has gone correctly Appnima will confirm with `200 {id: "credit_card_ID",number: "xxxxxxxxxxxx4242"}` and your user now will have this credit_card information attached to his profile.
+
+You can add optionally a alias parameter such as you can identify easily your cards
+
+```json
+    {
+         number: "4242424242424242"
+         cvc: 123
+         expiration_date: "11/2015"
+         alias: "my favourite card"
+    }
+```
+
+#### GET /creditcard
+You can attach as many credit cards to a user profile as you want, if you want to check how many credit cards a user you can call credit card without parameters.
+
+And you will receive all the ofuscated credit cards attached to your profile.
+
+#### DELETE /creditcard
+You can also can delete credit cards from your profile, the way to do it is sending the id of the credit card you want to erase.
+
+```json
+    {
+         id: "credit_card_ID"
+    }
+```
+If the credit card information was successfuly deleted App/nima returns `200 Ok`.
+
+#### PUT /creditcard
+Also you can modify the values of a credit card attached to a profile, you only have to send the id with the parameters you want to update.
+```json
+    {
+         id: "credit_card_ID",
+         number: "4343434343434343"
+    }
+```
+If the credit card information was successfuly updated App/nima returns `200 Ok`.
+
+
+### Purchases
+To make purchases through appnima you can do it in 3 different ways,free purchases, purchases using credit cards as payment method through Stripe and purchases with PayPal.
+
+To choose between this 3 options you only have to change the provider parameter. To make free purchases you have to omit the provider parameter, just dont send it. To choose Stripe you must send provider:0 and to choose PayPal you should choose provider:1.
+
+
+
+#### POST /purchase
+Purchases without money exchange requirements should be done through purchase option. The purchases of appnima are made in a two step procedure. The way to generate a correct purchase you must follow this sequence. Generation of a purchase and confirmation.
+
+With this method you generate a purchase into appnima,you can choose between 3 posible
+Optionally you can send a reference object with the structure you want, just encode it with JSON.stringify method.
+
+```json
+    {
+        reference: '{ "id":"example id", "content": "example content", "number": 666 }'
+    }
+```
+
+If the purchase was successfuly created App/nima returns `200 confirmation {token: "purchase_secret_token", amount: 0 "}`.
+
+Lets see how to choose between different providers
+
+##### Create Stripe purchase
+To make a purchase through stripe you should send provider parameter set to 0, and the credit card id with the cvc.
+
+```json
+    {
+        provider	 : 0,
+        credit_card : credit_card_id,
+        cvc         : 123,
+    	amount      : 600000,
+        reference: '{ "id":"example id", "content": "example content", "number": 666 }'
+    }
+```
+
+If the purchase was successfuly created App/nima returns `200 confirmation {token: "purchase_secret_token", amount: 600000"}`.
+
+##### Create Paypal purchase
+To create a paypal purchase you only have to set the provider parameter set to 1 and the amount needed, If you include the reference object with a description, description value will be shown in the Paypal gateway as purchase information.
+
+```json
+    {
+        provider	 : 1,
+    	amount      : 600000,
+        reference: '{ "id":"example id", "description": "Purchase info"}'
+    }
+```
+If the purchase was successfuly created App/nima returns `200 confirmation {token: "purchase_secret_token", amount: 600000"}`.
+
+#### POST /confirm
+To make efective the purchase generated in the previous step you must send a confirmation to Appnima with the security token and the amount set to 0
+
+
+```json
+    {
+        token: "purchase_secret_token,
+        amount: 0
+    }
+```
+If the purchase is confirmed you must receive a `200 purchase {id: "purchase_ID",payed_at: purchase_confirmation_date, state: purchase_state "}`.
+
+##### Confirm Stripe purchase
+To confirm a stripe purchasing you must send provider parameter set to 0, purchase token and the amount.
+
+```json
+    {	
+    	provider: 0,
+        token: "purchase_secret_token,
+        amount: 600000
+    }
+```
+
+#### GET /purchase
+Get purchase without sending any parameters will show you all your profile purchases
+
+
+#### GET /purchase/search
+Search method will find you in your profile purchases the one who match with reference parameters. For example assuming your purchases have a reference.id and a content your search should be like this.
+
+```json
+    {
+        id: "example id",
+        content: "example content"
+    }
+```
+This method will return you all the purchases that match with te given reference parameters. Remind that this methos returns all type of purchases free and not free ones.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -186,10 +186,81 @@ Si lo necesitas, puedes solicitar a tus usuarios que registren sus direcciones d
 
 Tickets
 -------
-Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición únicamente necesita el texto de la consulta:
+Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
+```json
+    parameters = {
+        title       : "[QUESTION]: How can I do this?",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",               reference   : "1356f43524fa4",
+        type        : "2"
+    }
+```
+El campo reference se utiliza por si se quiere añadir la ID de cualquier otro modelo, ya sea de APPNIMA o de otra base de datos.
+El campo type puede ser 0, 1 o 2. Si no se manda este campo, por defecto es 0.
 
-    Appnima.User.ticket("[SUGGESTION] Botones más grandes");
+0 -> "question"
+1 -> "bug"
+3 -> "support"
 
+    Appnima.User.ticket(parameters);
+
+Por otro lado, si se quiere modificar un ticket hay dos opciones:
+
+La primera sería poder modificar los datos del ticket. Esto es solo posible cuando el ticket aún no está respondido. Para ello simplemente hay que enviar los mismos datos que a la hora de crearlo, añadiendo la ID del ticket que se quiere modificar.
+
+La otra opción es contestar a un ticket. Para ello habría que mandar el siguiente objeto:
+```json
+    parameters = {
+        response : "Lorem ipsum"
+    }
+```
+Una vez respondido al ticket, se envía un email al creador de dicho ticket.
+Para ambos casos habría que enviar los datos a la siguiente llamada:
+
+    Appnima.User.updateTicket(parameters);
+
+Si se desea obtener un ticket en concreto, habría que mandar la ID del ticket a la siguiente llamada de AppnimaJS:
+
+    ```json
+        parameters = { id: 325425324563654654}
+    ```
+
+    Appnima.User.getTicket(parameters);
+
+También existe la opción de buscar un conjunto de tickets. Para ello habría que enviar los siguientes parámetros:
+
+    ```json
+        parameters = {
+            reference : 325425324563654654,
+            type      : 0,
+            solved    : true,
+            user      : 43242465344789
+        }
+    ```
+
+El ejemplo anterior sería la opción de enviar todos los parámetros posibles. El atributo `solved` puede ser `true` o `false`o puede no enviarse. Si se envía a `true`se está diciendo que se desean los tickets que ya están contestados. Si se envía a `false` sería los que están pendientes de responder, y si no se envía ese atributo es porque se desea obtener cualquier ticket, ya sea respondido o no. Cualquiera de los atributos del objeto podría no enviarse.
+
+La llamada que hay que hacer para buscar los tickets sería la siguiente:
+
+    Appnima.User.searchTickets(parameters);
+
+Se puede utilizar paginación añadiendo dos atributos al objeto anterior:
+
+    ```json
+        parameters = {
+            reference   : 325425324563654654,
+            type        : 0,
+            solved      : true,
+            user        : 43242465344789,
+            num_results : 10,
+            page        : 2
+        }
+    ```
+
+La forma de paginación es igual que la paginación de los post pero no hay que enviar el atributo "last_data".
+
+También se puede eliminar un ticket con el siguiente método:
+
+    Appnima.User.deleteTicket("938492898239048");
 
 Messenger
 =========
@@ -578,6 +649,18 @@ Un post puede tener comentarios, y con esta llamada se puede realizar.
     Appnima.Network.Post.createComment(parameters);
 
 En este caso es obligatorio mandarle ambos campos y la llamada devolverá ```message: "Successful"```.
+
+#### Modificar comentarios
+Con el siguiente método se puede modificar el comentario.
+
+    parameters =
+        id      : "424231423423"
+        title   : "Este es mi comentario modificado"
+        content : "Este es mi comentario modificado"
+
+    Appnima.Network.Post.updateComment(parameters);
+
+La llamada devolverá ```message: "Successful"```.
 
 #### Borrar comentario
 El usuario que ha creado un comentario también tiene la posibilidad de borrarlo. Para ello deberá llamar a la siguiente función:
@@ -1365,3 +1448,193 @@ Estos métodos son los necesarios para la gestión de los tipos de socket vistos
     * created_at: "2013-11-16T05:55:02.736Z"
 
 * `instance.onDisallow(callback)`: Llama al callback cuando uno o varios usuarios han sido echados de un grupo
+
+
+
+
+
+
+
+
+Payments
+========
+Para realizar compras y efectuar pagos de manera sencilla Appnima proporciona la funcionalidad payments. Con Appnima payments puedes realizar compras dentro de la aplicación, gestionar información de pago los usuarios y hacer efectivos los cobros. Para ello disponemos de varias opciones, compras que no necesiten intercambio monetario, compras con tarjetas de crédito a través de Stripe y compras con PayPal.
+
+Importante recordar que debemos tener una sesión válida para poder hacer usor del módulos de pagos.
+
+Tarjetas de crédito
+-------------------
+El principal medio de pago online hoy en dia son las tarjetas de crédito pro ello con Appnima podemos asociar tarjetas de crédito al perfil de un usuario de manera sencilla.
+
+### Crear tarjeta
+Para crear una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole los datos de una tarjeta en cuestión. El cvc es opcional.
+
+    Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015"})
+
+Si el proceso se ha realizado con éxito Appnima te devolverá el siguiente mensaje:
+
+    {
+        id: "credit_card_ID",
+        number: "xxxxxxxxxxxx4242"
+    }
+
+De manera opcional puedes incluir un alias en los parámetros de entrada para identificar tu tarjeta por un nombre.
+
+    Appnima.Payments.createCreditCard({number: "4242424242424242", cvc: 123, expiration_date: "11/2015", alias: "my favourite card"})
+
+### Tarjetas de un usuario
+Para consultar todas las tarjetas de las que dispone un usuario tan solo hay que llamar a getCreditCards sin ningún argumento.
+
+    Appnima.Payments.getCreditCards()
+
+Lo que nos devolverá un array con la información ofuscada de las tarjetas de crédito del usuario.
+
+### Borrar tarjeta
+Para borrar una tarjeta de crédito tan solo tenemos que realizar la siguiente petición pasandole el id de la tarjeta que queremos borrar.
+
+    Appnima.Payments.deleteCreditCard({id: "credit_card_ID"})
+
+Si el proceso se ha realizado con éxito Appnima te devolverá un mensaje con código 200.
+
+### Modificar una tarjeta
+Para modificar la los datos de una tarjeta de crédito tan solo tenemos que pasarle el id de la tarjeta destino que queremos modificar con los campos que deseamos cambiar.
+
+    Appnima.Payments.updateCreditCard({id: "credit_card_ID", number: "4343434343434343"})
+
+Appnima nos devolverá un mensaje de confirmación para notificarnos que el cambio se ha realizado con éxito.
+
+Compras
+-------
+
+### Generar una compra
+Para efectuar compras que no necesiten de un intercambio monetario se utiliza el método purchase. Las compras se realizan en una secuencia de 2 pasos, generar una compra y confirmarla cuando se valide su veracidad. Primero se debe crear la compra y validarla posteriormente.
+
+    Appnima.Payments.purchase();
+
+Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
+
+    {
+        token: "purchase_secret_token",
+        amount: 0
+
+    }
+
+De manera opcional puedes enviar un objecto reference para poder añadir información adicional a tu purchase, con el fin de localizarla mas facil o emitir una traza de la compra. El objeto reference puede tener la estructura que tu consideres oportuna pero ha de ser un tipo JSON válido. Puedes utilizar la función JSON.stringify para realizar el encoding.
+
+    Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
+
+### Confirmar una compra
+
+Cuando confirmemos la compra debemos enviar el token secreto que se nos proporcionó cuando generamos la compra. Como la compra carece de importe el importe a cobrar debe ser cero.
+
+    Appnima.Payments.confirm({token: "purchase_secret_token", amount: 0});
+
+Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
+
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state "
+    }
+ 
+### Generar una compra con Stripe
+El proceso para comprar con stripe es similar al de crear una compra que no necesite intercambio monetario, un proceso de creación y confirmación de la compra. Con la diferencia que es necesario indicarle 4 parametros adicionales. El provider con el que vamos a realizar la compra, el id de una tarjeta de crédito del usuario, el código de confirmación de dicha tarjeta y la cantidad de la que queremos hacer el cargo. La cantidad en Euros.
+
+	Appnima.Payments.purchase({
+		provider          : 0,
+        credit_card       : credit_card_id,
+        cvc               : 123,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id stripe", "test_content": "stripe content", "number": 6161 }'
+        });
+        
+Como en el caso de las compras normales el parámetro reference sigue siendo opcional.
+Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
+
+    {
+        token: "purchase_secret_token",
+        amount: 0
+    }
+
+
+### Confirmar una compra con Stripe
+Para confirmar la compra y que esta se haga efectiva, lo que implica el intercambio monetario, tan solo hay que confirmar la compra con los datos que se nos enviaron al crear dicha compra mas el id del provider en cuestion.
+
+    Appnima.Payments.confirm({provider:0, token: "purchase_secret_token", amount: 0});
+
+Para indicar que el pago ha sido confirmado solo Appnima nos devolverá información de la compra con el estado 3 que significa que está correctamente procesada.
+
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state"
+    }
+  
+ 
+### Generar una compra con PayPal
+Las compras con paypal funcionan en un solo paso, cuando generas una compra con paypal appnima te devuelve una url de paypal para efectuar la compra, esa url es a la que deberas redireccionar al usuario para realizar la compra. Una vez realizado o cancelado el pago en PayPal recibiras una redirección de vuelta a donde hayas configurado tu aplicación en el site de appnima. El parámetro provider ira con el código 1 que identifica a PayPal como nuestro provider, la cantidad y reference si así lo deseamos.
+ 
+	Appnima.Payments.purchase({
+		provider          : 1,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id paypal", "description": "boat: 10000€", "number": 6161 }'
+        });
+        
+ En este caso el parámetro con la referencia es opcional pero enviando una description dentro de la referencia conseguiréis que esa información que visualice el usuario en el proceso de compra de PayPal.
+ 
+
+
+
+Storage
+======
+Este módulo te permite almacenar y compartir ficheros.
+
+
+Upload
+----
+Para subir ficheros a APP/NIMA utiliza este recurso enviando la petición de la siguiente forma:
+
+    Appnima.Storage.upload(file, path)
+
+El path representa el árbol de directorios donde se alojará tu fichero. Es necesario pasar como mínimo `/`. Si la subida ha ido de forma correcta el servidor devuelve es siguiente objeto:
+
+    id          : "537c76808ffee6d7573a2dc3"
+    name        : "appnima.png"
+    owner       : "52cd7d57d3873a0000000002"
+    path        : "/"
+    size        : 14530
+    type        : "image/png"
+    created_at  : "2014-05-21T09:48:48.377Z"
+
+
+Download
+----
+Para descargar un fichero envía junto con la petición su ID:
+
+    Appnima.Storage.donwload(file_id);
+
+Si la petición se envía de forma correcta autmáticamente se bajará el fichero al equipo.
+
+
+Crear un directorio
+----
+Puedes crear un directorio en la estructura de directorios que elijas. Si la estructura no existe, se crea al momento. Así, para crear por ejemplo el directorio `photos` dentro de `dir1/dir2` debes asignar como `name` el valor photos y como `path` dir1/dir2
+
+    Appnima.Storage.createFolder(name, path);
+
+
+Ver el contenido de un directorio
+----
+Utiliza este recurso para ver el contenido de un directorio. El parámetro `folder` es la ruta completa del directorio que se quiere inspeccionar.
+
+    Appnima.Storage.dir(folder);
+    
+
+Buscar un fichero por nombre
+----
+Envía el nombre del fichero o parte de el para hacer su búsqueda
+
+    Appnima.Storage.search(term);
+
+
+
