@@ -947,34 +947,6 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
                            avatar: 'http://appnima.com/img/avatar.jpg',
                            name: 'name'
                          }
-                },
-                {
-                  id: 52f8ef8282652a0000000007,
-                  message: 'u1net has update the calendar',
-                  created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
-                  profile: {
-                             username: 'u1net',
-                             name: 'name',
-                             mail: 'a1@appnima.com',
-                             avatar: 'http://appnima.com/img/avatar.jpg',
-                             id: 52eb667ab71cd7e4be00000c
-                            },
-                  event: undefined,
-                  calendar: {
-                             id: 52f8ef8282652a0000000004,
-                             name: 'Mi calendario updated',
-                             color: '#FA58F4',
-                             created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
-                             owner: 52eb667ab71cd7e4be00000b,
-                             shared: [ ]
-                            },
-                  owner: {
-                           id: 52eb667ab71cd7e4be00000c,
-                           username: 'u1net',
-                           mail: 'a1@appnima.com',
-                           avatar: 'http://appnima.com/img/avatar.jpg',
-                           name: 'name'
-                          }
                 }]
 
 
@@ -1087,28 +1059,8 @@ Como resultado se obtiene una lista de eventos:
                                 name: 'name'
                             }
 
-                },
-                {
-                    id: 52f0ed7893888c029200000d,
-                    calendar: 52f0ed7893888c0292000002,
-                    date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
-                    date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
-                    name: 'bilboStack',
-                    description: 'This event is bilboStack',
-                    place: 52f0ed7893888c029200000c,
-                    assistents: [ ],
-                    created_at: Tue Feb 04 2014 14:39:04 GMT+0100 (CET),
-                    tags: [ learn ],
-                    owner:
-                            {
-                                id: 52eb667ab71cd7e4be00000c,
-                                username: 'a1@appnima.com-1391158906892',
-                                mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
-                                name: 'name'
-                            }
                 }
-            ]
+           ]
 
 #### Invitar a un evento.
 Otra funcionalidad que es posible, es la de invitar a un usuario a un evento, para que así, él también pueda ver dicho evento. O por el contrario, eliminar una invitación para que ese usuario deje de ver dicho evento. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetros, la "id" del evento, la "id" del usuario a invitar, y "add" o "remove", si se quiere añadir invitación, se envía "add" si por el contrario se quiere eliminar, se envía "remove".
@@ -1140,7 +1092,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                             }
                 }
 #### Asistir a un evento.
-También los eventos permiten saber qué usuarios van a asistir. Para confirmar la asistencia a un evento o para eliminarla se utiliza dicha función, en la cual, se envía como parámetro la "id" del evento, la "id" del usuario, y "add" o "remove". Si se quiere añadir invitación, se envía "add" si por el contrario se quiere eliminar, se envía "remove".
+Para confirmar la asistencia a un evento o para eliminarla se utiliza esta función, en la cual, se envía como parámetro la "id" del evento, la "id" del usuario, y "add" o "remove". Si se quiere confirmar la asistencia, se envía "add" si por el contrario se quiere eliminar la confimarción de asistencia, se envía "remove".
 
     Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004", "add")
 
@@ -1187,27 +1139,6 @@ La función devuelve una lista de eventos que cumplan dichas coincidencias:
                     created_at: Tue Feb 04 2014 15:35:10 GMT+0100 (CET),
                     tags: [ near ],
                     guest: [ ],
-                    owner:
-                            {
-                                id: 52eb667ab71cd7e4be00000c,
-                                username: 'a1@appnima.com-1391158906892',
-                                mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
-                                name: 'name'
-                            }
-                },
-                {
-                    id: 52f0fa9eb70ed01fb9000016,
-                    calendar: 52f0fa9eb70ed01fb9000013,
-                    date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
-                    date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
-                    name: 'meeting osakidetza updated',
-                    description: 'meeting to discuss changes in the implementation',
-                    place: 52f0fa9eb70ed01fb9000015,
-                    assistents: [ 52eb667ab71cd7e4be000004 ],
-                    created_at: Tue Feb 04 2014 15:35:10 GMT+0100 (CET),
-                    tags: [ app,  osakidetza ],
-                    guest: [ 52eb667ab71cd7e4be000004 ],
                     owner:
                             {
                                 id: 52eb667ab71cd7e4be00000c,
@@ -1275,47 +1206,8 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                          avatar: 'http://appnima.com/img/avatar.jpg',
                          name: 'name'
                         }
-              },
-              {
-                id: 52f8f6a9694687000000002c,
-                message: 'u1net has update the event',
-                created_at: Mon Feb 10 2014 16:56:25 GMT+0100 (CET),
-                profile: {
-                           username: 'u1net',
-                           name: 'name',
-                           mail: 'a1@appnima.com',
-                           avatar: 'http://appnima.com/img/avatar.jpg',
-                           id: 52eb667ab71cd7e4be00000c
-                          },
-                event: {
-                         id: 52f8f6a86946870000000009,
-                         calendar: 52f8f6a86946870000000004,
-                         date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
-                         date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
-                         name: 'BilboStack updated',
-                         description: 'This event is bilboStack',
-                         place: 52f8f6a86946870000000008,
-                         assistents: [ 52eb667ab71cd7e4be000004 ],
-                         created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
-                         tags: [ learn ],
-                         guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
-                        },
-                calendar: {
-                            id: 52f8f6a86946870000000004,
-                            name: 'Mi calendario updated',
-                            color: '#FA58F4',
-                            created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
-                            owner: 52eb667ab71cd7e4be00000b,
-                            shared: [ ]
-                          },
-                owner: {
-                         id: 52eb667ab71cd7e4be00000c,
-                         username: 'u1net',
-                         mail: 'a1@appnima.com',
-                         avatar: 'http://appnima.com/img/avatar.jpg',
-                         name: 'name'
-                        }
-                }]
+              }
+            ]
 
 
 El evento y el calendario, es dónde se ha realizado la actividad. El campo "owner" es la persona que realiza la actividad y el campo "profile", es la persona a la que va dirigida la actividad.
