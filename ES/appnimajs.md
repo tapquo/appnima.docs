@@ -791,7 +791,7 @@ APP/NIMA también te permite obtener un listado de personas cercanas al usuario 
 
 
 Calendario
-===============
+=============
 
 #### Crear
 APP/NIMA permite a los usuarios tener un sistema de calendarios donde gestionar sus eventos.
@@ -897,7 +897,7 @@ Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos
 
     Appnima.Calendar.remove("28319319833")
 
-En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
+En caso de que el calendario no exista, devuelve un error 404. En caso de que vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
 
     message: Successful
 
@@ -953,7 +953,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
 El evento y el calendario, es dónde se ha realizado la actividad. En caso de que el evento es null, es por que la actividad únicamente afecta al calendario. El campo "owner" es la persona que realiza la actividad y el campo "profile", es la persona a la que va dirigida la actividad.
 
 #### Crear un evento
-A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros un objeto que contenga los siguientes parámetros: la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
+A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros un objeto que contenga los siguientes parámetros: la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formato mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
 
 	    
 	data =
@@ -969,6 +969,8 @@ A través de la siguiente función se puede crear un evento para un calendario. 
       longitude   : "-2.29"
       guest       : null
       tags        :	"futbol,deporte"	
+     
+    Appnima.Calendar.event(data) 
 
 
 Esta función devuelve el nuevo evento:
@@ -1020,6 +1022,8 @@ También se nos permite modificar un evento. Se le debe envíar un objeto que ll
       longitude   : "-2.29"
       guest       : null
       tags        :	"futbol,deporte"	
+
+    Appnima.Calendar.updateEvent(data)
 
 En caso de que el evento no exista, devuelve un error 404. Si por el contrario existe, devuelve el evento con los campos modificados con la estructura del objeto que se devuelve en la función de crear evento.
 

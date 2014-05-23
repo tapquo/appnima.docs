@@ -771,6 +771,435 @@ To send push notifications to the devices that the users have registered the dat
 
     Appnima.Push.send("28319319833", "Mensaje", {"title": "JSON con los campos necesarios", "text": "Hola App/nima!"});
 
+Calendar
+==========
+
+#### Create
+
+APP/NIMA allows users to have a calendars system where you can manage your events. 
+
+To create a new calendar, is sent as a parameter the name and color of the new calendar:
+
+    Appnima.Calendar.create("mi calendario", "#FF66CC")
+    
+This function returns the new calendar:
+
+    calendar : {
+                    id: 28319319833,
+                    name: 'mi calendario',
+                    color: '#FF66CC',
+                    created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+                    owner:
+                        {
+                            id: 52eb667ab71cd7e4be00000c,
+                            username: 'a1@appnima.com-1391158906892',
+                            mail: 'a1@appnima.com',
+                            avatar: 'http://appnima.com/img/avatar.jpg',
+                            name: 'name'
+                        },
+                    shared: [ ]
+                }
+#### Update
+
+We also have the option to change the name and color of a calendar already created. You have to send the "id" of the calendar, the new name and the new color.
+
+    Appnima.Calendar.update("28319319833", "mi nuevo calendario", "#FF66CC")
+    
+If the calendar does not exist, it returns a 404 error, If on the contrary exists, returns the calendar with the changed fields:
+
+    calendar : {
+                    id: 28319319833,
+                    name: 'mi nuevo calendario',
+                    color: '#FF66CC',
+                    created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            },
+                    shared: [ ]
+                }
+
+#### Shared
+
+It is possible to share a calendar with other users, so that they too can see the events that are in that calendar.
+
+To do this, you must send as parameter the id of calendar, the id of the user to invite, and "add";
+
+    Appnima.Calendar.shared("28319319833", "28319364941", "add")
+    
+Or on the contrary, you can also remove a user from the list of shared users, so that the user no longer see such events. For this, the function call is the same as the share, only that third paramentro is "remove":
+
+    Appnima.Calendar.shared("28319319833", "28319364941", "remove")
+    
+If the calendar does not exist, it returns a 404 error. If you have not been errors return the updated calendar. The "shared" attribute corresponds to the list of users who have shared their calendar.
+
+    calendar   : { 
+    				id: 28319319833, 
+    				name: 'slid.us', 
+    				color: '#FF66CC',
+    				created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+    				owner: { 
+    					id: 52eb667ab71cd7e4be00000c,
+    					mail: 'a1@appnima.com',
+     					username: 'a1@appnima.com-1391158906892',
+     					name: 'name',
+     					avatar: 'http://appnima.com/img/avatar.jpg',
+     				},
+     				shared: [ 52eb667ab71cd7e4be000008 ] 
+     			}
+#### List
+APP/NIMA gives us the option to get all the calendars that the user owns, and those who have shared. To do this, simply run the following function:
+
+	Appnima.Calendar.list()
+
+Returns an array of calendars:
+
+    calendar   : [
+    				{ 
+    					id: 28319319833, 
+    					name: 'slid.us', 
+    					color: '#FF66CC',
+    					created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+    					owner: { 
+    						id: 52eb667ab71cd7e4be00000c,
+    						mail: 'a1@appnima.com',
+     						username: 'a1@appnima.com-1391158906892',
+     						name: 'name',
+     						avatar: 'http://appnima.com/img/avatar.jpg',
+     					},
+     					shared: [ 52eb667ab71cd7e4be000008 ] 
+     			     }
+     			 ]
+#### Borrar
+Also allowed to delete a calendar, at the same time all your events are removed. To do this, you must send the "id" calendar to be deleted
+
+    Appnima.Calendar.remove("28319319833")
+
+If the calendar does not exist, it returns a 404 error. If it goes well, it returns a success message.
+
+    {message: Successful}
+
+#### Activity
+APP/NIMA also provides us information on what has happened in a calendar. If we use the function shown below sending as a parameter the "id" of a calendar, provides a list of activities that have happened in it, such as: to update calendar, to create, modify or delete an event belonging to the calendar, share your calendar or delete someone from the list of shared users, invite someone to take the guest list, or the confirm to  assistance to a event.
+
+    Appnima.Calendar.activityCalendar("28319319833")
+    
+If the calendar does not exist, it returns a 404 error. If it went well, it returns a list of activities with the structure shown below
+
+    activities : [ {
+                  id: 52f8ef8282652a000000000a,
+                  message: 'u1net has created the event',
+                  created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                  profile: {
+                             username: 'u1net',
+                             name: 'name',
+                             mail: 'a1@appnima.com',
+                             avatar: 'http://appnima.com/img/avatar.jpg',
+                             id: 52eb667ab71cd7e4be00000c
+                            },
+                  event: {
+                           id: 52f8ef8282652a0000000009,
+                           calendar: 52f8ef8282652a0000000004,
+                           date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+                           date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+                           name: 'BilboStack updated',
+                           description: 'This event is bilboStack',
+                           place: 52f8ef8282652a0000000008,
+                           assistents: [ 52eb667ab71cd7e4be000004 ],
+                           created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                           tags: [ learn ],
+                           guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
+                        },
+                  calendar: {
+                               id: 52f8ef8282652a0000000004,
+                               name: 'Mi calendario updated',
+                               color: '#FA58F4',
+                               created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                               owner: 52eb667ab71cd7e4be00000b,
+                               shared: [ ]
+                            },
+                  owner: {
+                           id: 52eb667ab71cd7e4be00000c,
+                           username: 'u1net',
+                           mail: 'a1@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           name: 'name'
+                         }
+                }]
+               
+The event and calendar is where the activity was performed. If the event is null, is that only affects the calendar. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted the activity.
+
+#### Create event
+
+Through the following function can create an event to a calendar. Should be sent as a parameter an object that contains the following parameters: the "id" of calendar to will belong to the new event , the event name , description, start and end date format mm-dd-yyyy hh:mm mm a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list separated by ", " event to taguear tags , users address at which to hold the event , location, country, latitude and longitude:
+
+	    
+	data = {
+      calendar    : 52f0d497f4a9b16f47000002
+      name        : "partido de futbol"
+      description : "quedada para jugar un partido de fútbol"
+      init        : "04-14-2014 09:00"
+      finish      : "04-14-2014 11:00"
+      address     : "c/ San Mames"
+      locality    : "Bilbao
+      country     : "España"
+      latitude    : "23.23"
+      longitude   : "-2.29"
+      guest       : null
+      tags        :	"futbol,deporte"}
+     
+    Appnima.Calendar.event(data) 
+
+This function returns the new event:
+
+    event: {
+            id: 52f0e1e6d028ec6b6f000011,
+            calendar: 28319319833,
+            date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+            date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+            description: 'quedada para jugar un partido de fútbol',
+            name: 'partido de futbol',
+            place:
+                    {
+                        address: 'c/ San Mames',
+                        locality: 'Bilbao',
+                        country: 'EspaÃ±a',
+                        _id: 52f0e1e6d028ec6b6f000010,
+                        __v: 0,
+                        created_at: Tue Feb 04 2014 13:49:42 GMT+0100 (CET),
+                        position: [ -2.29, 23.23 ]
+                    },
+            assistents: [ ],
+            created_at: Tue Feb 04 2014 13:49:42 GMT+0100 (CET),
+            tags: [futbol, deporte],
+            owner:
+                    {
+                        id: 52eb667ab71cd7e4be00000c,
+                        username: 'a1@appnima.com-1391158906892',
+                        mail: 'a1@appnima.com',
+                        avatar: 'http://appnima.com/img/avatar.jpg',
+                        name: 'name'
+                    }
+            }
+            
+#### Update event
+  
+It also allows us to modify an event. You must send an object containing as parameters the "id" of the event to be modified, the event name, description, start and end dates in formarto mm-dd-yyyy hh:mm:, a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list separated by "," address at which to hold the event tags, location, users the country, the latitude and longitude.  
+
+	data = {
+	  event       : 52f0e1e6d028ec6b6f000011
+      calendar    : 52f0d497f4a9b16f47000002
+      name        : "partido de baloncesto"
+      description : "quedada para jugar un partido de baloncesto"
+      init        : "04-14-2014 09:00"
+      finish      : "04-14-2014 11:00"
+      address     : "c/ San Mames"
+      locality    : "Bilbao
+      country     : "España"
+      latitude    : "23.23"
+      longitude   : "-2.29"
+      guest       : null
+      tags        :	"futbol,deporte"}
+      	
+    Appnima.Calendar.updateEvent(data)
+    
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns the event with the fields modified with the structure of the object that is returned in the create event.
+
+#### List events
+
+Through the following function can be obtained events calendars that the user owns, events calendars that have been shared, and the events to which you have been invited. Must filter events by time. If you want to list the events of a month, as the first parameter is sent "month", as the second parameter is sent the year, and the third parameter is the number of the month that you want to list the events.
+
+    Appnima.Calendar.listEvents("month", "2014", "02")
+
+For list the events of a week, is sent as first "week" parameter, as second parameter the year of the week, as the third parameter the number of the month of week and day as the fourth parameter. This date corresponds to a day of the week you want to get the events:
+
+    Appnima.Calendar.listEvents("week", "2014", "02", "14")
+
+For list the events of the day, is sent as the first parameter "day" parameter as the second year of day, as third parameter the number of the month and day as the fourth parameter.
+
+    Appnima.Calendar.listEvents("day", "2014", "02", "14")
+   
+As  result is obtained a list of events :
+
+    events : [
+                {
+                    id: 52f0ed7893888c029200000f,
+                    calendar: 52f0ed7893888c0292000002,
+                    date_init: Sun Apr 20 2014 09:00:00 GMT+0200 (CEST),
+                    date_finish: Thu Mar 20 2014 11:00:00 GMT+0100 (CET),
+                    name: 'company dinner',
+                    description: 'This event is company dinner',
+                    place: 52f0ed7893888c029200000e,
+                    assistents: [ ],
+                    created_at: Tue Feb 04 2014 14:39:04 GMT+0100 (CET),
+                    tags: [ dinner,  enjoy ],
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            }
+
+                }
+           ]
+
+#### Invite to event.
+Another feature that is possible, is to invite a user to an event, so that he too can see the event. Or on the contrary, remove an invitation to that user no longer see the event. To do this, simply run the following function shown below, sending as parameters, the "id" of the event, the "id" to invite the user, and "add" or "remove" if you want to add invitation , "add" is sent if instead you want to remove, is sent "remove".
+
+    Appnima.Calendar.guestEvent("52f0f4f313255536a8000005", "52eb667ab71cd7e4be000004", "add")
+    
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event. 
+
+    event   : {
+                    id: 52f0f4f313255536a8000005,
+                    calendar: 52f0f4f213255536a8000002,
+                    date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
+                    date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
+                    name: 'meeting osakidetza updated',
+                    description: 'meeting to discuss changes in the implementation',
+                    place: 52f0f4f313255536a8000004,
+                    assistents: [ ],
+                    created_at: Tue Feb 04 2014 15:10:59 GMT+0100 (CET),
+                    tags: [ app,  osakidetza ],
+                    guest: [ 52eb667ab71cd7e4be000004 ],
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            }
+                }
+ 
+#### Assist to event.
+To confirm your assistance at an event or to eliminate is used this function, in which is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove". If you want to confirm asistencia, "add", if instead you want to remove "remove". 
+
+    Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004", "add")
+
+If the event does not exist, it returns a 404 error.  If on the contrary exists, return the updated event. The "assistents" attribute corresponds to the list of users who assist the event.
+
+    event   : {
+                    id: 52f0f84333e9d53db2000005,
+                    calendar: 52f0f84233e9d53db2000002,
+                    date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
+                    date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
+                    name: 'meeting osakidetza updated',
+                    description: 'meeting to discuss changes in the implementation',
+                    place: 52f0f84333e9d53db2000004,
+                    assistents: [ 52eb667ab71cd7e4be000004 ],
+                    created_at: Tue Feb 04 2014 15:25:07 GMT+0100 (CET),
+                    tags: [ app,  osakidetza ],
+                    guest: [ 52eb667ab71cd7e4be000004 ],
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            }
+                }
+                
+#### Search events                
+APP/NIMA allows you to search for events. The function sends a word as a parameter, and looks for a match with that word in the name and description of the events that you have access. That is, those who are on a calendar where you're the owner or have you shared and those events that you have been invited.     
+
+    Appnima.Calendar.search("meeting")
+
+The function returns a list of events satisfying these matches:
+  
+    events : [
+                {
+                    id: 52f0fa9eb70ed01fb9000018,
+                    calendar: 52f0fa9eb70ed01fb9000013,
+                    date_init: Sat Feb 22 2014 11:00:00 GMT+0100 (CET),
+                    date_finish: Sat Feb 22 2014 12:00:00 GMT+0100 (CET),
+                    name: 'meeting with juanjo',
+                    description: 'meeting with Juanjo in Near',
+                    place: 52f0fa9eb70ed01fb9000017,
+                    assistents: [ ],
+                    created_at: Tue Feb 04 2014 15:35:10 GMT+0100 (CET),
+                    tags: [ near ],
+                    guest: [ ],
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            }
+                }
+            ]
+
+#### Delete event
+It is possible to delete an event, you just have to run the following function, sending as parameter the "id" of the event:
+
+    Appnima.Calendar.deleteEvent(52f0e1e6d028ec6b6f000011)
+    
+If the event does not exist, it returns a 404 error. If it goes well, it returns a success message.
+
+    {message: Successful}
+    
+#### Actividad
+
+As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With the function below, sending as parameter the "id" of an event, provides a list of activities that have happened in it, such as: modify the event, invite someone or taking off of the guest list or corfirm assistance or delete  the corfirm assistance. 
+
+    Appnima.Calendar.activityEvent("28319319833")
+ 
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event. 
+
+	activities : [
+                {
+                id: 52f8f6a96946870000000034,
+                message: 'Has invited the event to u3net',
+                created_at: Mon Feb 10 2014 16:56:25 GMT+0100 (CET),
+                profile: {
+                           username: 'u3net',
+                           name: 'name',
+                           mail: 'a3@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           id: 52eb667ab71cd7e4be000004
+                          },
+                event: {
+                         id: 52f8f6a86946870000000009,
+                         calendar: 52f8f6a86946870000000004,
+                         date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+                         date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+                         name: 'BilboStack updated',
+                         description: 'This event is bilboStack',
+                         place: 52f8f6a86946870000000008,
+                         assistents: [ 52eb667ab71cd7e4be000004 ],
+                         created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                         tags: [ learn ],
+                         guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
+                        },
+                calendar: {
+                            id: 52f8f6a86946870000000004,
+                            name: 'Mi calendario updated',
+                            color: '#FA58F4',
+                            created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                            owner: 52eb667ab71cd7e4be00000b,
+                            shared: [ ]
+                          },
+                owner: {
+                         id: 52eb667ab71cd7e4be00000c,
+                         username: 'u1net',
+                         mail: 'a1@appnima.com',
+                         avatar: 'http://appnima.com/img/avatar.jpg',
+                         name: 'name'
+                        }
+              }
+            ]
+            
+The event and the calendar is where the activity was performed. The field "owner" is the person performing the activity and the "profile" field is the person who is  targeted activity.
+
 
 Socket
 ======
