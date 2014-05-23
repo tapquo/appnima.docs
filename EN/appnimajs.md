@@ -892,57 +892,15 @@ This methods are the same for all the socket types seen previously:
 
 * `instance.onDisallow(callback)`: Calls to the callback when a user is disallowed from the group
 
+
 Payments
 ========
-Appnimajs provides a easy purchase and payments methods, you only have to follow this rules to make any purchase or payment.
+To make purchases in a simple way Appnima provides you with the Payment functionality. With appnima you can make in app purchasing easy with AppnimaJS methods. You can choose between 3 types of purchases:
 
+1.  Free purchases
+2.	Purchases with credit cards (through Stripe)
+3.	Purchases with Paypal
 
-Purchases
----------
-Purchases without money exchange requirements should be done through purchase option. The purchases of appnima are made in a two step procedure. The way to generate a correct purchase you must follow this sequence. Generation of a purchase and confirmation of it.
-
-### Create a purchase
-To acomplish a purchase that has no money exchange needs first you have to call Appnima.js purchase method. The purchases follow a 2 step secuence,purchase generation and purchase confirmation. First step is purchase generation:
-
-    Appnima.Payments.purchase();
-
-If everything goes right appnima returns us a single use token to confirm our purchase later.
-
-    {
-        token: "purchase_secret_token",
-        amount: 0
-    }
-Optionally you can send a reference object with the structure you want, just encode it with JSON.stringify method.
-
-    Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
-
-### Confirm a purchase
-
-To confirm a purchase you mus send back the purchase token that appnima returned us in the previous step. Remember you also have to send the amount in this case 0.
-
-
-    Appnima.Payments.purchase({token: "purchase_secret_token", amount: 0});
-
-When you confirm the purchase to appnima it will return the main information of the purchase, with a state with value 3 that means the purchase has confirmed correctly.
-
-
-    {
-        id: "purchase_ID",
-        payed_at: purchase_confirmation_date,
-        state: purchase_state "
-    }
-
-### Get your purchases
-To know all the purchases your profile has done you only have to call getPurchases() and you will receive an array with all the purchases.
-
-    Appnima.Payments.getPurchases()
-
-### Search a purchase
-The search purchase method will find you in all your profile purchases the one whose reference values match.
-
-    Appnima.Payments.searchPurchase({content: "example content"})
-
-This method returns an array with all the results that match with the input search parameters.
 
 CreditCards
 -----------
@@ -986,46 +944,89 @@ For same security reasons to update a credit card you must do it with the ID of 
 
 Once again If all goes right Appnima will return a code 200 Succesfull message.
 
-Payment Providers
------------------
-When we need to create a purchase that needs money exchange requirements we must do it with one of the Appnima payment providers.
+Purchases
+---------
+To make purchases through appnima you can do it in 3 different ways,free purchases, purchases using credit cards as payment method through Stripe and purchases with PayPal.
 
-### Stripe
-Stripe is a easy to usea payment gateway, is integrated with Appnima so you can make and pay purchases with the same 2 step purchasing secuence. Generate purchase and confirm it.
+To choose between this 3 options you only have to change the provider parameter. To make free purchases you have to omit the provider parameter, just dont send it. To choose Stripe you must send provider:0 and to choose PayPal you should choose provider:1.
 
-#### Buy with Stripe
-To make a purchase with Stripe we only have to send 3 things, the id of the credit card in wich you want to generate the charge, the cvc of that credit card and the amount you want to charge.
 
-      Appnima.Payments.stripePurchase({credit_card : "credit_card_ID",cvc:123, amount: 10000})
+### Create a free purchase
 
-If everything goes right appnima returns us a single use token to confirm our purchase later:
+To make purchases that doesnt need money you can create free purchase just calling:
 
-     {
+    Appnima.Payments.purchase();
+
+If all goes right Appnima will send us a unique purchase token and the amount of the purchase.
+
+    {
         token: "purchase_secret_token",
-         amount: 10000
-     }
+        amount: 0
 
-Optionally you can send a reference object with the structure you want, just encode it with JSON.stringify method.
+    }
 
-    Appnima.Payments.purchase({credit_card : "credit_card_ID",cvc:123, amount: 10000, reference: '{ "id":"example id", "content": "example content"}'})
+If you want you can add a reference object with the structure you want encoded into a string chain with JSON.stringify. It must be a valid JSON.
 
+    Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
 
-#### Stripe purchase confirmation
-To confirm a purchase you mus send back the purchase token that appnima returned us in the previous step. Remember you also have to send the amount.
+### Confirm a purchase
 
-      Appnima.Payments.stripeConfirm({token: "purchase_secret_token", amount: 10000})
+When we receive the token and amount from appnima it means that the purchase is pending of confirmation. You must confirm it with the same parameters you have received.
 
-When you confirm the purchase to appnima it will return the main information of the purchase, with a state with value 3 that means the purchase has confirmed correctly.
+    Appnima.Payments.confirm({token: "purchase_secret_token", amount: 0});
+
+If all goes right Appnima will send us the purchase information back with state set to 3.
 
     {
         id: "purchase_ID",
         payed_at: purchase_confirmation_date,
-        state: purchase_state
+        state: purchase_state "
+    }
+ 
+### Make a stripe purchase
+
+To make a purchase through stripe you should send provider parameter set to 0, and the credit card id with the cvc. Remember the amount currency is in EUR.
+
+	Appnima.Payments.purchase({
+		provider          : 0,
+        credit_card       : credit_card_id,
+        cvc               : 123,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id stripe", "test_content": "stripe content", "number": 6161 }'
+        });
+        
+If the purchase was successfuly created App/nima returns:
+
+    {
+        token: "purchase_secret_token",
+        amount: 120
     }
 
 
+### Confirm a Stripe purchase
+To confirm a stripe purchasing you must send provider parameter set to 0, purchase token and the amount.
+
+    Appnima.Payments.confirm({provider:0, token: "purchase_secret_token", amount: 0});
+
+If the purchase was successfuly confirmed App/nima returns:
 
 
+    {
+        id: "purchase_ID",
+        payed_at: purchase_confirmation_date,
+        state: purchase_state"
+    }
+  
+ 
+### Generate a PayPal purchase
+To create a paypal purchase you only have to set the provider parameter set to 1 and the amount needed, If you include the reference object with a description, description value will be shown in the Paypal gateway as purchase information. 
+
+	Appnima.Payments.purchase({
+		provider          : 1,
+        amount            : 120,
+        reference         : '{ "id_stripe":"id paypal", "description": "boat: 10000€", "number": 6161 }'
+        });
+        
 
 
 
