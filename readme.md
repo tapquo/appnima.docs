@@ -1299,6 +1299,466 @@ If you need save user position use this resource. Sends the request with latitud
 If the request was successful, App/nima will return `201 Created` message.
 
 
+Calendar
+--------
+
+App/nima provides a calendar module. It is based on a user can create calendars, add events, and share them with others.
+
+
+#### POST /calendar
+
+With this feature the user creates a calendar. Along with the petition have to send your name and the color you want to assign:
+```json
+    {
+        name:       "Calendario de trabajo",
+        color:      "#3300FF"
+    }
+```
+
+if all goes well, returns the calendar created 
+
+```json
+	caledar: {
+		id: 28319319833,
+		name: 'mi calendario',
+		color: '#FF66CC',
+		created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+		owner:
+		    {
+		        id: 52eb667ab71cd7e4be00000c,
+		        username: 'a1@appnima.com-1391158906892',
+		        mail: 'a1@appnima.com',
+		        avatar: 'http://appnima.com/img/avatar.jpg',
+		        name: 'name'
+		    },
+		shared: [ ]
+	}
+```
+
+#### PUT /calendar
+
+We also have the option to change the name and color of a calendar already created. You have to send the "id" of the calendar, the new name and the new color.
+```json
+    {
+        id:       "28319319833",
+        color:    "#3300FF"
+        nombre:	  "Calendario de trabajo modificado"
+    }
+```
+    
+If the calendar does not exist, it returns a 404 error. If on the contrary exists, returns the calendar with the changed fields:
+```json
+    calendar : {
+    	id: 28319319833,
+        name: 'mi nuevo calendario',
+        color: '#FF66CC',
+        created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+        owner:
+                {
+                    id: 52eb667ab71cd7e4be00000c,
+                    username: 'a1@appnima.com-1391158906892',
+                    mail: 'a1@appnima.com',
+                    avatar: 'http://appnima.com/img/avatar.jpg',
+                    name: 'name'
+                },
+        shared: [ ]
+    }
+```
+
+#### PUT /calendar/shared
+It is possible to share a calendar with another user, so that you can view events for this calendar. In turn, you can also remove a user from a calendar. To do this, you must send to the API the "id", the calendar, the user profile id to invite, and the "state" field, which will "add", if you want to invite or "remove" if you want eliminate.
+```json
+    {
+        id      : "28319319833",
+        profile : "28319364941"
+        state   : "add"
+    }
+```
+
+If the calendar does not exist, it returns a 404 error. If on the contrary exists, return the updated calendar. The "shared" attribute corresponds to the list of users who have shared their calendar.
+```json
+    calendar   : { 
+    				id: 28319319833, 
+    				name: 'slid.us', 
+    				color: '#FF66CC',
+    				created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+    				owner: { 
+    					id: 52eb667ab71cd7e4be00000c,
+    					mail: 'a1@appnima.com',
+     					username: 'a1@appnima.com-1391158906892',
+     					name: 'name',
+     					avatar: 'http://appnima.com/img/avatar.jpg',
+     				},
+     				shared: [ 52eb667ab71cd7e4be000008 ] 
+     			}
+```
+#### GET /calendar
+With this resource we can get all the calendars they own the user, and those you have shared. This returns an "array" of calendars.
+```json
+    calendar   : [
+    				{ 
+    					id: 28319319833, 
+    					name: 'slid.us', 
+    					color: '#FF66CC',
+    					created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+    					owner: { 
+    						id: 52eb667ab71cd7e4be00000c,
+    						mail: 'a1@appnima.com',
+     						username: 'a1@appnima.com-1391158906892',
+     						name: 'name',
+     						avatar: 'http://appnima.com/img/avatar.jpg',
+     					},
+     					shared: [ 52eb667ab71cd7e4be000008 ] 
+     			     }
+     			 ]
+```
+
+#### DELETE /calendar
+
+There is also the possibility to delete a calendar, for that this resource is used. You only need to send as parameter "id" of the calendar.
+
+```json
+    {
+        id      : "28319319833",
+    }
+```
+If the calendar does not exist, it returns a 404 error. If on the contrary exists, return a message that everything gone successfully.
+
+    {message: Successful}
+   
+#### GET /calendar/activity
+App/nima can get the activities that have emerged in our calendar. For obtain a list of activities is used this resource  and sent as parameter the "id" of the calendar. 
+```json
+    {
+        id      : "28319319833",
+    }
+```
+If the calendar does not exist, it returns a 404 error. If on the contrary exists, a list of activities with the structure shown below.
+```json
+    activities : [ {
+                  id: 52f8ef8282652a000000000a,
+                  message: 'u1net has created the event',
+                  created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                  profile: {
+                             username: 'u1net',
+                             name: 'name',
+                             mail: 'a1@appnima.com',
+                             avatar: 'http://appnima.com/img/avatar.jpg',
+                             id: 52eb667ab71cd7e4be00000c
+                            },
+                  event: {
+                           id: 52f8ef8282652a0000000009,
+                           calendar: 52f8ef8282652a0000000004,
+                           date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+                           date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+                           name: 'BilboStack updated',
+                           description: 'This event is bilboStack',
+                           place: 52f8ef8282652a0000000008,
+                           assistents: [ 52eb667ab71cd7e4be000004 ],
+                           created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                           tags: [ learn ],
+                           guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
+                        },
+                  calendar: {
+                               id: 52f8ef8282652a0000000004,
+                               name: 'Mi calendario updated',
+                               color: '#FA58F4',
+                               created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
+                               owner: 52eb667ab71cd7e4be00000b,
+                               shared: [ ]
+                            },
+                  owner: {
+                           id: 52eb667ab71cd7e4be00000c,
+                           username: 'u1net',
+                           mail: 'a1@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           name: 'name'
+                         }
+                }]
+```
+The event and calendar is where the activity was performed. If the event is null, is that only affects the calendar. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted the activity.
+
+#### POST calendar/event
+Through this application, you can create an event to a calendar. Should be sent as a parameter the "id" of the calendar you want to belong to the new event, the event name, description, start and end date format mm-dd-yyyy hh: mm a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list of tags separated by users "," taguear to the event, the address at which to hold the event, location, country, latitude and longitude:
+```json	    
+{
+      calendar    : 52f0d497f4a9b16f47000002
+      name        : "partido de futbol"
+      description : "quedada para jugar un partido de fútbol"
+      init        : "04-14-2014 09:00"
+      finish      : "04-14-2014 11:00"
+      address     : "c/ San Mames"
+      locality    : "Bilbao
+      country     : "España"
+      latitude    : "23.23"
+      longitude   : "-2.29"
+      guest       : null
+      tags        :	"futbol,deporte"
+}	
+```
+This function returns the new event:
+
+```json	    
+    event: {
+            id: 52f0e1e6d028ec6b6f000011,
+            calendar: 28319319833,
+            date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+            date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+            description: 'quedada para jugar un partido de fútbol',
+            name: 'partido de futbol',
+            place:
+                    {
+                        address: 'c/ San Mames',
+                        locality: 'Bilbao',
+                        country: 'EspaÃ±a',
+                        _id: 52f0e1e6d028ec6b6f000010,
+                        __v: 0,
+                        created_at: Tue Feb 04 2014 13:49:42 GMT+0100 (CET),
+                        position: [ -2.29, 23.23 ]
+                    },
+            assistents: [ ],
+            created_at: Tue Feb 04 2014 13:49:42 GMT+0100 (CET),
+            tags: [futbol, deporte],
+            owner:
+                    {
+                        id: 52eb667ab71cd7e4be00000c,
+                        username: 'a1@appnima.com-1391158906892',
+                        mail: 'a1@appnima.com',
+                        avatar: 'http://appnima.com/img/avatar.jpg',
+                        name: 'name'
+                    }
+            }
+```
+#### PUT calendar/event
+
+It also allows us to modify an event through this resource. You must send at an object that takes as parameters the "id" of the event to be modified, the event name, description, start and end date in the format mm-dd-yyyy hh: mm a string with a list "id" separated "," corresponding to the users you want to share this event, a string with a list separated by "," address at which to hold the event tags users locally , country, latitude and longitude.
+```json	 
+{   
+	  event       : 52f0e1e6d028ec6b6f000011
+      calendar    : 52f0d497f4a9b16f47000002
+      name        : "partido de baloncesto"
+      description : "quedada para jugar un partido de baloncesto"
+      init        : "04-14-2014 09:00"
+      finish      : "04-14-2014 11:00"
+      address     : "c/ San Mames"
+      locality    : "Bilbao
+      country     : "España"
+      latitude    : "23.23"
+      longitude   : "-2.29"
+      guest       : null
+      tags        :	"futbol,deporte"	
+}
+```
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns the event to the fields modified the structure of the object that is returned in the create event.
+
+#### GET calendar/event
+Through this resource can be obtained events calendars on the user owns , events calendars that have been shared , and the events to which you have been invited. Must filter events by time so required the "time" parameter, which will be "month" if you get events for a specific month , so there will also send the parameter "year" with the year in the format "YYYY" and "month" parameter to the desired month in "mm" format. If you want the contrareo only get events a week, the "time" parameter must have a value of "week" , and should be sent as parameter "year" , "month" and " day" that will value the year as month and day of a date which is within the desired week. Or if instead , you want to get the events for a particular day "time" should have a value of " day" and should also send "year" , "month" and "day" which will have the value date of the day desired
+```json	 
+{   
+	  time  : day
+      year  : 2014
+      month : 04
+      day   : 20
+}
+```
+As result is obtained a list of events 
+
+	```json	    
+			events: [{
+                id: 52f0ed7893888c029200000f,
+                calendar: 52f0ed7893888c0292000002,
+                date_init: Sun Apr 20 2014 09:00:00 GMT+0200 (CEST),
+                date_finish: Thu Mar 20 2014 11:00:00 GMT+0100 (CET),
+                name: 'company dinner',
+                description: 'This event is company dinner',
+                place: 52f0ed7893888c029200000e,
+                assistents: [ ],
+                created_at: Tue Feb 04 2014 14:39:04 GMT+0100 (CET),
+                tags: [ dinner,  enjoy ],
+                owner:
+                        {
+                            id: 52eb667ab71cd7e4be00000c,
+                            username: 'a1@appnima.com-1391158906892',
+                            mail: 'a1@appnima.com',
+                            avatar: 'http://appnima.com/img/avatar.jpg',
+                            name: 'name'
+                        }
+
+    		}]       
+	```
+#### PUT calendar/event/guest
+
+Another feature that is possible through this resource is to invite a user to an event, so that he too can see the event. Or on the contrary, an invitation to remove that user no longer see the event. To do this, simply run the following function shown below, sending as parameters the "id" of the event, the "id" to invite the user, and "add" or "remove" if you want to add invitation , "add" is sent if instead you want to remove, is sent "remove".
+
+```json	 
+{   
+	  event   : 52f0f4f313255536a8000005
+      profile : 52eb667ab71cd7e4be00000c
+      state   : add
+}
+```
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
+```json	 
+    event   : {
+                    id: 52f0f4f313255536a8000005,
+                    calendar: 52f0f4f213255536a8000002,
+                    date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
+                    date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
+                    name: 'meeting osakidetza updated',
+                    description: 'meeting to discuss changes in the implementation',
+                    place: 52f0f4f313255536a8000004,
+                    assistents: [ ],
+                    created_at: Tue Feb 04 2014 15:10:59 GMT+0100 (CET),
+                    tags: [ app,  osakidetza ],
+                    guest: [ 52eb667ab71cd7e4be000004 ],
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            }
+                }
+```
+#### PUT calendar/event/assistent
+To confirm your attendance at an event or delete  is used this resource. Is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove" parameter. If you want to confirm attendance, "add" is sent if instead you want to remove the confirmation of attendance is sent "remove".
+```json	 
+{   
+	  event   : 52f0f4f313255536a8000005
+      profile : 52eb667ab71cd7e4be00000c
+      state   : add
+}
+```
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns  the updated event. The "assistents" attribute corresponds to the list of users who will attend the event.
+
+```json	 
+    event   : {
+                    id: 52f0f84333e9d53db2000005,
+                    calendar: 52f0f84233e9d53db2000002,
+                    date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
+                    date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
+                    name: 'meeting osakidetza updated',
+                    description: 'meeting to discuss changes in the implementation',
+                    place: 52f0f84333e9d53db2000004,
+                    assistents: [ 52eb667ab71cd7e4be000004 ],
+                    created_at: Tue Feb 04 2014 15:25:07 GMT+0100 (CET),
+                    tags: [ app,  osakidetza ],
+                    guest: [ 52eb667ab71cd7e4be000004 ],
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            }
+                }
+```
+#### GET calendar/event/search
+
+APP/NIMA allows you to search for events. By using this resource should be sent as a parameter a word, and looks for a match with that word in the name and description of the events that you have access. That is, those who are on a calendar where you're the owner or have you shared those events that you have invited:
+
+```json	 
+{   
+	  query   : "futbol"
+}
+```
+
+The function returns a list of events satisfying these matches:
+
+```json	 
+    events : [
+                {
+                    id: 52f0fa9eb70ed01fb9000018,
+                    calendar: 52f0fa9eb70ed01fb9000013,
+                    date_init: Sat Feb 22 2014 11:00:00 GMT+0100 (CET),
+                    date_finish: Sat Feb 22 2014 12:00:00 GMT+0100 (CET),
+                    name: 'meeting with juanjo',
+                    description: 'meeting with Juanjo in Near',
+                    place: 52f0fa9eb70ed01fb9000017,
+                    assistents: [ ],
+                    created_at: Tue Feb 04 2014 15:35:10 GMT+0100 (CET),
+                    tags: [ near ],
+                    guest: [ ],
+                    owner:
+                            {
+                                id: 52eb667ab71cd7e4be00000c,
+                                username: 'a1@appnima.com-1391158906892',
+                                mail: 'a1@appnima.com',
+                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                name: 'name'
+                            }
+                }
+            ]
+```
+#### DELETE calendar/event
+It is possible to delete an event, you just have to use this facility to send as parameter the "id" of the event to be deleted.
+```json	 
+{   
+	  id   : 52f0fa9eb70ed01fb9000018
+}
+```
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns a message that everything gone successfully.
+```json	 
+    {message: Successful}
+```
+
+#### GET calendar/event/activity
+
+As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With this resource by sending as parameter the "id" of an event provides us with a list of activities that have happened in it, such as: they modify that event, invite someone or taking off of the guest list or attendance or poor medical assistance to a user . 
+```json	 
+{   
+	  id   : 52f0fa9eb70ed01fb9000018
+}
+```
+If the event does not exist, it returns a 404 error. If on the contrary exists,returns a list of activities with the structure shown below
+```json	 
+    activities : [
+                {
+                id: 52f8f6a96946870000000034,
+                message: 'Has invited the event to u3net',
+                created_at: Mon Feb 10 2014 16:56:25 GMT+0100 (CET),
+                profile: {
+                           username: 'u3net',
+                           name: 'name',
+                           mail: 'a3@appnima.com',
+                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           id: 52eb667ab71cd7e4be000004
+                          },
+                event: {
+                         id: 52f8f6a86946870000000009,
+                         calendar: 52f8f6a86946870000000004,
+                         date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
+                         date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
+                         name: 'BilboStack updated',
+                         description: 'This event is bilboStack',
+                         place: 52f8f6a86946870000000008,
+                         assistents: [ 52eb667ab71cd7e4be000004 ],
+                         created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                         tags: [ learn ],
+                         guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
+                        },
+                calendar: {
+                            id: 52f8f6a86946870000000004,
+                            name: 'Mi calendario updated',
+                            color: '#FA58F4',
+                            created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
+                            owner: 52eb667ab71cd7e4be00000b,
+                            shared: [ ]
+                          },
+                owner: {
+                         id: 52eb667ab71cd7e4be00000c,
+                         username: 'u1net',
+                         mail: 'a1@appnima.com',
+                         avatar: 'http://appnima.com/img/avatar.jpg',
+                         name: 'name'
+                        }
+              }
+            ]
+```
+The event calendar is where the activity was performed. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted activity.
+
 Socket
 ------
 App/nima provides sockets environments to get chat rooms. To do so, all request have to go to:

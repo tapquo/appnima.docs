@@ -1409,9 +1409,10 @@ También hay la posibilidad de eliminar un calendario, para esto se utiliza este
     }
 ```
 En caso de que el calendario no exista, devuelve un error 404. En caso de que vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
+```json
+    {message: Successful}
+```
 
-    message: Successful
-    
 #### GET /calendar/activity
 App/nima nos permite saber que actividades han surgido en nuestro calendario. Para obtener la lista de ellas se utiliza este recurso y se envía como parámetro la "id" del calendario.
 ```json
@@ -1467,7 +1468,7 @@ El evento y el calendario, es dónde se ha realizado la actividad. En caso de qu
 
 #### POST calendar/event
 
-A través de este recurso, se puede crear un evento para un calendario. Se le debe envíar como parametro la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud:
+A través de este recurso, se puede crear un evento para un calendario. Se le debe envíar como parametro la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formato mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud:
 ```json	    
 {
       calendar    : 52f0d497f4a9b16f47000002
@@ -1520,7 +1521,7 @@ Esta función devuelve el nuevo evento:
 ```
 
 #### PUT calendar/event
-También se nos permite modificar un evento a través de este recurso. Se le debe envíar un objeto que lleve como parámetros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud.
+También se nos permite modificar un evento a través de este recurso. Se le debe envíar un objeto que lleve como parámetros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formato mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud.
 ```json	 
 {   
 	  event       : 52f0e1e6d028ec6b6f000011
@@ -1692,8 +1693,9 @@ Cabe la posibilidad de eliminar un evento, para ello basta con utilizar este rec
 }
 ```
 En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
-
-    message: Successful
+```json	 
+    {message: Successful}
+```
 
 #### GET calendar/event/activity
 Al igual que con un calendario, APP/NIMA también nos ofrece información de qué ha sucedido en un evento en concreto. Con este recurso enviando como parámetro la "id" de un evento, nos ofrece una lista de actividades que han sucedido en él, como son, modificar ese evento, invitar a alguien o quitarle de la lista de invitados o asistencia o desasistencia de un usuario.
