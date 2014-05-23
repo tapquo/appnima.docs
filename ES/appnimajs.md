@@ -1525,12 +1525,151 @@ Utiliza este recurso para ver el contenido de un directorio. El parámetro `fold
 
     Appnima.Storage.dir(folder);
     
+El servidor devuelve un array de `files` y `folder` del path que se envía:
 
-Buscar un fichero por nombre
+    files: [
+         {
+            id    :537c9f2222222b28607e0096,
+            name  :Video.m4v,
+            owner :523c400b43181e48270131ab,
+            path  :/,
+            size  :6967965,
+            …}
+         {
+            id    :5319bb333333338d111c6b0a,
+            name  :icon.jpg,
+            owner :523c400b43181e48270131ab,
+          …}
+         {
+          id      :444444dbe8cdbff90384483d,
+          name    :promotion.jpg,
+        …}
+         {
+            id    :5555555d9020b6e8086e28aa,
+            name  :TD57.png,
+            owner :523c400b43181e48270131ab,
+            path  :/,
+            size  :269794,
+          …}
+         {
+            id:777777791c823f9210df4bf1,
+            name:music.mp3,
+            owner:523c400b43181e48270131ab,
+            path:/,
+          …}
+      ]
+
+    folders: [
+         {
+          name      :Music, 
+          size      :4096, 
+          created_at:2014-05-23T06:56:34.000Z, 
+          path      :/
+          }
+         {
+         name       :Projects,
+         size       :4096, 
+         created_at :2014-05-23T06:43:34.000Z, 
+         path       :/}
+    ]
+
+Crear un directorio
+----
+Crea directorios pasando como argumentos el nombre del directorio y la ruta donde se debe cerar. No es necesario que la ruta esté creada previamente:
+
+    Appnima.Storage.createFolder(name, path);
+
+El servidor devuelve el siguiente objeto si todo ha salido bien:
+
+    name        : "Rock"
+    path        : "/Music"
+    size        : 4096
+    created_at  : "2014-05-23T07:49:50.000Z"
+
+
+Renombrar un directorio
+----
+Puedes cambiar el nombre de un directorio enviando como parámetros la ruta hacia el directorio y el nuevo nombre:
+
+    Appnima.Storage.renameFolder(path, name);
+    
+Si todo ha salido bien la respuesta del servidor es:
+
+    name        : "Punk"
+    path        : "/Music"
+    size        : 4096
+    created_at  : "2014-05-23T07:54:14.000Z"
+
+
+Eliminar un directorio
+----
+Para eliminar un directorio debes enviar su ruta. Se elminará todo su contenido:
+
+    Appnima.Storage.deleteFolder(path);
+
+
+Si todo ha salido bien el servidor devuelve el siguiente mensaje:
+
+    message: "Folder has been deleted."
+
+
+Buscar un fichero
 ----
 Envía el nombre del fichero o parte de el para hacer su búsqueda
 
     Appnima.Storage.search(term);
+
+Si todo ha ido bien el servidor devuelve el siguiente objeto:
+
+    id          : "222ef1111c444f9111df4c33"
+    name        : "04 Volvamos A Empezar.mp3"
+    owner       : "523c400b43181e48270131ab"
+    path        : "/Music"
+    size        : 9531644
+    type        : "audio/mp3"
+    metadata:
+        album       : "Volvamos A Empezar (2010)"
+        albumartist : []
+        artist      : [Melendi]
+        disk        : {of:0, no:0}
+        duration    : 0
+        genre       : [Pop - Rock]
+        picture     : [{,…}]
+        title       : "Volvamos A Empezar"
+        track       : {of:0, no:4}
+        year        : "2010"
+    created_at  : "2014-05-23T06:56:34.843Z"
+
+
+Renombrar un fichero
+----
+Para renombrar un fichero, envía como parámetros la ID del fichero y el nuevo nombre:
+
+    Appnima.Storage.renameFile(id, name);
+    
+    
+Si todo ha salido bien el servidor devuelve:
+
+    id          : "888c9f4444445b11111e0096"
+    name        : "Video.m4v"
+    owner       : "523c400b43181e48270131ab"
+    path        : "/"
+    size        : 6967965
+    type        : "video/mp4"
+    created_at  : "2014-05-21T12:42:48.500Z"
+
+
+Eliminar un fichero
+----
+Eliminar un fichero enviando como prámetro su ID:
+
+    Appnima.Storage.deleteFile(id);
+
+
+Si todo ha salido bien el servidor devuelve el siguiente mensaje:
+
+    message: "File has been deleted."
+
 
 
 
