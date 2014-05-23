@@ -1620,7 +1620,7 @@ El servidor devuelve un array de `files` y `folder` del path que se envía:
           path      :/
           }
          {
-         name       :Proyects,
+         name       :Projects,
          size       :4096, 
          created_at :2014-05-23T06:43:34.000Z, 
          path       :/}
