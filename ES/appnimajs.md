@@ -806,7 +806,12 @@ APP/NIMA permite a los usuarios tener un sistema de calendarios donde gestionar 
 
 Para crear un nuevo calendario, se utiliza el siguiente comando que envía como parámetro el nombre y el color del nuevo calendario.
 
-    Appnima.Calendar.create("mi calendario", "#FF66CC")
+    parameters =
+        name: "mi calendario",
+        color: "#FF66CC"
+
+
+    Appnima.Calendar.create(parameters)
 
 Esta función nos devuelve el nuevo calendario:
 
@@ -829,7 +834,12 @@ Esta función nos devuelve el nuevo calendario:
 #### Modificar
 Tambien tenemos la opción de modificar los atributos de un calendario ya creado, tanto el nombre, como el color. Para ello, se utiliza la siguiente función que envía como parámetro la "id" del calendario a modificar, el nuevo nombre y el nuevo color.
 
-    Appnima.Calendar.update("28319319833", "mi nuevo calendario", "#FF66CC")
+    parameters =
+        id: "2543523534256",
+        name: "mi nuevo nombre de calendario",
+        color: "#FF33CC"
+
+    Appnima.Calendar.update(parameters)
 
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados:
 
@@ -852,11 +862,20 @@ En caso de que el calendario no exista, devuelve un error 404. Si por el contrar
 #### Compartir
 Cabe la posibilidad de compartir un calendario con otros usuarios, para que así, ellos también puedan ver los eventos que hay en dicho calendario. Para ello, sólo hay que realizar la llamada a la función que se muestra a continuación, enviando como parámetro la "id" del calendario, la "id" del usuario a invitar, y "add".
 
-    Appnima.Calendar.shared("28319319833", "28319364941", "add")
+    parameters =
+        id      : "28319319833",
+        profile : "4235436546",
+        state   : "add"
 
+    Appnima.Calendar.shared(parameters)
 O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos, para que ese usuario deje de ver dichos eventos. Para ello, la llamada a la función es la misma que la de compartir, sólo que como tercer paramentro se envía "remove"
 
-    Appnima.Calendar.shared("28319319833", "28319364941", "remove")
+    parameters =
+        id: "4928048324",
+        profile: "jr42342314231432132",
+        state: "remove"
+
+    Appnima.Calendar.shared(parameters)
 
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado. El atributo "shared" corresponde con la lista de usuarios a los que se les ha compartido el calendario.
@@ -1038,15 +1057,33 @@ En caso de que el evento no exista, devuelve un error 404. Si por el contrario e
 #### Listar eventos
 A través de la siguiente función se pueden obtener los eventos de los calendarios en los que el usuario logueado es dueño, los eventos de los calendarios que le han compartido, y los eventos a los que se le han invitado. Se deben filtrar los eventos por tiempo. Si se quieren listar los eventos de un mes, como primer parámetro se le envía "month", como segundo parámetro se envía el año, y como segundo el número del mes del que se quieren listar los eventos.
 
-    Appnima.Calendar.listEvents("month", "2014", "02")
+    parameters =
+        time: "month",
+        year: "2014",
+        month: "02"
+
+    Appnima.Calendar.listEvents(parameters)
 
 Si lo que se quiere es listar los eventos de una semana, se le envía como primer parámetro "week", como segundo parámetro el año de la semana, como tercer parámetro el número del mes de la semana, y como cuarto parámetro el día. Esta fecha corresponde con un día de la semana de la que se quiere obtener los eventos
 
+    parameters =
+        time: "week",
+        year: "2014",
+        month: "02",
+        day: "14"
+
     Appnima.Calendar.listEvents("week", "2014", "02", "14")
+
 
 Si lo que se quiere es listar los eventos de un día, se le envía como primer parámetro "day", como segundo parámetro el año del día, como tercer parámetro el número del mes, y como cuarto parámetro el día.
 
-    Appnima.Calendar.listEvents("day", "2014", "02", "14")
+    parameters =
+        time: "day",
+        year: "2014",
+        month: "02",
+        day: "14"
+
+    Appnima.Calendar.listEvents(parameters)
 
 Como resultado se obtiene una lista de eventos:
 
@@ -1077,8 +1114,11 @@ Como resultado se obtiene una lista de eventos:
 #### Invitar a un evento.
 Otra funcionalidad que es posible, es la de invitar a un usuario a un evento, para que así, él también pueda ver dicho evento. O por el contrario, eliminar una invitación para que ese usuario deje de ver dicho evento. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetros, la "id" del evento, la "id" del usuario a invitar, y "add" o "remove", si se quiere añadir invitación, se envía "add" si por el contrario se quiere eliminar, se envía "remove".
 
-    Appnima.Calendar.guestEvent("52f0f4f313255536a8000005", "52eb667ab71cd7e4be000004", "add")
-
+    parameters =
+        event   : "9589435083494",
+        profile : "5840968508634",
+        state   : "add"
+    Appnima.Calendar.guestEvent(parameters)
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devuelve el evento actualizado. El atributo "guest" corresponde con la lista de usuarios a los que se les ha invitado al evento.
 
@@ -1106,7 +1146,11 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
 #### Asistir a un evento.
 Para confirmar la asistencia a un evento o para eliminarla se utiliza esta función, en la cual, se envía como parámetro la "id" del evento, la "id" del usuario, y "add" o "remove". Si se quiere confirmar la asistencia, se envía "add" si por el contrario se quiere eliminar la confimarción de asistencia, se envía "remove".
 
-    Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004", "add")
+    parameters =
+        event: "98432893489389234",
+        state: "add"
+
+    Appnima.Calendar.assistentEvent(parameters)
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "assistents" corresponde con la lista de usuarios que van a asistir al evento.
 

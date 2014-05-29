@@ -784,9 +784,14 @@ Calendar
 
 APP/NIMA allows users to have a calendars system where you can manage your events.
 
-To create a new calendar, is sent as a parameter the name and color of the new calendar:
+To create a new calendar, you need to sent an object with the name and color of the new calendar:
 
-    Appnima.Calendar.create("mi calendario", "#FF66CC")
+    parameters =
+        name: "mi calendario",
+        color: "#FF66CC"
+
+
+    Appnima.Calendar.create(parameters)
 
 This function returns the new calendar:
 
@@ -809,7 +814,12 @@ This function returns the new calendar:
 
 We also have the option to change the name and color of a calendar already created. You have to send the "id" of the calendar, the new name and the new color.
 
-    Appnima.Calendar.update("28319319833", "mi nuevo calendario", "#FF66CC")
+    parameters =
+        id: "2543523534256",
+        name: "mi nuevo nombre de calendario",
+        color: "#FF33CC"
+
+    Appnima.Calendar.update(parameters)
 
 If the calendar does not exist, it returns a 404 error, If on the contrary exists, returns the calendar with the changed fields:
 
@@ -835,11 +845,21 @@ It is possible to share a calendar with other users, so that they too can see th
 
 To do this, you must send as parameter the id of calendar, the id of the user to invite, and "add";
 
-    Appnima.Calendar.shared("28319319833", "28319364941", "add")
+    parameters =
+        id      : "28319319833",
+        profile : "4235436546",
+        state   : "add"
+
+    Appnima.Calendar.shared(parameters)
 
 Or on the contrary, you can also remove a user from the list of shared users, so that the user no longer see such events. For this, the function call is the same as the share, only that third paramentro is "remove":
 
-    Appnima.Calendar.shared("28319319833", "28319364941", "remove")
+    parameters =
+        id: "4928048324",
+        profile: "jr42342314231432132",
+        state: "remove"
+
+    Appnima.Calendar.shared(parameters)
 
 If the calendar does not exist, it returns a 404 error. If you have not been errors return the updated calendar. The "shared" attribute corresponds to the list of users who have shared their calendar.
 
@@ -1019,15 +1039,32 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
 
 Through the following function can be obtained events calendars that the user owns, events calendars that have been shared, and the events to which you have been invited. Must filter events by time. If you want to list the events of a month, as the first parameter is sent "month", as the second parameter is sent the year, and the third parameter is the number of the month that you want to list the events.
 
-    Appnima.Calendar.listEvents("month", "2014", "02")
+    parameters =
+        time: "month",
+        year: "2014",
+        month: "02"
+
+    Appnima.Calendar.listEvents(parameters)
 
 For list the events of a week, is sent as first "week" parameter, as second parameter the year of the week, as the third parameter the number of the month of week and day as the fourth parameter. This date corresponds to a day of the week you want to get the events:
+
+    parameters =
+        time: "week",
+        year: "2014",
+        month: "02",
+        day: "14"
 
     Appnima.Calendar.listEvents("week", "2014", "02", "14")
 
 For list the events of the day, is sent as the first parameter "day" parameter as the second year of day, as third parameter the number of the month and day as the fourth parameter.
 
-    Appnima.Calendar.listEvents("day", "2014", "02", "14")
+    parameters =
+        time: "day",
+        year: "2014",
+        month: "02",
+        day: "14"
+
+    Appnima.Calendar.listEvents(parameters)
 
 As  result is obtained a list of events :
 
@@ -1058,7 +1095,11 @@ As  result is obtained a list of events :
 #### Invite to event.
 Another feature that is possible, is to invite a user to an event, so that he too can see the event. Or on the contrary, remove an invitation to that user no longer see the event. To do this, simply run the following function shown below, sending as parameters, the "id" of the event, the "id" to invite the user, and "add" or "remove" if you want to add invitation , "add" is sent if instead you want to remove, is sent "remove".
 
-    Appnima.Calendar.guestEvent("52f0f4f313255536a8000005", "52eb667ab71cd7e4be000004", "add")
+    parameters =
+        event   : "9589435083494",
+        profile : "5840968508634",
+        state   : "add"
+    Appnima.Calendar.guestEvent(parameters)
 
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
 
@@ -1087,7 +1128,11 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
 #### Assist to event.
 To confirm your assistance at an event or to eliminate is used this function, in which is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove". If you want to confirm asistencia, "add", if instead you want to remove "remove".
 
-    Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004", "add")
+    parameters =
+        event: "98432893489389234",
+        state: "add"
+
+    Appnima.Calendar.assistentEvent(parameters)
 
 If the event does not exist, it returns a 404 error.  If on the contrary exists, return the updated event. The "assistents" attribute corresponds to the list of users who assist the event.
 
