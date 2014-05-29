@@ -529,6 +529,13 @@ Responses are returned with `200 Ok` and the object:
         message: "Successful"
     }
 ```
+If you want to follow a shielded relation, ie, you're a friend of the user to send and he is yours in a single call, simply send the following parameters:
+```json
+    {
+        user:   "23094392049024112b431d",
+        shield: true
+    }
+```
 
 #### POST /unfollow
 As **POST /follow** to unfollow a person you just need send with the request the ID user:
@@ -1315,24 +1322,24 @@ With this feature the user creates a calendar. Along with the petition have to s
     }
 ```
 
-if all goes well, returns the calendar created 
+if all goes well, returns the calendar created
 
 ```json
-	caledar: {
-		id: 28319319833,
-		name: 'mi calendario',
-		color: '#FF66CC',
-		created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
-		owner:
-		    {
-		        id: 52eb667ab71cd7e4be00000c,
-		        username: 'a1@appnima.com-1391158906892',
-		        mail: 'a1@appnima.com',
-		        avatar: 'http://appnima.com/img/avatar.jpg',
-		        name: 'name'
-		    },
-		shared: [ ]
-	}
+    caledar: {
+        id: 28319319833,
+        name: 'mi calendario',
+        color: '#FF66CC',
+        created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+        owner:
+            {
+                id: 52eb667ab71cd7e4be00000c,
+                username: 'a1@appnima.com-1391158906892',
+                mail: 'a1@appnima.com',
+                avatar: 'http://appnima.com/img/avatar.jpg',
+                name: 'name'
+            },
+        shared: [ ]
+    }
 ```
 
 #### PUT /calendar
@@ -1342,14 +1349,14 @@ We also have the option to change the name and color of a calendar already creat
     {
         id:       "28319319833",
         color:    "#3300FF"
-        nombre:	  "Calendario de trabajo modificado"
+        nombre:   "Calendario de trabajo modificado"
     }
 ```
-    
+
 If the calendar does not exist, it returns a 404 error. If on the contrary exists, returns the calendar with the changed fields:
 ```json
     calendar : {
-    	id: 28319319833,
+        id: 28319319833,
         name: 'mi nuevo calendario',
         color: '#FF66CC',
         created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
@@ -1377,40 +1384,40 @@ It is possible to share a calendar with another user, so that you can view event
 
 If the calendar does not exist, it returns a 404 error. If on the contrary exists, return the updated calendar. The "shared" attribute corresponds to the list of users who have shared their calendar.
 ```json
-    calendar   : { 
-    				id: 28319319833, 
-    				name: 'slid.us', 
-    				color: '#FF66CC',
-    				created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    				owner: { 
-    					id: 52eb667ab71cd7e4be00000c,
-    					mail: 'a1@appnima.com',
-     					username: 'a1@appnima.com-1391158906892',
-     					name: 'name',
-     					avatar: 'http://appnima.com/img/avatar.jpg',
-     				},
-     				shared: [ 52eb667ab71cd7e4be000008 ] 
-     			}
+    calendar   : {
+                    id: 28319319833,
+                    name: 'slid.us',
+                    color: '#FF66CC',
+                    created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                    owner: {
+                        id: 52eb667ab71cd7e4be00000c,
+                        mail: 'a1@appnima.com',
+                        username: 'a1@appnima.com-1391158906892',
+                        name: 'name',
+                        avatar: 'http://appnima.com/img/avatar.jpg',
+                    },
+                    shared: [ 52eb667ab71cd7e4be000008 ]
+                }
 ```
 #### GET /calendar
 With this resource we can get all the calendars they own the user, and those you have shared. This returns an "array" of calendars.
 ```json
     calendar   : [
-    				{ 
-    					id: 28319319833, 
-    					name: 'slid.us', 
-    					color: '#FF66CC',
-    					created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    					owner: { 
-    						id: 52eb667ab71cd7e4be00000c,
-    						mail: 'a1@appnima.com',
-     						username: 'a1@appnima.com-1391158906892',
-     						name: 'name',
-     						avatar: 'http://appnima.com/img/avatar.jpg',
-     					},
-     					shared: [ 52eb667ab71cd7e4be000008 ] 
-     			     }
-     			 ]
+                    {
+                        id: 28319319833,
+                        name: 'slid.us',
+                        color: '#FF66CC',
+                        created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                        owner: {
+                            id: 52eb667ab71cd7e4be00000c,
+                            mail: 'a1@appnima.com',
+                            username: 'a1@appnima.com-1391158906892',
+                            name: 'name',
+                            avatar: 'http://appnima.com/img/avatar.jpg',
+                        },
+                        shared: [ 52eb667ab71cd7e4be000008 ]
+                     }
+                 ]
 ```
 
 #### DELETE /calendar
@@ -1425,9 +1432,9 @@ There is also the possibility to delete a calendar, for that this resource is us
 If the calendar does not exist, it returns a 404 error. If on the contrary exists, return a message that everything gone successfully.
 
     {message: Successful}
-   
+
 #### GET /calendar/activity
-App/nima can get the activities that have emerged in our calendar. For obtain a list of activities is used this resource  and sent as parameter the "id" of the calendar. 
+App/nima can get the activities that have emerged in our calendar. For obtain a list of activities is used this resource  and sent as parameter the "id" of the calendar.
 ```json
     {
         id      : "28319319833",
@@ -1480,7 +1487,7 @@ The event and calendar is where the activity was performed. If the event is null
 
 #### POST calendar/event
 Through this application, you can create an event to a calendar. Should be sent as a parameter the "id" of the calendar you want to belong to the new event, the event name, description, start and end date format mm-dd-yyyy hh: mm a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list of tags separated by users "," taguear to the event, the address at which to hold the event, location, country, latitude and longitude:
-```json	    
+```json
 {
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de futbol"
@@ -1493,12 +1500,12 @@ Through this application, you can create an event to a calendar. Should be sent 
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"
-}	
+      tags        : "futbol,deporte"
+}
 ```
 This function returns the new event:
 
-```json	    
+```json
     event: {
             id: 52f0e1e6d028ec6b6f000011,
             calendar: 28319319833,
@@ -1532,9 +1539,9 @@ This function returns the new event:
 #### PUT calendar/event
 
 It also allows us to modify an event through this resource. You must send at an object that takes as parameters the "id" of the event to be modified, the event name, description, start and end date in the format mm-dd-yyyy hh: mm a string with a list "id" separated "," corresponding to the users you want to share this event, a string with a list separated by "," address at which to hold the event tags users locally , country, latitude and longitude.
-```json	 
-{   
-	  event       : 52f0e1e6d028ec6b6f000011
+```json
+{
+      event       : 52f0e1e6d028ec6b6f000011
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de baloncesto"
       description : "quedada para jugar un partido de baloncesto"
@@ -1546,25 +1553,25 @@ It also allows us to modify an event through this resource. You must send at an 
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"	
+      tags        : "futbol,deporte"
 }
 ```
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the event to the fields modified the structure of the object that is returned in the create event.
 
 #### GET calendar/event
 Through this resource can be obtained events calendars on the user owns , events calendars that have been shared , and the events to which you have been invited. Must filter events by time so required the "time" parameter, which will be "month" if you get events for a specific month , so there will also send the parameter "year" with the year in the format "YYYY" and "month" parameter to the desired month in "mm" format. If you want the contrareo only get events a week, the "time" parameter must have a value of "week" , and should be sent as parameter "year" , "month" and " day" that will value the year as month and day of a date which is within the desired week. Or if instead , you want to get the events for a particular day "time" should have a value of " day" and should also send "year" , "month" and "day" which will have the value date of the day desired
-```json	 
-{   
-	  time  : day
+```json
+{
+      time  : day
       year  : 2014
       month : 04
       day   : 20
 }
 ```
-As result is obtained a list of events 
+As result is obtained a list of events
 
-	```json	    
-			events: [{
+    ```json
+            events: [{
                 id: 52f0ed7893888c029200000f,
                 calendar: 52f0ed7893888c0292000002,
                 date_init: Sun Apr 20 2014 09:00:00 GMT+0200 (CEST),
@@ -1584,21 +1591,21 @@ As result is obtained a list of events
                             name: 'name'
                         }
 
-    		}]       
-	```
+            }]
+    ```
 #### PUT calendar/event/guest
 
 Another feature that is possible through this resource is to invite a user to an event, so that he too can see the event. Or on the contrary, an invitation to remove that user no longer see the event. To do this, simply run the following function shown below, sending as parameters the "id" of the event, the "id" to invite the user, and "add" or "remove" if you want to add invitation , "add" is sent if instead you want to remove, is sent "remove".
 
-```json	 
-{   
-	  event   : 52f0f4f313255536a8000005
+```json
+{
+      event   : 52f0f4f313255536a8000005
       profile : 52eb667ab71cd7e4be00000c
       state   : add
 }
 ```
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
-```json	 
+```json
     event   : {
                     id: 52f0f4f313255536a8000005,
                     calendar: 52f0f4f213255536a8000002,
@@ -1623,16 +1630,16 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
 ```
 #### PUT calendar/event/assistent
 To confirm your attendance at an event or delete  is used this resource. Is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove" parameter. If you want to confirm attendance, "add" is sent if instead you want to remove the confirmation of attendance is sent "remove".
-```json	 
-{   
-	  event   : 52f0f4f313255536a8000005
+```json
+{
+      event   : 52f0f4f313255536a8000005
       profile : 52eb667ab71cd7e4be00000c
       state   : add
 }
 ```
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns  the updated event. The "assistents" attribute corresponds to the list of users who will attend the event.
 
-```json	 
+```json
     event   : {
                     id: 52f0f84333e9d53db2000005,
                     calendar: 52f0f84233e9d53db2000002,
@@ -1659,15 +1666,15 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
 
 APP/NIMA allows you to search for events. By using this resource should be sent as a parameter a word, and looks for a match with that word in the name and description of the events that you have access. That is, those who are on a calendar where you're the owner or have you shared those events that you have invited:
 
-```json	 
-{   
-	  query   : "futbol"
+```json
+{
+      query   : "futbol"
 }
 ```
 
 The function returns a list of events satisfying these matches:
 
-```json	 
+```json
     events : [
                 {
                     id: 52f0fa9eb70ed01fb9000018,
@@ -1694,26 +1701,26 @@ The function returns a list of events satisfying these matches:
 ```
 #### DELETE calendar/event
 It is possible to delete an event, you just have to use this facility to send as parameter the "id" of the event to be deleted.
-```json	 
-{   
-	  id   : 52f0fa9eb70ed01fb9000018
+```json
+{
+      id   : 52f0fa9eb70ed01fb9000018
 }
 ```
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns a message that everything gone successfully.
-```json	 
+```json
     {message: Successful}
 ```
 
 #### GET calendar/event/activity
 
-As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With this resource by sending as parameter the "id" of an event provides us with a list of activities that have happened in it, such as: they modify that event, invite someone or taking off of the guest list or attendance or poor medical assistance to a user . 
-```json	 
-{   
-	  id   : 52f0fa9eb70ed01fb9000018
+As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With this resource by sending as parameter the "id" of an event provides us with a list of activities that have happened in it, such as: they modify that event, invite someone or taking off of the guest list or attendance or poor medical assistance to a user .
+```json
+{
+      id   : 52f0fa9eb70ed01fb9000018
 }
 ```
 If the event does not exist, it returns a 404 error. If on the contrary exists,returns a list of activities with the structure shown below
-```json	 
+```json
     activities : [
                 {
                 id: 52f8f6a96946870000000034,
@@ -1954,10 +1961,10 @@ To make a purchase through stripe you should send provider parameter set to 0, a
 
 ```json
     {
-        provider	 : 0,
+        provider     : 0,
         credit_card : credit_card_id,
         cvc         : 123,
-    	amount      : 600000,
+        amount      : 600000,
         reference: '{ "id":"example id", "content": "example content", "number": 666 }'
     }
 ```
@@ -1969,8 +1976,8 @@ To create a paypal purchase you only have to set the provider parameter set to 1
 
 ```json
     {
-        provider	 : 1,
-    	amount      : 600000,
+        provider     : 1,
+        amount      : 600000,
         reference: '{ "id":"example id", "description": "Purchase info"}'
     }
 ```
@@ -1992,8 +1999,8 @@ If the purchase is confirmed you must receive a `200 purchase {id: "purchase_ID"
 To confirm a stripe purchasing you must send provider parameter set to 0, purchase token and the amount.
 
 ```json
-    {	
-    	provider: 0,
+    {
+        provider: 0,
         token: "purchase_secret_token,
         amount: 600000
     }

@@ -361,6 +361,14 @@ Para seguir a un usuario hay que llamar a este recurso junto con la ID del usuar
 El servicio devuelve un `200 Ok` y el objeto `message: "Successful"`
 
 
+#### Seguir blindado
+Este recurso sirve para que tú y el usuario que envías os hagáis amigos mutuamente en una única llamada. Esto es, él sería tu follower y tú serías el suyo por lo que ambos tendríais también un following:
+
+    Appnima.Network.shieldFollow("23094392049024112b431d");
+
+El servicio devuelve un `200 Ok` y el objeto `message: "Successful"`
+
+
 #### Dejar de seguir
 Tan sencillo como el recurso anterior, para dejar de seguir a un usuario basta con pasar el ID del usuario:
 
@@ -853,44 +861,44 @@ O por el contrario, también se puede eliminar a un usuario de la lista de usuar
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado. El atributo "shared" corresponde con la lista de usuarios a los que se les ha compartido el calendario.
 
-    calendar   : { 
-    				id: 28319319833, 
-    				name: 'slid.us', 
-    				color: '#FF66CC',
-    				created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    				owner: { 
-    					id: 52eb667ab71cd7e4be00000c,
-    					mail: 'a1@appnima.com',
-     					username: 'a1@appnima.com-1391158906892',
-     					name: 'name',
-     					avatar: 'http://appnima.com/img/avatar.jpg',
-     				},
-     				shared: [ 52eb667ab71cd7e4be000008 ] 
-     			}
+    calendar   : {
+                    id: 28319319833,
+                    name: 'slid.us',
+                    color: '#FF66CC',
+                    created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                    owner: {
+                        id: 52eb667ab71cd7e4be00000c,
+                        mail: 'a1@appnima.com',
+                        username: 'a1@appnima.com-1391158906892',
+                        name: 'name',
+                        avatar: 'http://appnima.com/img/avatar.jpg',
+                    },
+                    shared: [ 52eb667ab71cd7e4be000008 ]
+                }
 #### Listar
 APP/NIMA nos da la opción de obtener todos los calendarios de los que el usuario logueado es dueño, y aquellos que se le han compartido . Para ello, basta con ejecutar la siguiente función:
 
-	Appnima.Calendar.list()
+    Appnima.Calendar.list()
 
 Devuelve un array de calendarios:
 
     calendar   : [
-    				{ 
-    					id: 28319319833, 
-    					name: 'slid.us', 
-    					color: '#FF66CC',
-    					created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    					owner: { 
-    						id: 52eb667ab71cd7e4be00000c,
-    						mail: 'a1@appnima.com',
-     						username: 'a1@appnima.com-1391158906892',
-     						name: 'name',
-     						avatar: 'http://appnima.com/img/avatar.jpg',
-     					},
-     					shared: [ 52eb667ab71cd7e4be000008 ] 
-     			     }
-     			 ]
- 
+                    {
+                        id: 28319319833,
+                        name: 'slid.us',
+                        color: '#FF66CC',
+                        created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                        owner: {
+                            id: 52eb667ab71cd7e4be00000c,
+                            mail: 'a1@appnima.com',
+                            username: 'a1@appnima.com-1391158906892',
+                            name: 'name',
+                            avatar: 'http://appnima.com/img/avatar.jpg',
+                        },
+                        shared: [ 52eb667ab71cd7e4be000008 ]
+                     }
+                 ]
+
 
 #### Borrar
 Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos sus eventos. Para ello, se utiliza la siguiente función, enviando como parámetro la "id" del calendario que se desea borrar
@@ -955,8 +963,8 @@ El evento y el calendario, es dónde se ha realizado la actividad. En caso de qu
 #### Crear un evento
 A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros un objeto que contenga los siguientes parámetros: la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formato mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
 
-	    
-	data =
+
+    data =
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de futbol"
       description : "quedada para jugar un partido de fútbol"
@@ -968,9 +976,9 @@ A través de la siguiente función se puede crear un evento para un calendario. 
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"	
-     
-    Appnima.Calendar.event(data) 
+      tags        : "futbol,deporte"
+
+    Appnima.Calendar.event(data)
 
 
 Esta función devuelve el nuevo evento:
@@ -1008,8 +1016,8 @@ Esta función devuelve el nuevo evento:
 #### Modificar un evento
 También se nos permite modificar un evento. Se le debe envíar un objeto que lleve como parámetros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formarto mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud.
 
-	data =
-	  event       : 52f0e1e6d028ec6b6f000011
+    data =
+      event       : 52f0e1e6d028ec6b6f000011
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de baloncesto"
       description : "quedada para jugar un partido de baloncesto"
@@ -1021,7 +1029,7 @@ También se nos permite modificar un evento. Se le debe envíar un objeto que ll
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"	
+      tags        : "futbol,deporte"
 
     Appnima.Calendar.updateEvent(data)
 
@@ -1432,18 +1440,18 @@ Para indicar que el pago ha sido confirmado solo Appnima nos devolverá informac
         payed_at: purchase_confirmation_date,
         state: purchase_state "
     }
- 
+
 ### Generar una compra con Stripe
 El proceso para comprar con stripe es similar al de crear una compra que no necesite intercambio monetario, un proceso de creación y confirmación de la compra. Con la diferencia que es necesario indicarle 4 parametros adicionales. El provider con el que vamos a realizar la compra, el id de una tarjeta de crédito del usuario, el código de confirmación de dicha tarjeta y la cantidad de la que queremos hacer el cargo. La cantidad en Euros.
 
-	Appnima.Payments.purchase({
-		provider          : 0,
+    Appnima.Payments.purchase({
+        provider          : 0,
         credit_card       : credit_card_id,
         cvc               : 123,
         amount            : 120,
         reference         : '{ "id_stripe":"id stripe", "test_content": "stripe content", "number": 6161 }'
         });
-        
+
 Como en el caso de las compras normales el parámetro reference sigue siendo opcional.
 Si todo ha salido correctamente Appnima nos generará una compra a nuestro usuario pendiente de confirmación por lo que su estado es 0.
 
@@ -1465,19 +1473,19 @@ Para indicar que el pago ha sido confirmado solo Appnima nos devolverá informac
         payed_at: purchase_confirmation_date,
         state: purchase_state"
     }
-  
- 
+
+
 ### Generar una compra con PayPal
 Las compras con paypal funcionan en un solo paso, cuando generas una compra con paypal appnima te devuelve una url de paypal para efectuar la compra, esa url es a la que deberas redireccionar al usuario para realizar la compra. Una vez realizado o cancelado el pago en PayPal recibiras una redirección de vuelta a donde hayas configurado tu aplicación en el site de appnima. El parámetro provider ira con el código 1 que identifica a PayPal como nuestro provider, la cantidad y reference si así lo deseamos.
- 
-	Appnima.Payments.purchase({
-		provider          : 1,
+
+    Appnima.Payments.purchase({
+        provider          : 1,
         amount            : 120,
         reference         : '{ "id_stripe":"id paypal", "description": "boat: 10000€", "number": 6161 }'
         });
-        
+
  En este caso el parámetro con la referencia es opcional pero enviando una description dentro de la referencia conseguiréis que esa información que visualice el usuario en el proceso de compra de PayPal.
- 
+
 
 
 
@@ -1524,7 +1532,7 @@ Ver el contenido de un directorio
 Utiliza este recurso para ver el contenido de un directorio. El parámetro `folder` es la ruta completa del directorio que se quiere inspeccionar.
 
     Appnima.Storage.dir(folder);
-    
+
 El servidor devuelve un array de `files` y `folder` del path que se envía:
 
     files: [
@@ -1561,15 +1569,15 @@ El servidor devuelve un array de `files` y `folder` del path que se envía:
 
     folders: [
          {
-          name      :Music, 
-          size      :4096, 
-          created_at:2014-05-23T06:56:34.000Z, 
+          name      :Music,
+          size      :4096,
+          created_at:2014-05-23T06:56:34.000Z,
           path      :/
           }
          {
          name       :Projects,
-         size       :4096, 
-         created_at :2014-05-23T06:43:34.000Z, 
+         size       :4096,
+         created_at :2014-05-23T06:43:34.000Z,
          path       :/}
     ]
 
@@ -1592,7 +1600,7 @@ Renombrar un directorio
 Puedes cambiar el nombre de un directorio enviando como parámetros la ruta hacia el directorio y el nuevo nombre:
 
     Appnima.Storage.renameFolder(path, name);
-    
+
 Si todo ha salido bien la respuesta del servidor es:
 
     name        : "Punk"
@@ -1646,8 +1654,8 @@ Renombrar un fichero
 Para renombrar un fichero, envía como parámetros la ID del fichero y el nuevo nombre:
 
     Appnima.Storage.renameFile(id, name);
-    
-    
+
+
 Si todo ha salido bien el servidor devuelve:
 
     id          : "888c9f4444445b11111e0096"

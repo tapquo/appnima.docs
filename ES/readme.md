@@ -514,6 +514,14 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
     }
 ```
 
+Si se desea realizar un follow blindado, esto es, que tú seas amigo del usuario que envíar y que él sea el tuyo en una única llamada, simplemente hay que enviar los siguientes parámetros:
+```json
+    {
+        user:   "23094392049024112b431d",
+        shield: true
+    }
+```
+
 
 #### POST /unfollow
 Para dejar de seguir un usuario utiliza este recurso de igual manera que **POST /follow**:
@@ -1311,21 +1319,21 @@ Con este recurso el usuario crea un calendario. Junto con la petición hace falt
 si todo va bien, devueve el calendario creado:
 
 ```json
-	caledar: {
-		id: 28319319833,
-		name: 'mi calendario',
-		color: '#FF66CC',
-		created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
-		owner:
-		    {
-		        id: 52eb667ab71cd7e4be00000c,
-		        username: 'a1@appnima.com-1391158906892',
-		        mail: 'a1@appnima.com',
-		        avatar: 'http://appnima.com/img/avatar.jpg',
-		        name: 'name'
-		    },
-		shared: [ ]
-	}
+    caledar: {
+        id: 28319319833,
+        name: 'mi calendario',
+        color: '#FF66CC',
+        created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+        owner:
+            {
+                id: 52eb667ab71cd7e4be00000c,
+                username: 'a1@appnima.com-1391158906892',
+                mail: 'a1@appnima.com',
+                avatar: 'http://appnima.com/img/avatar.jpg',
+                name: 'name'
+            },
+        shared: [ ]
+    }
 ```
 #### PUT /calendar
 Se puede modificar un calendario ya creado, tanto su nombre como su color. Para ello hay que mandar a la API la "id" de dicho calendario, el nuevo nombre y el nuevo color.
@@ -1333,13 +1341,13 @@ Se puede modificar un calendario ya creado, tanto su nombre como su color. Para 
     {
         id:       "28319319833",
         color:    "#3300FF"
-        nombre:	  "Calendario de trabajo modificado"
+        nombre:   "Calendario de trabajo modificado"
     }
 ```
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados:
 ```json
     calendar : {
-    	id: 28319319833,
+        id: 28319319833,
         name: 'mi nuevo calendario',
         color: '#FF66CC',
         created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
@@ -1365,41 +1373,41 @@ Cabe la posibilidad de compartir un calendario con otro usuario, para que así p
 ```
 En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado. El atributo "shared" corresponde con la lista de usuarios a los que se les ha compartido el calendario.
 ```json
-    calendar   : { 
-    				id: 28319319833, 
-    				name: 'slid.us', 
-    				color: '#FF66CC',
-    				created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    				owner: { 
-    					id: 52eb667ab71cd7e4be00000c,
-    					mail: 'a1@appnima.com',
-     					username: 'a1@appnima.com-1391158906892',
-     					name: 'name',
-     					avatar: 'http://appnima.com/img/avatar.jpg',
-     				},
-     				shared: [ 52eb667ab71cd7e4be000008 ] 
-     			}
+    calendar   : {
+                    id: 28319319833,
+                    name: 'slid.us',
+                    color: '#FF66CC',
+                    created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                    owner: {
+                        id: 52eb667ab71cd7e4be00000c,
+                        mail: 'a1@appnima.com',
+                        username: 'a1@appnima.com-1391158906892',
+                        name: 'name',
+                        avatar: 'http://appnima.com/img/avatar.jpg',
+                    },
+                    shared: [ 52eb667ab71cd7e4be000008 ]
+                }
 ```
 
 #### GET /calendar
 Con este recurso podemos obtener todos los calendarios de los que el usuario logueado es dueño, y aquellos que se le han compartido. Esto devuelve un "array" de calendarios.
 ```json
     calendar   : [
-    				{ 
-    					id: 28319319833, 
-    					name: 'slid.us', 
-    					color: '#FF66CC',
-    					created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    					owner: { 
-    						id: 52eb667ab71cd7e4be00000c,
-    						mail: 'a1@appnima.com',
-     						username: 'a1@appnima.com-1391158906892',
-     						name: 'name',
-     						avatar: 'http://appnima.com/img/avatar.jpg',
-     					},
-     					shared: [ 52eb667ab71cd7e4be000008 ] 
-     			     }
-     			 ]
+                    {
+                        id: 28319319833,
+                        name: 'slid.us',
+                        color: '#FF66CC',
+                        created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                        owner: {
+                            id: 52eb667ab71cd7e4be00000c,
+                            mail: 'a1@appnima.com',
+                            username: 'a1@appnima.com-1391158906892',
+                            name: 'name',
+                            avatar: 'http://appnima.com/img/avatar.jpg',
+                        },
+                        shared: [ 52eb667ab71cd7e4be000008 ]
+                     }
+                 ]
 ```
 #### DELETE /calendar
 También hay la posibilidad de eliminar un calendario, para esto se utiliza este recurso. Únicamente hay que enviar como parámetro la "id" de dicho calendario.
@@ -1469,7 +1477,7 @@ El evento y el calendario, es dónde se ha realizado la actividad. En caso de qu
 #### POST calendar/event
 
 A través de este recurso, se puede crear un evento para un calendario. Se le debe envíar como parametro la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formato mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud:
-```json	    
+```json
 {
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de futbol"
@@ -1482,13 +1490,13 @@ A través de este recurso, se puede crear un evento para un calendario. Se le de
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"
-}	
+      tags        : "futbol,deporte"
+}
 ```
 
 Esta función devuelve el nuevo evento:
 
-```json	    
+```json
     event: {
             id: 52f0e1e6d028ec6b6f000011,
             calendar: 28319319833,
@@ -1522,9 +1530,9 @@ Esta función devuelve el nuevo evento:
 
 #### PUT calendar/event
 También se nos permite modificar un evento a través de este recurso. Se le debe envíar un objeto que lleve como parámetros la "id" del evento que se desea modificar, el nombre del evento, la descripción, la fecha inicial y final en formato mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por ",",la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud.
-```json	 
-{   
-	  event       : 52f0e1e6d028ec6b6f000011
+```json
+{
+      event       : 52f0e1e6d028ec6b6f000011
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de baloncesto"
       description : "quedada para jugar un partido de baloncesto"
@@ -1536,7 +1544,7 @@ También se nos permite modificar un evento a través de este recurso. Se le deb
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"	
+      tags        : "futbol,deporte"
 }
 ```
 
@@ -1544,9 +1552,9 @@ En caso de que el evento no exista, devuelve un error 404. Si por el contrario e
 
 #### GET calendar/event
 A través de este recurso se pueden obtener los eventos de los calendarios en los que el usuario logueado es dueño, los eventos de los calendarios que le han compartido, y los eventos a los que se le han invitado. Se deben filtrar los eventos por tiempo por lo que es requerido el parámetro "time", que será "month" si se quiere obtener los eventos de un mes en concreto, por lo que habrá que enviar también el parametro "year" con el año en formato "YYYY", y el parámetro "month" con el mes que se desea en formato "mm". Si por el contrareo se quiere sólo obtener los eventos de una semana, el parámetro "time" deberá tener como valor "week", y se deberá enviar como parámetros "year", "month" y "day" que tendrán como valor el año, mes y día de una fecha que corresponda dentro de la semana deseada. O si por el contrario, se quiere obtener los eventos de un día en concreto "time" deberá tener como valor "day" y se debe enviar también "year", "month" y "day" que tendrán como valor la fecha del día deseado
-```json	 
-{   
-	  time  : day
+```json
+{
+      time  : day
       year  : 2014
       month : 04
       day   : 20
@@ -1554,8 +1562,8 @@ A través de este recurso se pueden obtener los eventos de los calendarios en lo
 ```
 Como resultado se obtiene una lista de eventos:
 
-	```json	    
-			events: [{
+    ```json
+            events: [{
                 id: 52f0ed7893888c029200000f,
                 calendar: 52f0ed7893888c0292000002,
                 date_init: Sun Apr 20 2014 09:00:00 GMT+0200 (CEST),
@@ -1575,21 +1583,21 @@ Como resultado se obtiene una lista de eventos:
                             name: 'name'
                         }
 
-    		}]       
-	```
+            }]
+    ```
 
 #### PUT calendar/event/guest
 Otra funcionalidad que es posible a través de este recurso, es la de invitar a un usuario a un evento, para que así, él también pueda ver dicho evento. O por el contrario, eliminar una invitación para que ese usuario deje de ver dicho evento. Para ello, sólo hay que ejecutar la siguiente función que se muestra a continuación, enviando como parámetros, la "id" del evento, la "id" del usuario a invitar, y "add" o "remove", si se quiere añadir invitación, se envía "add" si por el contrario se quiere eliminar, se envía "remove".
-```json	 
-{   
-	  event   : 52f0f4f313255536a8000005
+```json
+{
+      event   : 52f0f4f313255536a8000005
       profile : 52eb667ab71cd7e4be00000c
       state   : add
 }
 ```
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devuelve el evento actualizado. El atributo "guest" corresponde con la lista de usuarios a los que se les ha invitado al evento.
-```json	 
+```json
     event   : {
                     id: 52f0f4f313255536a8000005,
                     calendar: 52f0f4f213255536a8000002,
@@ -1615,16 +1623,16 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
 
 #### PUT calendar/event/assistent
 Para confirmar la asistencia a un evento o para eliminarla se utiliza este recurso. Se envía como parámetro la "id" del evento, la "id" del usuario, y "add" o "remove". Si se quiere confirmar asistencia, se envía "add" si por el contrario se quiere eliminar la confirmación de asistencia, se envía "remove".
-```json	 
-{   
-	  event   : 52f0f4f313255536a8000005
+```json
+{
+      event   : 52f0f4f313255536a8000005
       profile : 52eb667ab71cd7e4be00000c
       state   : add
 }
 ```
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "assistents" corresponde con la lista de usuarios que van a asistir al evento.
-```json	 
+```json
     event   : {
                     id: 52f0f84333e9d53db2000005,
                     calendar: 52f0f84233e9d53db2000002,
@@ -1647,18 +1655,18 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                             }
                 }
 ```
-                
+
 #### GET calendar/event/search
 
 APP/NIMA te permite buscar eventos. Al utilizar este recurso se debe enviar como parámetro una palabra, y se busca una coincidencia con dicha palabra en el nombre y en la descripción de los eventos que tienes acceso. Es decir, aquellos que estén en un calendario donde seas el dueño o te los hayan compartido y aquellos eventos a los que te hayan invitado:
 
-```json	 
-{   
-	  query   : "futbol"
+```json
+{
+      query   : "futbol"
 }
 ```
 La función devuelve una lista de eventos que cumplan dichas coincidencias:
-```json	 
+```json
     events : [
                 {
                     id: 52f0fa9eb70ed01fb9000018,
@@ -1687,27 +1695,27 @@ La función devuelve una lista de eventos que cumplan dichas coincidencias:
 #### DELETE calendar/event
 Cabe la posibilidad de eliminar un evento, para ello basta con utilizar este recurso enviando como parámeto la "id", del evento que se desee borrar.
 
-```json	 
-{   
-	  id   : 52f0fa9eb70ed01fb9000018
+```json
+{
+      id   : 52f0fa9eb70ed01fb9000018
 }
 ```
 En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
-```json	 
+```json
     {message: Successful}
 ```
 
 #### GET calendar/event/activity
 Al igual que con un calendario, APP/NIMA también nos ofrece información de qué ha sucedido en un evento en concreto. Con este recurso enviando como parámetro la "id" de un evento, nos ofrece una lista de actividades que han sucedido en él, como son, modificar ese evento, invitar a alguien o quitarle de la lista de invitados o asistencia o desasistencia de un usuario.
 
-```json	 
-{   
-	  id   : 52f0fa9eb70ed01fb9000018
+```json
+{
+      id   : 52f0fa9eb70ed01fb9000018
 }
 ```
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bien, nos devuelve un listado de actividades con la estructura que se muestra a continuación
 
-```json	 
+```json
     activities : [
                 {
                 id: 52f8f6a96946870000000034,

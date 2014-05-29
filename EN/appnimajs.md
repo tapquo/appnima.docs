@@ -361,6 +361,12 @@ You can follow a user using this resource, call this resource using the user to 
     Appnima.Network.follow("23094392049024112b431d");
 
 
+#### Follow shield
+You can do shield follow with this resource. This means that user that you send and you are going to be follower and following.
+
+    Appnima.Network.shieldFollow("23094392049024112b431d");
+
+
 #### Unfollow
 You can unfollow a user using this resource, call this resource using the user to unfollow's id as parameter:
 
@@ -776,12 +782,12 @@ Calendar
 
 #### Create
 
-APP/NIMA allows users to have a calendars system where you can manage your events. 
+APP/NIMA allows users to have a calendars system where you can manage your events.
 
 To create a new calendar, is sent as a parameter the name and color of the new calendar:
 
     Appnima.Calendar.create("mi calendario", "#FF66CC")
-    
+
 This function returns the new calendar:
 
     calendar : {
@@ -804,7 +810,7 @@ This function returns the new calendar:
 We also have the option to change the name and color of a calendar already created. You have to send the "id" of the calendar, the new name and the new color.
 
     Appnima.Calendar.update("28319319833", "mi nuevo calendario", "#FF66CC")
-    
+
 If the calendar does not exist, it returns a 404 error, If on the contrary exists, returns the calendar with the changed fields:
 
     calendar : {
@@ -830,50 +836,50 @@ It is possible to share a calendar with other users, so that they too can see th
 To do this, you must send as parameter the id of calendar, the id of the user to invite, and "add";
 
     Appnima.Calendar.shared("28319319833", "28319364941", "add")
-    
+
 Or on the contrary, you can also remove a user from the list of shared users, so that the user no longer see such events. For this, the function call is the same as the share, only that third paramentro is "remove":
 
     Appnima.Calendar.shared("28319319833", "28319364941", "remove")
-    
+
 If the calendar does not exist, it returns a 404 error. If you have not been errors return the updated calendar. The "shared" attribute corresponds to the list of users who have shared their calendar.
 
-    calendar   : { 
-    				id: 28319319833, 
-    				name: 'slid.us', 
-    				color: '#FF66CC',
-    				created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    				owner: { 
-    					id: 52eb667ab71cd7e4be00000c,
-    					mail: 'a1@appnima.com',
-     					username: 'a1@appnima.com-1391158906892',
-     					name: 'name',
-     					avatar: 'http://appnima.com/img/avatar.jpg',
-     				},
-     				shared: [ 52eb667ab71cd7e4be000008 ] 
-     			}
+    calendar   : {
+                    id: 28319319833,
+                    name: 'slid.us',
+                    color: '#FF66CC',
+                    created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                    owner: {
+                        id: 52eb667ab71cd7e4be00000c,
+                        mail: 'a1@appnima.com',
+                        username: 'a1@appnima.com-1391158906892',
+                        name: 'name',
+                        avatar: 'http://appnima.com/img/avatar.jpg',
+                    },
+                    shared: [ 52eb667ab71cd7e4be000008 ]
+                }
 #### List
 APP/NIMA gives us the option to get all the calendars that the user owns, and those who have shared. To do this, simply run the following function:
 
-	Appnima.Calendar.list()
+    Appnima.Calendar.list()
 
 Returns an array of calendars:
 
     calendar   : [
-    				{ 
-    					id: 28319319833, 
-    					name: 'slid.us', 
-    					color: '#FF66CC',
-    					created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-    					owner: { 
-    						id: 52eb667ab71cd7e4be00000c,
-    						mail: 'a1@appnima.com',
-     						username: 'a1@appnima.com-1391158906892',
-     						name: 'name',
-     						avatar: 'http://appnima.com/img/avatar.jpg',
-     					},
-     					shared: [ 52eb667ab71cd7e4be000008 ] 
-     			     }
-     			 ]
+                    {
+                        id: 28319319833,
+                        name: 'slid.us',
+                        color: '#FF66CC',
+                        created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
+                        owner: {
+                            id: 52eb667ab71cd7e4be00000c,
+                            mail: 'a1@appnima.com',
+                            username: 'a1@appnima.com-1391158906892',
+                            name: 'name',
+                            avatar: 'http://appnima.com/img/avatar.jpg',
+                        },
+                        shared: [ 52eb667ab71cd7e4be000008 ]
+                     }
+                 ]
 #### Borrar
 Also allowed to delete a calendar, at the same time all your events are removed. To do this, you must send the "id" calendar to be deleted
 
@@ -887,7 +893,7 @@ If the calendar does not exist, it returns a 404 error. If it goes well, it retu
 APP/NIMA also provides us information on what has happened in a calendar. If we use the function shown below sending as a parameter the "id" of a calendar, provides a list of activities that have happened in it, such as: to update calendar, to create, modify or delete an event belonging to the calendar, share your calendar or delete someone from the list of shared users, invite someone to take the guest list, or the confirm to  assistance to a event.
 
     Appnima.Calendar.activityCalendar("28319319833")
-    
+
 If the calendar does not exist, it returns a 404 error. If it went well, it returns a list of activities with the structure shown below
 
     activities : [ {
@@ -930,15 +936,15 @@ If the calendar does not exist, it returns a 404 error. If it went well, it retu
                            name: 'name'
                          }
                 }]
-               
+
 The event and calendar is where the activity was performed. If the event is null, is that only affects the calendar. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted the activity.
 
 #### Create event
 
 Through the following function can create an event to a calendar. Should be sent as a parameter an object that contains the following parameters: the "id" of calendar to will belong to the new event , the event name , description, start and end date format mm-dd-yyyy hh:mm mm a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list separated by ", " event to taguear tags , users address at which to hold the event , location, country, latitude and longitude:
 
-	    
-	data = {
+
+    data = {
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de futbol"
       description : "quedada para jugar un partido de fútbol"
@@ -950,9 +956,9 @@ Through the following function can create an event to a calendar. Should be sent
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"}
-     
-    Appnima.Calendar.event(data) 
+      tags        : "futbol,deporte"}
+
+    Appnima.Calendar.event(data)
 
 This function returns the new event:
 
@@ -985,13 +991,13 @@ This function returns the new event:
                         name: 'name'
                     }
             }
-            
-#### Update event
-  
-It also allows us to modify an event. You must send an object containing as parameters the "id" of the event to be modified, the event name, description, start and end dates in formarto mm-dd-yyyy hh:mm:, a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list separated by "," address at which to hold the event tags, location, users the country, the latitude and longitude.  
 
-	data = {
-	  event       : 52f0e1e6d028ec6b6f000011
+#### Update event
+
+It also allows us to modify an event. You must send an object containing as parameters the "id" of the event to be modified, the event name, description, start and end dates in formarto mm-dd-yyyy hh:mm:, a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list separated by "," address at which to hold the event tags, location, users the country, the latitude and longitude.
+
+    data = {
+      event       : 52f0e1e6d028ec6b6f000011
       calendar    : 52f0d497f4a9b16f47000002
       name        : "partido de baloncesto"
       description : "quedada para jugar un partido de baloncesto"
@@ -1003,10 +1009,10 @@ It also allows us to modify an event. You must send an object containing as para
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
-      tags        :	"futbol,deporte"}
-      	
+      tags        : "futbol,deporte"}
+
     Appnima.Calendar.updateEvent(data)
-    
+
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the event with the fields modified with the structure of the object that is returned in the create event.
 
 #### List events
@@ -1022,7 +1028,7 @@ For list the events of a week, is sent as first "week" parameter, as second para
 For list the events of the day, is sent as the first parameter "day" parameter as the second year of day, as third parameter the number of the month and day as the fourth parameter.
 
     Appnima.Calendar.listEvents("day", "2014", "02", "14")
-   
+
 As  result is obtained a list of events :
 
     events : [
@@ -1053,8 +1059,8 @@ As  result is obtained a list of events :
 Another feature that is possible, is to invite a user to an event, so that he too can see the event. Or on the contrary, remove an invitation to that user no longer see the event. To do this, simply run the following function shown below, sending as parameters, the "id" of the event, the "id" to invite the user, and "add" or "remove" if you want to add invitation , "add" is sent if instead you want to remove, is sent "remove".
 
     Appnima.Calendar.guestEvent("52f0f4f313255536a8000005", "52eb667ab71cd7e4be000004", "add")
-    
-If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event. 
+
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
 
     event   : {
                     id: 52f0f4f313255536a8000005,
@@ -1077,9 +1083,9 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
                                 name: 'name'
                             }
                 }
- 
+
 #### Assist to event.
-To confirm your assistance at an event or to eliminate is used this function, in which is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove". If you want to confirm asistencia, "add", if instead you want to remove "remove". 
+To confirm your assistance at an event or to eliminate is used this function, in which is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove". If you want to confirm asistencia, "add", if instead you want to remove "remove".
 
     Appnima.Calendar.assistentEvent("52f0f84333e9d53db2000005", "52eb667ab71cd7e4be000004", "add")
 
@@ -1106,14 +1112,14 @@ If the event does not exist, it returns a 404 error.  If on the contrary exists,
                                 name: 'name'
                             }
                 }
-                
-#### Search events                
-APP/NIMA allows you to search for events. The function sends a word as a parameter, and looks for a match with that word in the name and description of the events that you have access. That is, those who are on a calendar where you're the owner or have you shared and those events that you have been invited.     
+
+#### Search events
+APP/NIMA allows you to search for events. The function sends a word as a parameter, and looks for a match with that word in the name and description of the events that you have access. That is, those who are on a calendar where you're the owner or have you shared and those events that you have been invited.
 
     Appnima.Calendar.search("meeting")
 
 The function returns a list of events satisfying these matches:
-  
+
     events : [
                 {
                     id: 52f0fa9eb70ed01fb9000018,
@@ -1142,20 +1148,20 @@ The function returns a list of events satisfying these matches:
 It is possible to delete an event, you just have to run the following function, sending as parameter the "id" of the event:
 
     Appnima.Calendar.deleteEvent(52f0e1e6d028ec6b6f000011)
-    
+
 If the event does not exist, it returns a 404 error. If it goes well, it returns a success message.
 
     {message: Successful}
-    
+
 #### Actividad
 
-As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With the function below, sending as parameter the "id" of an event, provides a list of activities that have happened in it, such as: modify the event, invite someone or taking off of the guest list or corfirm assistance or delete  the corfirm assistance. 
+As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With the function below, sending as parameter the "id" of an event, provides a list of activities that have happened in it, such as: modify the event, invite someone or taking off of the guest list or corfirm assistance or delete  the corfirm assistance.
 
     Appnima.Calendar.activityEvent("28319319833")
- 
-If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event. 
 
-	activities : [
+If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
+
+    activities : [
                 {
                 id: 52f8f6a96946870000000034,
                 message: 'Has invited the event to u3net',
@@ -1197,7 +1203,7 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
                         }
               }
             ]
-            
+
 The event and the calendar is where the activity was performed. The field "owner" is the person performing the activity and the "profile" field is the person who is  targeted activity.
 
 
@@ -1327,8 +1333,8 @@ Payments
 To make purchases in a simple way Appnima provides you with the Payment functionality. With appnima you can make in app purchasing easy with AppnimaJS methods. You can choose between 3 types of purchases:
 
 1.  Free purchases
-2.	Purchases with credit cards (through Stripe)
-3.	Purchases with Paypal
+2.  Purchases with credit cards (through Stripe)
+3.  Purchases with Paypal
 
 
 CreditCards
@@ -1411,19 +1417,19 @@ If all goes right Appnima will send us the purchase information back with state 
         payed_at: purchase_confirmation_date,
         state: purchase_state "
     }
- 
+
 ### Make a stripe purchase
 
 To make a purchase through stripe you should send provider parameter set to 0, and the credit card id with the cvc. Remember the amount currency is in EUR.
 
-	Appnima.Payments.purchase({
-		provider          : 0,
+    Appnima.Payments.purchase({
+        provider          : 0,
         credit_card       : credit_card_id,
         cvc               : 123,
         amount            : 120,
         reference         : '{ "id_stripe":"id stripe", "test_content": "stripe content", "number": 6161 }'
         });
-        
+
 If the purchase was successfuly created App/nima returns:
 
     {
@@ -1445,17 +1451,17 @@ If the purchase was successfuly confirmed App/nima returns:
         payed_at: purchase_confirmation_date,
         state: purchase_state"
     }
-  
- 
-### Generate a PayPal purchase
-To create a paypal purchase you only have to set the provider parameter set to 1 and the amount needed, If you include the reference object with a description, description value will be shown in the Paypal gateway as purchase information. 
 
-	Appnima.Payments.purchase({
-		provider          : 1,
+
+### Generate a PayPal purchase
+To create a paypal purchase you only have to set the provider parameter set to 1 and the amount needed, If you include the reference object with a description, description value will be shown in the Paypal gateway as purchase information.
+
+    Appnima.Payments.purchase({
+        provider          : 1,
         amount            : 120,
         reference         : '{ "id_stripe":"id paypal", "description": "boat: 10000€", "number": 6161 }'
         });
-        
+
 
 
 
