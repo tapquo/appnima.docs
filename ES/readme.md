@@ -68,7 +68,7 @@ Autentificación
 ---------------
 Este módulo recoge toda la funcionalidad para obtener el token para un usuario a través del sistema denominado Oauth de 2 pasos, la ruta del recurso es:
 
-    http://appnima.com/{RECURSO}
+    http://api.appnima.com/{RECURSO}
 
 A continuación se explica el proceso de obtención de token a través de este sistema.
 
@@ -76,11 +76,11 @@ A continuación se explica el proceso de obtención de token a través de este s
 #### Paso 1: GET /oauth/authorize
 Se redirigirá al usuario a una url previamente mencionada y a este recurso, pasando como parámetros:
 ```json
-`response_type` : El tipo de solicitud, deberá ser "CODE"
-`client_id`     : El identificador público de tu aplicación
-`scope`         : Los permisos que tendrá el token
-`redirect_uri`  : La url de redirección. Será la misma que diste de alta en tu aplicación.
-`state`         : Variable de estado que acompañará a la respuesta para que se pueda identificar la operación.
+    response_type : El tipo de solicitud, deberá ser "CODE"
+    client_id     : El identificador público de tu aplicación
+    scope         : Los permisos que tendrá el token
+    redirect_uri  : La url de redirección. Será la misma que diste de alta en tu aplicación.
+    state         : Variable de estado que acompañará a la respuesta para que se pueda identificar la operación.
 ```
 
 La url sería algo similar a esto:
@@ -153,67 +153,103 @@ Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificad
 
 ### Seguridad
 #### POST /signup
-Todos los usuarios de tu aplicación tienen que ser usuarios App/nima y por lo tanto lo primero que tendrás que hacer es registrarlos en la plataforma para así poder obtener su token. Para ello debes enviar los siguientes parametros:
+
+Todos los usuarios de tu aplicación tienen que ser usuarios App/nima y por lo tanto lo primero que tendrás que hacer es registrarlos para así poder obtener su access_token que será la llave para acceder a cualquier recurso de la plataforma. Puedes registrar un usuario por mail o por username. Utiliza este recurso pasando como parámetros mail o username y el password:
+
 ```json
     {
-        mail:       "javi@tapquo.com",
-        password:   "USER_PASSWORD"
+        mail        : "javi@tapquo.com",
+        password    :  "USER_PASSWORD"
     }
 ```
 
 Y opcionalmente también puedes enviar:
+
 ```json
     {
         ...
-        username:   "soyjavi",
-        name:       "Javi Jimenez",
-        avatar:     "http://USER_AVATAR_URL"
+        username    : "soyjavi",
+        name        : "Javi Jimenez",
     }
 ```
 
-Si ha ido todo bien retorna un `201 Created` junto con el objeto:
-```json
-    {
-        id:         "939349943434",
-        mail:       "javi@tapquo.com",
-        username:   "soyjavi",
-        name:       "Javi Jimenez",
-        avatar:     "http://USER_AVATAR_URL"
-    }
-```
-
-#### POST /token
-Una vez que tenemos un usuario registrado para tu aplicación ahora tienes que pedir el token Oauth 2 que a partir de ahora será la clave para hacer todas las peticiones a App/nima. Para ello debes enviar los siguientes parámetros con la cabecera "http authorization basic"(con el client_id:client_secret codificados en Base64):
-
-```Authorization: basic client_id:client_secret```
+Si ha ido todo bien retorna un `200` junto con el objeto:
 
 ```json
     {
-        grant_type: "password",
-        mail:       "javi@tapquo.com",
-        password:   "USER_PASSWORD"
-    }
-```
-Si ha ido todo bien retorna un `201 Created` junto con el objeto:
-```json
-    {
-        token_type:      "bearer",
-        refresh_token:   "n72c03ty202ugx2gu2u",
-        access_token:    "eh024hg02g2onvev29"
+        id            : 939349943434,
+        application   : 478054177842,
+        access_token  : bBaMrMUlIRelDL5s5399b74,
+        refresh_token : TY4BOjc0E1Ds1WBzQCGFG539,
+        expire        : 2014-06-24T15:19:13.138Z
     }
 ```
 
 #### POST /login
 Cada vez que quieras validar si el usuario tiene permisos para acceder a tu aplicación podrás usar este recurso. Únicamente necesita los parámetros:
+
 ```json
     {
-        mail:       "javi@tapquo.com",
-        password:   "USER_PASSWORD"
+        mail        : "javi@tapquo.com",
+        password    :  "USER_PASSWORD"
     }
 ```
 
-En caso de que la validación haya sido correcta App/nima devolver un `200 Ok` con los datos del usuario
+En caso de que la validación haya sido correcta App/nima devolver un `200` con los datos del usuario:
 
+```json
+    {
+        id            : 5398979f21f4b9eee73e324a,
+        mail          : u4@appnima.test,
+        usenarme      : u4.appnima.test,
+        name          : u4 Name,
+        avatar        : http://localhost:1337/avatar/18386268360.png,
+        access_token  : bBaMrMUlIRelDL5s5399b74,
+        refresh_token : TY4BOjc0E1Ds1WBzQCGFG539,
+        expire        : 2014-06-23T17:53:35.697Z
+    }
+```
+
+#### POST /token
+A partir de ahora, para acceder a cualquier recurso de APP/NIMA es necesario enviar en la cabecera de la petición el atributo `authorization` con el valor del `access_token` del usuario:
+
+
+```json
+    {
+        authorization: "bearer access_token,"
+    }
+```
+
+Si el token del usuario estuviera caducado o por alguna razón es necesario un token nuevo, utiliza este recurso para obtener un access_token nuevo.
+
+En este caso, en la cabecera de la petición el atributo `authorization` lleva la `key` de la aplicación (la que se genera cuando das de alta una aplicación en tu panel de control):
+
+```json
+    {
+        authorization: basic key,
+    }
+```
+
+Y los parámetros que tienes que enviar son:
+
+```json
+    {
+        grant_type    : "refresh_token"
+        refresh_token : refresh_token
+    }
+```
+
+Si todo ha ido bien el servidor devuelve el siguiente objeto:
+
+```json
+    {
+        id            : 939349943434,
+        application   : 478054177842,
+        access_token  : bBaMrMUlIRelDL5s5399b74,
+        refresh_token : TY4BOjc0E1Ds1WBzQCGFG539,
+        expire        : 2014-06-24T15:19:13.138Z
+    }
+```
 
 ### Info
 #### GET /info
