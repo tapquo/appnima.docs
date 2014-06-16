@@ -1552,7 +1552,11 @@ Upload
 ----
 Para subir ficheros a APP/NIMA utiliza este recurso enviando la petición de la siguiente forma:
 
-    Appnima.Storage.upload(file, path)
+    parameters =
+        file: file
+        path: path
+
+    Appnima.Storage.upload(parameters)
 
 El path representa el árbol de directorios donde se alojará tu fichero. Es necesario pasar como mínimo `/`. Si la subida ha ido de forma correcta el servidor devuelve es siguiente objeto:
 
@@ -1578,7 +1582,11 @@ Crear un directorio
 ----
 Puedes crear un directorio en la estructura de directorios que elijas. Si la estructura no existe, se crea al momento. Así, para crear por ejemplo el directorio `photos` dentro de `dir1/dir2` debes asignar como `name` el valor photos y como `path` dir1/dir2
 
-    Appnima.Storage.createFolder(name, path);
+    parameters =
+        name: "Mi carpeta",
+        path: path
+
+    Appnima.Storage.createFolder(parameters);
 
 
 Ver el contenido de un directorio
@@ -1639,7 +1647,11 @@ Crear un directorio
 ----
 Crea directorios pasando como argumentos el nombre del directorio y la ruta donde se debe cerar. No es necesario que la ruta esté creada previamente:
 
-    Appnima.Storage.createFolder(name, path);
+    parameters =
+        name: "Mi directorio",
+        path: path
+
+    Appnima.Storage.createFolder(parameters);
 
 El servidor devuelve el siguiente objeto si todo ha salido bien:
 
@@ -1653,7 +1665,11 @@ Renombrar un directorio
 ----
 Puedes cambiar el nombre de un directorio enviando como parámetros la ruta hacia el directorio y el nuevo nombre:
 
-    Appnima.Storage.renameFolder(path, name);
+    parameters =
+        name: "Mi directorio actualizado",
+        path: path
+
+    Appnima.Storage.renameFolder(parameters);
 
 Si todo ha salido bien la respuesta del servidor es:
 
@@ -1705,9 +1721,13 @@ Si todo ha ido bien el servidor devuelve el siguiente objeto:
 
 Renombrar un fichero
 ----
-Para renombrar un fichero, envía como parámetros la ID del fichero y el nuevo nombre:
+Para renombrar un fichero, envía un objecto con los parámetros ID del fichero y el nuevo nombre:
 
-    Appnima.Storage.renameFile(id, name);
+    parameters =
+        id: "38837382",
+        name: "Mi file"
+
+    Appnima.Storage.renameFile(parameters);
 
 
 Si todo ha salido bien el servidor devuelve:
