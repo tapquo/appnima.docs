@@ -2,7 +2,7 @@ App/nima
 ========
 Find out how to add soul to your apps with first LaaS in the world.
 
-*Current version: [1.0.0]()*
+*Current version: [1.06.16]()*
 
 Introduction
 ------------
@@ -24,7 +24,7 @@ If sometime you have had to develop some of this functionalities in any project,
 
 
 ### Architecture
-Probably now you have doubts of how App/nima can help you in being more efficient, but calm down we are going to explain you how it works. App/nima is completely based in the authentication protocol [**Oauth 2**](http://oauth.net/2/) and in the serialization via REST-style with JSON objects. If you have never used this paradigm don't worry, we are explaining step by step how to connect to the platform and will offer you explicit tools such as [**AppnimaJS**](http://) that will ease you the connection process.
+Probably now you have doubts of how App/nima can help you in being more efficient, but calm down we are going to explain you how it works. App/nima is completely based in the authentication protocol [**Oauth 2**](http://oauth.net/2/) and in the serialization via REST-style with JSON objects. If you have never used this paradigm don't worry, we are explaining step by step how to connect to the platform and will offer you explicit tools such as [**AppnimaJS**](https://github.com/tapquo/appnima.docs/blob/master/EN/appnimajs.md) that will ease you the connection process.
 
 All the backend is deployed around the world using platforms such as Amazon or Google Cloud Engine, the ones which give us the ability to give allways the best response quality for our users. Don't worry, you won't have to be a *Jedy SysAdmin* because you will only have to communicate with our REST. The scalability is our duty, you will only have to worry about creating the best project and us in providing every day the best platform.
 
@@ -53,97 +53,36 @@ If App/nima has any problem, it is possible that you get an 5xx error. 500 means
 Clients
 -------
 
-
 Help us
 -------
 Please, don't have any doubt in contacting us if you think you can do a better API. If you think that we have to support a new functionalit or if you have found a bug, use GitHub issues. Make a fork of this documentation and send us your *pulls* with the improvements.
 
-To talk with us or with other developers about the API, suscribe to our [**mailing list**](https://groups.google.com/forum/#!forum/appnima).
-
-
+To talk with us or with other developers about the API, suscribe to our [**mailing list**](http://tapquo.com/forum).
 
 
 API REST
 ========
-Authentication
---------------
-With this resource App/nima get user token through the OAuth system called 2-step. The resource path is:
 
-    http://appnima.com/{RESOURCE}
+CONNECTION
+----
+To connect with the platform necessary to authenticate requests. Exists two ways: sending the application `KEY` or the `ACCESS_TOKEN` of user. You can get the application `KEY` from your [**dashboard**](http://appnima.tapquo.com). You can get the `ACCESS_TOKEN` of user at user's attributes after `signup`.
 
-The following explains how to get token using this method.
-
-
-#### Step 1: GET /oauth/authorize
-User will be redirected to another URL. This resource is called with the following parameters:
-``` json
-response_type   : type of request. Should be `code`.
-client_id       : your public ID application.
-scope           : token permissions
-redirect_uri    : URL to redirect. It will be the same as you provide when you registered your application.
-state           : state parameter with response to identify the operation.
-```
-
-The URL will be like this:
-
-    http://api.appnima.com/oauth2/authorize?scope=profile,push&response_type=code&client_id=519b84f0c1881dc1b3000002&redirect_uri=http://myapp.com&state=user48
-
-The user will see a site where will be shown data application and permissions required. If rejected or something it is wrong with query, user will be redirect to site specifying the error.
-
-If the request was successful, user will be redirect to a site with a field `code` that allows to follow the process.
-
-
-#### Step 2: POST /oauth2/token
-After get `code`, token will be request. To do so, this resource will be called with "http basic authorization"  header with your appnima key and the parameters:
-```header
-    {
-        Authorization: "basic APPNIMA-KEY"
-    }
-```
-
+So, for requests with application `KEY` your headers must be like:
 
 ```json
-    {
-        grant_type: "code",
-        code:       "h02h40g208ghop2envg2h9h2epne2eh092he0b2",
-        client_id:  "532023h2308h2839h"
-    }
+{
+  "authorization" : "basic APPLICATION_KEY"
+}
 ```
 
-If the query was successful returns `201 Created` and the object:
-```json
-    {
-        token_type:      "bearer",
-        refresh_token:   "n72c03ty202ugx2gu2u",
-        access_token:    "eh024hg02g2onvev29"
-    }
-```
-
-#### Refreshing Token: POST /oauth2/token
-When you try to access to a server's resource but it returns an error code `480` indicates that the token is expired, to refresh the `access_token` and `refresh_token` values use this resource using the "http authorization basic" header with your appnima key and the parameters:
-```header
-    {
-        Authorization: "basic APPNIMA-KEY"
-    }
-```
+And for requests with `ACCESS_TOKEN` of user:
 
 ```json
-    {
-        grant_type:          "refresh_token",
-        refresh_token:       "n72c03ty202ugx2gu2u"
-    }
+{
+  "authorization" : "bearer USER_ACCESS_TOKEN"
+}
 ```
 
-Response returns the following object:
-
-```json
-    {
-        access_token:       'cd776kk02g2ata629`',
-        expires_in:         '2013-08-06T06:58:37.298Z',
-        refresh_token:      'kuo54jk02g9lmoovp9',
-        scope:              [ 'profile' ]
-    }
-```
 
 User
 ----
@@ -151,7 +90,7 @@ Use this resource to add users of your project within App/nima platform. To do s
 
     http://api.appnima.com/user/{{resource}}
 
-Remember all requests to App/nima should be identified by your `Appnima.key` or key pair `client` and `secret`. So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
+Remember all requests to App/nima should be identified by your application `KEY` or `ACCESS_TOKEN` of user. So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
 
 *Example*
 
@@ -160,103 +99,148 @@ Remember all requests to App/nima should be identified by your `Appnima.key` or 
 
 ### Security
 #### POST /signup
-All users of your application must be App/nima users. So the first step is register the user to get his token. Sends the request with the next parameters:
+All users of your application must be App/nima users. So the first step is register the user to get his token. This request needs "authorization" : "basic APPLICATION_KEY" and parameters like:
+
 ```json
-    {
-        mail:       "javi@tapquo.com",
-        password:   "USER_PASSWORD"
-    }
+{
+  "mail"      : "javi@tapquo.com",
+  "password"  :  "USER_PASSWORD"
+}
 ```
 
 You can send additional fields like:
-```json
-    {
-        ...
-        username:   "soyjavi",
-        name:       "Javi Jimenez",
-        avatar:     "http://USER_AVATAR_URL"
-    }
-```
-Responses are returned with `201 Created` and the object:
-```json
-    {
-        id:         "939349943434",
-        mail:       "javi@tapquo.com",
-        username:   "soyjavi",
-        name:       "Javi Jimenez",
-        avatar:     "http://USER_AVATAR_URL"
-    }
-```
-
-
-#### POST /oauth2/token
-The second step is get the token Oauth2 authentication. It will be the key for all requests into App/nima. So, send the following parameters within the header "http basic authorization"(client_id:client_secret Base64 encoded):
-```Authorization: basic client_id:client_secret```
 
 ```json
-    {
-        grant_type: "password",
-        mail:       "javi@tapquo.com",
-        password:   "USER_PASSWORD"
-    }
+{
+  ...
+  "username"  : "soyjavi",
+  "name"      : "Javi Jimenez",
+}
 ```
 
 Responses are returned with `201 Created` and the object:
-```json
-    {
-        token_type:      "bearer",
-        refresh_token:   "n72c03ty202ugx2gu2u",
-        access_token:    "eh024hg02g2onvev29"
-    }
-```
 
+```json
+{
+  "id"            : "939349943434",
+  "application"   : "478054177842",
+  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
+  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
+  "expire"        : "2014-06-24T15:19:13.138Z"
+}
+```
 
 #### POST /login
-Use this resource to find out user permissions into your application. Sends the request with the next parameters:
+Use this resource to find out user permissions into your application. This request needs "authorization" : "basic APPLICATION_KEY" at headers and parameter like:
+
 ```json
-    {
-        mail:       "javi@tapquo.com",
-        password:   "USER_PASSWORD"
-    }
+{
+  "mail"        : "javi@tapquo.com",
+  "password"    :  "USER_PASSWORD"
+}
 ```
 
 If the validation was successful App/nima returns `200 Ok` and the user data.
 
+```json
+{
+  "id"            : "5398979f21f4b9eee73e324a",
+  "mail"          : "javi@tapquo.com",
+  "usenarme"      : "soyjavi",
+  "name"          : "Javi Jimenez",
+  "avatar"        : "http://appnima.com/img/avatar.jpg",
+  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
+  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
+  "expire"        : "2014-06-23T17:53:35.697Z"
+}
+```
+
+#### POST /token
+From now, to access any resource from App/nima you must send at headers the attribute `authorization` with `ACCESS_TOKEN` value:
+
+```json
+{
+  "authorization" : "bearer ACCESS_TOKEN"
+}
+```
+
+If the `ACCESS_TOKEN` is expired or it is necessary a new one, you can use this resource to get a new `ACCESS_TOKEN`. In this case the header must be like:
+
+
+```json
+{
+  "authorization": "basic KEY",
+}
+```
+
+And the parameters mus be `grant_type` with string "refresh_token" and the value of `"REFRESH_TOKEN"` of user:
+
+```json
+{
+  "grant_type"    : "REFRESH_TOKEN"
+  "refresh_token" : "refresh_token"
+}
+```
+
+Server responds with `200` and the following object:
+
+```json
+{
+  "id"            : "939349943434",
+  "application"   : "478054177842",
+  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
+  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
+  "expire"        : "2014-06-24T15:19:13.138Z"
+}
+```
 
 ### Info
 #### GET /info
-If you need to get data from the user, you should use this resource and how you're using the OAuth authentication protocol 2 is not required to send any der parameter unless you want to get the information of any user of App/nima.
+If you need to get data from the user, you should use this resource and how you're using the OAuth authentication protocol 2 is not required to send any parameter unless you want to get the information about another user from your application:
 
-In that case you just have to send the id of the user with the method call.
-Get user data with this resource. Then, just wait the response `200 Ok` and APP/NIMA will returns:
 ```json
-    {
-        id:            28319319832
-        mail:          "javi@tapquo.com",
-        username:      "soyjavi",
-        name:          "Javi Jimenez",
-        avatar:        "http://USER_AVATAR_URL",
-        language:       "spanish",
-        country:        "ES",
-        bio:           "Founder & CTO at @tapquo",
-        phone:         "PHONE_NUMBER",
-        site:           "http://USER_URL"
-    }
+{
+  "id"            : "939349943434"
+}
+```
+
+In both cases, App/nima returns:
+
+Get user data with this resource. Then, just wait the response `200 Ok` and APP/NIMA will returns:
+
+```json
+{
+  "id"              : "28319319832"
+  "mail"            : "javi@tapquo.com",
+  "username"        : "soyjavi",
+  "name"            : "Javi Jimenez",
+  "avatar"          : "http://appnima.com/img/avatar.jpg",
+  "language"        : "spanish",
+  "country"         : "ES",
+  "bio"             : "Founder & CTO at @tapquo",
+  "phone"           : "PHONE_NUMBER",
+  "site"            : "http://USER_URL"
+}
 ```
 
 #### PUT /update
+This resource is used to modify the personal data of a user within your application, as in the resource **GET/user/info** is not necessary to identify the user as parameter. You can send all the parameters below (but are not required to send them all):
 
-This resource is used to modify the personal data of a user within your application, as in the resource **GET/user/info** is not necessary to identify the user as parameter. You can send all the parameters below (but are not required to send them all):```json
-    {
-        mail:       "javi@tapquo.com",
-        username:   "soyjavi",
-        name:       "Javi Jimenez",
-        avatar:     "http://USER_AVATAR_URL",
-        picture:    "http://USER_PICTURE_URL",
-        bio:        "Founder & CTO at @tapquo",
-        phone:      "PHONE_NUMBER"
-    }
+```json
+{
+  "name"        : "Javi",
+  "mail"        : "javi@tapquo.com",
+  "avatar"      : "AVATAR",
+  "language"    : "spanish",
+  "country"     : "Spain",
+  "phone"       : "PHONE_NUMBER",
+  "site"        : "http://USER_URL",
+  "bio"         : "Founder & CTO at @tapquo"
+}
 ```
+
+The `AVATAR` attribute can be sent in two ways: like base64 or like `new Image()` format.
+
 If the request was successful App/nima returns `200 Ok` and the same object **GET /user**. If the user has not permission to modify his data App/nima returns `403 Forbidden`.
 
 

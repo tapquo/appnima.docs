@@ -67,7 +67,7 @@ API REST
 
 CONEXIÓN
 ----
-Para comunicarte con la plataforma debes authenticar las peticiones. Existen dos formas: enviando la `KEY` de la aplicación o enviando el `ACCESS_TOKEN` de tu usuario. La `KEY` la obtienes cuando registras una aplicación en tu [**panel de gestión**](http://tapquo.com/appnima). El `ACCESS_TOKEN` de un usuario lo obtienes una vez registrado el usuario en tu aplicación después de un `signup`.
+Para comunicarte con la plataforma debes authenticar las peticiones. Existen dos formas: enviando la `KEY` de la aplicación o enviando el `ACCESS_TOKEN` de tu usuario. La `KEY` la obtienes cuando registras una aplicación en tu [**panel de gestión**](http://appnima.tapquo.com). El `ACCESS_TOKEN` de un usuario lo obtienes una vez registrado el usuario en tu aplicación después de un `signup`.
 
 Así, para peticiones mediante la `KEY` de la aplicación la cabecera debe ir configurada de la siguiente forma:
 
@@ -175,7 +175,7 @@ En este caso, en la cabecera de la petición el atributo `authorization` lleva l
 }
 ```
 
-Y los parámetros que tienes que enviar son el `grant_type` con el string "refresh_token" y el valor del `"REFRESH_TOKEN` del usuario:
+Y los parámetros que tienes que enviar son el `grant_type` con el string "refresh_token" y el valor del `"REFRESH_TOKEN"` del usuario:
 
 ```json
 {
@@ -209,6 +209,7 @@ Por lo tanto envía esta petición sin parámetros para que App/nima te devuelva
 ```
 
 En ambos casos, solo deberás esperar a la respuesta `200 Ok` y App/nima te devuelve los siguientes parámetros:
+
 ```json
 {
   "id"              : "28319319832"
