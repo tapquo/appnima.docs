@@ -2,14 +2,14 @@ App/nima
 ========
 Descubre como dar alma a tus aplicaciones con el primer LaaS en el mundo.
 
-*Version Actual: [1.0.0]()*
+*Version Actual: [1.06.16]()*
 
 
 Introducción
 ------------
 Simplemente por leer este documento declara que eres un desarrollador que quiere mejorar constantemente y quiere crear proyectos cada vez más eficientes. App/nima es la primera plataforma que ofrece servicios lógicos para cualquier tipo de proyecto, da igual si quieres crear una aplicación o un site, App/nima te ayudará en ambas situaciones.
 
-Un poco de historia, hace ya casi 3 en [**Tapquo**](http://tapquo.com) nos encontramos con un problema común en el mundo del desarrollo y no era más que cada nuevo producto que creabamos debiamos repetir una y otra vez la misma funcionalidad básica. App/nima surgio de la necesidad de ser cada vez más eficientes y de querer desarrollar únicamente el negocio implicito de nuestro nuevo producto y no tanto de la lógica horizontal:
+Un poco de historia, hace ya casi 4 en [**Tapquo**](http://tapquo.com) nos encontramos con un problema común en el mundo del desarrollo y no era más que cada nuevo producto que creabamos debiamos repetir una y otra vez la misma funcionalidad básica. App/nima surgio de la necesidad de ser cada vez más eficientes y de querer desarrollar únicamente el negocio implicito de nuestro nuevo producto y no tanto de la lógica horizontal:
 
 + Servicio OAuth 2 para la autentificación
 + Gestión de usuarios
@@ -25,11 +25,11 @@ Si por lo menos alguna vez has tenido que desarrollar alguna de estas funcionali
 
 
 ### Arquitectura
-Seguramente en este momento tendrás dudas de como App/nima puede ayudarte a ser más eficiente pero tranquilo vamos a explicarte cómo funciona. App/nima esta basada por completo en el protocolo de autentificación [**Oauth 2**](http://oauth.net/2/) y en la serialización mediante REST-style con objetos JSON. Si nunca has utilizado este paradigma no te preocupes te explicarémos paso a paso como conectarte a la plataforma y te ofreceremos herramientas específicas como [**AppnimaJS**](http://) que te facilitarán el proceso de conexión.
+Seguramente en este momento tendrás dudas de como App/nima puede ayudarte a ser más eficiente pero tranquilo vamos a explicarte cómo funciona. App/nima esta basada por completo en el protocolo de autentificación [**Oauth 2**](http://oauth.net/2/) y en la serialización mediante REST-style con objetos JSON. Si nunca has utilizado este paradigma no te preocupes te explicarémos paso a paso como conectarte a la plataforma y te ofreceremos herramientas específicas como [**AppnimaJS**](https://github.com/tapquo/appnima.docs/blob/master/ES/appnimajs.md) que te facilitarán el proceso de conexión.
 
 Todo el backend está montado a lo largo del mundo utilizando plataformas como Amazon o Google Cloud Engine las cuales nos dan la capacidad de ofrecer siempre la mejor calidad de respuesta para nuestros usuarios. No te preocupes no tendrás que ser un *Jedy SysAdmin* ya que tu unicamente te tienes que comunicar con nuestro REST la tarea de escalabilidad corre de nuestra cuenta, tu preocupate en crear el mejor proyecto y nosotros de ofrecerte cada día una mejor plataforma.
 
-Resumiendo App/nima es una plataforma en forma de API REST que te provee de los servicios logicos de tu proyecto, y dependiendo de la naturaleza de tu proyecto puede que no necesites ni tu propio Backend. Cada servicio lógico esta alojado en servidores diferentes para obtener la mayor escalabilidad independiente, a lo largo de la documentación conoceremos las rutas de cada servicio.
+Resumiendo App/nima es una plataforma en forma de API REST que te provee de los servicios lógicos de tu proyecto, y dependiendo de su naturaleza puede que no necesites ni tu propio Backend. Cada servicio lógico esta alojado en servidores diferentes para obtener la mayor escalabilidad e independiente, a lo largo de la documentación conoceremos las rutas de cada servicio.
 
 
 ### Oauth 2
@@ -59,238 +59,193 @@ Ayudanos
 --------
 Por favor no dudes en ponerte en contacto con nosotros si crees que puedes hacer una mejor API. Si crees que deberíamos soportar una nueva funcionalidad o si has encontrado un bug, usa GitHub issues. Haz un fork de esta documentación y mandanos tus *pulls* con las mejoras.
 
-Para hablar con nosotros o con otros desarrolladores sobre la API, suscribete a nuestra [**lista de correo**](https://groups.google.com/forum/#!forum/appnima).
+Para hablar con nosotros o con otros desarrolladores sobre la API, suscribete a nuestra [**lista de correo**](http://tapquo.com/forum).
 
 
 API REST
 ========
-Autentificación
----------------
-Este módulo recoge toda la funcionalidad para obtener el token para un usuario a través del sistema denominado Oauth de 2 pasos, la ruta del recurso es:
 
-    http://api.appnima.com/{RECURSO}
+CONEXIÓN
+----
+Para comunicarte con la platforma debes authenticar las peticiones. Existen dos formas: enviando la `KEY` de la aplicación o enviando el `ACCESS_TOKEN` de tu usuario. La `KEY` la obtienes cuando registras una aplicación en tu [**panel de gestión**](http://tapquo.com/appnima). El `ACCESS_TOKEN` de un usuario lo obtienes una vez registrado el usuario en tu aplicación después de un `signup`.
 
-A continuación se explica el proceso de obtención de token a través de este sistema.
-
-
-#### Paso 1: GET /oauth/authorize
-Se redirigirá al usuario a una url previamente mencionada y a este recurso, pasando como parámetros:
-```json
-    response_type : El tipo de solicitud, deberá ser "CODE"
-    client_id     : El identificador público de tu aplicación
-    scope         : Los permisos que tendrá el token
-    redirect_uri  : La url de redirección. Será la misma que diste de alta en tu aplicación.
-    state         : Variable de estado que acompañará a la respuesta para que se pueda identificar la operación.
-```
-
-La url sería algo similar a esto:
-
-    http://api.appnima.com/oauth2/authorize?scope=profile,push&response_type=code&client_id=519b84f0c1881dc1b3000002&redirect_uri=http://myapp.com&state=user48
-
-El usuario verá una página en la que se le presentan los datos de la aplicación y los permisos que requiere, si lo rechaza o algo va mal, se redirigirá al usuario a la página con un campo `error` que especifica el error.
-
-Si ha ido todo bien se redirigirá a la página con un campo `code` que especifica un código con el que continuar el proceso.
-
-#### Paso 2: POST /oauth2/token
-Una vez tengamos el `code` se solicitará el token. Para ello se llamará al recurso /oauth2/token a través de una petición POST con la cabecera "http basic authorization" con el key de appnima y los siguientes parámetros:
-```header
-    {
-        Authorization: "basic APPNIMA-KEY"
-    }
-```
+Así, para peticiones mediante la `KEY` de la aplicación la cabecera debe ir configurada de la siguiente forma:
 
 ```json
-    {
-        grant_type: "code",
-        code:       "h02h40g208ghop2envg2h9h2epne2eh092he0b2",
-        client_id:  "532023h2308h2839h"
-    }
+{
+  "authorization" : "basic APPLICATION_KEY"
+}
 ```
 
-Si ha ido todo bien retorna un `201 Created` junto con el objeto:
-```json
-    {
-        token_type:      "bearer",
-        refresh_token:   "n72c03ty202ugx2gu2u",
-        access_token:    "eh024hg02g2onvev29"
-    }
-```
-#### Refresh Token: POST /oauth2/token
-Cuando se trata de acceder a un recurso y este devuelve un código de error `480` significa que el token ha expirado y que hay que refrescarlo, para ello usa este método que renueva tanto el `access_token` como el `refresh_token`. Para ello envía la cabecera "http basic authorization" con el key de appnima y el parámetro `refresh_token` actual:
-```header
-    {
-        Authorization: "basic APPNIMA-KEY"
-    }
-```
-
+Y si son peticiones con el `ACCESS_TOKEN` de un usuario:
 
 ```json
-    {
-        refresh_token:       "n72c03ty202ugx2gu2u"
-    }
-```
-
-Si todo ha salido bien App/nima devuelve el siguiente objeto:
-
-```json
-    {
-        access_token:       'cd776kk02g2ata629',
-        expires_in:         '2013-08-06T06:58:37.298Z',
-        refresh_token:      'kuo54jk02g9lmoovp9',
-        scope:              [ 'profile' ]
-    }
+{
+  "authorization" : "bearer USER_ACCESS_TOKEN"
+}
 ```
 
 
 USER
 ----
-Este módulo recoge toda la funcionalidad para incluir un usuario de tu proyecto dentro la plataforma App/nima. Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
+Este módulo recoge toda la funcionalidad para incluir y gestionar un usuario de tu proyecto dentro la plataforma App/nima. Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
 
     http://api.appnima.com/user/{RECURSO}
 
-Recuerda que todas las peticiones que hagas a App/nima tienen que ir identificadas con tu `Appnima.key` o bien con el par de datos `client` y `secret`. Ahora veamos los recursos que puedes utilizar, para ello el primer parametro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo parametro el nombre del recurso.
+Recuerda que todas las peticiones que hagas a App/nima deben ir identificadas con tu `KEY` de aplicación o bien con el `ACCESS_TOKEN` del usuario.
 
 
 ### Seguridad
 #### POST /signup
 
-Todos los usuarios de tu aplicación tienen que ser usuarios App/nima y por lo tanto lo primero que tendrás que hacer es registrarlos para así poder obtener su access_token que será la llave para acceder a cualquier recurso de la plataforma. Puedes registrar un usuario por mail o por username. Utiliza este recurso pasando como parámetros mail o username y el password:
+Todos los usuarios de tu aplicación tienen que ser usuarios App/nima y por lo tanto lo primero que tendrás que hacer es registrarlos para así poder obtener su `ACCESS_TOKEN` que será la llave para acceder a cualquier recurso de la plataforma. Puedes registrar un usuario por mail o por username. Utiliza este recurso pasando como parámetros mail o username y el password:
+
 
 ```json
-    {
-        mail        : "javi@tapquo.com",
-        password    :  "USER_PASSWORD"
-    }
+{
+  "mail"      : "javi@tapquo.com",
+  "password"  :  "USER_PASSWORD"
+}
 ```
 
-Y opcionalmente también puedes enviar:
+Opcionalmente también puedes enviar:
 
 ```json
-    {
-        ...
-        username    : "soyjavi",
-        name        : "Javi Jimenez",
-    }
+{
+  ...
+  "username"  : "soyjavi",
+  "name"      : "Javi Jimenez",
+}
 ```
 
-Si ha ido todo bien retorna un `200` junto con el objeto:
+Si ha ido todo bien el servidor retorna un `200` junto con el objeto:
 
 ```json
-    {
-        id            : "939349943434",
-        application   : "478054177842",
-        access_token  : "bBaMrMUlIRelDL5s5399b74",
-        refresh_token : "TY4BOjc0E1Ds1WBzQCGFG539",
-        expire        : "2014-06-24T15:19:13.138Z"
-    }
+{
+  "id"            : "939349943434",
+  "application"   : "478054177842",
+  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
+  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
+  "expire"        : "2014-06-24T15:19:13.138Z"
+}
 ```
 
 #### POST /login
 Cada vez que quieras validar si el usuario tiene permisos para acceder a tu aplicación podrás usar este recurso. Únicamente necesita los parámetros:
 
 ```json
-    {
-        mail        : "javi@tapquo.com",
-        password    :  "USER_PASSWORD"
-    }
+{
+  "mail"        : "javi@tapquo.com",
+  "password"    :  "USER_PASSWORD"
+}
 ```
 
 En caso de que la validación haya sido correcta App/nima devolver un `200` con los datos del usuario:
 
 ```json
-    {
-        id            : "5398979f21f4b9eee73e324a",
-        mail          : "u4@appnima.test",
-        usenarme      : "u4.appnima.test",
-        name          : "u4 Name",
-        avatar        : "http://localhost:1337/avatar/18386268360.png",
-        access_token  : "bBaMrMUlIRelDL5s5399b74",
-        refresh_token : "TY4BOjc0E1Ds1WBzQCGFG539",
-        expire        : "2014-06-23T17:53:35.697Z"
-    }
+{
+  "id"            : "5398979f21f4b9eee73e324a",
+  "mail"          : "javi@tapquo.com",
+  "usenarme"      : "soyjavi",
+  "name"          : "Javi Jimenez",
+  "avatar"        : "http://appnima.com/img/avatar.jpg",
+  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
+  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
+  "expire"        : "2014-06-23T17:53:35.697Z"
+}
 ```
 
 #### POST /token
-A partir de ahora, para acceder a cualquier recurso de APP/NIMA es necesario enviar en la cabecera de la petición el atributo `authorization` con el valor del `access_token` del usuario:
+A partir de ahora, para acceder a cualquier recurso de App/nima es necesario enviar en la cabecera de la petición el atributo `authorization` con el valor del `ACCESS_TOKEN` del usuario:
 
 
 ```json
-    {
-        authorization: "bearer access_token,"
-    }
+{
+  "authorization" : "bearer ACCESS_TOKEN"
+}
 ```
 
-Si el token del usuario estuviera caducado o por alguna razón es necesario un token nuevo, utiliza este recurso para obtener un access_token nuevo.
+Si el token del usuario estuviera caducado o por alguna razón es necesario un token nuevo, utiliza este recurso para obtener un `ACCESS_TOKEN` nuevo.
 
-En este caso, en la cabecera de la petición el atributo `authorization` lleva la `key` de la aplicación (la que se genera cuando das de alta una aplicación en tu panel de control):
+En este caso, en la cabecera de la petición el atributo `authorization` lleva la `KEY` de la aplicación:
 
 ```json
-    {
-        authorization: basic key,
-    }
+{
+  "authorization": "basic KEY",
+}
 ```
 
-Y los parámetros que tienes que enviar son el grant_type con el string "refresh_token" y el valor del refresh_token del usuario:
+Y los parámetros que tienes que enviar son el `grant_type` con el string "refresh_token" y el valor del REFRESH_TOKEN del usuario:
 
 ```json
-    {
-        grant_type    : refresh_token
-        refresh_token : "refresh_token"
-    }
+{
+  "grant_type"    : "REFRESH_TOKEN"
+  "refresh_token" : "refresh_token"
+}
 ```
 
-Si todo ha ido bien el servidor devuelve el siguiente objeto:
+Si todo ha ido bien el servidor devuelve un `200` el siguiente objeto:
 
 ```json
-    {
-        id            : "939349943434",
-        application   : "478054177842",
-        access_token  : "bBaMrMUlIRelDL5s5399b74",
-        refresh_token : "TY4BOjc0E1Ds1WBzQCGFG539",
-        expire        : "2014-06-24T15:19:13.138Z"
-    }
+{
+  "id"            : "939349943434",
+  "application"   : "478054177842",
+  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
+  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
+  "expire"        : "2014-06-24T15:19:13.138Z"
+}
 ```
 
 ### Info
 #### GET /info
-Si necesitas obtener los datos del usuario de tu sesión debes utilizar este recurso y como estás utilizando el protocolo de autentificación OAuth 2 no es necesario que envíes ningún parámetro a no ser der que desees obtener la información de cualquier usuario de App/nima.
+Para obtener los datos de tu usuario, gracias al protocolo de autentificación OAuth 2 no es necesario que envíes ningún parámetro a no ser que desees obtener la información de otro usuario de tu aplicación.
 
-En ese caso solo tendrás que enviar la id de dicho usuario junto con la llamada al método.
+Por lo tanto envía esta petición sin parámetros para que App/nima te devuelva los datos del usuario logueado o envía como parámetro `id` la ID del usuario del cual deseas obtener sus datos.
 
-En ambos casos, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
 ```json
-    {
-        id:            28319319832
-        mail:          "javi@tapquo.com",
-        username:      "soyjavi",
-        name:          "Javi Jimenez",
-        avatar:        "http://USER_AVATAR_URL",
-        language:       "spanish",
-        country:        "ES",
-        bio:           "Founder & CTO at @tapquo",
-        phone:         "PHONE_NUMBER",
-        site:           "http://USER_URL"
-    }
+{
+  "id"            : "939349943434"
+}
+```
+
+En ambos casos, solo deberás esperar a la respuesta `200 Ok` y App/nima te devuelve los siguientes parámetros:
+```json
+{
+  id              : 28319319832
+  mail            : "javi@tapquo.com",
+  username        : "soyjavi",
+  name            : "Javi Jimenez",
+  avatar          : "http://appnima.com/img/avatar.jpg",
+  language        : "spanish",
+  country         : "ES",
+  bio             : "Founder & CTO at @tapquo",
+  phone           : "PHONE_NUMBER",
+  site            : "http://USER_URL"
+}
 ```
 
 #### PUT /update
 Este recurso sirve para modificar los datos personales de un usuario dentro de tu aplicación, al igual que en el recurso **GET /user/info** no es necesario identificar al usuario por parámetro. Puedes enviar todos los parámetros que aparecen a continuación (aunque no es obligatorio enviarlos todos):
+
 ```json
-    {
-        mail:       "javi@tapquo.com",
-        username:   "soyjavi",
-        name:       "Javi Jimenez",
-        avatar:     "http://USER_AVATAR_URL",
-        picture:    "http://USER_PICTURE_URL",
-        bio:        "Founder & CTO at @tapquo",
-        phone:      "PHONE_NUMBER"
-    }
+{
+  "name"        : "Javi",
+  "mail"        : "javi@tapquo.com",
+  "avatar"      : "AVATAR",
+  "language"    : "spanish",
+  "country"     : "Spain",
+  "phone"       : "PHONE_NUMBER",
+  "site"        : "http://USER_URL",
+  "bio"         : "Founder & CTO at @tapquo"
+}
 ```
+
+El atributo `AVATAR` puede ser enviado de dos maneras: puedes transformar la imagen a base64 o en el formato que te proporciona la conversión `new Image()`
 
 En el caso de que haya ido todo bien se devolverá el código `200 OK` junto con el mismo objeto **GET /user**. En el caso de que el usuario no tenga permiso para modificar sus datos App/nima devolverá un `403 Forbidden`.
 
 ### Contraseña
-APP/NIMA ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o cambiarla.
+App/nima ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o cambiarla.
 
 #### POST /remember/password
 Este recurso sirve para recordar contraseña. Si se tiene backend de la aplicación, para recordar contraseña es necesario hacerlo en dos pasos, en caso de no tener, o no desear usar su propio backend, se podrá realizar en un paso.
@@ -303,7 +258,7 @@ Si se desea hacer en un paso, hay que enviar los siguientes parámetros:
     }
 ```
 
-Este parámetro se trata del ```token```del usuario de APP/NIMA, esto es, el ```ACCESS_TOKEN``` del usuario. APP/NIMA se encargará de la gestión de la URL que se envia en el email, como se explica más adelante.
+Este parámetro se trata del ```token```del usuario de App/nima, esto es, el ```ACCESS_TOKEN``` del usuario. App/nima se encargará de la gestión de la URL que se envia en el email, como se explica más adelante.
 
 Por otro lado, si se desea hacer en dos pasos, los parámetros que hay que envíar junto con la petición, y además del ```token``` del usuario, son los siguiente:
 
@@ -317,11 +272,11 @@ Por otro lado, si se desea hacer en dos pasos, los parámetros que hay que enví
 ```
 El segundo parámetro se trata del dominio de la aplicación que llama a dicha funcionalidad y el último la url a la que se quiere llamar.
 
-Esta función envia un mail al usuario propietario del token de parte de APP/NIMA con una URL de la siguiente forma:
+Esta función envia un mail al usuario propietario del token de parte de App/nima con una URL de la siguiente forma:
 
     DOMINIO/URL/CODE -> http://application_domain/reset_password/25kj4fkwnfmndjkhgjk4h5nmf
 
-El código lo genera APP/NIMA y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña.
+El código lo genera App/nima y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña.
 
 #### POST /reset/password
 Como se ha dicho en el recurso anterior, recordar contraseña se puede hacer en dos pasos. En caso de hacerlo así, la segunda parte es llamar a este recurso. Este recurso por sí solo no se puede utilizar, ya que requiere del código generado en el recurso anterior.
@@ -335,10 +290,10 @@ Para esto, como se puede observar, es necesario generar un endpoint en el backen
     }
 ```
 
-El primer parámetro es el código de la URL generada en el recurso anterior y el segundo parámetro es la nueva contraseña que el usuario quiere regenerar. Una vez hecho esto, APP/NIMA envía un email al usuario avisándole de que su contraseña ha sido modificada.
+El primer parámetro es el código de la URL generada en el recurso anterior y el segundo parámetro es la nueva contraseña que el usuario quiere regenerar. Una vez hecho esto, App/nima envía un email al usuario avisándole de que su contraseña ha sido modificada.
 
 #### PUT /password
-Este recurso sirve para cambiar la contraseña y el único requisito es estar identificado con APP/NIMA. Junto a la petición hay que enviarle los siguientes parámetros:
+Este recurso sirve para cambiar la contraseña y el único requisito es estar identificado con App/nima. Junto a la petición hay que enviarle los siguientes parámetros:
 
 ```json
     {
@@ -838,7 +793,7 @@ Un post se trata de un mensaje público y el usuario con este recurso puede crea
 ```
 El único campo obligatorio a la hora de crear un post es el ```content``` que se trata del contenido del mensaje.
 
-Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve los siguientes parámetros:
+Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y App/nima te devuelve los siguientes parámetros:
 ```json
      post = {
         id         : 4234325425234,
@@ -869,14 +824,14 @@ Este recurso sirve para modificar un post creado anteriormente. Para ello, el us
     }
 ```
 
-Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y APP/NIMA te devuelve `message: "Successful"`.
+Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y App/nima te devuelve `message: "Successful"`.
 
 #### GET/post
-Este recurso sirve para obtener un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea obtener y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y el post concreto del mismo estilo que en el `POST`.
+Este recurso sirve para obtener un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea obtener y, si va todo bien, App/nima devolverá la respuesta `200 OK`y el post concreto del mismo estilo que en el `POST`.
 
 
 #### DELETE/post
-Este recurso sirve para borrar un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea borrar y, si va todo bien, APP/NIMA devolverá la respuesta `200 OK`y `message: "Successful"`.
+Este recurso sirve para borrar un post concreto. Para ello, el usuario solamente debe enviar la ```id```del post que desea borrar y, si va todo bien, App/nima devolverá la respuesta `200 OK`y `message: "Successful"`.
 
 #### GET/post/user
 Este recurso sirve para obtener el contador de los post del usuario. Si deseas obtener el contador de tus propios post, no debes enviarle ningún parámetro, pero en cambio si lo que deseas obtener es el contador de post de otro usuario, tienes que enviarle la *id* de dicho usuario junto con la llamada.
@@ -895,7 +850,7 @@ Este recurso sirve para buscar los *posts* que tengan en su contenido una palabr
     }
 ```
 
-En este ejemplo, APP/NIMA nos devolverá todos los *posts* que en su campo *content* tengan la palabra "Lorem". Un ejemplo sería el siguiente:
+En este ejemplo, App/nima nos devolverá todos los *posts* que en su campo *content* tengan la palabra "Lorem". Un ejemplo sería el siguiente:
 ```json
     [id         : 5453435345,
         content    : "Lorem Ipsum",
@@ -992,7 +947,7 @@ En cambio, si lo que deseas es obtener los posts de otro usuario o solamente los
 
 Se trata de la id del usuario del que quieres obtener los post. En este caso, unicamente te devolverá la lista de los post que ha creado ese usuario.
 
-Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá APP/NIMA.
+Si va todo bien, solo deberás esperar a la respuesta `200 OK`y la lista de posts que te devolverá App/nima.
 
 También existe la opción de que te devuelva la lista de post con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de posts cronologicamente.
 
@@ -1017,7 +972,7 @@ Este recurso sirve para hacer favorito un post en concreto o para quitar un favo
         }
 ```
 
-Si es la primera vez que marca como favorito, APP/NIMA devolverá la respuesta `200 OK`. En cambio, si ya había marcado como favorito antes, se borrará dicho favorito y APP/NIMA devolverá un mensaje: *unliked*.
+Si es la primera vez que marca como favorito, App/nima devolverá la respuesta `200 OK`. En cambio, si ya había marcado como favorito antes, se borrará dicho favorito y App/nima devolverá un mensaje: *unliked*.
 
 #### GET /post/user/like
 Este recurso, si todo va bien, devolverá la lista de los *post* a los que el usuario logueado ha marcado como favorito. Para ello, debes enviar el siguiente parámetro:
@@ -1683,7 +1638,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
 
 #### GET calendar/event/search
 
-APP/NIMA te permite buscar eventos. Al utilizar este recurso se debe enviar como parámetro una palabra, y se busca una coincidencia con dicha palabra en el nombre y en la descripción de los eventos que tienes acceso. Es decir, aquellos que estén en un calendario donde seas el dueño o te los hayan compartido y aquellos eventos a los que te hayan invitado:
+App/nima te permite buscar eventos. Al utilizar este recurso se debe enviar como parámetro una palabra, y se busca una coincidencia con dicha palabra en el nombre y en la descripción de los eventos que tienes acceso. Es decir, aquellos que estén en un calendario donde seas el dueño o te los hayan compartido y aquellos eventos a los que te hayan invitado:
 
 ```json
 {
@@ -1731,7 +1686,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de haya v
 ```
 
 #### GET calendar/event/activity
-Al igual que con un calendario, APP/NIMA también nos ofrece información de qué ha sucedido en un evento en concreto. Con este recurso enviando como parámetro la "id" de un evento, nos ofrece una lista de actividades que han sucedido en él, como son, modificar ese evento, invitar a alguien o quitarle de la lista de invitados o asistencia o desasistencia de un usuario.
+Al igual que con un calendario, App/nima también nos ofrece información de qué ha sucedido en un evento en concreto. Con este recurso enviando como parámetro la "id" de un evento, nos ofrece una lista de actividades que han sucedido en él, como son, modificar ese evento, invitar a alguien o quitarle de la lista de invitados o asistencia o desasistencia de un usuario.
 
 ```json
 {
