@@ -177,11 +177,11 @@ Si ha ido todo bien retorna un `200` junto con el objeto:
 
 ```json
     {
-        id            : 939349943434,
-        application   : 478054177842,
-        access_token  : bBaMrMUlIRelDL5s5399b74,
-        refresh_token : TY4BOjc0E1Ds1WBzQCGFG539,
-        expire        : 2014-06-24T15:19:13.138Z
+        id            : "939349943434",
+        application   : "478054177842",
+        access_token  : "bBaMrMUlIRelDL5s5399b74",
+        refresh_token : "TY4BOjc0E1Ds1WBzQCGFG539",
+        expire        : "2014-06-24T15:19:13.138Z"
     }
 ```
 
@@ -199,14 +199,14 @@ En caso de que la validación haya sido correcta App/nima devolver un `200` con 
 
 ```json
     {
-        id            : 5398979f21f4b9eee73e324a,
-        mail          : u4@appnima.test,
-        usenarme      : u4.appnima.test,
-        name          : u4 Name,
-        avatar        : http://localhost:1337/avatar/18386268360.png,
-        access_token  : bBaMrMUlIRelDL5s5399b74,
-        refresh_token : TY4BOjc0E1Ds1WBzQCGFG539,
-        expire        : 2014-06-23T17:53:35.697Z
+        id            : "5398979f21f4b9eee73e324a",
+        mail          : "u4@appnima.test",
+        usenarme      : "u4.appnima.test",
+        name          : "u4 Name",
+        avatar        : "http://localhost:1337/avatar/18386268360.png",
+        access_token  : "bBaMrMUlIRelDL5s5399b74",
+        refresh_token : "TY4BOjc0E1Ds1WBzQCGFG539",
+        expire        : "2014-06-23T17:53:35.697Z"
     }
 ```
 
@@ -230,12 +230,12 @@ En este caso, en la cabecera de la petición el atributo `authorization` lleva l
     }
 ```
 
-Y los parámetros que tienes que enviar son:
+Y los parámetros que tienes que enviar son el grant_type con el string "refresh_token" y el valor del refresh_token del usuario:
 
 ```json
     {
-        grant_type    : "refresh_token"
-        refresh_token : refresh_token
+        grant_type    : refresh_token
+        refresh_token : "refresh_token"
     }
 ```
 
@@ -243,11 +243,11 @@ Si todo ha ido bien el servidor devuelve el siguiente objeto:
 
 ```json
     {
-        id            : 939349943434,
-        application   : 478054177842,
-        access_token  : bBaMrMUlIRelDL5s5399b74,
-        refresh_token : TY4BOjc0E1Ds1WBzQCGFG539,
-        expire        : 2014-06-24T15:19:13.138Z
+        id            : "939349943434",
+        application   : "478054177842",
+        access_token  : "bBaMrMUlIRelDL5s5399b74",
+        refresh_token : "TY4BOjc0E1Ds1WBzQCGFG539",
+        expire        : "2014-06-24T15:19:13.138Z"
     }
 ```
 
@@ -288,17 +288,6 @@ Este recurso sirve para modificar los datos personales de un usuario dentro de t
 ```
 
 En el caso de que haya ido todo bien se devolverá el código `200 OK` junto con el mismo objeto **GET /user**. En el caso de que el usuario no tenga permiso para modificar sus datos App/nima devolverá un `403 Forbidden`.
-
-
-#### POST /avatar
-Este recurso sirve para subir un avatar, para ello enviaremos los siguientes parámetros:
-```json
-    {
-        avatar:       "dhsgaohgoiagangaogisah89t2h3ugb2g2b",    /* avatar data coded in base 64 */
-    }
-```
-
-En el caso de que haya ido todo bien se devolverá el código `201 RESOURCE CREATED`.
 
 ### Contraseña
 APP/NIMA ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o cambiarla.

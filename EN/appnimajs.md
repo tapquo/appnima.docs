@@ -103,12 +103,6 @@ The `update` resource also allows users to update their data. To do this just ca
 
     Appnima.User.update(data);
 
-
-#### Avatar
-Your users can upload their own avatar file. To upload an avatar use this resource using as parameter the avatar coded in Base64:
-
-    Appnima.User.avatar(USER_AVATAR);
-
 Password
 --------
 APP/NIMA offers its users two ways to deal passwords, remember it or change it.

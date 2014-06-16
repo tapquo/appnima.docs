@@ -259,16 +259,6 @@ This resource is used to modify the personal data of a user within your applicat
 ```
 If the request was successful App/nima returns `200 Ok` and the same object **GET /user**. If the user has not permission to modify his data App/nima returns `403 Forbidden`.
 
-#### POST /avatar
-Upload user avatar with this resource. Sends the request and the following parameters:
-```json
-    {
-        avatar:       "dhsgaohgoiagangaogisah89t2h3ugb2g2b",    /* avatar data coded in base 64 */
-    }
-```
-
-Responses are returned with `201 RESOURCE CREATED`.
-
 
 ### Password
 APP/NIMA offers its users two ways to deal passwords, remember it or change it.

@@ -105,11 +105,6 @@ Puedes actualizar uno o varios campos de datos de tu usuario con este recurso. E
     Appnima.User.update(data);
 
 
-#### Avatar
-Tus usuarios pueden subir su propio fichero de avatar desde su equipo. Para subir una imagen utiliza este recurso pasando el fichero codificado en Base64:
-
-    Appnima.User.avatar(USER_AVATAR);
-
 Password
 --------
 APP/NIMA ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o cambiarla.
