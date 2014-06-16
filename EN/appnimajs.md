@@ -264,22 +264,36 @@ Messenger
 
 Mail
 ----
-Your application's users can send emails to other users using this resource. To do this, the parameters that are needed are: receiver's ID, the subject and the email body:
+Your application's users can send emails to other users using this resource. To do this, you may to send an object with this parameters: receiver's ID, the subject and the email body:
 
-    Appnima.Messenger.mail("28319319832". "Meeting", "Tomorrow morning");
+    parameters =
+        user: "o48923423423",
+        subject: "Meeting",
+        message: "Tomorrow morning."
+
+    Appnima.Messenger.mail(parameters);
 
 SMS
 ---
-APP/NIMA also provides a SMS service. To use this resource the parameters needed are the receivers ID and the message:
+APP/NIMA also provides a SMS service. To use this resource you may to send an object with  the receivers ID and the message:
 
-    Appnima.Messenger.sms("28319319832". "Remember that your appointment is tomorrow");
+    parameters =
+        user: "398439834",
+        message: "Remember that your appointment is tomorrow."
+
+    Appnima.Messenger.sms(parameters);
 
 Messages
 --------
 #### Private messages
-To use the APP/NIMA's private message service just call the resource using the following parameters: Receiver's ID, message body and optionally the subject:
+To use the APP/NIMA's private message service just call the resource sending an object with the following parameters: Receiver's ID, message body and optionally the subject:
 
-    Appnima.Messenger.message("28319319832". "Where are you? I'm at home waiting for you.", "Where are you?");
+    parameters =
+        user: "8492542",
+        subject: "Where are you?",
+        message: "Where are you? I'm at home waiting for you."
+
+    Appnima.Messenger.message(parameters);
 
 
 #### Inbox
