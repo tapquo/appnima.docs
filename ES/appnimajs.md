@@ -261,25 +261,40 @@ Messenger
 =========
 Mail
 ----
-Los usuarios de tu aplicación pueden enviar e-mail a otros usuarios del sistema mediante este recurso. Para ello, los parámetros que recibe son: el ID del usuario al que se le envía el e-mail, el asunto y el cuerpo del mensaje:
+Los usuarios de tu aplicación pueden enviar e-mail a otros usuarios del sistema mediante este recurso. Para ello, el parámetro que recibe es un objeto con los siguientes datos: el ID del usuario al que se le envía el e-mail, el asunto y el cuerpo del mensaje:
 
-    Appnima.Messenger.mail("28319319832". "Reunion", "Hoy a las 5");
+    parameters =
+        user: "28319319832",
+        subject: "Reunion",
+        message: "Hoy a las 5"
+
+    Appnima.Messenger.mail(parameters);
 
 
 SMS
 ---
-APP/NIMA también proporciona servicio de SMS. Así que para utilizar este recurso se necesita como parámetros el ID del usuario destinatario y el mensaje:
+APP/NIMA también proporciona servicio de SMS. Así que para utilizar este recurso se necesita enviar un objeto con los parámetros siguientes: el ID del usuario destinatario y el mensaje:
 
-    Appnima.Messenger.sms("28319319832". "Recuerda tu cita de la tarde");
+    parameters =
+        user: "23423432423",
+        message: "Recuerda tu cita de la tarde"
+
+    Appnima.Messenger.sms(parameters);
 
 
 Mensajes
 --------
 
 #### Enviar
-Para utilizar el sistema de mensajería privada de APP/NIMA en tu aplicación, basta con llamar al recurso pasando como parámetros los siguientes datos: ID del usuario al que se le envía el mensaje, el cuerpo del mensaje y opcionalmente al asunto del mensaje:
+Para utilizar el sistema de mensajería privada de APP/NIMA en tu aplicación, basta con llamar al recurso pasando un objeto con los siguientes parámetros: ID del usuario al que se le envía el mensaje, el cuerpo del mensaje y opcionalmente al asunto del mensaje:
 
-    Appnima.Messenger.message("28319319832". Done estas? Estoy aquí esperando.", "Donde estas?");
+    parameters =
+        user: "432432423423",
+        subject: "Donde estás?",
+        message: "Donde estás? Estoy aquí esperando."
+
+
+    Appnima.Messenger.message(parameters);
 
 
 #### Recibidos
