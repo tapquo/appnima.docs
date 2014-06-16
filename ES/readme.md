@@ -94,6 +94,9 @@ Este módulo recoge toda la funcionalidad para incluir y gestionar un usuario de
 
 Recuerda que todas las peticiones que hagas a App/nima deben ir identificadas con tu `KEY` de aplicación o bien con el `ACCESS_TOKEN` del usuario.
 
+*Example*
+
+    [GET] http://api.appnima.com/user/info
 
 ### Seguridad
 #### POST /signup

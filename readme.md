@@ -131,7 +131,7 @@ Responses are returned with `201 Created` and the object:
 ```
 
 #### POST /login
-Use this resource to find out user permissions into your application. This request needs "authorization" : "basic APPLICATION_KEY" at headers and parameter like:
+Use this resource  to provide access permissions to your application. This request needs "authorization" : "basic APPLICATION_KEY" at headers and parameter like:
 
 ```json
 {
