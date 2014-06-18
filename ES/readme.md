@@ -151,7 +151,7 @@ En caso de que la validación haya sido correcta App/nima devolver un `200` con 
   "mail"          : "javi@tapquo.com",
   "usenarme"      : "soyjavi",
   "name"          : "Javi Jimenez",
-  "avatar"        : "http://appnima.com/img/avatar.jpg",
+  "avatar"        : "http://api.appnima.com/avatar/default.jpg",
   "access_token"  : "bBaMrMUlIRelDL5s5399b74",
   "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
   "expire"        : "2014-06-23T17:53:35.697Z"
@@ -219,7 +219,7 @@ En ambos casos, solo deberás esperar a la respuesta `200 Ok` y App/nima te devu
   "mail"            : "javi@tapquo.com",
   "username"        : "soyjavi",
   "name"            : "Javi Jimenez",
-  "avatar"          : "http://appnima.com/img/avatar.jpg",
+  "avatar"          : "http://api.appnima.com/avatar/default.jpg",
   "language"        : "spanish",
   "country"         : "ES",
   "bio"             : "Founder & CTO at @tapquo",
@@ -463,19 +463,19 @@ Utiliza este recurso para buscar ususarios dentro de tu aplicación. Puedes envi
 En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios que coinciden con la búsqueda:
 ```json
     [{
-        avatar      : "http://appnima.com/img/avatar.jpg"
+        avatar      : "http://api.appnima.com/avatar/default.jpg"
         id          : "59f34ac11a7e121b112b431f"
         name        : "javi"
         username    : "javi@javi.com"
     },
     {
-        avatar      : "http://appnima.com/img/avatar.jpg"
+        avatar      : "http://api.appnima.com/avatar/default.jpg"
         id          : "59f34ac11a7e121b112b431e"
         name        : "javier"
         username    : "a3@appnima.com"
     },
     {
-        avatar      : "http://appnima.com/img/avatar.jpg"
+        avatar      : "http://api.appnima.com/avatar/default.jpg"
         id          : "59f34ac11a7e121b112b431d"
         name        : null
         username    : "j.villar@javi.com"
@@ -1313,7 +1313,7 @@ si todo va bien, devueve el calendario creado:
                 id: 52eb667ab71cd7e4be00000c,
                 username: 'a1@appnima.com-1391158906892',
                 mail: 'a1@appnima.com',
-                avatar: 'http://appnima.com/img/avatar.jpg',
+                avatar: 'http://api.appnima.com/avatar/default.jpg',
                 name: 'name'
             },
         shared: [ ]
@@ -1340,7 +1340,7 @@ En caso de que el calendario no exista, devuelve un error 404. Si por el contrar
                     id: 52eb667ab71cd7e4be00000c,
                     username: 'a1@appnima.com-1391158906892',
                     mail: 'a1@appnima.com',
-                    avatar: 'http://appnima.com/img/avatar.jpg',
+                    avatar: 'http://api.appnima.com/avatar/default.jpg',
                     name: 'name'
                 },
         shared: [ ]
@@ -1367,7 +1367,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
                         mail: 'a1@appnima.com',
                         username: 'a1@appnima.com-1391158906892',
                         name: 'name',
-                        avatar: 'http://appnima.com/img/avatar.jpg',
+                        avatar: 'http://api.appnima.com/avatar/default.jpg',
                     },
                     shared: [ 52eb667ab71cd7e4be000008 ]
                 }
@@ -1387,7 +1387,7 @@ Con este recurso podemos obtener todos los calendarios de los que el usuario log
                             mail: 'a1@appnima.com',
                             username: 'a1@appnima.com-1391158906892',
                             name: 'name',
-                            avatar: 'http://appnima.com/img/avatar.jpg',
+                            avatar: 'http://api.appnima.com/avatar/default.jpg',
                         },
                         shared: [ 52eb667ab71cd7e4be000008 ]
                      }
@@ -1422,7 +1422,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
                              username: 'u1net',
                              name: 'name',
                              mail: 'a1@appnima.com',
-                             avatar: 'http://appnima.com/img/avatar.jpg',
+                             avatar: 'http://api.appnima.com/avatar/default.jpg',
                              id: 52eb667ab71cd7e4be00000c
                             },
                   event: {
@@ -1450,7 +1450,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
                            id: 52eb667ab71cd7e4be00000c,
                            username: 'u1net',
                            mail: 'a1@appnima.com',
-                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           avatar: 'http://api.appnima.com/avatar/default.jpg',
                            name: 'name'
                          }
                 }]
@@ -1506,7 +1506,7 @@ Esta función devuelve el nuevo evento:
                         id: 52eb667ab71cd7e4be00000c,
                         username: 'a1@appnima.com-1391158906892',
                         mail: 'a1@appnima.com',
-                        avatar: 'http://appnima.com/img/avatar.jpg',
+                        avatar: 'http://api.appnima.com/avatar/default.jpg',
                         name: 'name'
                     }
             }
@@ -1563,7 +1563,7 @@ Como resultado se obtiene una lista de eventos:
                             id: 52eb667ab71cd7e4be00000c,
                             username: 'a1@appnima.com-1391158906892',
                             mail: 'a1@appnima.com',
-                            avatar: 'http://appnima.com/img/avatar.jpg',
+                            avatar: 'http://api.appnima.com/avatar/default.jpg',
                             name: 'name'
                         }
 
@@ -1599,7 +1599,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                                 id: 52eb667ab71cd7e4be00000c,
                                 username: 'a1@appnima.com-1391158906892',
                                 mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                avatar: 'http://api.appnima.com/avatar/default.jpg',
                                 name: 'name'
                             }
                 }
@@ -1634,7 +1634,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                                 id: 52eb667ab71cd7e4be00000c,
                                 username: 'a1@appnima.com-1391158906892',
                                 mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                avatar: 'http://api.appnima.com/avatar/default.jpg',
                                 name: 'name'
                             }
                 }
@@ -1669,7 +1669,7 @@ La función devuelve una lista de eventos que cumplan dichas coincidencias:
                                 id: 52eb667ab71cd7e4be00000c,
                                 username: 'a1@appnima.com-1391158906892',
                                 mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
+                                avatar: 'http://api.appnima.com/avatar/default.jpg',
                                 name: 'name'
                             }
                 }
@@ -1709,7 +1709,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                            username: 'u3net',
                            name: 'name',
                            mail: 'a3@appnima.com',
-                           avatar: 'http://appnima.com/img/avatar.jpg',
+                           avatar: 'http://api.appnima.com/avatar/default.jpg',
                            id: 52eb667ab71cd7e4be000004
                           },
                 event: {
@@ -1737,7 +1737,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
                          id: 52eb667ab71cd7e4be00000c,
                          username: 'u1net',
                          mail: 'a1@appnima.com',
-                         avatar: 'http://appnima.com/img/avatar.jpg',
+                         avatar: 'http://api.appnima.com/avatar/default.jpg',
                          name: 'name'
                         }
               }

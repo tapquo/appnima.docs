@@ -2,9 +2,9 @@ App/nima.JS
 ===========
 Descubre como dar alma a tus aplicaciones con el primer LaaS en el mundo.
 
-*Version Actual: [1.0.0]()*
+*Version Actual: [1.06.16]()*
 
-Para tener appnima.js listo para trabajar solo tienes que fijar el valor de la variable `Appnima.key` con la key que te proporciona APP/NIMA al crear una aplicación:
+Para tener appnima.js listo para trabajar solo tienes que fijar el valor de la variable `Appnima.key` con la key que te proporciona APP/NIMA al crear una aplicación en tu [**panel de gestión**](http://appnima.tapquo.com):
 
     Appnima.key = "TU_CLAVE";
 
@@ -43,22 +43,44 @@ User
 Basic
 -----
 #### Signup
-Para registrar un usuario en tu aplicación únicamente necesitas pasar como parámetros junto con la petición su e-mail, password y opcionalmente el username:
+Puedes registrar un usuario en App/nima por e-mail o username. Por lo tanto, las llamadas a la aplicación pueden ser:
 
+    Appnima.User.signup("javi@tapquo.com", "USER_PASSWORD", "soyjavi");
+    Appnima.User.signup(null, "USER_PASSWORD", "soyjavi");
     Appnima.User.signup("javi@tapquo.com", "USER_PASSWORD");
 
 
 #### Login
-Realizar el login de un usuario es tan sencillo como llamar al recurso con los parámetros mail y password:
+Realizar el login de un usuario es tan sencillo como llamar al recurso con los parámetros que has elegido para el signup:
 
     Appnima.User.login("javi@tapquo.com", "USER_PASSWORD");
-
+    Appnima.User.login(null, "USER_PASSWORD", "soyjavi");
 
 #### Logout
-Si quieres desloguear a un usuario de tu aplicación tan sencillo como llamar al método *logout* sin ningún parametro:
+Si quieres desloguear a un usuario de tu aplicación es tan sencillo como llamar al método *logout* sin ningún parametro:
 
     Appnima.User.logout();
 
+#### Sesión
+Llama a este usuario para obtener el tojen del usuario y gestionar su sesión:
+
+    Appnima.User.session()
+
+El servidor devuelve un `200` y el objeto:
+```json
+{
+  "id"              : "28319319832"
+  "mail"            : "javi@tapquo.com",
+  "username"        : "soyjavi",
+  "name"            : "Javi Jimenez",
+  "avatar"          : "http://appnima.com/img/avatar.jpg",
+  "language"        : "spanish",
+  "country"         : "ES",
+  "bio"             : "Founder & CTO at @tapquo",
+  "phone"           : "PHONE_NUMBER",
+  "site"            : "http://USER_URL"
+}
+```
 
 #### Información
 ¿Necesitas todos los datos registrados de tu usuario? Simplemente llama a este recurso para obtener información:
@@ -66,44 +88,43 @@ Si quieres desloguear a un usuario de tu aplicación tan sencillo como llamar al
     Appnima.User.info();
 
 
-Por otro lado, puedes obtener los datos de cualquier usuario de App/nima enviando la id de dicho usuario al método anterior:
+Por otro lado, puedes obtener los datos de cualquier usuario de App/nima enviando la `ID` de dicho usuario al método anterior:
 
     Appnima.User.info(12345678943);
-
 
 El objeto que obtienes en ambos casos, es como el siguiente:
 
 ```json
-    {
-        _id:            28319319832
-        mail:           "javi@tapquo.com",
-        username:       "soyjavi",
-        name:           "Javi Jimenez",
-        avatar:         "http://USER_AVATAR_URL",
-        bio:            "Founder & CTO at @tapquo",
-        phone:          "PHONE_NUMBER",
-        token:          "USER_TOKEN",
-        refresh_token:  "REFRESH_TOKEN"
-    }
+{
+  "id"              : "28319319832"
+  "mail"            : "javi@tapquo.com",
+  "username"        : "soyjavi",
+  "name"            : "Javi Jimenez",
+  "avatar"          : "http://api.appnima.com/avatar/default.jpg",
+  "language"        : "spanish",
+  "country"         : "ES",
+  "bio"             : "Founder & CTO at @tapquo",
+  "phone"           : "PHONE_NUMBER",
+  "site"            : "http://USER_URL"
+}
 ```
 
-
 #### Actualizar
-Puedes actualizar uno o varios campos de datos de tu usuario con este recurso. Envía junto a la petición qué parámetros deseas cambiar:
+Para actualizar cualquier campo del perfil del usuario debes enviar un objeto con el par de atributo-valor a la petición:
 
-    data = {
-        mail: "inigo@tapquo.com",
-        username: "haas85",
-        name: "Inigo",
-        avatar: "http://AVATAR_URL",
-        picture: "http://PICTURE_URL",
-        phone: "29306832906",
-        site: "http://tapquo.com",
-        bio: ""
-    }
+```json
+attributes = {
+  "username"  : "@soyjavi",
+  "name"      : "Javi",
+  "bio"       : "Founder & CTO at @tapquo",
+  "phone"     : "PHONE_NUMBER",
+  "site"      : "http://USER_URL"
+}
+```
 
-    Appnima.User.update(data);
+    Appnima.User.update(attributes);
 
+El atributo `AVATAR` puede ser enviado de dos maneras: puedes transformar la imagen a base64 o en el formato que te proporciona la conversión `new Image()`
 
 Password
 --------
