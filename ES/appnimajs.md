@@ -133,13 +133,18 @@ APP/NIMA ofrece a sus usuarios dos formas de tratar contraseñas, recordarla o c
 #### Recordar contraseña
 Esta acción se realiza mediante dos funciones. Primero habría que llamar al siguiente método:
 
-    Appnima.User.rememberPassword("jdkdksj421432k", "http://application_domain", "reset_password");
+    Appnima.User.rememberPassword("mail@mail.com", "3423423423", "http://application_domain");
 
-El primer parámetro se trata del ```token```del usuario de APP/NIMA, esto es, el ```ACCESS_TOKEN``` del usuario. El segundo parámetro se trata del dominio de la aplicación que llama a dicha funcionalidad y el último la url a la que se quiere llamar.
+El primer parámetro se trata del ```mail```del usuario de APP/NIMA. El segundo parámetro se trata de la ID de la aplicación de la que se quiere cambiar la contraseña y el tercero se trata del dominio de la aplicación. Este último sólo si se desea que la redirección sea a una web propia, si no será una por defecto de Appnima.
 
 Esta función envia un mail al usuario propietario del token de parte de APP/NIMA con una URL de la siguiente forma:
+Si se envía dominio la URL quedaría así:
 
-    DOMINIO/URL/CODE -> http://application_domain/reset_password/25kj4fkwnfmndjkhgjk4h5nmf
+    http://application_domain/forgot?forgot_key=CODIGO"
+
+Si por el contrario, no se envía un dominio, la URL quedaría así:
+
+    http://api.appnima.com/APPLICATION_ID/forgot?forgot_key=CODIGO"
 
 El código lo genera APP/NIMA y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña. Para esto, como se puede observar, es necesario generar un endpoint en el backend de la aplicación con dicha URL en la que haya un formulario donde rellenar la nueva contraseña deseada. Por lo tanto habría que llamar al siguiente método:
 

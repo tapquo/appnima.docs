@@ -258,27 +258,28 @@ Si se desea hacer en un paso, hay que enviar los siguientes parámetros:
 
 ```json
     {
-        token: "fdfdfer2343243"
+        mail: "mail@mail",
+        application: "34234234234324"
     }
 ```
 
-Este parámetro se trata del ```token```del usuario de App/nima, esto es, el ```ACCESS_TOKEN``` del usuario. App/nima se encargará de la gestión de la URL que se envia en el email, como se explica más adelante.
+Este parámetro se trata del ```mail```del usuario de App/nima. App/nima se encargará de la gestión de la URL que se envia en el email, como se explica más adelante.
 
-Por otro lado, si se desea hacer en dos pasos, los parámetros que hay que envíar junto con la petición, y además del ```token``` del usuario, son los siguiente:
+Por otro lado, si se desea hacer en dos pasos, los parámetros que hay que envíar junto con la petición, y además del ```mail``` del usuario, son los siguiente:
 
 
 ```json
     {
-        token: "fdfdfer2343243",
+        mail: "mail@mail.com",
         domain: "http://application_domain",
-        pwd_url: "reset_password"
+        application: "34234234234324"
     }
 ```
-El segundo parámetro se trata del dominio de la aplicación que llama a dicha funcionalidad y el último la url a la que se quiere llamar.
+El segundo parámetro se trata del dominio de la aplicación que llama a dicha funcionalidad y el último la id de la aplicación de la que se quiere modificar la contraseña.
 
 Esta función envia un mail al usuario propietario del token de parte de App/nima con una URL de la siguiente forma:
 
-    DOMINIO/URL/CODE -> http://application_domain/reset_password/25kj4fkwnfmndjkhgjk4h5nmf
+    http://DOMINIO/forgot?forgot_key=CODE
 
 El código lo genera App/nima y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña.
 
