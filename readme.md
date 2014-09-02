@@ -2,7 +2,7 @@ App/nima
 ========
 Find out how to add soul to your apps with first LaaS in the world.
 
-*Current version: [1.06.16]()*
+*Current version: [1.0.0]()*
 
 Introduction
 ------------
@@ -23,8 +23,8 @@ A bit of history, 3 years ago in [**Tapquo**](http://tapquo.com) we found a comm
 If sometime you have had to develop some of this functionalities in any project, you are welcome to our platform because App/nima is thougth to help you as a developer. We want to give you a platform made to ease your life, we love software as much as you and we seek being better. Use App/nima.
 
 
-### Architecture
-Probably now you have doubts of how App/nima can help you in being more efficient, but calm down we are going to explain you how it works. App/nima is completely based in the authentication protocol [**Oauth 2**](http://oauth.net/2/) and in the serialization via REST-style with JSON objects. If you have never used this paradigm don't worry, we are explaining step by step how to connect to the platform and will offer you explicit tools such as [**AppnimaJS**](https://github.com/tapquo/appnima.docs/blob/master/EN/appnimajs.md) that will ease you the connection process.
+### Arquitecture
+Probably now you have doubts of how App/nima can help you in being more efficient, but calm down we are going to explain you how it works. App/nima is completely based in the authentication protocol [**Oauth 2**](http://oauth.net/2/) and in the serialization via REST-style with JSON objects. If you have never used this paradigm don't worry, we are explaining step by step how to connect to the platform and will offer you explicit tools such as [**AppnimaJS**](http://) that will ease you the connection process.
 
 All the backend is deployed around the world using platforms such as Amazon or Google Cloud Engine, the ones which give us the ability to give allways the best response quality for our users. Don't worry, you won't have to be a *Jedy SysAdmin* because you will only have to communicate with our REST. The scalability is our duty, you will only have to worry about creating the best project and us in providing every day the best platform.
 
@@ -53,36 +53,97 @@ If App/nima has any problem, it is possible that you get an 5xx error. 500 means
 Clients
 -------
 
+
 Help us
 -------
 Please, don't have any doubt in contacting us if you think you can do a better API. If you think that we have to support a new functionalit or if you have found a bug, use GitHub issues. Make a fork of this documentation and send us your *pulls* with the improvements.
 
-To talk with us or with other developers about the API, suscribe to our [**mailing list**](http://tapquo.com/forum).
+To talk with us or with other developers about the API, suscribe to our [**mailing list**](https://groups.google.com/forum/#!forum/appnima).
+
+
 
 
 API REST
 ========
+Authentication
+--------------
+With this resource App/nima get user token through the OAuth system called 2-step. The resource path is:
 
-CONNECTION
-----
-To connect with the platform necessary to authenticate requests. Exists two ways: sending the application `KEY` or the `ACCESS_TOKEN` of user. You can get the application `KEY` from your [**dashboard**](http://appnima.tapquo.com). You can get the `ACCESS_TOKEN` of user at user's attributes after `signup`.
+    http://appnima.com/{RESOURCE}
 
-So, for requests with application `KEY` your headers must be like:
+The following explains how to get token using this method.
 
-```json
-{
-  "authorization" : "basic APPLICATION_KEY"
-}
+
+#### Step 1: GET /oauth/authorize
+User will be redirected to another URL. This resource is called with the following parameters:
+``` json
+response_type   : type of request. Should be `code`.
+client_id       : your public ID application.
+scope           : token permissions
+redirect_uri    : URL to redirect. It will be the same as you provide when you registered your application.
+state           : state parameter with response to identify the operation.
 ```
 
-And for requests with `ACCESS_TOKEN` of user:
+The URL will be like this:
 
-```json
-{
-  "authorization" : "bearer USER_ACCESS_TOKEN"
-}
+    http://api.appnima.com/oauth2/authorize?scope=profile,push&response_type=code&client_id=519b84f0c1881dc1b3000002&redirect_uri=http://myapp.com&state=user48
+
+The user will see a site where will be shown data application and permissions required. If rejected or something it is wrong with query, user will be redirect to site specifying the error.
+
+If the request was successful, user will be redirect to a site with a field `code` that allows to follow the process.
+
+
+#### Step 2: POST /oauth2/token
+After get `code`, token will be request. To do so, this resource will be called with "http basic authorization"  header with your appnima key and the parameters:
+```header
+    {
+        Authorization: "basic APPNIMA-KEY"
+    }
 ```
 
+
+```json
+    {
+        grant_type: "code",
+        code:       "h02h40g208ghop2envg2h9h2epne2eh092he0b2",
+        client_id:  "532023h2308h2839h"
+    }
+```
+
+If the query was successful returns `201 Created` and the object:
+```json
+    {
+        token_type:      "bearer",
+        refresh_token:   "n72c03ty202ugx2gu2u",
+        access_token:    "eh024hg02g2onvev29"
+    }
+```
+
+#### Refreshing Token: POST /oauth2/token
+When you try to access to a server's resource but it returns an error code `480` indicates that the token is expired, to refresh the `access_token` and `refresh_token` values use this resource using the "http authorization basic" header with your appnima key and the parameters:
+```header
+    {
+        Authorization: "basic APPNIMA-KEY"
+    }
+```
+
+```json
+    {
+        grant_type:          "refresh_token",
+        refresh_token:       "n72c03ty202ugx2gu2u"
+    }
+```
+
+Response returns the following object:
+
+```json
+    {
+        access_token:       'cd776kk02g2ata629`',
+        expires_in:         '2013-08-06T06:58:37.298Z',
+        refresh_token:      'kuo54jk02g9lmoovp9',
+        scope:              [ 'profile' ]
+    }
+```
 
 User
 ----
@@ -90,7 +151,7 @@ Use this resource to add users of your project within App/nima platform. To do s
 
     http://api.appnima.com/user/{{resource}}
 
-Remember all requests to App/nima should be identified by your application `KEY` or `ACCESS_TOKEN` of user. So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
+Remember all requests to App/nima should be identified by your `Appnima.key` or key pair `client` and `secret`. So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
 
 *Example*
 
@@ -99,210 +160,159 @@ Remember all requests to App/nima should be identified by your application `KEY`
 
 ### Security
 #### POST /signup
-All users of your application must be App/nima users. So the first step is register the user to get his token. This request needs "authorization" : "basic APPLICATION_KEY" and parameters like:
-
+All users of your application must be App/nima users. So the first step is register the user to get his token. Sends the request with the next parameters:
 ```json
-{
-  "mail"      : "javi@tapquo.com",
-  "password"  :  "USER_PASSWORD"
-}
+    {
+        mail:       "javi@tapquo.com",
+        password:   "USER_PASSWORD"
+    }
 ```
 
 You can send additional fields like:
+```json
+    {
+        ...
+        username:   "soyjavi",
+        name:       "Javi Jimenez",
+        avatar:     "http://USER_AVATAR_URL"
+    }
+```
+Responses are returned with `201 Created` and the object:
+```json
+    {
+        id:         "939349943434",
+        mail:       "javi@tapquo.com",
+        username:   "soyjavi",
+        name:       "Javi Jimenez",
+        avatar:     "http://USER_AVATAR_URL"
+    }
+```
+
+
+#### POST /oauth2/token
+The second step is get the token Oauth2 authentication. It will be the key for all requests into App/nima. So, send the following parameters within the header "http basic authorization"(client_id:client_secret Base64 encoded):
+```Authorization: basic client_id:client_secret```
 
 ```json
-{
-  ...
-  "username"  : "soyjavi",
-  "name"      : "Javi Jimenez",
-}
+    {
+        grant_type: "password",
+        mail:       "javi@tapquo.com",
+        password:   "USER_PASSWORD"
+    }
 ```
 
 Responses are returned with `201 Created` and the object:
-
 ```json
-{
-  "id"            : "939349943434",
-  "application"   : "478054177842",
-  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
-  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
-  "expire"        : "2014-06-24T15:19:13.138Z"
-}
+    {
+        token_type:      "bearer",
+        refresh_token:   "n72c03ty202ugx2gu2u",
+        access_token:    "eh024hg02g2onvev29"
+    }
 ```
 
-#### POST /login
-Use this resource  to provide access permissions to your application. This request needs "authorization" : "basic APPLICATION_KEY" at headers and parameter like:
 
+#### POST /login
+Use this resource to find out user permissions into your application. Sends the request with the next parameters:
 ```json
-{
-  "mail"        : "javi@tapquo.com",
-  "password"    :  "USER_PASSWORD"
-}
+    {
+        mail:       "javi@tapquo.com",
+        password:   "USER_PASSWORD"
+    }
 ```
 
 If the validation was successful App/nima returns `200 Ok` and the user data.
 
-```json
-{
-  "id"            : "5398979f21f4b9eee73e324a",
-  "mail"          : "javi@tapquo.com",
-  "usenarme"      : "soyjavi",
-  "name"          : "Javi Jimenez",
-  "avatar"        : "http://appnima.com/img/avatar.jpg",
-  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
-  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
-  "expire"        : "2014-06-23T17:53:35.697Z"
-}
-```
-
-#### POST /token
-From now, to access any resource from App/nima you must send at headers the attribute `authorization` with `ACCESS_TOKEN` value:
-
-```json
-{
-  "authorization" : "bearer ACCESS_TOKEN"
-}
-```
-
-If the `ACCESS_TOKEN` is expired or it is necessary a new one, you can use this resource to get a new `ACCESS_TOKEN`. In this case the header must be like:
-
-
-```json
-{
-  "authorization": "basic KEY",
-}
-```
-
-And the parameters mus be `grant_type` with string "refresh_token" and the value of `"REFRESH_TOKEN"` of user:
-
-```json
-{
-  "grant_type"    : "REFRESH_TOKEN"
-  "refresh_token" : "refresh_token"
-}
-```
-
-Server responds with `200` and the following object:
-
-```json
-{
-  "id"            : "939349943434",
-  "application"   : "478054177842",
-  "access_token"  : "bBaMrMUlIRelDL5s5399b74",
-  "refresh_token" : "TY4BOjc0E1Ds1WBzQCGFG539",
-  "expire"        : "2014-06-24T15:19:13.138Z"
-}
-```
 
 ### Info
 #### GET /info
-If you need to get data from the user, you should use this resource and how you're using the OAuth authentication protocol 2 is not required to send any parameter unless you want to get the information about another user from your application:
+If you need to get data from the user, you should use this resource and how you're using the OAuth authentication protocol 2 is not required to send any der parameter unless you want to get the information of any user of App/nima.
 
-```json
-{
-  "id"            : "939349943434"
-}
-```
-
-In both cases, App/nima returns:
-
+In that case you just have to send the id of the user with the method call.
 Get user data with this resource. Then, just wait the response `200 Ok` and APP/NIMA will returns:
-
 ```json
-{
-  "id"              : "28319319832"
-  "mail"            : "javi@tapquo.com",
-  "username"        : "soyjavi",
-  "name"            : "Javi Jimenez",
-  "avatar"          : "http://appnima.com/img/avatar.jpg",
-  "language"        : "spanish",
-  "country"         : "ES",
-  "bio"             : "Founder & CTO at @tapquo",
-  "phone"           : "PHONE_NUMBER",
-  "site"            : "http://USER_URL"
-}
+    {
+        id:            28319319832
+        mail:          "javi@tapquo.com",
+        username:      "soyjavi",
+        name:          "Javi Jimenez",
+        avatar:        "http://USER_AVATAR_URL",
+        language:       "spanish",
+        country:        "ES",
+        bio:           "Founder & CTO at @tapquo",
+        phone:         "PHONE_NUMBER",
+        site:           "http://USER_URL"
+    }
 ```
 
 #### PUT /update
-This resource is used to modify the personal data of a user within your application, as in the resource **GET/user/info** is not necessary to identify the user as parameter. You can send all the parameters below (but are not required to send them all):
 
-```json
-{
-  "name"        : "Javi",
-  "mail"        : "javi@tapquo.com",
-  "avatar"      : "AVATAR",
-  "language"    : "spanish",
-  "country"     : "Spain",
-  "phone"       : "PHONE_NUMBER",
-  "site"        : "http://USER_URL",
-  "bio"         : "Founder & CTO at @tapquo"
-}
+This resource is used to modify the personal data of a user within your application, as in the resource **GET/user/info** is not necessary to identify the user as parameter. You can send all the parameters below (but are not required to send them all):```json
+    {
+        mail:       "javi@tapquo.com",
+        username:   "soyjavi",
+        name:       "Javi Jimenez",
+        avatar:     "http://USER_AVATAR_URL",
+        picture:    "http://USER_PICTURE_URL",
+        bio:        "Founder & CTO at @tapquo",
+        phone:      "PHONE_NUMBER"
+    }
 ```
-
-The `AVATAR` attribute can be sent in two ways: like base64 or like `new Image()` format.
-
 If the request was successful App/nima returns `200 Ok` and the same object **GET /user**. If the user has not permission to modify his data App/nima returns `403 Forbidden`.
 
 
-### Password
-APP/NIMA offers its users two ways to deal passwords, remember it or change it.
-
-#### POST /remember/password
-This resource serves to remember password. If one backend application to remember password is necessary to do so in two steps, if not have, or do not wish to use their own backend, can be made in one step.
-
-If you want to do in one step, you must send the following parameters:
-
+#### POST /password:
+Change the user password sending the old one and the new one:
 ```json
     {
-        mail: "mail@mail.com",
-        application: "4234324233"
+        old_password:       "old_password",
+        new_password:       "new_password"
     }
 ```
 
-This parameter is user ```mail``` APP/NIMA. APP/NIMA is responsible for managing the URL that is sent in the email, as explained below.
-
-On the other hand, if you want to do it in two steps, the parameters to be sent along with the request, and in addition to the user token, are the following:
-
-
+#### POST /avatar
+Upload user avatar with this resource. Sends the request and the following parameters:
 ```json
     {
-        mail: "mail@mail.com",
-        application: "4234324233",
-        url: "http://domain"
-    }
-```
-The second parameter is the id of application and the latter is the domain of the application that calls this function.
-
-This function sends a mail to the user who owns the token from APP / NIMA with a URL as follows:
-
-    http://domain/forgot?forgot_key=CODE
-
-The code is generated by APP/NIMA and serves to identify which user request asked to remember the password.
-
-#### POST /reset/password
-As mentioned in the previous appeal, remember password can be done in two steps. If doing so, the second part is to call this resource. This feature alone can not be used because it requires the code generated in the previous appeal.
-
-For this, as you can see, it is necessary to generate an endpoint in the backend of the application with this URL where there is a form where you fill in the desired new password. Therefore we should send the application the following information:
-
-```json
-    {
-        code: "jk23j4k32knm423klh6j56jhjl",
-        password: "1234509"
+        avatar:       "dhsgaohgoiagangaogisah89t2h3ugb2g2b",    /* avatar data coded in base 64 */
     }
 ```
 
-The first parameter is the URL code generated in the previous action and the second parameter is the new password that the user wants to regenerate. Once done, APP/NIMA user sends an email telling you that your password has been changed.
-
-#### PUT /password
-This resource is used to change the password, the only requirement is to be identified with APP/NIMA. Along with the petition must give the following parameters:
+Responses are returned with `201 RESOURCE CREATED`.
+### Likes
+#### POST /like/post
+This resource is used to do favorite particular post or to remove a favorite already done. To do this, you just have to send the *id* of that post.
 
 ```json
     {
-        old_password: 123456
-        new_password: 098763
+        post: 498342893788734
+    }
+```
+If this is the first time you mark as favorite, APP NIMA return the `200 OK` response. But if you had liked before, delete that favorite and APP/NIMA return a message: *unliked*.
+
+#### GET /like/post
+This resource, if all goes well, return the list of the *posts* of the user has logged liked. To do this, you do not send anything.
+Here there is also the possibility of using *pagination* to list post as explained in the resource **TIMELINE** in ```MESSENGER```scope.
+
+#### GET /post/likers
+This resource used to get all users who have liked an specific *post*. To do this, you only need to send the *id* of that post.
+
+```json
+    {
+        post: 498342893788734
     }
 ```
 
+### Comment
+#### POST/ comment
+This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
+```json
+    { text: "Lorem ipsum"
+      post: 2131434543543
+      message: 4325436457645
+    }
+```
+#### GET /post/comment
+This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
 
 ### Terminal
 #### POST /terminal
@@ -316,6 +326,7 @@ This resource allows you register the user device. Sends the request and the fol
 ```
 
 Responses are returned with `201 RESOURCE CREATED`.
+
 
 
 #### GET /terminal
@@ -369,81 +380,14 @@ Responses are returned with `200 Ok` and the object:
 
 
 ### Support
-#### GET /user/ticket
-Use this resource to obtain a ticket specifically. Simply you have to send the ticket ID to be obtained.
-
+#### POST /ticket
+Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. Envía como parámetro junto a la petición el texto de la consulta:
 ```json
-     parameters = {id: "1356f43524fa4"}
-```
-
-#### GET /user/ticket/search
-Use this resource to find a set of tickets. You can filter by the following fields:
-
-- User: For tickets for this particular user.
-- Reference: For tickets for this reference.
-- Type: For tickets of this type.
-- Solved: (true or false) For tickets resolved (true) or earrings (false)
-
-It can search for a particular field or by mixing several. The following example would be a query with all the fields and send the object would be:
-
-```json
-     parameters = {
-     user: "1356f43524fa4"
-     reference: "3542j5425i44d"
-     type 2
-     solved: true
-    }
-```
-
-In this case you can use the pagination. This option is the same as in the `POST` methods except that not send `last_data`attribute.
-
-#### POST /user/ticket
-Use this resource as ticket managing system to resolve incidences or attend consults from users. The request requires an object as follows:
-
-```json
-    parameters = {
-        title       : "[QUESTION]: How can I do this?",
-        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
-        reference   : "1356f43524fa4",
-        type        : "2"
+    {
+        question:   '[SUGGESTION] Bigger buttons'
     }
 ```
 
-The reference field is used if you want to add the ID of any other model, either APPNIMA or another database .
-The type field can be 0, 1 or 2. If this field is not sent, the default is 0 .
-
-0 - > "question"
-1 - > " bug"
-3 -> "support"
-
-    Appnima.User.ticket(parameters);
-    
-#### PUT /user/ticket
-On the other hand, if you modify a ticket you have two options :
-
-The first would be to change the ticket. This is only possible when the ticket is not responded . To do this you just have to send the same data to create when adding the ID of the ticket to be modified .
-
-The other option is to answer a ticket. This would have to send the following criteria:
-
-```json
-    parameters = {
-        response : "Lorem ipsum"
-    }
-```
-
-Once replied to ticket, an email is sent to the creator of that ticket.
-In both cases you have to send the data to the following call:
-
-    Appnima.User.updateTicket(parameters);
-
-#### DELETE /user/ticket
-You also can delete a comment sending a following parameters.
-
-```json
-    parameters = {
-        id : "40928300482390"
-    }
-```
 
 Network
 -------
@@ -459,56 +403,55 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 
 ### Relationships
 #### GET /search
-Search people into your application. Sends any string for mail or username attribute to search:
+Search people into App/nima using this resource. You just need one parameter:
 ```json
     {
-        query:      "javi"
+        query:      "javi@tapquo.com"
     }
 ```
 
-The server returns `200 Ok` and the list that contains the query:
+Responses are returned with `200 Ok` and a list of users that match the search:
 ```json
     [{
-        avatar      : "http://appnima.com/img/avatar.jpg"
-        id          : "59f34ac11a7e121b112b431f"
-        name        : "javi"
-        username    : "javi@javi.com"
+        id:         120949303434,
+        username:   "soyjavi",
+        name:       "Javi",
+        avatar:     "AVATAR_URL",
+        follower:   true,
+        following:  false
     },
     {
-        avatar      : "http://appnima.com/img/avatar.jpg"
-        id          : "59f34ac11a7e121b112b431e"
-        name        : "javier"
-        username    : "a3@appnima.com"
+        id:         120949303433,
+        username:   "cataflu",
+        name:       "Catalina",
+        avatar:     "AVATAR_URL",
+        follower:   true,
+        following:  true
     },
     {
-        avatar      : "http://appnima.com/img/avatar.jpg"
-        id          : "59f34ac11a7e121b112b431d"
-        name        : null
-        username    : "j.villar@javi.com"
-    }]
+        id:         120949303431,
+        username:   "haas85",
+        name:       "Iñigo",
+        avatar:     "AVATAR_URL",
+        follower:   false,
+        following:  false
+    }
+    ]
 ```
-
 The variable *following* indicate that user is loggued is follow or not that user, and the variable *follower* indicate that user follow or not loggued user.
 
 #### POST /follow
 To follow a user you can use this resource with the ID user:
 ```json
     {
-        user:   "23094392049024112b431d"
+        user:       23094392049024
     }
 ```
 
 Responses are returned with `200 Ok` and the object:
 ```json
     {
-        message: "Successful"
-    }
-```
-If you want to follow a shielded relation, ie, you're a friend of the user to send and he is yours in a single call, simply send the following parameters:
-```json
-    {
-        user:   "23094392049024112b431d",
-        shield: true
+        status:     'ok'
     }
 ```
 
@@ -516,7 +459,7 @@ If you want to follow a shielded relation, ie, you're a friend of the user to se
 As **POST /follow** to unfollow a person you just need send with the request the ID user:
 ```json
     {
-        user:   "23094392049024112b431d"
+        user:       23094392049024
     }
 ```
 
@@ -524,62 +467,43 @@ Responses are returned with `200 Ok` and the object:
 
 ```json
     {
-        message: "Successful"
+        status:     'ok'
     }
 ```
-
-### Information
-With these resources you can get the list of followings and followers of a user.
 
 #### GET /following
 Retrieves the list of followings of a user. Sends the request and ID user:
 ```json
     {
-        user:   "23094392049024112b431d"
+        user:       23094392049024
     }
 ```
 
 App/nima returns `200 Ok` and the list:
 ```json
-    count: 4
     [{
-        avatar  : "http://cata.jpg"
-        id      : "52f34ac66a7e665b666b6617"
-        mail    : "cata@cata.com"
-        name    : "cata"
-        username: "cata"
+        id:         120949303434,
+        username:   "soyjavi",
+        name:       "Javi",
+        avatar:     "AVATAR_URL"
     },
     {
-        avatar  : "http://jany.jpg"
-        id      : "52f34ac66a7e665b222b6617"
-        mail    : "jany@jany.com"
-        name    : "jany"
-        username: "janixy91"
-    },
-    {
-        avatar  : "http://a1.jpg"
-        id      : "52f34ac66a7e444b666b6617"
-        mail    : "a1@appnima.com"
-        name    : "a1"
-        username: "a1@appnima.com-1391099964446-1391100156004"
-    },
-    {
-        avatar  : "http://avatar.jpg"
-        id      : "52f34ac66a7e665b666b6618"
-        mail    : "a2@appnima.com"
-        name    : "a2"
-        username: "a2@appnima.com"
-    }]
+        id:         120949303433,
+        username:   "cataflu",
+        name:       "Catalina",
+        avatar:     "AVATAR_URL"
+    }
+    ]
 ```
 
-Like in *timeline*, there is the option of getting this data using pagination. To do this, you have to add the following parameters to your call:
+Like in *timeline* of resource ```MESSENGER```, there is the option of getting this data using pagination. To do this, you have to add the following parameters to your call:
 
 
 ```json
     {
-     username       : username
-     page           : 0
-     num_results    : 5
+     user: 543534534534534534
+     page: 0
+     num_results: 5
     }
 ```
 
@@ -593,68 +517,64 @@ As **GET /following** you can retrieve a list of followers of a user.
 Retrieves the list of followings of a user. Sends the request and ID user:
 ```json
     {
-        user:       "23094392049024112b431d"
+        user:       23094392049024
     }
 ```
 
 App/nima returns `200 Ok` and the list:
 ```json
-    count: 3
     [{
-        avatar  : "http://cata.jpg"
-        id      : "52f34ac66a7e665b666b6617"
-        mail    : "cata@cata.com"
-        name    : "cata"
-        username: "cata"
+        id:         120949303434,
+        username:   "soyjavi",
+        name:       "Javi",
+        avatar:     "AVATAR_URL"
+        is_follow:  true
     },
     {
-        avatar  : "http://jany.jpg"
-        id      : "52f34ac66a7e665b222b6617"
-        mail    : "jany@jany.com"
-        name    : "jany"
-        username: "janixy91"
-    },
-    {
-        avatar  : "http://a1.jpg"
-        id      : "52f34ac66a7e444b666b6617"
-        mail    : "oihane@oihane.com"
-        name    : "oihane"
-        username: "oihane"
-    }]
+        id:         120949303431,
+        username:   "haas85",
+        name:       "Iñigo",
+        avatar:     "AVATAR_URL",
+        is_follow:  false
+    }
+    ]
 ```
-
 Like has been explained in **GET /followings**, there is also the option of getting the data using pagination. The dynamic is the same.
 
 As can be seen, in this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
 
-#### GET /friends
-
-With this resource you can get the list of friends of a user or user session. Sends the request with user id and obtain his friends. Sends without parameter and get friends of user session. Users of your application will become friends when they follow each other.
-
-Request structure:
-
+### Statistics
+#### GET /info
+Get an overview about users network. Use this resource and ID user:
 ```json
     {
-        user:       "23094392049024112b431d"
+        user:       23094392049024
     }
 ```
 
-App/nima returns `200 Ok` and the list:
+App/nima returns `200 Ok` and user total *followers* and *followings* and list of both:
 ```json
-    [{
-        avatar  : "http://jany.jpg"
-        id      : "52f34ac66a7e665b222b6617"
-        mail    : "jany@jany.com"
-        name    : "jany"
-        username: "janixy91"
-    }]
+    {
+        following:
+            users: [{
+                name: javi
+                username: soyjavi
+                bio: Lorem ipsum
+                mail: soyjavi@tapquo.com
+            }]
+            count: 1,
+        followers:
+            users: []
+            count: 0
+    }
 ```
+
 
 #### GET /check
 If you need to know about relationship with another user, use this resource and his ID user:
 ```json
     {
-        user:       "23094392049024112b431d"
+        user:       23094392049024
     }
 ```
 
@@ -666,235 +586,6 @@ If the query was successful App/nima returns `200 Ok` and the object which descr
     }
 ```
 
-
-### Post
-#### POST/post
-A post is a public message and the user can create with this resource. Only have to send this parameters with the request:
-
-```json
-    {
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
-    }
-```
-The only required field when creating a post is ```content``` that it is the content of the message.
-
-If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will returns the following parameters:
-```json
-     post = {
-        id         : 4234325425234,
-        content    : "Lorem Ipsum",
-        image      : "http://IMAGE_URL",
-        owner      : {
-            id       : 423423432423,
-            name     : user1,
-            username : username1,
-            avatar   : http://AVATAR_URL
-        },
-        comments   : [],
-        likes      : [],
-        is_liked   : false,
-        created_at : POST_CREATED_DATA
-    }
-```
-
-#### POST /put
-This resource is used to modify a previously created post. To do this, the user must send parameters with the request:
-
-```json
-    {
-        id: POST_ID,
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
-    }
-```
-If all goes well you only have to wait for the answer `200 ok` and APP/NIMA returns `message: "Successful"`.
-
-#### GET/ post
-This resource is used to obtain a specific post. To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
-
-#### DELETE/post
-This resource is used to delete a specific post.To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
-
-#### GET /post/user
-This resource is used to obtain counter of user's list of posts. If you want to get your own counter, you dont have to send anything. However, if you want to get counter of other user, you may send this user's *id* in the call:
-
-```json
-    {
-        user: 42342354543543
-    }
-```
-
-#### GET /post/search
-This resource is used to find the *posts* that having in its content a particular word. You have to send the word that you want to search:
-```json
-    {
-        query: "Lorem"
-    }
-```
-In this example, APP/NIMA will return all *posts* in its field *content* have the word "Lorem". An example would be:
-```json
-    [id         : 5453435345,
-        content    : "Lorem Ipsum",
-        image      : "http://IMAGE_URL",
-        owner      : {
-            id       : 423423432423,
-            name     : user1,
-            username : username1,
-            avatar   : http://AVATAR_URL
-        },
-        comments   : [
-                {
-                    id: 4324234,
-                    content: "Comment 1",
-                    created_at: comment_created_data,
-                    owner: {
-                        avatar: http://AVATAR_URL,
-                        id: 3425425425,
-                        name: user,
-                        username: username
-                    }
-                }
-            ],
-        likes      : [
-            {
-                avatar: http://AVATAR_URL,
-                id: 3425425425,
-                name: user,
-                username: username
-            },
-            {
-                avatar: http://AVATAR_URL,
-                id: 54236435767453,
-                name: user1,
-                username: username1
-            }
-        ],
-        is_liked   : false,
-        created_at : POST_CREATED_DATA
-        },id         : 4234325425234,
-        content    : "Lorem Ipsum",
-        image      : "http://IMAGE_URL",
-        owner      : {
-            id       : 423423432423,
-            name     : user1,
-            username : username1,
-            avatar   : http://AVATAR_URL
-        },
-        comments   : [
-                {
-                    id: 4324234,
-                    content: "Comment 1",
-                    created_at: comment_created_data,
-                    owner: {
-                        avatar: http://AVATAR_URL,
-                        id: 3425425425,
-                        name: user,
-                        username: username
-                    }
-                }
-            ],
-        likes      : [
-            {
-                avatar: http://AVATAR_URL,
-                id: 3425425425,
-                name: user,
-                username: username
-            },
-            {
-                avatar: http://AVATAR_URL,
-                id: 54236435767453,
-                name: user1,
-                username: username1
-            }
-        ],
-        is_liked   : false,
-        created_at : POST_CREATED_DATA
-        }
-    ]
-   }
-```
-There also search through *pagination* to be explained in the following resource.
-
-### Timeline
-#### GET/timeline
-This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.
-
-But if you want to get another user posts or only your own, you must send the following parameters:
-```json
-    { username: username}
-```
-This is the id of the user you want to get the post. In this case, it will only return the list of the post that created this user.
-
-If all goes well you only have to wait for the `200 OK` response and the list of posts that will return APP/NIMA.
-
-There is also the option for you to return the list of posts with pagination, that is, that in each API call it returning part of the list of posts chronologically.
-
-To do this, you must send the following parameters:
-```json
-    { page: 0,
-      num_results: 5
-      last_data: "2013-12-02 08:00:58.784Z"
-    }
-```
-To this object, if you want, must be added the user *id*.
-
-*page* variable is the page number you want to obtain, that is, the part of the list you want to get. *num_results* is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same. Finally, *last_data* variable is the creation date of the last post received in the last call. This date is important because it will be the starting point of the next part of posts.
-
-### Likes
-#### POST /post/like
-This resource is used to do favorite particular post or to remove a favorite already done. To do this, you just have to send the *id* of that post.
-
-```json
-    {
-        post: 498342893788734
-    }
-```
-If this is the first time you mark as favorite, APP NIMA return the `200 OK` response. But if you had liked before, delete that favorite and APP/NIMA return a message: *unliked*.
-
-#### GET /post/user/like
-This resource, if all goes well, return the list of the *posts* of the user has logged liked. To do this, you must send the following parameter:
-```json
-    { username: username}
-```
-Here there is also the possibility of using *pagination* to list post as explained in the resource **TIMELINE**.
-
-#### GET /post/like/users
-This resource used to get all users who have liked an specific *post*. To do this, you only need to send the *id* of that post.
-
-```json
-    {
-        post: "Lorem Impsum…"
-        id: 84935746435693
-    }
-```
-
-### Comment
-#### POST /post/comment
-This resource is used to create comments on a `post`. The idea of ​​this resourse is that you can create discussions on the post. To make a comment you must send the following parameters:
-```json
-    {
-      id      : "post_id"
-      content : "Lorem ipsume",
-      title   : "Lorem impsum"
-    }
-```
-#### GET /post/comment
-This resource is used to get all the comments from a post. You just have to send the id of the *post* so that it will return the list of comments.
-
-#### PUT /post/comment
-This resource update a comment and you only have to send id of comment and want to update attributes.
-```json
-    {
-      id      : "comment_id"
-      content : Lorem ipsum updated
-      title   : Lorem ipsum updated
-    }
-```
-#### DELETE /post/comment
-This resource drops a comment, you have to send the comment id.
 
 
 Messenger
@@ -1021,6 +712,134 @@ Responses are returned with `200 Ok` and the object:
         message:            "Resource READ."
     }
 ```
+
+### Post
+#### POST/post
+A post is a public message and the user can create with this resource. Only have to send this parameters with the request:
+
+```json
+    {
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+The only required field when creating a post is ```content``` that it is the content of the message.
+
+If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will returns the following parameters:
+```json
+    {
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+        _id:        "57592807235"
+        avatar:      "http://AVATAR_URL",
+        created_at:   "2013-12-02 08:00:58.784Z",
+        mail:      "soyjavi@tapquo.com",
+        name:    "javi",
+        username:    "soyjavi"
+    }
+   }
+```
+
+#### POST /put
+This resource is used to modify a previously created post. To do this, the user must send parameters with the request:
+
+```json
+    {
+        id: POST_ID,
+        title: "Lorem Ipsum",
+        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image: "http://IMAGE_URL
+    }
+```
+If all goes well you only have to wait for the answer `200 ok` and APP/NIMA returns the same parameters as in the `POST`.
+
+#### GET /post
+This resource is used to obtain a specific post. To do this, the user must only send `id` of the post you want to get, and if all goes well, APP/NIMA return the `200 OK` and the concrete post with same style as in `POST `.
+
+#### GET /user/post
+This resource is used to obtain counter of user's list of posts. If you want to get your own counter, you dont have to send anything. However, if you want to get counter of other user, you may send this user's *id* in the call:
+
+```json
+    {
+        user: 42342354543543
+    }
+```
+
+#### GET /post/search
+This resource is used to find the *posts* that having in its content a particular word. You have to send the word that you want to search:
+```json
+    {
+        query: "Lorem"
+    }
+```
+In this example, APP/NIMA will return all *posts* in its field *content* have the word "Lorem". An example would be:
+```json
+    [{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    },{
+        _id:            28319319832
+        application:    34246895433,
+        content:        "Loremipsum es un ejemplo.",
+        title:          "Lorem ipsum",
+        create_at:      "2013-12-02 08:00:58.784Z"
+        image:          "http://IMAGE_URL",
+        owner:          {
+         _id:        "57592807235"
+         avatar:      "http://AVATAR_URL",
+         created_at:   "2013-12-02 08:00:58.784Z",
+         mail:      "soyjavi@tapquo.com",
+         name:    "javi",
+         username:    "soyjavi"
+        }
+    }
+    ]
+   }
+```
+There also search through *pagination* to be explained in the following resource.
+
+### Timeline
+#### GET/user/timeline
+This resource is used to get the list of posts of concrete user. If you want to get the posts of your session user you not have send any parameters with the request. APP/NIMA will return the list of your posts both and the posts of users you follow (Following) sorted from oldest to most recent.
+
+But if you want to get another user posts or only your own, you must send the following parameters:
+```json
+    { id: 4234324432432}
+```
+This is the id of the user you want to get the post. In this case, it will only return the list of the post that created this user.
+
+If all goes well you only have to wait for the `200 OK` response and the list of posts that will return APP/NIMA.
+
+There is also the option for you to return the list of posts with pagination, that is, that in each API call it returning part of the list of posts chronologically.
+
+To do this, you must send the following parameters:
+```json
+    { page: 0,
+      num_results: 5
+      last_data: "2013-12-02 08:00:58.784Z"
+    }
+```
+To this object, if you want, must be added the user *id*.
+
+*page* variable is the page number you want to obtain, that is, the part of the list you want to get. *num_results* is the number of results you want to obtain. In the first call, this variable will be multiplied by 2, and in other cases, this variable is the same. Finally, *last_data* variable is the creation date of the last post received in the last call. This date is important because it will be the starting point of the next part of posts.
 
 
 Location
@@ -1281,466 +1100,6 @@ If you need save user position use this resource. Sends the request with latitud
 If the request was successful, App/nima will return `201 Created` message.
 
 
-Calendar
---------
-
-App/nima provides a calendar module. It is based on a user can create calendars, add events, and share them with others.
-
-
-#### POST /calendar
-
-With this feature the user creates a calendar. Along with the petition have to send your name and the color you want to assign:
-```json
-    {
-        name:       "Calendario de trabajo",
-        color:      "#3300FF"
-    }
-```
-
-if all goes well, returns the calendar created
-
-```json
-    caledar: {
-        id: 28319319833,
-        name: 'mi calendario',
-        color: '#FF66CC',
-        created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
-        owner:
-            {
-                id: 52eb667ab71cd7e4be00000c,
-                username: 'a1@appnima.com-1391158906892',
-                mail: 'a1@appnima.com',
-                avatar: 'http://appnima.com/img/avatar.jpg',
-                name: 'name'
-            },
-        shared: [ ]
-    }
-```
-
-#### PUT /calendar
-
-We also have the option to change the name and color of a calendar already created. You have to send the "id" of the calendar, the new name and the new color.
-```json
-    {
-        id:       "28319319833",
-        color:    "#3300FF"
-        nombre:   "Calendario de trabajo modificado"
-    }
-```
-
-If the calendar does not exist, it returns a 404 error. If on the contrary exists, returns the calendar with the changed fields:
-```json
-    calendar : {
-        id: 28319319833,
-        name: 'mi nuevo calendario',
-        color: '#FF66CC',
-        created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
-        owner:
-                {
-                    id: 52eb667ab71cd7e4be00000c,
-                    username: 'a1@appnima.com-1391158906892',
-                    mail: 'a1@appnima.com',
-                    avatar: 'http://appnima.com/img/avatar.jpg',
-                    name: 'name'
-                },
-        shared: [ ]
-    }
-```
-
-#### PUT /calendar/shared
-It is possible to share a calendar with another user, so that you can view events for this calendar. In turn, you can also remove a user from a calendar. To do this, you must send to the API the "id", the calendar, the user profile id to invite, and the "state" field, which will "add", if you want to invite or "remove" if you want eliminate.
-```json
-    {
-        id      : "28319319833",
-        profile : "28319364941"
-        state   : "add"
-    }
-```
-
-If the calendar does not exist, it returns a 404 error. If on the contrary exists, return the updated calendar. The "shared" attribute corresponds to the list of users who have shared their calendar.
-```json
-    calendar   : {
-                    id: 28319319833,
-                    name: 'slid.us',
-                    color: '#FF66CC',
-                    created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-                    owner: {
-                        id: 52eb667ab71cd7e4be00000c,
-                        mail: 'a1@appnima.com',
-                        username: 'a1@appnima.com-1391158906892',
-                        name: 'name',
-                        avatar: 'http://appnima.com/img/avatar.jpg',
-                    },
-                    shared: [ 52eb667ab71cd7e4be000008 ]
-                }
-```
-#### GET /calendar
-With this resource we can get all the calendars they own the user, and those you have shared. This returns an "array" of calendars.
-```json
-    calendar   : [
-                    {
-                        id: 28319319833,
-                        name: 'slid.us',
-                        color: '#FF66CC',
-                        created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET),
-                        owner: {
-                            id: 52eb667ab71cd7e4be00000c,
-                            mail: 'a1@appnima.com',
-                            username: 'a1@appnima.com-1391158906892',
-                            name: 'name',
-                            avatar: 'http://appnima.com/img/avatar.jpg',
-                        },
-                        shared: [ 52eb667ab71cd7e4be000008 ]
-                     }
-                 ]
-```
-
-#### DELETE /calendar
-
-There is also the possibility to delete a calendar, for that this resource is used. You only need to send as parameter "id" of the calendar.
-
-```json
-    {
-        id      : "28319319833",
-    }
-```
-If the calendar does not exist, it returns a 404 error. If on the contrary exists, return a message that everything gone successfully.
-
-    {message: Successful}
-
-#### GET /calendar/activity
-App/nima can get the activities that have emerged in our calendar. For obtain a list of activities is used this resource  and sent as parameter the "id" of the calendar.
-```json
-    {
-        id      : "28319319833",
-    }
-```
-If the calendar does not exist, it returns a 404 error. If on the contrary exists, a list of activities with the structure shown below.
-```json
-    activities : [ {
-                  id: 52f8ef8282652a000000000a,
-                  message: 'u1net has created the event',
-                  created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
-                  profile: {
-                             username: 'u1net',
-                             name: 'name',
-                             mail: 'a1@appnima.com',
-                             avatar: 'http://appnima.com/img/avatar.jpg',
-                             id: 52eb667ab71cd7e4be00000c
-                            },
-                  event: {
-                           id: 52f8ef8282652a0000000009,
-                           calendar: 52f8ef8282652a0000000004,
-                           date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
-                           date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
-                           name: 'BilboStack updated',
-                           description: 'This event is bilboStack',
-                           place: 52f8ef8282652a0000000008,
-                           assistents: [ 52eb667ab71cd7e4be000004 ],
-                           created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
-                           tags: [ learn ],
-                           guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
-                        },
-                  calendar: {
-                               id: 52f8ef8282652a0000000004,
-                               name: 'Mi calendario updated',
-                               color: '#FA58F4',
-                               created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET),
-                               owner: 52eb667ab71cd7e4be00000b,
-                               shared: [ ]
-                            },
-                  owner: {
-                           id: 52eb667ab71cd7e4be00000c,
-                           username: 'u1net',
-                           mail: 'a1@appnima.com',
-                           avatar: 'http://appnima.com/img/avatar.jpg',
-                           name: 'name'
-                         }
-                }]
-```
-The event and calendar is where the activity was performed. If the event is null, is that only affects the calendar. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted the activity.
-
-#### POST calendar/event
-Through this application, you can create an event to a calendar. Should be sent as a parameter the "id" of the calendar you want to belong to the new event, the event name, description, start and end date format mm-dd-yyyy hh: mm a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list of tags separated by users "," taguear to the event, the address at which to hold the event, location, country, latitude and longitude:
-```json
-{
-      calendar    : 52f0d497f4a9b16f47000002
-      name        : "partido de futbol"
-      description : "quedada para jugar un partido de fútbol"
-      init        : "04-14-2014 09:00"
-      finish      : "04-14-2014 11:00"
-      address     : "c/ San Mames"
-      locality    : "Bilbao
-      country     : "España"
-      latitude    : "23.23"
-      longitude   : "-2.29"
-      guest       : null
-      tags        : "futbol,deporte"
-}
-```
-This function returns the new event:
-
-```json
-    event: {
-            id: 52f0e1e6d028ec6b6f000011,
-            calendar: 28319319833,
-            date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
-            date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
-            description: 'quedada para jugar un partido de fútbol',
-            name: 'partido de futbol',
-            place:
-                    {
-                        address: 'c/ San Mames',
-                        locality: 'Bilbao',
-                        country: 'EspaÃ±a',
-                        _id: 52f0e1e6d028ec6b6f000010,
-                        __v: 0,
-                        created_at: Tue Feb 04 2014 13:49:42 GMT+0100 (CET),
-                        position: [ -2.29, 23.23 ]
-                    },
-            assistents: [ ],
-            created_at: Tue Feb 04 2014 13:49:42 GMT+0100 (CET),
-            tags: [futbol, deporte],
-            owner:
-                    {
-                        id: 52eb667ab71cd7e4be00000c,
-                        username: 'a1@appnima.com-1391158906892',
-                        mail: 'a1@appnima.com',
-                        avatar: 'http://appnima.com/img/avatar.jpg',
-                        name: 'name'
-                    }
-            }
-```
-#### PUT calendar/event
-
-It also allows us to modify an event through this resource. You must send at an object that takes as parameters the "id" of the event to be modified, the event name, description, start and end date in the format mm-dd-yyyy hh: mm a string with a list "id" separated "," corresponding to the users you want to share this event, a string with a list separated by "," address at which to hold the event tags users locally , country, latitude and longitude.
-```json
-{
-      event       : 52f0e1e6d028ec6b6f000011
-      calendar    : 52f0d497f4a9b16f47000002
-      name        : "partido de baloncesto"
-      description : "quedada para jugar un partido de baloncesto"
-      init        : "04-14-2014 09:00"
-      finish      : "04-14-2014 11:00"
-      address     : "c/ San Mames"
-      locality    : "Bilbao
-      country     : "España"
-      latitude    : "23.23"
-      longitude   : "-2.29"
-      guest       : null
-      tags        : "futbol,deporte"
-}
-```
-If the event does not exist, it returns a 404 error. If on the contrary exists, returns the event to the fields modified the structure of the object that is returned in the create event.
-
-#### GET calendar/event
-Through this resource can be obtained events calendars on the user owns , events calendars that have been shared , and the events to which you have been invited. Must filter events by time so required the "time" parameter, which will be "month" if you get events for a specific month , so there will also send the parameter "year" with the year in the format "YYYY" and "month" parameter to the desired month in "mm" format. If you want the contrareo only get events a week, the "time" parameter must have a value of "week" , and should be sent as parameter "year" , "month" and " day" that will value the year as month and day of a date which is within the desired week. Or if instead , you want to get the events for a particular day "time" should have a value of " day" and should also send "year" , "month" and "day" which will have the value date of the day desired
-```json
-{
-      time  : day
-      year  : 2014
-      month : 04
-      day   : 20
-}
-```
-As result is obtained a list of events
-
-    ```json
-            events: [{
-                id: 52f0ed7893888c029200000f,
-                calendar: 52f0ed7893888c0292000002,
-                date_init: Sun Apr 20 2014 09:00:00 GMT+0200 (CEST),
-                date_finish: Thu Mar 20 2014 11:00:00 GMT+0100 (CET),
-                name: 'company dinner',
-                description: 'This event is company dinner',
-                place: 52f0ed7893888c029200000e,
-                assistents: [ ],
-                created_at: Tue Feb 04 2014 14:39:04 GMT+0100 (CET),
-                tags: [ dinner,  enjoy ],
-                owner:
-                        {
-                            id: 52eb667ab71cd7e4be00000c,
-                            username: 'a1@appnima.com-1391158906892',
-                            mail: 'a1@appnima.com',
-                            avatar: 'http://appnima.com/img/avatar.jpg',
-                            name: 'name'
-                        }
-
-            }]
-    ```
-#### PUT calendar/event/guest
-
-Another feature that is possible through this resource is to invite a user to an event, so that he too can see the event. Or on the contrary, an invitation to remove that user no longer see the event. To do this, simply run the following function shown below, sending as parameters the "id" of the event, the "id" to invite the user, and "add" or "remove" if you want to add invitation , "add" is sent if instead you want to remove, is sent "remove".
-
-```json
-{
-      event   : 52f0f4f313255536a8000005
-      profile : 52eb667ab71cd7e4be00000c
-      state   : add
-}
-```
-If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
-```json
-    event   : {
-                    id: 52f0f4f313255536a8000005,
-                    calendar: 52f0f4f213255536a8000002,
-                    date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
-                    date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
-                    name: 'meeting osakidetza updated',
-                    description: 'meeting to discuss changes in the implementation',
-                    place: 52f0f4f313255536a8000004,
-                    assistents: [ ],
-                    created_at: Tue Feb 04 2014 15:10:59 GMT+0100 (CET),
-                    tags: [ app,  osakidetza ],
-                    guest: [ 52eb667ab71cd7e4be000004 ],
-                    owner:
-                            {
-                                id: 52eb667ab71cd7e4be00000c,
-                                username: 'a1@appnima.com-1391158906892',
-                                mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
-                                name: 'name'
-                            }
-                }
-```
-#### PUT calendar/event/assistent
-To confirm your attendance at an event or delete  is used this resource. Is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove" parameter. If you want to confirm attendance, "add" is sent if instead you want to remove the confirmation of attendance is sent "remove".
-```json
-{
-      event   : 52f0f4f313255536a8000005
-      profile : 52eb667ab71cd7e4be00000c
-      state   : add
-}
-```
-If the event does not exist, it returns a 404 error. If on the contrary exists, returns  the updated event. The "assistents" attribute corresponds to the list of users who will attend the event.
-
-```json
-    event   : {
-                    id: 52f0f84333e9d53db2000005,
-                    calendar: 52f0f84233e9d53db2000002,
-                    date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET),
-                    date_finish: Sat Feb 15 2014 17:00:00 GMT+0100 (CET),
-                    name: 'meeting osakidetza updated',
-                    description: 'meeting to discuss changes in the implementation',
-                    place: 52f0f84333e9d53db2000004,
-                    assistents: [ 52eb667ab71cd7e4be000004 ],
-                    created_at: Tue Feb 04 2014 15:25:07 GMT+0100 (CET),
-                    tags: [ app,  osakidetza ],
-                    guest: [ 52eb667ab71cd7e4be000004 ],
-                    owner:
-                            {
-                                id: 52eb667ab71cd7e4be00000c,
-                                username: 'a1@appnima.com-1391158906892',
-                                mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
-                                name: 'name'
-                            }
-                }
-```
-#### GET calendar/event/search
-
-APP/NIMA allows you to search for events. By using this resource should be sent as a parameter a word, and looks for a match with that word in the name and description of the events that you have access. That is, those who are on a calendar where you're the owner or have you shared those events that you have invited:
-
-```json
-{
-      query   : "futbol"
-}
-```
-
-The function returns a list of events satisfying these matches:
-
-```json
-    events : [
-                {
-                    id: 52f0fa9eb70ed01fb9000018,
-                    calendar: 52f0fa9eb70ed01fb9000013,
-                    date_init: Sat Feb 22 2014 11:00:00 GMT+0100 (CET),
-                    date_finish: Sat Feb 22 2014 12:00:00 GMT+0100 (CET),
-                    name: 'meeting with juanjo',
-                    description: 'meeting with Juanjo in Near',
-                    place: 52f0fa9eb70ed01fb9000017,
-                    assistents: [ ],
-                    created_at: Tue Feb 04 2014 15:35:10 GMT+0100 (CET),
-                    tags: [ near ],
-                    guest: [ ],
-                    owner:
-                            {
-                                id: 52eb667ab71cd7e4be00000c,
-                                username: 'a1@appnima.com-1391158906892',
-                                mail: 'a1@appnima.com',
-                                avatar: 'http://appnima.com/img/avatar.jpg',
-                                name: 'name'
-                            }
-                }
-            ]
-```
-#### DELETE calendar/event
-It is possible to delete an event, you just have to use this facility to send as parameter the "id" of the event to be deleted.
-```json
-{
-      id   : 52f0fa9eb70ed01fb9000018
-}
-```
-If the event does not exist, it returns a 404 error. If on the contrary exists, returns a message that everything gone successfully.
-```json
-    {message: Successful}
-```
-
-#### GET calendar/event/activity
-
-As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With this resource by sending as parameter the "id" of an event provides us with a list of activities that have happened in it, such as: they modify that event, invite someone or taking off of the guest list or attendance or poor medical assistance to a user .
-```json
-{
-      id   : 52f0fa9eb70ed01fb9000018
-}
-```
-If the event does not exist, it returns a 404 error. If on the contrary exists,returns a list of activities with the structure shown below
-```json
-    activities : [
-                {
-                id: 52f8f6a96946870000000034,
-                message: 'Has invited the event to u3net',
-                created_at: Mon Feb 10 2014 16:56:25 GMT+0100 (CET),
-                profile: {
-                           username: 'u3net',
-                           name: 'name',
-                           mail: 'a3@appnima.com',
-                           avatar: 'http://appnima.com/img/avatar.jpg',
-                           id: 52eb667ab71cd7e4be000004
-                          },
-                event: {
-                         id: 52f8f6a86946870000000009,
-                         calendar: 52f8f6a86946870000000004,
-                         date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST),
-                         date_finish: Mon Apr 14 2014 11:00:00 GMT+0200 (CEST),
-                         name: 'BilboStack updated',
-                         description: 'This event is bilboStack',
-                         place: 52f8f6a86946870000000008,
-                         assistents: [ 52eb667ab71cd7e4be000004 ],
-                         created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
-                         tags: [ learn ],
-                         guest: [ 52eb667ab71cd7e4be000004, 52eb667ab71cd7e4be000008 ]
-                        },
-                calendar: {
-                            id: 52f8f6a86946870000000004,
-                            name: 'Mi calendario updated',
-                            color: '#FA58F4',
-                            created_at: Mon Feb 10 2014 16:56:24 GMT+0100 (CET),
-                            owner: 52eb667ab71cd7e4be00000b,
-                            shared: [ ]
-                          },
-                owner: {
-                         id: 52eb667ab71cd7e4be00000c,
-                         username: 'u1net',
-                         mail: 'a1@appnima.com',
-                         avatar: 'http://appnima.com/img/avatar.jpg',
-                         name: 'name'
-                        }
-              }
-            ]
-```
-The event calendar is where the activity was performed. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted activity.
-
 Socket
 ------
 App/nima provides sockets environments to get chat rooms. To do so, all request have to go to:
@@ -1763,21 +1122,21 @@ To create a room we will call to the `open` method. This one will receive the fo
 * Room name
 * Room Type
 * If we want that the room persist in time
-* Allowed user's id array
+* Allowed users' id array
 
 If everythng is right the room will be created and the author will be automatically connected to it.
 
 #### join
 A user can be connected to a room if it is created and he has permission to connect to it. To do this `join` method must be called with the following parameters:
 
-* User's token
+* User's token (for anonymous session not required)
 * Context (identification of the room to connect)
-* Type (Room's type)
+* Application id (in case of anonymous session it is mandatory)
 
 #### leave
 To disconnect from a room just call the method `leave`.
 
-#### sendMessage
+#### sendmessage
 To send a message to a room just call the method `sendMessage` with an object as parameter (a message can be any type of data). This message will be received by all the room's users, also the sender, through a listener called `onMessage` and it will have the following format:
 ```json
     {
@@ -1787,14 +1146,14 @@ To send a message to a room just call the method `sendMessage` with an object as
     }
 ```
 
-#### broadcastMessage
+#### sendbroadcast
 This methods works as `sendMessage`, the unique difference is that the sender won't receive the message.
 
-#### allowUsers
-Users can be added to the allowed user list using `allowUsers` method, to do this just call this method and use users ids array as parameter.
+#### allowusers
+Users can be added to the allowed user list using `allowUsers` method, to do this just call this method and use users' id array as parameter.
 
-#### disallowUsers
-Users can be removed from the allowed user list using `disallowUsers` method, to do this just call this method and use users ids array as parameter.
+#### disallowusers
+Users can be removed from the allowed user list using `disallowUsers` method, to do this just call this method and use users' id array as parameter.
 
 
 ### Types and permissions
@@ -1846,188 +1205,3 @@ This resource allows you to send push notifications to the user device. Sends th
     }
 ```
 If the notification was successful App/nima returns `200 Ok`.
-
-Payments
---------
-Use this resource to make purchases and payments through appnima payment gateway. To do so, all request have to go to:
-
-    http://api.appnima.com/payments/{RESOURCE}
-
-Remember all requests to App/nima should be identified by your `Appnima.key` or key pair `client` and `secret`.
-
-So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) and the second the name of resource.
-
-### Credit Cards
-Credit cards are the most extendend payment system nowadays.To make purchases that involve money first you have to set a payment method to a user. Appnima has his own way to handle credit card information. The way to set a credit card for you application users is very easy.
-
-#### POST /creditcard
-To create a credit card for a user you must send the credit card information. Number, cvc (Optional) and expiration date.
-```json
-    {
-         number: "4242424242424242"
-         cvc: 123
-         expiration_date: "11/2015"
-    }
-```
-If all has gone correctly Appnima will confirm with `200 {id: "credit_card_ID",number: "xxxxxxxxxxxx4242"}` and your user now will have this credit_card information attached to his profile.
-
-You can add optionally a alias parameter such as you can identify easily your cards
-
-```json
-    {
-         number: "4242424242424242"
-         cvc: 123
-         expiration_date: "11/2015"
-         alias: "my favourite card"
-    }
-```
-
-#### GET /creditcard
-You can attach as many credit cards to a user profile as you want, if you want to check how many credit cards a user you can call credit card without parameters.
-
-And you will receive all the ofuscated credit cards attached to your profile.
-
-#### DELETE /creditcard
-You can also can delete credit cards from your profile, the way to do it is sending the id of the credit card you want to erase.
-
-```json
-    {
-         id: "credit_card_ID"
-    }
-```
-If the credit card information was successfuly deleted App/nima returns `200 Ok`.
-
-#### PUT /creditcard
-Also you can modify the values of a credit card attached to a profile, you only have to send the id with the parameters you want to update.
-```json
-    {
-         id: "credit_card_ID",
-         number: "4343434343434343"
-    }
-```
-If the credit card information was successfuly updated App/nima returns `200 Ok`.
-
-
-### Purchases
-To make purchases through appnima you can do it in 3 different ways,free purchases, purchases using credit cards as payment method through Stripe and purchases with PayPal.
-
-To choose between this 3 options you only have to change the provider parameter. To make free purchases you have to omit the provider parameter, just dont send it. To choose Stripe you must send provider:0 and to choose PayPal you should choose provider:1.
-
-
-
-#### POST /purchase
-Purchases without money exchange requirements should be done through purchase option. The purchases of appnima are made in a two step procedure. The way to generate a correct purchase you must follow this sequence. Generation of a purchase and confirmation.
-
-With this method you generate a purchase into appnima,you can choose between 3 posible
-Optionally you can send a reference object with the structure you want, just encode it with JSON.stringify method.
-
-```json
-    {
-        reference: '{ "id":"example id", "content": "example content", "number": 666 }'
-    }
-```
-
-If the purchase was successfuly created App/nima returns `200 confirmation {token: "purchase_secret_token", amount: 0 "}`.
-
-Lets see how to choose between different providers
-
-##### Create Stripe purchase
-To make a purchase through stripe you should send provider parameter set to 0, and the credit card id with the cvc.
-
-```json
-    {
-        provider     : 0,
-        credit_card : credit_card_id,
-        cvc         : 123,
-        amount      : 600000,
-        reference: '{ "id":"example id", "content": "example content", "number": 666 }'
-    }
-```
-
-If the purchase was successfuly created App/nima returns `200 confirmation {token: "purchase_secret_token", amount: 600000"}`.
-
-##### Create Paypal purchase
-To create a paypal purchase you only have to set the provider parameter set to 1 and the amount needed, If you include the reference object with a description, description value will be shown in the Paypal gateway as purchase information.
-
-```json
-    {
-        provider     : 1,
-        amount      : 600000,
-        reference: '{ "id":"example id", "description": "Purchase info"}'
-    }
-```
-If the purchase was successfuly created App/nima returns `200 confirmation {token: "purchase_secret_token", amount: 600000"}`.
-
-#### POST /confirm
-To make efective the purchase generated in the previous step you must send a confirmation to Appnima with the security token and the amount set to 0
-
-
-```json
-    {
-        token: "purchase_secret_token,
-        amount: 0
-    }
-```
-If the purchase is confirmed you must receive a `200 purchase {id: "purchase_ID",payed_at: purchase_confirmation_date, state: purchase_state "}`.
-
-##### Confirm Stripe purchase
-To confirm a stripe purchasing you must send provider parameter set to 0, purchase token and the amount.
-
-```json
-    {
-        provider: 0,
-        token: "purchase_secret_token,
-        amount: 600000
-    }
-```
-
-#### GET /purchase
-Get purchase without sending any parameters will show you all your profile purchases
-
-
-#### GET /purchase/search
-Search method will find you in your profile purchases the one who match with reference parameters. For example assuming your purchases have a reference.id and a content your search should be like this.
-
-```json
-    {
-        id: "example id",
-        content: "example content"
-    }
-```
-This method will return you all the purchases that match with te given reference parameters. Remind that this methos returns all type of purchases free and not free ones.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

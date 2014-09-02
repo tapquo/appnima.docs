@@ -117,7 +117,7 @@ The first parameter is the user ```mail``` of APP/NIMA. The second parameter is 
 This function sends a mail to the user who owns the token from APP/NIMA with a URL as follows:
 If you not send an url for domain:
 
-    http://api.appnima.com/APPLICATION_ID/forgot?forgot_key=CODE
+    http://appnima.com/forgot/APPLICATION_ID?forgot_key=CODE
 
 If you sent it:
 

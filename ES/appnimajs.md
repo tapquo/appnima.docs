@@ -144,7 +144,7 @@ Si se envía dominio la URL quedaría así:
 
 Si por el contrario, no se envía un dominio, la URL quedaría así:
 
-    http://api.appnima.com/APPLICATION_ID/forgot?forgot_key=CODIGO"
+    http://appnima.com/forgot/APPLICATION_ID?forgot_key=CODIGO"
 
 El código lo genera APP/NIMA y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña. Para esto, como se puede observar, es necesario generar un endpoint en el backend de la aplicación con dicha URL en la que haya un formulario donde rellenar la nueva contraseña deseada. Por lo tanto habría que llamar al siguiente método:
 
