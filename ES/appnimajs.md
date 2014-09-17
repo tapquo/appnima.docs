@@ -171,7 +171,15 @@ Terminal
 #### Registrar/Actualizar
 Con este recurso puedes registrar o actualizar el dispositivo con el que tu usuario accede a tu aplicación. La petición se realiza de la siguiente forma:
 
-    Appnima.User.terminal("Android", "Phone", "MobilePhone", "4.1");
+    parameters = {
+        "os": "Android",
+        "type": "Phone",
+        "token": "Alzafjdsfi34mfds-fsdkfljsdklfds",
+        "version": "4.1"
+    }
+    Appnima.User.terminal(parameters);
+
+El token se trata de la clave que recibes del GCM.
 
 #### Información
 Obten los terminales con los que el usuario ah accedido a la aplicación utilizando este recurso:
@@ -1307,10 +1315,15 @@ El evento y el calendario, es dónde se ha realizado la actividad. El campo "own
 
 Push
 ====
-Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto de la notificación y el contenido:
+Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto de la notificación y el contenido en un objeto como el siguiente:
 
-    Appnima.Push.send("28319319833", "Mensaje", {"title": "JSON con los campos necesarios", "text": "Hola App/nima!"});
+    parameters = {
+        "user": "28319319833",
+        "title": "Título de mi push",
+        "message": "Message de mi push"
+    }
 
+    Appnima.Push.send(parameters);
 
 
 Socket

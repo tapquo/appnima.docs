@@ -149,7 +149,16 @@ Terminal
 #### Register or Update
 With this resource you can register or update the device the user is using to access the application. The request is done in the following way:
 
-    Appnima.User.terminal("Android", "Phone", "MobilePhone", "4.1");
+    parameters = {
+        "os": "Android",
+        "type": "Phone",
+        "token": "Alzafjksadljfsdifwf-fjsdaklfjsd",
+        "version": "4.1"
+    }
+
+    Appnima.User.terminal(parameters);
+
+The token is received from GCM services.
 
 #### Info
 Get the terminals that the user has used to access to the application using this resource:

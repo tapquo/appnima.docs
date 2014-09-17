@@ -1198,10 +1198,8 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 This resource allows you to send push notifications to the user device. Sends the request and the following parameters:
 ```json
     {
-        user:       23094392049024,
-        alert:      ""Texto a mostrar en la notificación",
-        content":   {"title": "JSON con los campos necesarios",
-        "text": "Hola App/nima!"
-    }
+        user: 23094392049024,
+        title: "Texto a mostrar en la notificación",
+        message: "El message de la push"
 ```
 If the notification was successful App/nima returns `200 Ok`.

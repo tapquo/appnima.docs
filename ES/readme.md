@@ -1906,8 +1906,8 @@ Envía notificaciones push mediante este recurso. Junto con la petición, envía
 ```json
     {
         user:       23094392049024,
-        alert:      ""Texto a mostrar en la notificación",
-        content":   {"title": "JSON con los campos necesarios", "text": "Hola App/nima!"}
+        title:      "Texto a mostrar en la notificación",
+        message":   "Es mi message"
     }
 ```
 En caso de éxito se devolverá el código `200 Ok`.
