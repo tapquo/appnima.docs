@@ -246,7 +246,8 @@ Get user data with this resource. Then, just wait the response `200 Ok` and APP/
 
 #### PUT /update
 
-This resource is used to modify the personal data of a user within your application, as in the resource **GET/user/info** is not necessary to identify the user as parameter. You can send all the parameters below (but are not required to send them all):```json
+This resource is used to modify the personal data of a user within your application, as in the resource **GET/user/info** is not necessary to identify the user as parameter. You can send all the parameters below (but are not required to send them all):
+```json
     {
         mail:       "javi@tapquo.com",
         username:   "soyjavi",
