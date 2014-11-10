@@ -9,7 +9,7 @@ Introducción
 ------------
 Simplemente por leer este documento declara que eres un desarrollador que quiere mejorar constantemente y quiere crear proyectos cada vez más eficientes. App/nima es la primera plataforma que ofrece servicios lógicos para cualquier tipo de proyecto, da igual si quieres crear una aplicación o un site, App/nima te ayudará en ambas situaciones.
 
-Un poco de historia, hace ya casi 4 en [**Tapquo**](http://tapquo.com) nos encontramos con un problema común en el mundo del desarrollo y no era más que cada nuevo producto que creabamos debiamos repetir una y otra vez la misma funcionalidad básica. App/nima surgio de la necesidad de ser cada vez más eficientes y de querer desarrollar únicamente el negocio implicito de nuestro nuevo producto y no tanto de la lógica horizontal:
+Un poco de historia, hace ya casi 4 años en [**Tapquo**](http://tapquo.com) nos encontramos con un problema común en el mundo del desarrollo y no era más que cada nuevo producto que creabamos debiamos repetir una y otra vez la misma funcionalidad básica. App/nima surgio de la necesidad de ser cada vez más eficientes y de querer desarrollar únicamente el negocio implicito de nuestro nuevo producto y no tanto de la lógica horizontal:
 
 + Servicio OAuth 2 para la autentificación
 + Gestión de usuarios
@@ -142,6 +142,17 @@ Cada vez que quieras validar si el usuario tiene permisos para acceder a tu apli
   "password"    :  "USER_PASSWORD"
 }
 ```
+
+o
+
+```json
+{
+  "username"    : "soyjavi",
+  "password"    : "USER_PASSWORD"
+}
+```
+
+Depende de con qué se haya registrado el usuario.
 
 En caso de que la validación haya sido correcta App/nima devolver un `200` con los datos del usuario:
 
@@ -404,7 +415,8 @@ Utiliza este recurso como sistema de gestión de tickets para la resolución de 
 ```json
     parameters = {
         title       : "[QUESTION]: How can I do this?",
-        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",               reference   : "1356f43524fa4",
+        description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+        reference   : "1356f43524fa4",
         type        : "2"
     }
 ```
@@ -502,8 +514,8 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 Si se desea realizar un follow blindado, esto es, que tú seas amigo del usuario que envíar y que él sea el tuyo en una única llamada, simplemente hay que enviar los siguientes parámetros:
 ```json
     {
-        user:   "23094392049024112b431d",
-        shield: true
+        user   :   "23094392049024112b431d",
+        shield : true
     }
 ```
 
@@ -710,9 +722,9 @@ En el caso de que la respuesta haya sido satisfactoria se devolverá un `201 Cre
 Si lo necesitas, Appnima te provee de un sistema de mensajería interno entre los usuarios de tu aplicación. Los parámetros que necesita la petición son:
 ```json
     {
-        user:       23094392049024,
-        subject:    "Appnima.com",
-        message:    "Welcome to appnima.messenger [MESSAGE]"
+        user    : 23094392049024,
+        subject : "Appnima.com",
+        body    : "Welcome to appnima.messenger [MESSAGE]"
     }
 ```
 
@@ -722,7 +734,6 @@ El campo subject es opcional y si la petición ha salido bien se devolverá un `
         message:    'Message sent successfully.'
     }
 ```
-
 
 #### GET /message/outbox
 Los usuarios de tu aplicación pueden recuperar los mensajes enviados. Para ello basta con llamar al recurso pasando como parámetro outbox.
@@ -735,13 +746,13 @@ Los usuarios de tu aplicación pueden recuperar los mensajes enviados. Para ello
 Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la bandeja indicada:
 ```json
     {
-        _id:            120949303434,
-        from:           120949303434,
-        to:             120949303433,
-        application     220949303432
-        subject         "Appnima.com",
-        body            "Welcome to appnima.messenger [MESSAGE]",
-        state           SENT
+        _id         : 120949303434,
+        from        : 120949303434,
+        to          : 120949303433,
+        application : 220949303432
+        subject     : "Appnima.com",
+        body        : "Welcome to appnima.messenger [MESSAGE]",
+        state       : SENT
     }
 ```
 
@@ -758,13 +769,13 @@ Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
 
 ```json
     {
-        _id:            120949303434,
-        from:           120949303434,
-        to:             120949303433,
-        application     220949303432
-        subject         "Appnima.com",
-        body            "Welcome to appnima.messenger [MESSAGE]",
-        state           READ
+        _id         : 120949303434,
+        from        : 120949303434,
+        to          : 120949303433,
+        application : 220949303432
+        subject     : "Appnima.com",
+        body        : "Welcome to appnima.messenger [MESSAGE]",
+        state       : READ
     }
 ```
 
@@ -772,8 +783,8 @@ Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
 Para que se refleje que el usuario ha leído un mensaje o que desea eliminarlo de su sistema, basta con enviar en la petición los siguientes parámetros:
 ```json
     {
-        message:    23094392049024,
-        state:      "READ" /*READ o DELETED*/
+        message : 23094392049024,
+        state   : "READ" /*READ o DELETED*/
     }
 ```
 
@@ -791,9 +802,9 @@ Un post se trata de un mensaje público y el usuario con este recurso puede crea
 
 ```json
     {
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
+        title   : "Lorem Ipsum",
+        content :  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image   : "http://IMAGE_URL
     }
 ```
 El único campo obligatorio a la hora de crear un post es el ```content``` que se trata del contenido del mensaje.
@@ -822,10 +833,10 @@ Este recurso sirve para modificar un post creado anteriormente. Para ello, el us
 
 ```json
     {
-        id: POST_ID,
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
+        id      : POST_ID,
+        title   : "Lorem Ipsum",
+        content :  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image   : "http://IMAGE_URL
     }
 ```
 
@@ -1297,8 +1308,8 @@ App/nima proporciona un módulo de calendarios. Se basa en que un usuario puede 
 Con este recurso el usuario crea un calendario. Junto con la petición hace falta enviar su nombre y el color que le quieras asignar:
 ```json
     {
-        name:       "Calendario de trabajo",
-        color:      "#3300FF"
+        name  : "Calendario de trabajo",
+        color : "#3300FF"
     }
 ```
 si todo va bien, devueve el calendario creado:
@@ -1324,9 +1335,9 @@ si todo va bien, devueve el calendario creado:
 Se puede modificar un calendario ya creado, tanto su nombre como su color. Para ello hay que mandar a la API la "id" de dicho calendario, el nuevo nombre y el nuevo color.
 ```json
     {
-        id:       "28319319833",
-        color:    "#3300FF"
-        nombre:   "Calendario de trabajo modificado"
+        id     : "28319319833",
+        color  : "#3300FF"
+        nombre : "Calendario de trabajo modificado"
     }
 ```
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados:
@@ -1398,12 +1409,13 @@ Con este recurso podemos obtener todos los calendarios de los que el usuario log
 También hay la posibilidad de eliminar un calendario, para esto se utiliza este recurso. Únicamente hay que enviar como parámetro la "id" de dicho calendario.
 ```json
     {
-        id      : "28319319833",
+        id: "28319319833",
     }
 ```
 En caso de que el calendario no exista, devuelve un error 404. En caso de que vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
-```json
-    {message: Successful}
+```json {
+    message: Successful
+  }
 ```
 
 #### GET /calendar/activity

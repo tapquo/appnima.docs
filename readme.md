@@ -8,7 +8,7 @@ Introduction
 ------------
 Just for reading this document you are telling that you are a developer who wants to improve his skills continously and wants to create more efficient projects. App/nima is the first platform which offers logic services for any type of project, no matter you want to create an application or a site, App/nima will help you in both situations.
 
-A bit of history, 3 years ago in [**Tapquo**](http://tapquo.com) we found a common problem in the development area, it was sthat each new product we create we had to repeat every time the same basic functionalities. App/nima borns from the need of being more efficients and the desire to develop only the business features of our new product and no more the horizontal l
+A bit of history, 4 years ago in [**Tapquo**](http://tapquo.com) we found a common problem in the development area, it was sthat each new product we create we had to repeat every time the same basic functionalities. App/nima borns from the need of being more efficients and the desire to develop only the business features of our new product and no more the horizontal l
 
 + OAuth 2 services for authentication
 + User management
@@ -641,16 +641,16 @@ Responses are returned with `201 Created` and the object:
 If you need, App/nima gives private messaging between users on your application. Sends the request with the next parameters:
 ```json
     {
-        user:       23094392049024,
-        subject:    "Appnima.com",
-        message:    "Welcome to appnima.messenger [MESSAGE]"
+        user    : 23094392049024,
+        subject : "Appnima.com",
+        body    : "Welcome to appnima.messenger [MESSAGE]"
     }
 ```
 
 The field subject is optional and App/nima returns `201 Created` and the object:
 ```json
     {
-        message:    'Message sent successfully.'
+        message: 'Message sent successfully.'
     }
 ```
 
@@ -658,20 +658,20 @@ The field subject is optional and App/nima returns `201 Created` and the object:
 Users of your application can retrieves messages sent. Just use this resource with the next parameter:
 ```json
     {
-        context:    outbox
+        context: outbox
     }
 ```
 
 App/nima returns `200 Ok` and a list of messages:
 ```json
     {
-        _id:            120949303434,
-        from:           120949303434,
-        to:             120949303433,
-        application     220949303432
-        subject         "Appnima.com",
-        body            "Welcome to appnima.messenger [MESSAGE]",
-        state           SENT
+        _id         : 120949303434,
+        from        : 120949303434,
+        to          : 120949303433,
+        application : 220949303432,
+        subject     : "Appnima.com",
+        body        : "Welcome to appnima.messenger [MESSAGE]",
+        state       : SENT
     }
 ```
 
@@ -681,20 +681,20 @@ App/nima returns `200 Ok` and a list of messages:
 As **GET /message/outbox** shown to your users a list received messages. Just change de context:
 ```json
     {
-        context:    inbox
+        context: inbox
     }
 ```
 
 And App/nima returns `200 Ok` and a list of messages:
 ```json
     {
-        _id:            120949303434,
-        from:           120949303434,
-        to:             120949303433,
-        application     220949303432
-        subject         "Appnima.com",
-        body            "Welcome to appnima.messenger [MESSAGE]",
-        state           READ
+        _id         : 120949303434,
+        from        : 120949303434,
+        to          : 120949303433,
+        application : 220949303432,
+        subject     : "Appnima.com",
+        body        : "Welcome to appnima.messenger [MESSAGE]",
+        state       : READ
     }
 ```
 
@@ -702,15 +702,15 @@ And App/nima returns `200 Ok` and a list of messages:
 Modify the state of a message using this resource. Sends the request and the following parameters:
 ```json
     {
-        message:    23094392049024,
-        state:      "READ" /*READ or DELETED*/
+        message : 23094392049024,
+        state   : "READ" /*READ or DELETED*/
     }
 ```
 
 Responses are returned with `200 Ok` and the object:
 ```json
     {
-        message:            "Resource READ."
+        message: "Resource READ."
     }
 ```
 
@@ -720,9 +720,9 @@ A post is a public message and the user can create with this resource. Only have
 
 ```json
     {
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
+        title   : "Lorem Ipsum",
+        content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image   : "http://IMAGE_URL
     }
 ```
 The only required field when creating a post is ```content``` that it is the content of the message.
@@ -730,20 +730,20 @@ The only required field when creating a post is ```content``` that it is the con
 If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will returns the following parameters:
 ```json
     {
-        _id:            28319319832
-        application:    34246895433,
-        content:        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        title:          "Lorem ipsum",
-        create_at:      "2013-12-02 08:00:58.784Z"
-        image:          "http://IMAGE_URL",
-        owner:          {
-        _id:        "57592807235"
-        avatar:      "http://AVATAR_URL",
-        created_at:   "2013-12-02 08:00:58.784Z",
-        mail:      "soyjavi@tapquo.com",
-        name:    "javi",
-        username:    "soyjavi"
-    }
+        _id         : 28319319832
+        application : 34246895433,
+        content     : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        title       : "Lorem ipsum",
+        create_at   : "2013-12-02 08:00:58.784Z"
+        image       : "http://IMAGE_URL",
+        owner       : {
+                _id        : "57592807235"
+                avatar     : "http://AVATAR_URL",
+                created_at : "2013-12-02 08:00:58.784Z",
+                mail       : "soyjavi@tapquo.com",
+                name       : "javi",
+                username   : "soyjavi"
+            }
    }
 ```
 
@@ -752,10 +752,10 @@ This resource is used to modify a previously created post. To do this, the user 
 
 ```json
     {
-        id: POST_ID,
-        title: "Lorem Ipsum",
-        content:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-        image: "http://IMAGE_URL
+        id      : POST_ID,
+        title   : "Lorem Ipsum",
+        content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        image   : "http://IMAGE_URL
     }
 ```
 If all goes well you only have to wait for the answer `200 ok` and APP/NIMA returns the same parameters as in the `POST`.
@@ -833,9 +833,9 @@ There is also the option for you to return the list of posts with pagination, th
 
 To do this, you must send the following parameters:
 ```json
-    { page: 0,
-      num_results: 5
-      last_data: "2013-12-02 08:00:58.784Z"
+    { page        : 0,
+      num_results : 5
+      last_data   : "2013-12-02 08:00:58.784Z"
     }
 ```
 To this object, if you want, must be added the user *id*.
