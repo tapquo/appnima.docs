@@ -800,21 +800,40 @@ Geolocalización
 Lugares
 -------
 #### Buscar
-Mediante la latitud y longitud de tu usuario o de un punto cualquiera puedes obtener sitios cercanos como museos, restaurantes, edificios públicos,…. Además puedes proporcionar el radio para que la búsqueda sea más acotada. Para ello utiliza el recurso pasando como parámetros latitud, longitud y radio:
 
-    Appnima.Location.places("43.6525842", "-79.3834173, 100");
+Mediante la latitud y longitud de tu usuario o de un punto cualquiera puedes obtener sitios cercanos como museos, restaurantes, edificios públicos,…. Además puedes proporcionar bien la precision o el radio de busqúeda.
+La precisión y el radio de búsqueda son valores opciones la precision se especifica con 0, 1 o 2  para definir precision baja, media o alta respectivamente. El radio es un valor numerico en metros que sirve para realizar una búsqueda más acotada.    
+
+Ejemplos:
+
+
+	Appnima.Location.places( latitude: 3.1667, longitude: 101.7, precision: 2);
+	
+    Appnima.Location.places( latitude: 3.1667, longitude: 101.7, radius: 15);
 
 
 #### Información
-Obtén información detallada de un establecimiento o lugar utilizando este recurso. Junto a la petición envía los parámetros `ID` y `REFERENCE` del sitio:
-
-    Appnima.Location.place("28319319833", "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m");
+Obtén información detallada de un establecimiento o lugar utilizando este recurso:
+    
+    Appnima.Location.place( place_id: "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m");
 
 
 #### Añadir
 En APP/NIMA puedes agregar un sitio y añadir información relevante como el nombre, la dirección, el teléfono,… Para ello tienes que pasar como mínimo la información de "name", "address", "locality", "postal_code", "country", "latitude" y "longitude":
 
-    Appnima.Location.add("Talleres Juan", "C/ Laubide 10", "Mungia", "48100", "ES", "43.354", "-2.8467");
+	place =
+    	name        : "Tapquo S.L."
+    	address     : "C/ Ibañez de Bilbao 28 8º"
+    	locality    : "Bilbao"
+    	postal_code : 48009
+    	country     : "España"
+    	latitude    : 43.2658947
+    	longitude   : -2.925888299999997
+    	mail        : "hello@tapquo.com"
+    	phone       : "609326913"
+    	webiste     : "http://tapquo.com"
+    	
+    Appnima.Location.add( place );
 
 Opcionalmente puedes añadir información sobre e-mail, teléfono y Web del sitio.
 
@@ -831,15 +850,18 @@ Obtén la lista de check ins de un usuario. Para esta petición sólo es necesar
 Personas
 --------
 #### Amigos
-Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cerca, para ello es necesaria la latitud, longitud y el radio de busqueda:
+Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cerca, para ello es necesaria la latitud, longitud y el radio de busqueda en metros:
 
-    Appnima.Location.friends("43.6525842", "-79.3834173, 100");
+    Appnima.Location.friends( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
 
 
 #### Desconocidos
 APP/NIMA también te permite obtener un listado de personas cercanas al usuario que consulta. La petición es similar a la anterior:
 
-    Appnima.Location.people("43.6525842", "-79.3834173, 100");
+    Appnima.Location.people( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
+
+#### Buscar
+
 
 
 Calendario

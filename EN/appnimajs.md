@@ -751,21 +751,35 @@ Location
 Places
 ------
 #### Search
-Using the users latitude and longitude or any point you can get the nearest places such as museums, restaurants, public buildings… You also can provide a search radius to get a more accurate search. To do this use this respource  with the latitude, longitude and radius:
+Using the users latitude and longitude or any point you can get the nearest places such as museums, restaurants, public buildings… You also can provide a search radius or precision to get a more accurate search. To do this use this respource  with the latitude, longitude and radius/precision. The precision is a numeric value ( 0,1 or 2) and the radius is a numeric value in meters:
 
-    Appnima.Location.places("43.6525842", "-79.3834173, 100");
+	Appnima.Location.places( latitude: 3.1667, longitude: 101.7, precision: 2);
+	
+    Appnima.Location.places( latitude: 3.1667, longitude: 101.7, radius: 15);
 
 
 #### Info
 Get detailed information from a place using this resource. Send the `ID` and `REFERENCE` with the request:
 
-    Appnima.Location.place("28319319833", "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m");
+    Appnima.Location.place( place_id: "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m" );
 
 
 #### Add
 In APP/NIMA you can add a place and add relevant information such as name, address, phone number… To do this yo have to use this resource with the following parameters: Name, address, locality, Postal Code, Country, latitude and longitude:
 
-    Appnima.Location.add("Talleres Juan", "C/ Laubide 10", "Mungia", "48100", "ES", "43.354", "-2.8467");
+	place =
+    	name        : "Tapquo S.L."
+    	address     : "C/ Ibañez de Bilbao 28 8º"
+    	locality    : "Bilbao"
+    	postal_code : 48009
+    	country     : "España"
+    	latitude    : 43.2658947
+    	longitude   : -2.925888299999997
+    	mail        : "hello@tapquo.com"
+    	phone       : "609326913"
+    	webiste     : "http://tapquo.com"
+    	
+    Appnima.Location.add( place );
 
 Optionally you can add email, phone and web site data.
 
@@ -785,13 +799,13 @@ People
 #### Friends around
 You can ask APP/NIMA for the friends that are near to you. The parameters needed are the latitude, longitude and radius:
 
-    Appnima.Location.friends("43.6525842", "-79.3834173, 100");
+    Appnima.Location.friends( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
 
 
 #### People around
 You can ask APP/NIMA for the people that is near to you. The parameters needed are the latitude, longitude and radius:
 
-    Appnima.Location.people("43.6525842", "-79.3834173, 100");
+    Appnima.Location.people( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
 
 
 Push
