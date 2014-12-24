@@ -802,45 +802,54 @@ Lugares
 #### Buscar
 
 Mediante la latitud y longitud de tu usuario o de un punto cualquiera puedes obtener sitios cercanos como museos, restaurantes, edificios públicos,…. Además puedes proporcionar bien la precision o el radio de busqúeda.
-La precisión y el radio de búsqueda son valores opciones la precision se especifica con 0, 1 o 2  para definir precision baja, media o alta respectivamente. El radio es un valor numerico en metros que sirve para realizar una búsqueda más acotada.    
+La precisión y el radio de búsqueda son valores opciones la precision se especifica con 0, 1 o 2  para definir precision baja, media o alta respectivamente. El radio es un valor numerico en metros que sirve para realizar una búsqueda más acotada.
 
 Ejemplos:
 
+  parameters =
+    latitude  : 3.1667
+    longitude : 101.7
+    precision : 2
 
-	Appnima.Location.places( latitude: 3.1667, longitude: 101.7, precision: 2);
-	
-    Appnima.Location.places( latitude: 3.1667, longitude: 101.7, radius: 15);
+  Appnima.Location.places(parameters);
+
+  parameters =
+    latitude  : 3.1667
+    longitude : 101.7
+    radius    : 15
+
+   Appnima.Location.places(parameters);
 
 
 #### Información
 Obtén información detallada de un establecimiento o lugar utilizando este recurso:
-    
-    Appnima.Location.place( place_id: "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m");
+
+    Appnima.Location.place(place_id: "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m");
 
 
 #### Añadir
 En APP/NIMA puedes agregar un sitio y añadir información relevante como el nombre, la dirección, el teléfono,… Para ello tienes que pasar como mínimo la información de "name", "address", "locality", "postal_code", "country", "latitude" y "longitude":
 
-	place =
-    	name        : "Tapquo S.L."
-    	address     : "C/ Ibañez de Bilbao 28 8º"
-    	locality    : "Bilbao"
-    	postal_code : 48009
-    	country     : "España"
-    	latitude    : 43.2658947
-    	longitude   : -2.925888299999997
-    	mail        : "hello@tapquo.com"
-    	phone       : "609326913"
-    	webiste     : "http://tapquo.com"
-    	
-    Appnima.Location.add( place );
+  place =
+      name        : "Tapquo S.L."
+      address     : "C/ Ibañez de Bilbao 28 8º"
+      locality    : "Bilbao"
+      postal_code : 48009
+      country     : "España"
+      latitude    : 43.2658947
+      longitude   : -2.925888299999997
+      mail        : "hello@tapquo.com"
+      phone       : "609326913"
+      webiste     : "http://tapquo.com"
+
+    Appnima.Location.add(place);
 
 Opcionalmente puedes añadir información sobre e-mail, teléfono y Web del sitio.
 
 #### Checkin
-Con APP/NIMA tus usuarios pueden registrar que están en un establecimiento o lugar. Junto a la petición envía los parámetros `ID` y `REFERENCE` del sitio:
+Con APP/NIMA tus usuarios pueden registrar que están en un establecimiento o lugar. Junto a la petición envía el parametro `ID` del lugar.
 
-    Appnima.Location.checkin("28319319833", "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m");
+    Appnima.Location.checkin("28334334444323");
 
 Obtén la lista de check ins de un usuario. Para esta petición sólo es necesario el id del usuario:
 
@@ -852,16 +861,35 @@ Personas
 #### Amigos
 Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cerca, para ello es necesaria la latitud, longitud y el radio de busqueda en metros:
 
-    Appnima.Location.friends( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+    radius    : 1000
+   Appnima.Location.friends(parameters);
 
 
 #### Desconocidos
 APP/NIMA también te permite obtener un listado de personas cercanas al usuario que consulta. La petición es similar a la anterior:
 
-    Appnima.Location.people( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+    radius    : 1000
 
-#### Buscar
+   Appnima.Location.people(parameters);
 
+#### Usuario
+APP/NIMA te permite cambiar tu ubicación permanentemente. Para ello solo tienes que enviar los siguientes parámetros junto con la petición:
+
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+
+  Appnima.Location.user(parameters)
+
+En cambio si lo que quieres saber es tu posición actual, tienes que realizar la misma llamada pero sin paramétros y te devolverá la longitud y latitud que está guardada actualmente.
+
+  Appnima.Location.user()
 
 
 Calendario

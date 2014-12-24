@@ -753,33 +753,43 @@ Places
 #### Search
 Using the users latitude and longitude or any point you can get the nearest places such as museums, restaurants, public buildings… You also can provide a search radius or precision to get a more accurate search. To do this use this respource  with the latitude, longitude and radius/precision. The precision is a numeric value ( 0,1 or 2) and the radius is a numeric value in meters:
 
-	Appnima.Location.places( latitude: 3.1667, longitude: 101.7, precision: 2);
-	
-    Appnima.Location.places( latitude: 3.1667, longitude: 101.7, radius: 15);
+  parameters =
+    latitude  : 3.1667
+    longitude : 101.7
+    precision : 2
+
+  Appnima.Location.places(parameters);
+
+  parameters =
+    latitude  : 3.1667
+    longitude : 101.7
+    radius    : 15
+
+   Appnima.Location.places(parameters);
 
 
 #### Info
 Get detailed information from a place using this resource. Send the `ID` and `REFERENCE` with the request:
 
-    Appnima.Location.place( place_id: "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m" );
+    Appnima.Location.place(place_id: "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m" );
 
 
 #### Add
 In APP/NIMA you can add a place and add relevant information such as name, address, phone number… To do this yo have to use this resource with the following parameters: Name, address, locality, Postal Code, Country, latitude and longitude:
 
-	place =
-    	name        : "Tapquo S.L."
-    	address     : "C/ Ibañez de Bilbao 28 8º"
-    	locality    : "Bilbao"
-    	postal_code : 48009
-    	country     : "España"
-    	latitude    : 43.2658947
-    	longitude   : -2.925888299999997
-    	mail        : "hello@tapquo.com"
-    	phone       : "609326913"
-    	webiste     : "http://tapquo.com"
-    	
-    Appnima.Location.add( place );
+  place =
+      name        : "Tapquo S.L."
+      address     : "C/ Ibañez de Bilbao 28 8º"
+      locality    : "Bilbao"
+      postal_code : 48009
+      country     : "España"
+      latitude    : 43.2658947
+      longitude   : -2.925888299999997
+      mail        : "hello@tapquo.com"
+      phone       : "609326913"
+      webiste     : "http://tapquo.com"
+
+    Appnima.Location.add(place);
 
 Optionally you can add email, phone and web site data.
 
@@ -787,7 +797,7 @@ Optionally you can add email, phone and web site data.
 #### Checkins
 You users can register the places where they are. Send the `ID` and `REFERENCE` with the request:
 
-    Appnima.Location.checkin("28319319833", "CqQBlwAAAEXdx350jL2InIRtksTkbZJ-m");
+    Appnima.Location.checkin("283f332f833");
 
 You can get the list of checkins with this resource. The unique parameter needed is the user's id:
 
@@ -799,14 +809,35 @@ People
 #### Friends around
 You can ask APP/NIMA for the friends that are near to you. The parameters needed are the latitude, longitude and radius:
 
-    Appnima.Location.friends( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+    radius    : 1000
 
+   Appnima.Location.friends(parameters);
 
 #### People around
 You can ask APP/NIMA for the people that is near to you. The parameters needed are the latitude, longitude and radius:
 
-    Appnima.Location.people( latitude: 43.6525842, longitude: -79.3834173, radius: 100);
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+    radius    : 1000
 
+   Appnima.Location.people(parameters);
+
+#### User
+You can change your location with APP/NIMA. The parameters needed are the latitude and the longitude:
+
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+
+  Appnima.Location.user(parameters)
+
+And if you can know what is your current position, only do the previous call without parameters.
+
+  Appnima.Location.user()
 
 Push
 ====
