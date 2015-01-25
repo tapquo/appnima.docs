@@ -368,12 +368,11 @@ aparecen a continuación (aunque no es obligatorio enviarlos todos):
   "country" : "Spain",
   "phone"   : "PHONE_NUMBER",
   "site"    : "http://soyjavi.com",
-  "bio"     : "Founder & CTO at [@tapquo](http://tapquo.com)"
+  "bio"     : "Founder & CTO at [@tapquo]"
 }
 ```
 
-El atributo `AVATAR` puede ser enviado de dos maneras: puedes transformar la
-imagen a base64 o en el formato que te proporciona la conversión `new Image()`
+El atributo `AVATAR` se envía como base64.
 
 En el caso de que haya ido todo bien se devolverá el código `200 OK` junto con
 el mismo objeto **GET /user**. En el caso de que el usuario no tenga permiso
@@ -542,7 +541,7 @@ podrás enviar las invitaciones a los usuarios registrados.
 
 Con estos métodos pordrás ofrecer un sistema de tickets de consulta. El usuario
 de tu aplicación podrá generar cosultas y tu o cualquier usuarior registrado
-podrá contestartlos.
+podrá contestarlos.
 
 #### GET /user/ticket
 
@@ -611,7 +610,7 @@ el siguiente:
 
 ```
 {
-  "title"       : "How can I start with [Atoms](http://atoms.tapquo.com)?",
+  "title"       : "How can I start with [Atoms]?",
   "description" : "Where can I find documentation related?",
   "reference"   : "REFERENCE_MODEL",
   "type"        : "2"
@@ -660,25 +659,36 @@ parámetros el ID del ticket y el texto con la respuesta de la siguiente manera:
 ```
 {
   "id"      : "TICKET_ID"
-  "response": "Hello, you can find all documentation [here](https://github.com/tapquo/atoms/blob/master/README.md)"
+  "response": "Hello, you can find all documentation here: https://github.com/tapquo/atoms"
 }
 ```
 
 Network
 -------
 
-Este modulo recoge toda la funcionalidad para crear una red social dentro de tu
-aplicación; buscar usuarios, seguirlos (o no seguirlos, tu decides), listas de
-seguidores... Para ello ten en cuenta que todas las peticiones que hagas tendrán
-que ir a:
+Este modulo recoge toda la funcionalidad para crear una red social dentro de tu aplicación:
+
+-   Buscar usuarios
+-   Añadir o quitar usuarios a la lista de amigos
+-   Listar usuarios de la lista de followings y followers de un usuario
+-   Comprobar la relación entre dos usuarios
+-   Los usuarios podrán publicar mensajes al estilo de un timeline público
+-   Buscar mensajes concretos o la lista de mensajes de un usuario
+-   Registrar un comentario sobre un mensage
+-   Marcar como favorito un mensaje
+-   Obtener la lista de mensajes marcados como favoritos
+-   Obtener los mensajes públicos del timeline de un usuario
+
+Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
 
 ``` http://api.appnima.com/network/{RECURSO} ```
 
-Recuerda que todas las peticiones que hagas a Appnima tienen que ir
-identificadas con tu `Appnima.key` o bien con el par de datos `client` y
-`secret`. Ahora veamos los recursos que puedes utilizar, para ello el primer
+Recuerda que todas las peticiones que hagas a Appnima deben ir identificadas con
+tu `KEY` de aplicación o bien con el `ACCESS_TOKEN` del usuario.
+
+Ahora veamos los recursos que puedes utilizar, para ello el primer
 parámetro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo
-parámetro el nombre del recurso.
+el nombre del recurso.
 
 ### Relaciones
 
@@ -688,23 +698,47 @@ Utiliza este recurso para buscar ususarios dentro de tu aplicación. Puedes
 enviar como parámetro el mail o parte del mail de un usuario o su nickname o
 parte de él.
 
-``` { "query": "javi" } ```
+```
+{
+  "query": "javi"
+}
+```
 
 En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok`
 junto con una lista de usuarios que coinciden con la búsqueda:
 
-``` [{ "avatar" : "http://api.appnima.com/avatar/default.jpg" "id" : "USER_ID"
-"name" : "javi" "username" : "javi@javi.com" }, { "avatar" :
-"http://api.appnima.com/avatar/default.jpg" "id" : "USER_ID" "name" : "javier"
-"username" : "a3@appnima.com" }, { "avatar" :
-"http://api.appnima.com/avatar/default.jpg" "id" : "USER_ID" "name" : null
-"username" : "j.villar@javi.com" }] ```
+```
+  [
+    {
+      "avatar"  : "http://api.appnima.com/avatar/default.jpg",
+      "id"      : "USER_ID"
+      "name"    : "javi",
+      "username": "javi@javi.com"
+    },
+    {
+      "avatar"  : "http://api.appnima.com/avatar/default.jpg",
+      "id"      : "USER_ID",
+      "name"    : "javier",
+      "username": "a3@appnima.com"
+    },
+    {
+      "avatar"  : "http://api.appnima.com/avatar/default.jpg",
+      "id"      : "USER_ID",
+      "name"    : null
+      "username": "j.villar@javi.com"
+    }
+  ]
+```
 
 #### POST /follow
 
 Para seguir a un usuario utiliza este recurso pasando como parámetro su `id`:
 
-``` { "user": "USER_ID" } ```
+```
+{
+  "user": "USER_ID"
+}
+```
 
 Si todo ha salido bien el servicio devolverá un `200 Ok`.
 
@@ -712,18 +746,31 @@ Si se desea realizar un follow blindado, esto es, que tú seas amigo del usuario
 que envíar y que él sea el tuyo en una única llamada, simplemente hay que enviar
 los siguientes parámetros:
 
-``` { user : "USER_ID", shield : true } ```
+```
+{
+  user    : "USER_ID",
+  shield  : true
+}
+```
 
 #### POST /unfollow
 
 Para dejar de seguir un usuario utiliza este recurso de igual manera que **POST
 /follow**:
 
-``` { "user" : "USER_ID" } ```
+```
+{
+  "user" : "USER_ID"
+}
+```
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-``` { "message" : "Successful" } ```
+```
+{
+  "message" : "Successful"
+}
+```
 
 ### Información
 
@@ -736,22 +783,51 @@ Con este recurso puedes obtener la lista de followings del usuario de sessión
 llamando al recurso sin pasar parámetro o puedes obtener la lista de followings
 de otro usuario pasando como parámetro su `id`:
 
-``` { "user": "23094392049024112b431d" } ```
+```
+{
+  "user": "USER_ID"
+}
+```
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-``` "count": 4 [{ "avatar" : "http://cata.jpg" "id" : "USER_ID" "mail" :
-"cata@cata.com" "name" : "cata" "username": "cata" }, { "avatar" :
-"http://a1.jpg" "id" : "USER_ID" "mail" : "a1@appnima.com" "name" : "a1"
-"username": "a1@appnima.com-1391099964446-1391100156004" }, { "avatar" :
-"http://avatar.jpg" "id" : "USER_ID" "mail" : "a2@appnima.com" "name" : "a2"
-"username": "a2@appnima.com" }] ```
+```
+  "count" : 4
+  [
+    {
+      "avatar"  : "http://cata.jpg",
+      "id"      : "USER_ID" "mail" : "cata@cata.com",
+      "name"    : "cata",
+      "username": "cata"
+    },
+    {
+      "avatar"  : "http://a1.jpg",
+      "id"      : "USER_ID",
+      "mail"    : "a1@appnima.com",
+      "name"    : "a1",
+      "username": "a1@appnima.com-1391099964446-1391100156004"
+    },
+    {
+      "avatar"  : "http://avatar.jpg",
+      "id"      : "USER_ID",
+      "mail"    : "a2@appnima.com",
+      "name"    : "a2",
+      "username": "a2@appnima.com"
+    }
+]
+```
 
 Al igual que en el *timeline* del recurso de `MESSENGER`, existe la opción de
 obtener estos datos mediante paginación. Para ello, simplemente tienes que
 añadir los siguientes parámetros a tu llamada:
 
-``` { "username" : "username" "page" : 0 "num_results" : 5 } ```
+```
+{
+  "username"    : "username",
+  "page"        : 0,
+  "num_results" : 5
+}
+```
 
 El significado de las variables *page* y *num_results* es el mismo que en el
 caso de la llamada al **Timeline**. La única diferencia de ambas llamadas es que
@@ -764,15 +840,40 @@ Funciona de igual manera que **GET /following**, puedes enviar la `id` del
 usuario del que quieres obtener la información o si no lo envías obtienes la
 lista de followers del usuario de la sesión:
 
-``` ]{ "user": "23094392049024112b431d" } ```
+```
+{
+  "user": "USER_ID"
+}
+```
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-``` "count": 3 [{ "avatar" : "http://cata.jpg" "id" : "USER_ID" "mail" :
-"cata@cata.com" "name" : "cata" "username": "cata" }, { "avatar" :
-"http://javi.jpg" "id" : "USER_ID" "mail" : "javi@javi.com" "name" : "javi"
-"username": "soyjavi" }, { "avatar" : "http://a1.jpg" "id" : "USER_ID" "mail" :
-"oihane@oihane.com" "name" : "oihane" "username": "oihane" }] ```
+```
+  "count": 3
+  [
+    {
+      "avatar"  : "http://cata.jpg",
+      "id"      : "USER_ID",
+      "mail"    : "hi@cataflu.com",
+      "name"    : "cata",
+      "username": "cataflu"
+    },
+    {
+      "avatar"  : "http://javi.jpg",
+      "id"      : "USER_ID",
+      "mail"    : "javi@soyjavi.com",
+      "name"    : "javi"
+      "username": "soyjavi"
+    },
+    {
+      "avatar"  : "http://a1.jpg",
+      "id"      : "USER_ID",
+      "mail"    : "oihane@oihane.com",
+      "name"    : "oihane",
+      "username": "oihi08"
+    }
+  ]
+```
 
 Al igual que lo que se ha explicado anteriormente en **GET/ followings**,
 también existe la opción de obtener los datos mediante paginación. La dinámica
@@ -792,12 +893,25 @@ haga follow.
 
 Parámetro para la petición:
 
-``` { "user": "USER_ID" } ```
+```
+{
+  "user": "USER_ID"
+}
+```
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-``` [{ avatar : "http://oihi.jpg" id : "USER_ID" mail : "oihi@oihi.com" name :
-"oihi" username: "oihi08" }] ```
+```
+[
+  {
+    avatar    : "http://oihi.jpg",
+    "id"      : "USER_ID",
+    "mail"    : "oihi@oihi.com",
+    "name"    : "oihi",
+    "username": "oihi08"
+  }
+]
+```
 
 #### GET /check
 
@@ -805,13 +919,22 @@ Este recurso sirve para saber la relación que tienes con un determinado usuario
 (tal vez te interese seguirlo o no) para ello tenemos que enviar el `id` del
 usuario a consultar de la siguiente manera:
 
-``` { "user": "USER_ID" } ```
+```
+{
+  "user": "USER_ID"
+}
+```
 
 En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con el
 objeto que representa la relación que tiene el usuario consultado con el usuario
 de tu aplicación:
 
-``` { "following": true, "follower" : false } ```
+```
+{
+  "following": true,
+  "follower" : false
+}
+```
 
 Messenger
 ---------
