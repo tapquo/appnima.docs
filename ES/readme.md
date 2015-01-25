@@ -936,200 +936,9 @@ de tu aplicación:
 }
 ```
 
-Messenger
----------
-
-Este módulo recoge toda la funcionalidad de mensajería: enviar e-mail, SMS y
-mensajes privados entre usuarios de tu misma aplicación.
-
-Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
-
-``` http://api.appnima.com/messenger/{RECURSO} ```
-
-Recuerda que todas las peticiones que hagas a Appnima tienen que ir
-identificadas con tu `Appnima.key` o bien con el par de datos `client` y
-`secret`. Ahora veamos los recursos que puedes utilizar, para ello el primer
-parámetro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo
-parámetro el nombre del recurso.
-
-### Mail
-
-#### POST /mail
-
-Con este recurso los usuarios de tu aplicación podrán enviar e-mails. Para ello
-debes pasar los siguientes parámentros (el campo subject es opcional):
-
-``` { "user" : "USER_ID", "subject" : "Appnima.com", "message" : "Welcome to
-appnima.messenger [MAIL]" } ```
-
-Si todo ha salido bien, devolverá un `201 Created` junto con el objeto:
-
-``` { "message": 'E-mail sent successfully.' } ```
-
-### SMS
-
-#### POST /sms
-
-Con este recurso tu aplicación podrá enviar mensajes de texto a los dispositivos
-móviles registrados de tus usuarios. Tan solo debes enviar junto con la petición
-los parámetros:
-
-``` { "user" : "USER_ID", "message" : "Welcome to appnima.messenger [SMS][8]" }
-```
-
-[8]: <#sms>
-
-En el caso de que la respuesta haya sido satisfactoria se devolverá un `201
-Created` junto con el objeto:
-
-``` { "message": 'SMS sent successfully.' } ```
-
-### Message
-
-#### POST /message
-
-Si lo necesitas, Appnima te provee de un sistema de mensajería interno entre los
-usuarios de tu aplicación. Los parámetros que necesita la petición son:
-
-``` { "user" : "USER_ID", "subject" : "Appnima.com", "body" : "Welcome to
-appnima.messenger [MESSAGE]" } ```
-
-El campo subject es opcional y si la petición ha salido bien se devolverá un
-`201 Created` junto con el objeto:
-
-``` { "message" : 'Message sent successfully.' } ```
-
-#### GET /message/outbox
-
-Los usuarios de tu aplicación pueden recuperar los mensajes enviados. Para ello
-basta con llamar al recurso pasando como parámetro outbox.
-
-``` { "context": "outbox" } ```
-
-Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
-bandeja indicada:
-
-``` { "id" : "MESSAGE_ID", "from" : "USER_ID", "to" : "USER_UD",
-"application" : "APPLICATION_ID" "subject" : "Appnima.com", "body" : "Welcome
-to appnima.messenger [MESSAGE]", "state" : "SENT" } ```
-
-#### GET /message/inbox
-
-Los usuarios de tu aplicación pueden recuperar los mensajes recibidos. Para ello
-basta con llamar al recurso pasando como parámetro inbox.
-
-``` { "context": "inbox" } ```
-
-Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
-bandeja indicada:
-
-``` { "id" : "MESSAGE_ID", "from" : "USER_ID", "to" : "USER_UD",
-"application" : "APPLICATION_ID", "subject" : "Appnima.com", "body" : "Welcome
-to appnima.messenger [MESSAGE]", "state" : "READ" } ```
-
-#### PUT /message
-
-Para que se refleje que el usuario ha leído un mensaje o que desea eliminarlo de
-su sistema, basta con enviar en la petición los siguientes parámetros:
-
-``` { "message" : "MESSAGE_ID", "state" : "READ" /*READ o DELETED*/ } ```
-
-Si todo ha salido bien, devolverá un `200 Ok`junto con el mensaje de
-confirmación:
-
-``` { "message" : "Resource READ." } ```
-
-### Post (Mensaje)
-
-#### POST/post
-
-Un post se trata de un mensaje público y el usuario con este recurso puede
-crearlo. Para ello debe enviar los parámetros junto con la petición:
-
-``` { "title" : "Lorem Ipsum", "content" : "Lorem ipsum dolor sit amet,
-consectetur adipisicing elit.", "image" : "http://IMAGE_URL } ```
-
-El único campo obligatorio a la hora de crear un post es el `content` que se
-trata del contenido del mensaje.
-
-Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y Appnima te
-devuelve los siguientes parámetros:
-
-``` { "id" : "MESSAGE_ID", "content" : "Lorem Ipsum", "image" :
-"http://IMAGE_URL", owner : { "id" : "USER_ID", "name" : "user1", "username" :
-"username1", "avatar" : "http://AVATAR_URL" }, "comments" : "[]", "likes" :
-"[]", "is_liked" : false, "created_at" : "POST_CREATED_DATA" } ```
-
-#### POST/put
-
-Este recurso sirve para modificar un post creado anteriormente. Para ello, el
-usuario debe enviar los parámetros junto con la petición:
-
-``` { "id" : "POST_ID", "title" : "Lorem Ipsum", "content" : "Lorem ipsum dolor
-sit amet, consectetur adipisicing elit.", "image" : "http://IMAGE_URL } ```
-
-Si va todo bien, solo deberás esperar a la respuesta `200 Ok` y Appnima te
-devuelve `message: "Successful"`.
-
-#### GET/post
-
-Este recurso sirve para obtener un post concreto. Para ello, el usuario
-solamente debe enviar la `id`del post que desea obtener y, si va todo bien,
-Appnima devolverá la respuesta `200 OK`y el post concreto del mismo estilo que
-en el `POST`.
-
-#### DELETE/post
-
-Este recurso sirve para borrar un post concreto. Para ello, el usuario solamente
-debe enviar la `id`del post que desea borrar y, si va todo bien, Appnima
-devolverá la respuesta `200 OK`y `message: "Successful"`.
-
-#### GET/post/user
-
-Este recurso sirve para obtener el contador de los post del usuario. Si deseas
-obtener el contador de tus propios post, no debes enviarle ningún parámetro,
-pero en cambio si lo que deseas obtener es el contador de post de otro usuario,
-tienes que enviarle la *id* de dicho usuario junto con la llamada.
-
-``` { "user": "USER_ID" } ```
-
-#### GET /post/search
-
-Este recurso sirve para buscar los *posts* que tengan en su contenido una
-palabra en concreto. Para ello simplemente habría que enviar la palabra que
-queremos buscar:
-
-``` { "query": "Lorem" } ```
-
-En este ejemplo, Appnima nos devolverá todos los *posts* que en su campo
-*content* tengan la palabra "Lorem". Un ejemplo sería el siguiente:
-
-``` [ "id" : "MESSAGE_ID", "content" : "Lorem Ipsum", "image" :
-"http://IMAGE_URL", "owner": { id : "USER_ID", name : "user1", username :
-"username1", avatar : "http://AVATAR_URL" }, comments: [ { "id" :
-"MESSAGE_ID",, "content" : "Comment 1", "created_at": comment_created_data,
-"owner": { "avatar" : "http://AVATAR_URL", "id" : "USER_ID", "name" : "user",
-"username": "username" } } ], likes: [ { "avatar" : "http://AVATAR_URL," "id" :
-"USER_ID", "name" : "user", "username": "username" }, { "avatar" :
-"http://AVATAR_URL", "id" : "USER_ID", "name" : "user1", "username":
-"username1" } ], "is_liked" : false, "created_at" : "POST_CREATED_DATA" "id"
-: "MESSAGE_ID", "content" : "Lorem Ipsum", "image" : "http://IMAGE_URL",
-"owner" : { "id" : "USER_ID", "name" : "user1", "username" : "username1",
-"avatar" : "http://AVATAR_URL" }, "comments": [ { "id" : "MESSAGE_ID",
-"content" : "Comment 1", "created_at": comment_created_data, "owner": {
-"avatar" : "http://AVATAR_URL", "id" : "USER_ID", "name" : "user", "username":
-"username" } } ], "likes": [ { "avatar" : "http://AVATAR_URL", "id" :
-"USER_ID", "name" : "user", "username": "username" }, { "avatar" :
-"http://AVATAR_URL", "id" : "USER_ID", "name" : "user1", "username":
-"username1" } ], "is_liked" : false, "created_at" : "POST_CREATED_DATA" } ]}
-```
-
-También existe de buscar mediante *paginación* que se explicará en el siguiente
-recurso.
-
 ### Timeline
 
-#### GET/user/timeline
+#### GET /user/timeline
 
 Este recurso sirve para obtener la lista de posts de un determinado usuario. Si
 lo que deseas es obtener los posts de tu usuario de la sesión no tienes que
@@ -1140,7 +949,11 @@ antiguo al más reciente.
 En cambio, si lo que deseas es obtener los posts de otro usuario o solamente los
 tuyos propios, debes enviar los siguientes parámetros:
 
-``` { "username": "username" } ```
+```
+{
+  "username": "USERNAME"
+}
+```
 
 Se trata de la id del usuario del que quieres obtener los post. En este caso,
 unicamente te devolverá la lista de los post que ha creado ese usuario.
@@ -1154,7 +967,12 @@ posts cronologicamente.
 
 Para ello, debes enviar los siguientes parámetros:
 
-``` { "page" : 0, "num_results" : 5 "last_data" : "2013-12-02 08:00:58.784Z" }
+```
+{
+  "page"        : 0,
+  "num_results" : 5,
+  "last_data"   : "2013-12-02 08:00:58.784Z"
+}
 ```
 
 A ese objeto se le debe añadir, si se desea, lo explicado anteriormente de la
@@ -1175,7 +993,11 @@ comienzo de la siguiente tanda de posts.
 Este recurso sirve para hacer favorito un post en concreto o para quitar un
 favorito ya hecho. Para ello, solo hay que enviar el *id* de dicho post.
 
-``` { "post": "MESSAGE_ID" } ```
+```
+{
+  "post": "MESSAGE_ID"
+}
+```
 
 Si es la primera vez que marca como favorito, Appnima devolverá la respuesta
 `200 OK`. En cambio, si ya había marcado como favorito antes, se borrará dicho
@@ -1187,7 +1009,11 @@ Este recurso, si todo va bien, devolverá la lista de los *post* a los que el
 usuario logueado ha marcado como favorito. Para ello, debes enviar el siguiente
 parámetro:
 
-``` { "username": "username" } ```
+```
+{
+  "username": "username"
+}
+```
 
 En este caso también está la posibilidad de obtener los post mediante
 *paginación* como se explica en el método de **TIMELINE** en el recurso de
@@ -1198,7 +1024,11 @@ En este caso también está la posibilidad de obtener los post mediante
 Este recurso sirve para obtener todos los usuarios que han hecho favorito a un
 *post* en concreto. Para ello, solamente hay que enviar la *id* de dicho post.
 
-``` { "post": "POST_ID" } ```
+```
+{
+  "post": "POST_ID"
+}
+```
 
 ### Comment
 
@@ -1208,7 +1038,12 @@ Este recurso sirve para crear comentarios sobre un `post`. La idea de este
 recurso es que se puedan crear discusiones sobre los post. Para crear un
 comentario hay que enviar los siguientes parámetros:
 
-``` { "id" : "POST_ID" "content" : "Lorem Impsum..." } ```
+```
+{
+  "id"      : "POST_ID",
+  "content" : "Lorem Impsum..."
+}
+```
 
 #### GET /post/comment
 
@@ -1221,12 +1056,169 @@ comentarios.
 Este recurso modifica un comentario y hay que enviar el id del comentario junto
 con los campos que se desea modificar.
 
-``` { "id" : "comment_id" "content" : "Lorem Impsum... updated" "title" :
-"Lorem Impsum… updated" } ```
+```
+{
+  "id"      : "COMMENT_ID",
+  "content" : "Lorem Impsum... updated",
+  "title"   : "Lorem Impsum… updated"
+}
+```
 
 #### DELETE /comment
 
-Este recurso elimina un comentario, hay que enviar el id del post.
+Este recurso elimina un comentario, hay que enviar el id del comentario.
+
+Messenger
+---------
+
+Este módulo recoge toda la funcionalidad de mensajería:
+
+-   Enviar e-mail
+-   SMS
+-   Mensajes privados entre usuarios de tu misma aplicación.
+
+Para ello ten en cuenta que todas las peticiones que hagas tendrán que ir a:
+
+``` http://api.appnima.com/messenger/{RECURSO} ```
+
+Recuerda que todas las peticiones que hagas a Appnima deben ir identificadas con
+tu `KEY` de aplicación o bien con el `ACCESS_TOKEN` del usuario.
+
+Ahora veamos los recursos que puedes utilizar, para ello el primer
+parámetro indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo
+el nombre del recurso.
+
+
+### Mail
+
+#### POST /mail
+Para utilizar este servicio deberás configurar en tu [Panel de Control](http://tapquo.com/appnima)
+en el apartado de "Scopes diponibles" los datos correspondientes al servidor de
+correo que desees utilizar. Así, tu aplicación podrá enviar e-mails tus usuarios
+que tengan su dirección de correo registrado. Los datos que se envían al método son
+(el asunto es opcional):
+
+```
+{
+  "user"    : "USER_ID",
+   "subject": "Appnima.com",
+   "message": "Welcome to appnima.messenger!!"
+}
+```
+
+Si todo ha salido bien, el servidor devolverá un `200`.
+
+
+### SMS
+
+#### POST /sms
+
+Con este recurso tu aplicación podrá enviar mensajes de texto a los dispositivos
+móviles registrados de tus usuarios. Tan solo debes enviar junto con la petición
+los parámetros:
+
+```
+{
+  "user"    : "USER_ID",
+  "message" : "Welcome to appnima.messenger"
+}
+```
+Si todo ha salido bien, el servidor devolverá un `200`.
+
+
+### Message
+
+#### POST /message
+
+Si lo necesitas, Appnima te provee de un sistema de mensajería interno entre los
+usuarios de tu aplicación. Los parámetros que necesita la petición son:
+
+```
+{
+  "user"    : "USER_ID",
+  "subject" : "Appnima.com",
+  "body"    : "Welcome to appnima.messenger"
+}
+```
+
+El campo subject es opcional y si la petición ha salido bien se devolverá el código
+`200` junto con el objeto:
+
+```
+{
+  "message" : 'Message sent successfully.'
+}
+```
+
+#### GET /message/outbox
+
+Los usuarios de tu aplicación pueden recuperar los mensajes enviados. Para ello
+basta con llamar al recurso pasando como parámetro outbox.
+
+``` { "context": "outbox" } ```
+
+Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
+bandeja indicada:
+
+```
+{
+  "id"          : "MESSAGE_ID",
+  "from"        : "USER_ID",
+  "to"          : "USER_UD",
+  "application" : "APPLICATION_ID",
+  "subject"     : "Appnima.com",
+  "body"        : "Welcome to appnima.messenger",
+  "state"       : "SENT"
+}
+```
+
+#### GET /message/inbox
+
+Los usuarios de tu aplicación pueden recuperar los mensajes recibidos. Para ello
+basta con llamar al recurso pasando como parámetro inbox.
+
+```
+{
+  "context": "inbox"
+}
+```
+
+Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
+bandeja indicada:
+
+```
+{
+  "id"          : "MESSAGE_ID",
+  "from"        : "USER_ID",
+  "to"          : "USER_UD",
+  "application" : "APPLICATION_ID",
+  "subject"     : "Appnima.com",
+  "body"        : "Welcome to appnima.messenger",
+  "state"       : "READ"
+}
+```
+
+#### PUT /message
+
+Para que se refleje que el usuario ha leído un mensaje o que desea eliminarlo de
+su sistema, basta con enviar en la petición los siguientes parámetros:
+
+```
+{
+  "message" : "MESSAGE_ID",
+  "state"   : "READ" /*READ o DELETED*/
+}
+```
+
+Si todo ha salido bien, devolverá un `200 Ok`junto con el mensaje de
+confirmación:
+
+```
+{
+  "message" : "Resource READ."
+}
+```
+
 
 Location
 --------
