@@ -562,7 +562,6 @@ hay que mandar la ID del ticket que se quiere obtener.
 Si todo ha ido bien, Appnima devuelve `200` y el siguiente objeto:
 
 ```json
-{
 	ticket:
    		{
    			"id"   : "TICKET_ID",
@@ -580,7 +579,6 @@ Si todo ha ido bien, Appnima devuelve `200` y el siguiente objeto:
      		"updated_at" : "2015-01-14T06:45:05.625Z",
      		"created_at" : "2015-01-14T06:45:05.625Z"
      	}
-}
 ```
 
 #### GET /user/ticket/search
@@ -643,7 +641,7 @@ atributos a cambiar. Los atributos permitidos son
 
 ```json
 {
-  "id"   : "TICKET_ID"
+  "id"   : "TICKET_ID",
   "type" : "0"
 }
 ```
@@ -669,7 +667,7 @@ parámetros el ID del ticket y el texto con la respuesta de la siguiente manera:
 
 ```json
 {
-  "id"      : "TICKET_ID"
+  "id"      : "TICKET_ID",
   "response": "Hello, you can find all documentation here: https://github.com/tapquo/atoms"
 }
 ```
@@ -722,7 +720,7 @@ junto con una lista de usuarios que coinciden con la búsqueda:
   [
     {
       "avatar"  : "http://api.appnima.com/avatar/default.jpg",
-      "id"      : "USER_ID"
+      "id"      : "USER_ID",
       "name"    : "javi",
       "username": "USER_MAIL"
     },
@@ -735,7 +733,7 @@ junto con una lista de usuarios que coinciden con la búsqueda:
     {
       "avatar"  : "http://api.appnima.com/avatar/default.jpg",
       "id"      : "USER_ID",
-      "name"    : null
+      "name"    : null,
       "username": "USER_MAIL"
     }
   ]
@@ -759,8 +757,8 @@ los siguientes parámetros:
 
 ```json
 {
-  user    : "USER_ID",
-  shield  : true
+  "user"   : "USER_ID",
+  "shield" : true
 }
 ```
 
@@ -874,7 +872,7 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
       "avatar"  : "http://javi.jpg",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "javi"
+      "name"    : "javi",
       "username": "USER_NICKNAME"
     },
     {
@@ -916,7 +914,7 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
 [
   {
-    avatar    : "http://oihi.jpg",
+    "avatar"  : "http://oihi.jpg",
     "id"      : "USER_ID",
     "mail"    : "USER_MAIL",
     "name"    : "oihi",
@@ -1158,7 +1156,7 @@ El campo subject es opcional y si la petición ha salido bien se devolverá el c
 
 ```json
 {
-  "message" : 'Message sent successfully.'
+  "message" : "Message sent successfully."
 }
 ```
 
@@ -1218,9 +1216,10 @@ su sistema, basta con enviar en la petición los siguientes parámetros:
 ```json
 {
   "message" : "MESSAGE_ID",
-  "state"   : "READ" /*READ o DELETED*/
+  "state"   : "READ"
 }
 ```
+**state**: read, deleted
 
 Si todo ha salido bien, devolverá un `200 Ok`junto con el mensaje de
 confirmación:
@@ -1251,7 +1250,7 @@ identificadas con tu `Appnima.key` o bien con el par de datos `client` y
 indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo el nombre
 del recurso.
 
-### Places(id:places)
+### [Places](id:places)
 
 #### GET /places
 
@@ -1368,7 +1367,7 @@ Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto
 	"postal_code" : "POSTAL_CODE",
 	"reviews"     :	[
         {
-            "time"     : REVIEW_TIME,
+            "time"     : "REVIEW_TIME",
             "text"     : "REVIEW_TEXT",
             "rating"   : 4,
             "language" : "en",
@@ -1381,7 +1380,8 @@ Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto
             ]
         }
       ]
-} ```
+}
+```
 
 #### POST /place
 
@@ -1419,18 +1419,30 @@ Si la consulta ha obtenido respuesta se devuelve un `201 Created`.
 Los usuarios de tu aplicación pueden registrar visitas a sitios concretos. Para
 ello utiliza este recurso pasando el parámetro id:
 
-```json { id: "USER_ID" } ```
+```json
+{
+	"id": "USER_ID"
+}
+```
 
 Si todo ha salido bien, se devuelve un `200 Ok` junto con el objeto:
 
-```json { status: 'ok' } ```
+```json
+{
+	"status": "ok"
+}
+```
 
 #### GET /checkin
 
 Obtén la lista de sitios guardados por tus usuarios con este recurso. Para ello
 únicamente tienes que enviar el id del usuario en la petición:
 
-```JSON { id: "USER_ID" } ```
+```json
+{
+	"id": "USER_ID"
+}
+```
 
 Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 
@@ -1449,8 +1461,8 @@ Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 	"postal_code" : "POSTAL_CODE",
 	"reviews"     : [],
 	"types": {
-		0: "police",
-		1: "establishment"
+		"0": "police",
+		"1": "establishment"
 	}
 }
 ```
@@ -1515,7 +1527,12 @@ de tu usuario. Para ello solo tienes que realizar la petición y no es necesario
 enviar ningún parámetro. Si todo ha ido bien Appnima devolverá el siguiente
 objeto:
 
-``` { latitude: "-33.9250334", longitude: "18.423883499999988" } ```
+```json
+{
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988"
+}
+```
 
 #### POST /user
 
@@ -1546,7 +1563,7 @@ enviar su nombre y el color que le quieras asignar:
 ```json 
 {
 	"name"  : "Calendario de trabajo",
-	"color" : "\#3300FF"
+	"color" : "#3300FF"
 }
 ```
 
@@ -1557,14 +1574,14 @@ si todo va bien, devueve el calendario creado:
 		{
 			"id"         : "CALENDAR_ID",
 			"name"       : "mi calendario",
-			"color"      : "\#FF66CC",
-			"created_at" : Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+			"color"      : "#FF66CC",
+			"created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
 			"owner":
 				{
 					"id"       : "OWNER_ID",
 					"username" : "OWNER_NICKNAME",
 					"mail"     : "OWNER_MAIL",
-					"avatar"   : 'http://api.appnima.com/avatar/default.jpg',
+					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
 					"name"     : "Catalina Oyaneder"
 				},
 			"shared": []
@@ -1587,13 +1604,13 @@ nuevo color.
 
 En caso de que el calendario no exista, devuelve un error 404. Si por el
 contrario existe, devuelve el calendario con los campos modificados:
-
-``` calendar:
+```json
+ calendar:
 		{
 			"id"         : "CALENDAR_ID",
 			"name"       : "Calendario de trabajo modificado",
 			"color"      : "#FF66CC",
-			"created_at" : Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+			"created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
 			"owner":
 				{
 					"id"       : "OWNER_ID",
@@ -1632,7 +1649,7 @@ calendario.
 			"id"         : "CALENDAR_ID",
 			"name"       : "slid.us",
 			"color"      : "#FF66CC",
-			"created_at" : Tue Feb 04 2014 12:	52:55 GMT+0100 (CET), 
+			"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)", 
 			"owner" :
 				{
 					"id"       : "OWNER_ID",
@@ -1677,11 +1694,19 @@ de calendarios.
 También hay la posibilidad de eliminar un calendario, para esto se utiliza este
 recurso. Únicamente hay que enviar como parámetro la "id" de dicho calendario.
 
-```json { id: "CALENDAR_ID" } ```
+```json
+{
+	"id": "CALENDAR_ID"
+}
+```
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que
 vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
-```json { message: "Successful"}```
+```json
+{
+	"message": "Successful"
+}
+```
 
 #### GET /calendar/activity
 
@@ -1689,7 +1714,11 @@ Appnima nos permite saber que actividades han surgido en nuestro calendario.
 Para obtener la lista de ellas se utiliza este recurso y se envía como parámetro
 la "id" del calendario.
 
-``` { id : "CALENDAR_ID" } ```
+```json
+{
+	"id": "CALENDAR_ID"
+}
+```
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que
 haya ido bien, nos devuelve un listado de actividades con la estructura que se
@@ -1700,7 +1729,8 @@ muestra a continuación
 		[
 			{
 				"id"         : "ACTIVITY_ID",
-				"message"    : "u1net has created the event", 				"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+				"message"    : "The user has created the event",
+				"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
 				"profile"    :
 					{
 						"username" : "USER_NICKNAME",
@@ -1721,7 +1751,7 @@ muestra a continuación
 						"assistents"  : ["USER_ID_1", "USER_ID_2"],
 						"created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
 						"tags"        : ["learn"],
-						"guest"       : [USER_ID_1, USER_ID_2, USER_ID_3]
+						"guest"       : ["USER_ID_1", "USER_ID_2", "USER_ID_3"]
 					},
 				"calendar":
 					{
@@ -1792,7 +1822,7 @@ Esta función devuelve el nuevo evento:
 				{
 					"address"    : "c/ San Mames",
 					"locality"   : "Bilbao",
-					"country"    : "Spain',
+					"country"    : "Spain",
 					"_id"        : "PLACE_ID",
 					"created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
 					"position"   : [ -2.29, 23.23 ]
