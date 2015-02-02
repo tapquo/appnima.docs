@@ -234,7 +234,7 @@ In that case you just have to send the id of the user with the method call.
 Get user data with this resource. Then, just wait the response `200 Ok` and APP/NIMA will returns:
 ```json
     {
-        "id"       : "USER_ID"
+        "id"       : "USER_ID",
         "mail"     : "USER_MAIL",
         "username" : "USER_NICKNAME",
         "name"     : "Javi Jimenez",
@@ -547,7 +547,7 @@ App/nima returns `200 Ok` and the list:
 		"id"        : "USER_ID",
 		"username"  : "USER_NICKNAME",
 		"name"      : "Javi",
-		"avatar"    : "AVATAR_URL"
+		"avatar"    : "AVATAR_URL",
 		"is_follow" : "true"
     },
     {
