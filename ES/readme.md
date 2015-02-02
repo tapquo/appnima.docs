@@ -23,7 +23,7 @@ de la lógica horizontal:
 
 [1]: <http://tapquo.com>
 
--   Servicio OAuth 2 para la autentificación
+-   Servicio OAuth 2 para la autentificación [link](#anchor1)
 
 -   Gestión de usuarios
 
@@ -110,7 +110,7 @@ envianoslo en las posteriores peticiones como *If-None-Match* y
 Modified* como respuesta, que te ahorra tiempo y ancho de banda (porque ya
 tienes ese recurso).
 
-### Manejando errores
+### Manejando errores[This is an example](id:anchor1)
 
 Si Appnima tiene algun problema, es posible que veas un error 5xx. 500 significa
 que la aplicación esta totalmente caída, pero tambien puedes ver un 502 *Bad
@@ -151,14 +151,14 @@ usuario en tu aplicación después de un `signup`.
 Así, para peticiones mediante la `KEY` de la aplicación la cabecera debe ir
 configurada de la siguiente forma:
 
-```
+```json
   "authorization" : "basic APPLICATION_KEY"
 ```
 
 
 Y si son peticiones con el `ACCESS_TOKEN` de un usuario:
 
-```
+```json
   "authorization" : "bearer USER_ACCESS_TOKEN"
 ```
 
@@ -203,16 +203,16 @@ tanto lo primero que tendrás que hacer es registrarlos para así poder obtener 
 plataforma. Puedes registrar un usuario por mail o por username. Utiliza este
 recurso pasando como parámetros mail o username y el password:
 
-```
+```json
 {
-  "mail"    : "javi@tapquo.com",
+  "mail"    : "USER_MAIL",
   "password": "USER_PASSWORD"
 }
 ```
 
 Opcionalmente también puedes enviar:
 
-```
+```json
 {
   ...
   "username"  : "soyjavi",
@@ -222,7 +222,7 @@ Opcionalmente también puedes enviar:
 
 Si ha ido todo bien el servidor retorna un `200` junto con el objeto:
 
-```
+```json
 {
   "id"            : "USER_ID",
   "application"   : "APPLICATION_ID",
@@ -238,16 +238,16 @@ Si ha ido todo bien el servidor retorna un `200` junto con el objeto:
 Cada vez que quieras validar si el usuario tiene permisos para acceder a tu
 aplicación podrás usar este recurso. Únicamente necesita los parámetros:
 
-```
+```json
 {
-  "mail"      : "javi@tapquo.com",
+  "mail"      : "USER_MAIL",
   "password"  : "USER_PASSWORD"
 }
 ```
 
-```
+```json
 {
-  "username" : "soyjavi",
+  "username" : "USER_NICKNAME",
   "password" : "USER_PASSWORD"
 }
 ```
@@ -257,11 +257,11 @@ Dependerá de con qué se haya registrado el usuario.
 En caso de que la validación haya sido correcta Appnima devolver un `200` con
 los datos del usuario:
 
-```
+```json
 {
   "id"            : "USER_ID",
-  "mail"          : "javi@tapquo.com",
-  "usenarme"      : "soyjavi",
+  "mail"          : "USER_MAIL",
+  "usenarme"      : "USER_NICKNAME",
   "name"          : "Javi Jimenez",
   "avatar"        : "http://api.appnima.com/avatar/default.jpg",
   "access_token"  : "ACCESS_TOKEN",
@@ -276,7 +276,7 @@ A partir de ahora, para acceder a cualquier recurso de Appnima es necesario
 enviar en la cabecera de la petición el atributo `authorization` con el valor
 del `ACCESS_TOKEN` del usuario:
 
-```
+```json
 {
   "authorization" : "bearer ACCESS_TOKEN"
 }
@@ -288,7 +288,7 @@ token nuevo, utiliza este recurso para obtener un `ACCESS_TOKEN` nuevo.
 En este caso, en la cabecera de la petición el atributo `authorization` lleva la
 `KEY` de la aplicación:
 
-```
+```json
 {
   "authorization": "basic KEY"
 }
@@ -297,16 +297,16 @@ En este caso, en la cabecera de la petición el atributo `authorization` lleva l
 Y los parámetros que tienes que enviar son el `grant_type` con el string
 "refresh_token" y el valor del `"REFRESH_TOKEN"` del usuario:
 
-```
+```json
 {
-  "grant_type"    : "REFRESH_TOKEN",
-  "refresh_token" : "refresh_token"
+  "grant_type"    : "refresh_token",
+  "refresh_token" : "REFRESH_TOKEN"
 }
 ```
 
 Si todo ha ido bien el servidor devuelve un `200` el siguiente objeto:
 
-```
+```json
 {
   "id"            : "USER_ID",
   "application"   : "APPLICATION_ID",
@@ -328,7 +328,7 @@ Por lo tanto envía esta petición sin parámetros para que Appnima te devuelva 
 datos del usuario logueado o envía como parámetro `id` la ID del usuario del
 cual deseas obtener sus datos.
 
-```
+```json
 {
   "id" : "USER_ID"
 }
@@ -337,11 +337,11 @@ cual deseas obtener sus datos.
 En ambos casos, solo deberás esperar a la respuesta `200 Ok` y Appnima te
 devuelve los siguientes parámetros:
 
-```
+```json
 {
   "id"      : "USER_ID",
-  "mail"    : "javi@tapquo.com",
-  "username": "soyjavi",
+  "mail"    : "USER_MAIL",
+  "username": "USER_NICKNAME",
   "name"    : "Javi Jimenez",
   "avatar"  : "http://api.appnima.com/avatar/default.jpg",
   "language": "spanish",
@@ -359,10 +359,10 @@ tu aplicación, al igual que en el recurso **GET /user/info** no es necesario
 identificar al usuario por parámetro. Puedes enviar todos los parámetros que
 aparecen a continuación (aunque no es obligatorio enviarlos todos):
 
-```
+```json
 {
   "name"    : "Javi",
-  "mail"    : "javi@tapquo.com",
+  "mail"    : "USER_MAIL",
   "avatar"  : "AVATAR",
   "language": "spanish",
   "country" : "Spain",
@@ -391,7 +391,7 @@ de no tener, o no desear usar su propio backend, se podrá realizar en un paso.
 
 Si se desea hacer en un paso, hay que enviar los siguientes parámetros:
 
-```
+```json
 {
   "mail"        : "USER_MAIL",
   "application" : "APPLICATION_ID"
@@ -404,7 +404,7 @@ de la gestión de la URL que se envia en el email, como se explica más adelante
 Por otro lado, si se desea hacer en dos pasos, es necesario enviar la URL a la
 que se redirigirá al usuario:
 
-```
+```json
 {
   "mail"        : "USER_MAIL",
   "application" : "APPLICATION_ID",
@@ -429,7 +429,7 @@ backend de la aplicación con dicha URL_CALLBACK en la que haya un formulario
 donde rellenar la nueva contraseña deseada. Por lo tanto, hay que enviar al
 recurso los siguientes datos:
 
-```
+```json
 {
   "code"    : "CODE",
   "password": "USER_PASSWORD"
@@ -447,7 +447,7 @@ Este recurso sirve para cambiar la contraseña y el único requisito es estar
 identificado con Appnima. Junto a la petición hay que enviarle los siguientes
 parámetros:
 
-```
+```json
 {
   "old_password": "OLD_USER_PASSWORD",
   "new_password": "NEW_USER_PASSWORD"
@@ -462,7 +462,7 @@ Este recurso sirve para que en el caso de que necesites registrar el terminal
 con el que se está accediendo a tu aplicación. Para ello junto con la petición
 tienes que enviar los parámetros:
 
-```
+```json
 {
   "type"    : "phone", /* computer, tablet, phone, tv */,
   "os"      : "ios", /* windows, macos, linux, ios, android, blackberry, firefoxos, windowsphone, other */
@@ -479,20 +479,20 @@ simplemente tienes que utilizar este recurso y al igual que **GET /user/info**
 no hace falta que envies ningún parámetro. La respuesta si ha ido todo
 correctamente será un `200 Ok` junto con el objeto:
 
-```
+```json
 [
   {
     "_id"     : "TERMINAL_ID",
     "type"    : "phone",
     "os"      : "ios",
-    "token"   : "OHSAF9075HFQ",
+    "token"   : "USER_TOKEN",
     "version" : "6.0"
   },
   {
     "_id"     : "TERMINAL_ID",
     "type"    : "desktop",
     "os"      : "macos",
-    "token"   : "89YWEOFOGH022GB",
+    "token"   : "USER_TOKEN",
     "version" : "10.8"
   }
 ]
@@ -503,7 +503,7 @@ correctamente será un `200 Ok` junto con el objeto:
 Es recurso actualiza los datos de un termina. Para ello junto con la petición
 tienes que enviar los parámetros:
 
-```
+```json
 {
   terminal: "TERMINAL_ID",
   type    : "phone", /* computer, tablet, phone, tv */,
@@ -520,7 +520,7 @@ Utilizando este recurso puedes ofrecer un sistema de suscripción a tu
 aplicación. Registra los e-mails de los usuarios que desean recibir información
 o invitación. Solo necesitas pasar como parámetro la dirección e-mail:
 
-```
+```json
 {
   "mail": "USER_MAIL"
 }
@@ -528,7 +528,7 @@ o invitación. Solo necesitas pasar como parámetro la dirección e-mail:
 
 Si el parámetro es correcto se recibe un `200 Ok` junto con el objeto:
 
-```
+```json
 {
   "message": 'Request accepted.'
 }
@@ -548,7 +548,7 @@ podrá contestarlos.
 Utiliza este recurso para obtener un ticket en concreto. Para ello simplemente
 hay que mandar la ID del ticket que se quiere obtener.
 
-```
+```json
 {
   "id" : "TICKET_ID"
 }
@@ -556,14 +556,14 @@ hay que mandar la ID del ticket que se quiere obtener.
 
 Si todo ha ido bien, Appnima devuelve `200` y el siguiente objeto:
 
-```
+```json
 { ticket:
    { "id"   : 'TICKET_ID',
      "user" :
       { "id"      : 'USER_ID',
         "name"    : 'Bob',
         "username": 'bob',
-        "mail"    : 'bob@bob.com',
+        "mail"    : 'USER_MAIL',
         "avatar"  : 'http://api.appnima.com/img/avatar.jpg' },
      "type"   : 'QUERY',
      "title"  : 'Consulta: Scopes disponibles',
@@ -577,20 +577,20 @@ Si todo ha ido bien, Appnima devuelve `200` y el siguiente objeto:
 Utiliza este recurso para buscar un conjunto de tickets. Se puede filtrar por
 los siguientes campos:
 
--   `user`: Para obtener los tickets de este usuario en concreto.
+-   **`user`**: Para obtener los tickets de este usuario en concreto.
 
--   `reference`: Para obtener los tickets por esta referencia.
+-   **`reference`**: Para obtener los tickets por esta referencia.
 
--   `type`: Para obtener los tickets de este tipo.
+-   **`type`**: Para obtener los tickets de este tipo.
 
--   `solved`: (true o false) Para obtener los tickets resueltos (true) o los
+-   **`solved`**: (true o false) Para obtener los tickets resueltos (true) o los
     pendientes (false)
 
 Se puede hacer búsqueda por un campo en concreto o por la mezcla de varios. En
 el ejemplo siguiente sería una búsqueda con todos los campos y el objeto a
 mandar seria el siguiente:
 
-```
+```json
 {
   "user"      : "USER_ID",
   "reference" : "REFERENCE_MODEL",
@@ -608,7 +608,7 @@ Utiliza este recurso como sistema de gestión de tickets para la resolución de
 las consultas e incidencias de tus usuarios. La petición necesita un objeto como
 el siguiente:
 
-```
+```json
 {
   "title"       : "How can I start with [Atoms]?",
   "description" : "Where can I find documentation related?",
@@ -630,7 +630,7 @@ Para modicifar un ticket solamente tienes que enviar la ID del ticket y los
 atributos a cambiar. Los atributos permitidos son
 ["title", "description", "reference", "type"]:
 
-```
+```json
 {
   "id"   : "TICKET_ID"
   "type" : "0"
@@ -645,7 +645,7 @@ ambos casos habría que enviar los datos a la siguiente llamada:
 
 También se puede eliminar un ticket pasándole la ID de dicho ticket.
 
-```
+```json
 {
   "id": "TICKET_ID"
 }
@@ -656,7 +656,7 @@ También se puede eliminar un ticket pasándole la ID de dicho ticket.
 Con este método podrás responder al un ticket creado por un usuario. Envía como
 parámetros el ID del ticket y el texto con la respuesta de la siguiente manera:
 
-```
+```json
 {
   "id"      : "TICKET_ID"
   "response": "Hello, you can find all documentation here: https://github.com/tapquo/atoms"
@@ -698,7 +698,7 @@ Utiliza este recurso para buscar ususarios dentro de tu aplicación. Puedes
 enviar como parámetro el mail o parte del mail de un usuario o su nickname o
 parte de él.
 
-```
+```json
 {
   "query": "javi"
 }
@@ -707,25 +707,25 @@ parte de él.
 En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok`
 junto con una lista de usuarios que coinciden con la búsqueda:
 
-```
+```json
   [
     {
       "avatar"  : "http://api.appnima.com/avatar/default.jpg",
       "id"      : "USER_ID"
       "name"    : "javi",
-      "username": "javi@javi.com"
+      "username": "USER_MAIL"
     },
     {
       "avatar"  : "http://api.appnima.com/avatar/default.jpg",
       "id"      : "USER_ID",
       "name"    : "javier",
-      "username": "a3@appnima.com"
+      "username": "USER_MAIL"
     },
     {
       "avatar"  : "http://api.appnima.com/avatar/default.jpg",
       "id"      : "USER_ID",
       "name"    : null
-      "username": "j.villar@javi.com"
+      "username": "USER_MAIL"
     }
   ]
 ```
@@ -734,7 +734,7 @@ junto con una lista de usuarios que coinciden con la búsqueda:
 
 Para seguir a un usuario utiliza este recurso pasando como parámetro su `id`:
 
-```
+```json
 {
   "user": "USER_ID"
 }
@@ -746,7 +746,7 @@ Si se desea realizar un follow blindado, esto es, que tú seas amigo del usuario
 que envíar y que él sea el tuyo en una única llamada, simplemente hay que enviar
 los siguientes parámetros:
 
-```
+```json
 {
   user    : "USER_ID",
   shield  : true
@@ -758,7 +758,7 @@ los siguientes parámetros:
 Para dejar de seguir un usuario utiliza este recurso de igual manera que **POST
 /follow**:
 
-```
+```json
 {
   "user" : "USER_ID"
 }
@@ -766,7 +766,7 @@ Para dejar de seguir un usuario utiliza este recurso de igual manera que **POST
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-```
+```json
 {
   "message" : "Successful"
 }
@@ -783,7 +783,7 @@ Con este recurso puedes obtener la lista de followings del usuario de sessión
 llamando al recurso sin pasar parámetro o puedes obtener la lista de followings
 de otro usuario pasando como parámetro su `id`:
 
-```
+```json
 {
   "user": "USER_ID"
 }
@@ -791,28 +791,29 @@ de otro usuario pasando como parámetro su `id`:
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-```
+```json
   "count" : 4
   [
     {
       "avatar"  : "http://cata.jpg",
-      "id"      : "USER_ID" "mail" : "cata@cata.com",
+      "id"      : "USER_ID",
+      "mail"    : "USER_MAIL",
       "name"    : "cata",
-      "username": "cata"
+      "username": "USER_NICKNAME"
     },
     {
       "avatar"  : "http://a1.jpg",
       "id"      : "USER_ID",
-      "mail"    : "a1@appnima.com",
+      "mail"    : "USER_MAIL",
       "name"    : "a1",
-      "username": "a1@appnima.com-1391099964446-1391100156004"
+      "username": "USER_NICKNAME"
     },
     {
       "avatar"  : "http://avatar.jpg",
       "id"      : "USER_ID",
-      "mail"    : "a2@appnima.com",
+      "mail"    : "USER_MAIL",
       "name"    : "a2",
-      "username": "a2@appnima.com"
+      "username": "USER_NICKNAME"
     }
 ]
 ```
@@ -821,7 +822,7 @@ Al igual que en el *timeline* del recurso de `MESSENGER`, existe la opción de
 obtener estos datos mediante paginación. Para ello, simplemente tienes que
 añadir los siguientes parámetros a tu llamada:
 
-```
+```json
 {
   "username"    : "username",
   "page"        : 0,
@@ -840,7 +841,7 @@ Funciona de igual manera que **GET /following**, puedes enviar la `id` del
 usuario del que quieres obtener la información o si no lo envías obtienes la
 lista de followers del usuario de la sesión:
 
-```
+```json
 {
   "user": "USER_ID"
 }
@@ -848,29 +849,29 @@ lista de followers del usuario de la sesión:
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-```
+```json
   "count": 3
   [
     {
       "avatar"  : "http://cata.jpg",
       "id"      : "USER_ID",
-      "mail"    : "hi@cataflu.com",
+      "mail"    : "USER_MAIL",
       "name"    : "cata",
-      "username": "cataflu"
+      "username": "USER_NICKNAME"
     },
     {
       "avatar"  : "http://javi.jpg",
       "id"      : "USER_ID",
-      "mail"    : "javi@soyjavi.com",
+      "mail"    : "USER_MAIL",
       "name"    : "javi"
-      "username": "soyjavi"
+      "username": "USER_NICKNAME"
     },
     {
       "avatar"  : "http://a1.jpg",
       "id"      : "USER_ID",
-      "mail"    : "oihane@oihane.com",
+      "mail"    : "USER_MAIL",
       "name"    : "oihane",
-      "username": "oihi08"
+      "username": "USER_NICKNAME"
     }
   ]
 ```
@@ -893,7 +894,7 @@ haga follow.
 
 Parámetro para la petición:
 
-```
+```json
 {
   "user": "USER_ID"
 }
@@ -901,14 +902,14 @@ Parámetro para la petición:
 
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
-```
+```json
 [
   {
     avatar    : "http://oihi.jpg",
     "id"      : "USER_ID",
-    "mail"    : "oihi@oihi.com",
+    "mail"    : "USER_MAIL",
     "name"    : "oihi",
-    "username": "oihi08"
+    "username": "USER_NICKNAME"
   }
 ]
 ```
@@ -919,7 +920,7 @@ Este recurso sirve para saber la relación que tienes con un determinado usuario
 (tal vez te interese seguirlo o no) para ello tenemos que enviar el `id` del
 usuario a consultar de la siguiente manera:
 
-```
+```json
 {
   "user": "USER_ID"
 }
@@ -929,7 +930,7 @@ En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con e
 objeto que representa la relación que tiene el usuario consultado con el usuario
 de tu aplicación:
 
-```
+```json
 {
   "following": true,
   "follower" : false
@@ -949,7 +950,7 @@ antiguo al más reciente.
 En cambio, si lo que deseas es obtener los posts de otro usuario o solamente los
 tuyos propios, debes enviar los siguientes parámetros:
 
-```
+```json
 {
   "username": "USERNAME"
 }
@@ -967,7 +968,7 @@ posts cronologicamente.
 
 Para ello, debes enviar los siguientes parámetros:
 
-```
+```json
 {
   "page"        : 0,
   "num_results" : 5,
@@ -993,7 +994,7 @@ comienzo de la siguiente tanda de posts.
 Este recurso sirve para hacer favorito un post en concreto o para quitar un
 favorito ya hecho. Para ello, solo hay que enviar el *id* de dicho post.
 
-```
+```json
 {
   "post": "MESSAGE_ID"
 }
@@ -1009,7 +1010,7 @@ Este recurso, si todo va bien, devolverá la lista de los *post* a los que el
 usuario logueado ha marcado como favorito. Para ello, debes enviar el siguiente
 parámetro:
 
-```
+```json
 {
   "username": "username"
 }
@@ -1024,7 +1025,7 @@ En este caso también está la posibilidad de obtener los post mediante
 Este recurso sirve para obtener todos los usuarios que han hecho favorito a un
 *post* en concreto. Para ello, solamente hay que enviar la *id* de dicho post.
 
-```
+```json
 {
   "post": "POST_ID"
 }
@@ -1038,7 +1039,7 @@ Este recurso sirve para crear comentarios sobre un `post`. La idea de este
 recurso es que se puedan crear discusiones sobre los post. Para crear un
 comentario hay que enviar los siguientes parámetros:
 
-```
+```json
 {
   "id"      : "POST_ID",
   "content" : "Lorem Impsum..."
@@ -1056,7 +1057,7 @@ comentarios.
 Este recurso modifica un comentario y hay que enviar el id del comentario junto
 con los campos que se desea modificar.
 
-```
+```json
 {
   "id"      : "COMMENT_ID",
   "content" : "Lorem Impsum... updated",
@@ -1098,7 +1099,7 @@ correo que desees utilizar. Así, tu aplicación podrá enviar e-mails tus usuar
 que tengan su dirección de correo registrado. Los datos que se envían al método son
 (el asunto es opcional):
 
-```
+```json
 {
   "user"    : "USER_ID",
    "subject": "Appnima.com",
@@ -1117,7 +1118,7 @@ Con este recurso tu aplicación podrá enviar mensajes de texto a los dispositiv
 móviles registrados de tus usuarios. Tan solo debes enviar junto con la petición
 los parámetros:
 
-```
+```json
 {
   "user"    : "USER_ID",
   "message" : "Welcome to appnima.messenger"
@@ -1133,7 +1134,7 @@ Si todo ha salido bien, el servidor devolverá un `200`.
 Si lo necesitas, Appnima te provee de un sistema de mensajería interno entre los
 usuarios de tu aplicación. Los parámetros que necesita la petición son:
 
-```
+```json
 {
   "user"    : "USER_ID",
   "subject" : "Appnima.com",
@@ -1144,7 +1145,7 @@ usuarios de tu aplicación. Los parámetros que necesita la petición son:
 El campo subject es opcional y si la petición ha salido bien se devolverá el código
 `200` junto con el objeto:
 
-```
+```json
 {
   "message" : 'Message sent successfully.'
 }
@@ -1160,7 +1161,7 @@ basta con llamar al recurso pasando como parámetro outbox.
 Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
 bandeja indicada:
 
-```
+```json
 {
   "id"          : "MESSAGE_ID",
   "from"        : "USER_ID",
@@ -1177,7 +1178,7 @@ bandeja indicada:
 Los usuarios de tu aplicación pueden recuperar los mensajes recibidos. Para ello
 basta con llamar al recurso pasando como parámetro inbox.
 
-```
+```json
 {
   "context": "inbox"
 }
@@ -1186,7 +1187,7 @@ basta con llamar al recurso pasando como parámetro inbox.
 Si todo ha salido bien, devolverá un `200 Ok` junto con lista de mensajes de la
 bandeja indicada:
 
-```
+```json
 {
   "id"          : "MESSAGE_ID",
   "from"        : "USER_ID",
@@ -1203,7 +1204,7 @@ bandeja indicada:
 Para que se refleje que el usuario ha leído un mensaje o que desea eliminarlo de
 su sistema, basta con enviar en la petición los siguientes parámetros:
 
-```
+```json
 {
   "message" : "MESSAGE_ID",
   "state"   : "READ" /*READ o DELETED*/
@@ -1213,7 +1214,7 @@ su sistema, basta con enviar en la petición los siguientes parámetros:
 Si todo ha salido bien, devolverá un `200 Ok`junto con el mensaje de
 confirmación:
 
-```
+```json
 {
   "message" : "Resource READ."
 }
@@ -1250,31 +1251,76 @@ preciso y 2 menos preciso:
 
 Filtro por `radio`:
 
-``` { "latitude" : "-33.9250334", "longitude" : "18.423883499999988", "radio" :
-"500" } ```
+```json
+{
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988",
+	"radio"     : "500"
+}
+```
 
 Filtro por `precisión`:
 
-``` { "latitude" : "-33.9250334", "longitude": "18.423883499999988",
-"precision": "1" } ```
+```json
+{
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988",
+	"precision" : "1"
+}
+```
 
 En el caso de que haya respuesta, se devuelve un `200 Ok` junto con una lista de
 lugares e información relacionada:
 
-``` [{ "address" : "Neurketa Kalea, 8, Mungia, Spain", "country" : "ES", "id" :
-"51e9290db68307fe5900001d", "locality": "Mungia", "name" : "Frus Surf", "phone"
-: "+34 946 15 57 71", "position": "latitude" : "43.356091" "longitude":
-"-2.847759" "postal_code": "48100", "reference" : null, "types": 0 :
-"establishment" "website" : "http://shop.frussurf.com/" }, { address : "Neurketa
-Kalea, 3, Mungia, Spain" country : "ES" id : "51e92893b68307fe59000017"
-locality: "Mungia" name: "Inmobiliaria Urrutia" phone: "+34 946 15 66 95"
-position: latitude: 43.35618 longitude: -2.847939 postal_code: "48100"
-reference: null, types: 0: "establishment" website:
-"http://www.inmobiliariaurrutia.com/" }, { address: "Neurketa Kalea, 8, Mungia"
-country: null id: "cd547ea9e3c4fe9d8f8883942a6fa8ac73130905" locality: null
-name: "Bar Aketxe" phone: null position: latitude: 43.356091 longitude:
--2.847759 postal_code: null reference: "CnRoAAAAUV3iCS__" types: website:
-null } ] ```
+```json
+[
+	{
+		"address"  : "Neurketa Kalea, 8, Mungia, Spain",
+		"country"  : "ES",
+		"id"       : "PLACE_ID",
+		"locality" : "Mungia",
+		"name"     : "Frus Surf",
+		"phone"    : "+34 946 15 57 71",
+		"position" : {
+			"latitude" : "43.356091",
+			"longitude": "-2.847759"
+		},
+		"postal_code" : "POSTAL_CODE",
+		"reference"   : null,
+		"website" : "http://shop.frussurf.com/"
+	},
+	{
+		"address"  : "Neurketa Kalea, 3, Mungia, Spain",
+		"country"  : "ES",
+		"id"       : "PLACE_ID",
+		"locality" : "Mungia",
+		"name"     : "Inmobiliaria Urrutia",
+		"phone"    : "+34 946 15 66 95",
+		"position" : {
+			"latitude" : 43.35618,
+			"longitude": -2.847939
+		},
+		"postal_code" : "POSTAL_CODE",
+		"reference"	  : null,
+		"website"     : "http://www.inmobiliariaurrutia.com/"
+	},
+	{
+		"address"  : "Neurketa Kalea, 8, Mungia",
+		"country"  : null,
+		"id"       : "PLACE_ID",
+		"locality" : null,
+		"name"     : "Bar Aketxe",
+		"phone"    : null,
+		"position" : {
+			"latitude" : 43.356091,
+			"longitude": -2.847759
+		},
+		"postal_code": null,
+		"reference"  : "REFERENCE_ID",
+		"website"    : null
+	}
+]
+```
 
 #### GET /place
 
@@ -1283,39 +1329,75 @@ Envía junto con la petición los parámetros `id` y `reference`.
 
 Si el place no tienes reference la consulta es se realia de la siguiente forma:
 
-``` { id: "51e92bfab68307fe59000030" } ```
+```json { id: "PLACE_ID" } ```
 
 Si el place tiene `reference` envía la petición de la siguiente forma:
 
-``` { id: "51e92bfab68307fe59000030", reference:
-"CoQBcwAAAGFG6LT0qt4U3kxuIuywXrFmvZaUvAZ5zjhZWXMQJtGlL1afAla1RS6PYuANvkWVPzGMh3YMWThOM1NFUm5satOXxKKmUb7_H19Tfep"
+```json
+{
+	"id"        : "PLACE_ID",
+	"reference" : "REFERENCE_ID"
+}
+```
+
+Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto:
+
+```json
+{
+	"address"  : "Neurketa Kalea, 8, Mungia, Spain",
+	"country"  : "ES",
+	"id"       : "PLACE_ID",
+	"locality" : "Mungia",
+	"name"     : "Bar Aketxe",
+	"phone"    : "+34 946 74 18 40",
+	"position" : {
+		"latitude": 43.356091,
+		"longitude": -2.847759
+	},
+	"postal_code" : "POSTAL_CODE",
+	"reviews"     :	[
+        {
+            "time"     : REVIEW_TIME,
+            "text"     : "REVIEW_TEXT",
+            "rating"   : 4,
+            "language" : "en",
+            "author_name" : "A Google User",
+            "aspects" : [ 
+                {
+                    "type" : "overall",
+                    "rating" : 2
+                }
+            ]
+        }
+      ]
 } ```
-
-Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el
-objeto:
-
-``` { address: "Neurketa Kalea, 8, Mungia, Spain" country: "ES" id:
-"51e92bfab68307fe59000030" locality: "Mungia" name: "Bar Aketxe" phone: "+34 946
-74 18 40" position: Object latitude: 43.356091 longitude: -2.847759
-postal_code: "48100" reviews: aspects: 0: Object rating: 1 type: "food" 1:
-Object rating: 1 type: "decor" 2: Object rating: 1 type: "service" author_name:
-"jc ce" author_url: "https://plus.google.com/101519756922440365704" text:
-"BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS." types: 0: "bar" 1:
-"establishment" } ```
 
 #### POST /place
 
 Utiliza este recurso para dar de alta un sitio. Envía junto con la petición los
 siguientes parámetros:
 
-``` { name: "San Mames", address: "Felipe Serrate, s/n", locality: "Bilbao",
-postal_code: "48013", country: "ES", latitude: " ﻿43.26", longitude: "-2.94" }
+```json
+{
+	"name"        : "San Mames",
+	"address"     : "Felipe Serrate, s/n",
+	"locality"    : "Bilbao",
+	"postal_code" : "POSTAL_CODE",
+	"country"     : "ES",
+	"latitude"    :	"﻿43.26",
+	"longitude"   : "-2.94"
+}
 ```
 
 Opcionalmente se pueden añadir los siguientes parámetros:
 
-``` { mail: "hello@sanmames.com", phone: "944411445", website:
-"www.sanmames.com" } ```
+```json
+{
+	"mail"    : "PLACE_MAIL",
+	"phone"   : "+34 946 74 18 40",
+	"website" : "www.sanmames.com"
+}
+```
 
 Si la consulta ha obtenido respuesta se devuelve un `201 Created`.
 
@@ -1326,25 +1408,40 @@ Si la consulta ha obtenido respuesta se devuelve un `201 Created`.
 Los usuarios de tu aplicación pueden registrar visitas a sitios concretos. Para
 ello utiliza este recurso pasando el parámetro id:
 
-``` { id: "51e92bfab68307fe59000030" } ```
+```json { id: "USER_ID" } ```
 
 Si todo ha salido bien, se devuelve un `200 Ok` junto con el objeto:
 
-``` { status: 'ok' } ```
+```json { status: 'ok' } ```
 
 #### GET /checkin
 
 Obtén la lista de sitios guardados por tus usuarios con este recurso. Para ello
 únicamente tienes que enviar el id del usuario en la petición:
 
-``` { id: "51e930cad2eeaea678000010" } ```
+```JSON { id: "USER_ID" } ```
 
 Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 
-``` { address: "Calle de Trobika, 1, Mungia, Spain" country: "ES" id:
-"51e930cad2eeaea678000010" locality: "Mungia" name: "Policía Municipal" phone:
-"+34 946 15 66 77" position: latitude: 43.354551 longitude: -2.846533
-postal_code: "48100" reviews: Array[0] types: 0: "police" 1: "establishment" }
+```json
+{
+	"address"  : "Calle de Trobika, 1, Mungia, Spain",
+	"country"  : "ES",
+	"id"       : "PLACE_ID",
+	"locality" : "Mungia",
+	"name"     : "Policía Municipal",
+	"phone"    : "+34 946 15 66 77",
+	"position" : {
+		"latitude"  : 43.354551,
+		"longitude" : -2.846533
+	},
+	"postal_code" : "POSTAL_CODE",
+	"reviews"     : [],
+	"types": {
+		0: "police",
+		1: "establishment"
+	}
+}
 ```
 
 ### Search
@@ -1354,13 +1451,24 @@ postal_code: "48100" reviews: Array[0] types: 0: "police" 1: "establishment" }
 Proporciona a tus usuarios información sobre amigos cercanos a un punto
 determinado. Para ello utiliza este recurso pasando los siguientes parámetros:
 
-``` { latitude: "-33.9250334", longitude: "18.423883499999988", radio: "500" }
+```json
+{
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988",
+	"radio"     : "500"
+}
 ```
 
 Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 
-``` { avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
-id: "51aef6f4560d261d15000001" name: Cata username: "catalina@tapquo.com" } ```
+```json
+{
+	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg",
+	"id"       : "FRIEND_ID",
+	"name"     : "Cata",
+	"username" : "FRIEND_NICKNAME"
+}
+```
 
 #### GET /people
 
@@ -1368,13 +1476,24 @@ De la misma forma que puedes mostrar a un usuarios qué amigos están a su
 alrededor, puedes por ejemplo proponer gente fuera de sus listas de amigos. La
 petición se realiza con los mismos parámetros:
 
-``` { latitude: "-33.9250334", longitude: "18.423883499999988", radio: "500" }
+```json
+{
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988",
+	"radio"     : "500"
+}
 ```
 
 Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 
-``` { avatar: "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
-id: "51aef6f4560d261d15000001" name: Cata username: "catalina@tapquo.com" } ```
+```json
+{
+	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg",
+	"id"       : "FRIEND_ID",
+	"name"     : "Cata",
+	"username" : "FRIEND_NICKNAME"
+}
+```
 
 ### User
 
@@ -1392,7 +1511,12 @@ objeto:
 Utiliza este recurso para almacenar la posición de tu usuario. Envía junto con
 la petición su latitud y longitud:
 
-``` { latitude: "-33.9250334", longitude: "18.423883499999988" } ```
+```json
+{
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988"
+}
+```
 
 Si todo ha salido bien, Appnima devolverá un `201 Created`.
 
@@ -1408,15 +1532,33 @@ continuación se explica la manera de hacerlo.
 Con este recurso el usuario crea un calendario. Junto con la petición hace falta
 enviar su nombre y el color que le quieras asignar:
 
-``` { name : "Calendario de trabajo", color : "\#3300FF" } ```
+```json 
+{
+	"name"  : "Calendario de trabajo",
+	"color" : "\#3300FF"
+}
+```
 
 si todo va bien, devueve el calendario creado:
 
-``` caledar: { id: 28319319833, name: 'mi calendario', color: '\#FF66CC',
-created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET), owner: { id:
-52eb667ab71cd7e4be00000c, username: 'a1@appnima.com-1391158906892', mail:
-'a1@appnima.com', avatar: 'http://api.appnima.com/avatar/default.jpg', name:
-'name' }, shared: [ ] } ```
+```json
+	caledar:
+		{
+			"id"         : "CALENDAR_ID",
+			"name"       : "mi calendario",
+			"color"      : "\#FF66CC",
+			"created_at" : Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+			"owner":
+				{
+					"id"       : "OWNER_ID",
+					"username" : "OWNER_NICKNAME",
+					"mail"     : "OWNER_MAIL",
+					"avatar"   : 'http://api.appnima.com/avatar/default.jpg',
+					"name"     : "Catalina Oyaneder"
+				},
+			"shared": []
+		}
+```
 
 #### PUT /calendar
 
@@ -1424,17 +1566,33 @@ Se puede modificar un calendario ya creado, tanto su nombre como su color. Para
 ello hay que mandar a la API la "id" de dicho calendario, el nuevo nombre y el
 nuevo color.
 
-``` { id : "28319319833", color : "\#3300FF" nombre : "Calendario de trabajo
-modificado" } ```
+```json
+{
+	"id"    : "CALENDAR_ID",
+	"color" : "#3300FF",
+	"name"  : "Calendario de trabajo modificado"
+}
+```
 
 En caso de que el calendario no exista, devuelve un error 404. Si por el
 contrario existe, devuelve el calendario con los campos modificados:
 
-``` calendar : { id: 28319319833, name: 'mi nuevo calendario', color:
-'\#FF66CC', created_at: Tue Feb 04 2014 13:19:06 GMT+0100 (CET), owner: { id:
-52eb667ab71cd7e4be00000c, username: 'a1@appnima.com-1391158906892', mail:
-'a1@appnima.com', avatar: 'http://api.appnima.com/avatar/default.jpg', name:
-'name' }, shared: [ ] } ```
+``` calendar:
+		{
+			"id"         : "CALENDAR_ID",
+			"name"       : "Calendario de trabajo modificado",
+			"color"      : "#FF66CC",
+			"created_at" : Tue Feb 04 2014 13:19:06 GMT+0100 (CET),
+			"owner":
+				{
+					"id"       : "OWNER_ID",
+					"username" : "OWNER_NICKNAME",
+					"mail"     : "OWNER_MAIL",
+					"avatar"   : 'http://api.appnima.com/avatar/default.jpg',
+					"name"     : "Oihane Merino"},
+					"shared"   : []
+}
+```
 
 #### PUT /calendar/shared
 
@@ -1444,19 +1602,37 @@ un usuario de un calendario. Para ello, hay que enviar a la API la "id", del
 calendario, la id del perfil del usuario a invitar, y el campo "state", que será
 add, si se le quiere invitar o "remove" si se le quiere eliminar.
 
-``` { id : "28319319833", profile : "28319364941" state : "add" } ```
+```json
+{
+	"id"      : "CALENDAR_ID",
+	"profile" : "USER_ID",
+	"state"   : "add"
+}
+```
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que
 haya ido bién devolverá el calendario actualizado. El atributo "shared"
 corresponde con la lista de usuarios a los que se les ha compartido el
 calendario.
 
-``` calendar : { id: 28319319833, name: 'slid.us', color: '\#FF66CC',
-created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET), owner: { id:
-52eb667ab71cd7e4be00000c, mail: 'a1@appnima.com', username:
-'a1@appnima.com-1391158906892', name: 'name', avatar:
-'http://api.appnima.com/avatar/default.jpg', }, shared: [
-52eb667ab71cd7e4be000008 ] } ```
+```json
+	calendar:
+		{
+			"id"         : "CALENDAR_ID",
+			"name"       : "slid.us",
+			"color"      : "#FF66CC",
+			"created_at" : Tue Feb 04 2014 12:	52:55 GMT+0100 (CET), 
+			"owner" :
+				{
+					"id"       : "OWNER_ID",
+					"mail"     : "OWNER_MAIL",
+					"username" : "OWNER_NICKNAME",
+					"name"     : "Oihane Merino",
+					"avatar"   : "http://api.appnima.com/avatar/default.jpg"
+				},
+			"shared": [ "USER_ID_1", "USER_ID_2" ]
+		}
+```
 
 #### GET /calendar
 
@@ -1464,23 +1640,37 @@ Con este recurso podemos obtener todos los calendarios de los que el usuario
 logueado es dueño, y aquellos que se le han compartido. Esto devuelve un "array"
 de calendarios.
 
-``` calendar : [ { id: 28319319833, name: 'slid.us', color: '\#FF66CC',
-created_at: Tue Feb 04 2014 12:52:55 GMT+0100 (CET), owner: { id:
-52eb667ab71cd7e4be00000c, mail: 'a1@appnima.com', username:
-'a1@appnima.com-1391158906892', name: 'name', avatar:
-'http://api.appnima.com/avatar/default.jpg', }, shared: [
-52eb667ab71cd7e4be000008 ] } ] ```
+```json
+	calendar:
+		[
+			{
+				"id"         : "CALENDAR_ID",
+				"name"       : "slid.us",
+				"color"      : "#FF66CC",
+				"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
+				"owner" :
+					{
+						"id"       : "OWNER_ID",
+						"mail"     : "OWNER_MAIL",
+						"username" : "OWNER_NICKNAME",
+						"name"     : "Catalina Oyaneder",
+						"avatar"   : "http://api.appnima.com/avatar/default.jpg"
+					},
+				"shared": [ "USER_ID_1", "USER_ID_2" ]
+			}
+		]
+```
 
 #### DELETE /calendar
 
 También hay la posibilidad de eliminar un calendario, para esto se utiliza este
 recurso. Únicamente hay que enviar como parámetro la "id" de dicho calendario.
 
-``` { id: "28319319833", } ```
+```json { id: "CALENDAR_ID" } ```
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que
 vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
-`json {     message: Successful   }`
+```json { message: "Successful"}```
 
 #### GET /calendar/activity
 
@@ -1488,27 +1678,60 @@ Appnima nos permite saber que actividades han surgido en nuestro calendario.
 Para obtener la lista de ellas se utiliza este recurso y se envía como parámetro
 la "id" del calendario.
 
-``` { id : "28319319833", } ```
+``` { id : "CALENDAR_ID" } ```
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que
 haya ido bien, nos devuelve un listado de actividades con la estructura que se
 muestra a continuación
 
-``` activities : [ { id: 52f8ef8282652a000000000a, message: 'u1net has created
-the event', created_at: Mon Feb 10 2014 16:25:54 GMT+0100 (CET), profile: {
-username: 'u1net', name: 'name', mail: 'a1@appnima.com', avatar:
-'http://api.appnima.com/avatar/default.jpg', id: 52eb667ab71cd7e4be00000c },
-event: { id: 52f8ef8282652a0000000009, calendar: 52f8ef8282652a0000000004,
-date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST), date_finish: Mon Apr 14
-2014 11:00:00 GMT+0200 (CEST), name: 'BilboStack updated', description: 'This
-event is bilboStack', place: 52f8ef8282652a0000000008, assistents: [
-52eb667ab71cd7e4be000004 ], created_at: Mon Feb 10 2014 16:25:54 GMT+0100
-(CET), tags: [ learn ], guest: [ 52eb667ab71cd7e4be000004,
-52eb667ab71cd7e4be000008 ] }, calendar: { id: 52f8ef8282652a0000000004, name:
-'Mi calendario updated', color: '\#FA58F4', created_at: Mon Feb 10 2014
-16:25:54 GMT+0100 (CET), owner: 52eb667ab71cd7e4be00000b, shared: [ ] }, owner:
-{ id: 52eb667ab71cd7e4be00000c, username: 'u1net', mail: 'a1@appnima.com',
-avatar: 'http://api.appnima.com/avatar/default.jpg', name: 'name' } }] ```
+```json
+	activities:
+		[
+			{
+				"id"         : "ACTIVITY_ID",
+				"message"    : "u1net has created the event", 				"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+				"profile"    :
+					{
+						"username" : "USER_NICKNAME",
+						"name"     : "Javier Jimenez",
+						"mail"     : "USER_MAIL",
+						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+						"id"       : "USER_ID"
+					},
+				"event":
+					{
+						"id"          : "EVENT_ID",
+						"calendar"    : "CALENDAR_ID",
+						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+						"name"        : "BilboStack updated",
+						"description" : "This event is bilboStack",
+						"place"       : "PLACE_ID",
+						"assistents"  : ["USER_ID_1", "USER_ID_2"],
+						"created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+						"tags"        : ["learn"],
+						"guest"       : [USER_ID_1, USER_ID_2, USER_ID_3]
+					},
+				"calendar":
+					{
+						"id"         : "CALENDAR_ID",
+						"name"       : "Mi calendario updated",
+						"color"      : "#FA58F4",
+						"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+						"owner"      : "OWNER_ID",
+						"shared"     : []
+					},
+				"owner":
+					{
+						"id"       : "OWNER_ID",
+						"username" : "OWNER_NICKNAME",
+						"mail"     : "OWNER_MAIL",
+						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+						"name"     : "Oihane Merino"
+					}
+				}
+			]
+```
 
 El evento y el calendario, es dónde se ha realizado la actividad. En caso de que
 el evento es null, es por que la actividad únicamente afecta al calendario. El
@@ -1526,24 +1749,56 @@ dicho evento, una string con una lista de tags separados por "," para poder
 taguear el evento, la dirección de donde se va a realizar el evento, la
 localidad, el país, la latitud y la longitud:
 
-``` { calendar : 52f0d497f4a9b16f47000002 name : "partido de futbol" description
-: "quedada para jugar un partido de fútbol" init : "04-14-2014 09:00" finish :
-"04-14-2014 11:00" address : "c/ San Mames" locality : "Bilbao country :
-"España" latitude : "23.23" longitude : "-2.29" guest : null tags :
-"futbol,deporte" } ```
+```json
+{
+	"calendar"    : "CALENDAR_ID",
+	"name"        : "Partido de fútbol",
+	"description" : "Quedada para jugar un partido de fútbol",
+	"init"        : "04-14-2014 09:00",
+	"finish"      : "04-14-2014 11:00",
+	"address"     : "c/ San Mames",
+	"locality"    : "Bilbao",
+	"country"     : "España",
+	"latitude"    : "23.23",
+	"longitude"   : "-2.29",
+	"guest"       : null,
+	"tags"        : "futbol,deporte"
+}
+```
 
 Esta función devuelve el nuevo evento:
 
-``` event: { id: 52f0e1e6d028ec6b6f000011, calendar: 28319319833, date_init:
-Mon Apr 14 2014 09:00:00 GMT+0200 (CEST), date_finish: Mon Apr 14 2014 11:00:00
-GMT+0200 (CEST), description: 'quedada para jugar un partido de fútbol', name:
-'partido de futbol', place: { address: 'c/ San Mames', locality: 'Bilbao',
-country: 'EspaÃ±a', _id: 52f0e1e6d028ec6b6f000010, __v: 0, created_at: Tue
-Feb 04 2014 13:49:42 GMT+0100 (CET), position: [ -2.29, 23.23 ] }, assistents: [
-], created_at: Tue Feb 04 2014 13:49:42 GMT+0100 (CET), tags: [futbol,
-deporte], owner: { id: 52eb667ab71cd7e4be00000c, username:
-'a1@appnima.com-1391158906892', mail: 'a1@appnima.com', avatar:
-'http://api.appnima.com/avatar/default.jpg', name: 'name' } } ```
+```json
+	event:
+		{
+			"id"          : "EVENT_ID",
+			"calendar"    : "CALENDAR_ID",
+			"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+			"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+			"description" : "Quedada para jugar un partido de fútbol",
+			"name"        : "Partido de futbol",
+			"place":
+				{
+					"address"    : "c/ San Mames",
+					"locality"   : "Bilbao",
+					"country"    : "Spain',
+					"_id"        : "PLACE_ID",
+					"created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+					"position"   : [ -2.29, 23.23 ]
+				},
+			"assistents" : [],
+			"created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+			"tags"       : ["futbol", "sport"],
+			"owner"      :
+				{
+					"id"       : "OWNER_ID",
+					"username" : "OWNER_NICKNAME",
+					"mail"     : "OWNER_MAIL",
+					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+					"name"     : "Oihane Merino"
+				}
+			}
+```
 
 #### PUT calendar/event
 
@@ -1555,11 +1810,23 @@ por "," que corresponde con los usuarios con los que quieres compartir dicho
 evento, una string con una lista de tags separados por ",",la dirección de donde
 se va a realizar el evento, la localidad, el país, la latitud y la longitud.
 
-``` { event : 52f0e1e6d028ec6b6f000011 calendar : 52f0d497f4a9b16f47000002 name
-: "partido de baloncesto" description : "quedada para jugar un partido de
-baloncesto" init : "04-14-2014 09:00" finish : "04-14-2014 11:00" address : "c/
-San Mames" locality : "Bilbao country : "España" latitude : "23.23" longitude :
-"-2.29" guest : null tags : "futbol,deporte" } ```
+```json
+{
+	"event"       : "EVENT_ID",
+	"calendar"    : "CALENDAR_ID",
+	"name"        : "Partido de baloncesto",
+	"description" : "Quedada para jugar un partido de baloncesto",
+	"init"        : "04-14-2014 09:00",
+	"finish"      : "04-14-2014 11:00",
+	"address"     : "c/ San Mames",
+	"locality"    : "Bilbao",
+	"country"     : "Spain",
+	"latitude"    : "23.23",
+	"longitude"   : "-2.29",
+	"guest"       : null,
+	"tags"        : "futbol,sport"
+}
+```
 
 En caso de que el evento no exista, devuelve un error 404. Si por el contrario
 existe, devuelve el evento con los campos modificados con la estructura del
@@ -1581,36 +1848,41 @@ semana deseada. O si por el contrario, se quiere obtener los eventos de un día
 en concreto "time" deberá tener como valor "day" y se debe enviar también
 "year", "month" y "day" que tendrán como valor la fecha del día deseado
 
-``` { time : day year : 2014 month : 04 day : 20 } ```
+```json
+{
+	"time"  : "day",
+	"year"  : "2014",
+	"month" : "04",
+	"day"   : "20"
+}
+```
 
 Como resultado se obtiene una lista de eventos:
 
-```
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        events: [{
-            id: 52f0ed7893888c029200000f,
-            calendar: 52f0ed7893888c0292000002,
-            date_init: Sun Apr 20 2014 09:00:00 GMT+0200 (CEST),
-            date_finish: Thu Mar 20 2014 11:00:00 GMT+0100 (CET),
-            name: 'company dinner',
-            description: 'This event is company dinner',
-            place: 52f0ed7893888c029200000e,
-            assistents: [ ],
-            created_at: Tue Feb 04 2014 14:39:04 GMT+0100 (CET),
-            tags: [ dinner,  enjoy ],
-            owner:
-                    {
-                        id: 52eb667ab71cd7e4be00000c,
-                        username: 'a1@appnima.com-1391158906892',
-                        mail: 'a1@appnima.com',
-                        avatar: 'http://api.appnima.com/avatar/default.jpg',
-                        name: 'name'
-                    }
-
-        }]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+```json
+		events:
+			[
+				{
+            		"id"          : "EVENT_ID",
+            		"calendar"    : "CALENDAR_ID",
+            		"date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
+            		"date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
+            		"name"        : "Company dinner",
+            		"description" : "This event is company dinner",
+            		"place"       : "PLACE_ID",
+            		"assistents"  : [],
+            		"created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
+            		"tags"        : ["dinner", "enjoy"],
+            		"owner":
+                    	{
+                        	"id"       : "OWNER_ID",
+                        	"username" : "OWNER_NICKNAME",
+                        	"mail"     : "OWNER_MAIL",
+                        	"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+                        	"name"     : "Oihane Merino"
+                    	}
+        		}
+        	]
 ```
 
 #### PUT calendar/event/guest
@@ -1623,22 +1895,42 @@ continuación, enviando como parámetros, la "id" del evento, la "id" del usuari
 a invitar, y "add" o "remove", si se quiere añadir invitación, se envía "add" si
 por el contrario se quiere eliminar, se envía "remove".
 
-``` { event : 52f0f4f313255536a8000005 profile : 52eb667ab71cd7e4be00000c state
-: add } ```
+```json
+{
+	"event"   : "EVENT_ID",
+	"profile" : "USER_ID",
+	"state"   : "add"
+}
+```
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya
 ido bién devuelve el evento actualizado. El atributo "guest" corresponde con la
 lista de usuarios a los que se les ha invitado al evento.
 
-``` event : { id: 52f0f4f313255536a8000005, calendar: 52f0f4f213255536a8000002,
-date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET), date_finish: Sat Feb 15
-2014 17:00:00 GMT+0100 (CET), name: 'meeting osakidetza updated', description:
-'meeting to discuss changes in the implementation', place:
-52f0f4f313255536a8000004, assistents: [ ], created_at: Tue Feb 04 2014 15:10:59
-GMT+0100 (CET), tags: [ app, osakidetza ], guest: [ 52eb667ab71cd7e4be000004 ],
-owner: { id: 52eb667ab71cd7e4be00000c, username:
-'a1@appnima.com-1391158906892', mail: 'a1@appnima.com', avatar:
-'http://api.appnima.com/avatar/default.jpg', name: 'name' } } ```
+```json
+	event:
+		{
+			"id"          : "EVENT_ID",
+			"calendar"    : "CALENDAR_ID",
+			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
+			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
+			"name"        : "Meeting osakidetza updated",
+			"description" : "Meeting to discuss changes in the implementation",
+			"place"       : "PLACE_ID",
+			"assistents"  : [],
+			"created_at"  : "Tue Feb 04 2014 15:10:59 GMT+0100 (CET)",
+			"tags"        : ["app", "osakidetza"],
+			"guest"       : ["USER_ID"],
+			"owner"       : 
+				{
+					"id"       : "OWNER_ID",
+					"username" : "OWNER_NICKNAME",
+					"mail"     : "OWNER_MAIL",
+					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+					"name"     : "Catalina Oyaneder"
+				}
+			}
+```
 
 #### PUT calendar/event/assistent
 
@@ -1647,22 +1939,42 @@ recurso. Se envía como parámetro la "id" del evento, la "id" del usuario, y
 "add" o "remove". Si se quiere confirmar asistencia, se envía "add" si por el
 contrario se quiere eliminar la confirmación de asistencia, se envía "remove".
 
-``` { event : 52f0f4f313255536a8000005 profile : 52eb667ab71cd7e4be00000c state
-: add } ```
+```json
+{
+	"event"   : "EVENT_ID",
+	"profile" : "USER_ID",
+	"state"   : "add"
+}
+```
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya
 ido bién devolverá el evento actualizado. El atributo "assistents" corresponde
 con la lista de usuarios que van a asistir al evento.
 
-``` event : { id: 52f0f84333e9d53db2000005, calendar: 52f0f84233e9d53db2000002,
-date_init: Sat Feb 15 2014 16:00:00 GMT+0100 (CET), date_finish: Sat Feb 15
-2014 17:00:00 GMT+0100 (CET), name: 'meeting osakidetza updated', description:
-'meeting to discuss changes in the implementation', place:
-52f0f84333e9d53db2000004, assistents: [ 52eb667ab71cd7e4be000004 ], created_at:
-Tue Feb 04 2014 15:25:07 GMT+0100 (CET), tags: [ app, osakidetza ], guest: [
-52eb667ab71cd7e4be000004 ], owner: { id: 52eb667ab71cd7e4be00000c, username:
-'a1@appnima.com-1391158906892', mail: 'a1@appnima.com', avatar:
-'http://api.appnima.com/avatar/default.jpg', name: 'name' } } ```
+```json
+	event:
+		{
+			"id"          : "EVENT_ID",
+			"calendar"    : "CALENDAR_ID",
+			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
+			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
+			"name"        : "Meeting osakidetza updated",
+			"description" : "Meeting to discuss changes in the implementation",
+			"place"       : "PLACE_ID",
+			"assistents"  : ["USER_ID_1", "USER_ID_2"],
+			"created_at"  : "Tue Feb 04 2014 15:25:07 GMT+0100 (CET)",
+			"tags"        : ["app", "osakidetza"],
+			"guest"       : [ "USER_ID_1"],
+			"owner"       :
+				{
+					"id"       : "OWNER_ID",
+					"username" : "OWNER_NICKNAME",
+					"mail"     : "OWNER_MAIL",
+					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+					"name"     : "Javier Jimenez"
+				}
+			}
+```
 
 #### GET calendar/event/search
 
@@ -1672,31 +1984,48 @@ nombre y en la descripción de los eventos que tienes acceso. Es decir, aquellos
 que estén en un calendario donde seas el dueño o te los hayan compartido y
 aquellos eventos a los que te hayan invitado:
 
-``` { query : "futbol" } ```
+```json { "query": "futbol" } ```
 
 La función devuelve una lista de eventos que cumplan dichas coincidencias:
 
-``` events : [ { id: 52f0fa9eb70ed01fb9000018, calendar:
-52f0fa9eb70ed01fb9000013, date_init: Sat Feb 22 2014 11:00:00 GMT+0100 (CET),
-date_finish: Sat Feb 22 2014 12:00:00 GMT+0100 (CET), name: 'meeting with
-juanjo', description: 'meeting with Juanjo in Near', place:
-52f0fa9eb70ed01fb9000017, assistents: [ ], created_at: Tue Feb 04 2014 15:35:10
-GMT+0100 (CET), tags: [ near ], guest: [ ], owner: { id:
-52eb667ab71cd7e4be00000c, username: 'a1@appnima.com-1391158906892', mail:
-'a1@appnima.com', avatar: 'http://api.appnima.com/avatar/default.jpg', name:
-'name' } } ] ```
+```json
+	events:
+		[
+			{
+				"id"          : "EVENT_ID",
+				"calendar"    : "CALENDAR_ID",
+				"date_init"   : "Sat Feb 22 2014 11:00:00 GMT+0100 (CET)",
+				"date_finish" : "Sat Feb 22 2014 12:00:00 GMT+0100 (CET)",
+				"name"        : "Meeting with Juanjo",
+				"description" : "Meeting with Juanjo in Near",
+				"place"       : "PLACE_ID",
+				"assistents"  : [],
+				"created_at"  : "Tue Feb 04 2014 15:35:10 GMT+0100 (CET)",
+				"tags"        : ["near"],
+				"guest"       : [],
+				"owner"       :
+					{
+						"id"       : "OWNER_ID",
+						"username" : "OWNER_NICKNAME",
+						"mail"     : "OWNER_MAIL",
+						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+						"name"     : "Catalina Oyaneder"
+					}
+				}
+			]
+```
 
 #### DELETE calendar/event
 
 Cabe la posibilidad de eliminar un evento, para ello basta con utilizar este
 recurso enviando como parámeto la "id", del evento que se desee borrar.
 
-``` { id : 52f0fa9eb70ed01fb9000018 } ```
+```json { "id" : "EVENT_ID" } ```
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de haya
 vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
 
-``` {message: Successful} ```
+```json {"message": "Successful"} ```
 
 #### GET calendar/event/activity
 
@@ -1706,27 +2035,61 @@ sucedido en un evento en concreto. Con este recurso enviando como parámetro la
 como son, modificar ese evento, invitar a alguien o quitarle de la lista de
 invitados o asistencia o desasistencia de un usuario.
 
-``` { id : 52f0fa9eb70ed01fb9000018 } ```
+```json { "id" : "EVENT_ID" } ```
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya
 ido bien, nos devuelve un listado de actividades con la estructura que se
 muestra a continuación
 
-``` activities : [ { id: 52f8f6a96946870000000034, message: 'Has invited the
-event to u3net', created_at: Mon Feb 10 2014 16:56:25 GMT+0100 (CET), profile:
-{ username: 'u3net', name: 'name', mail: 'a3@appnima.com', avatar:
-'http://api.appnima.com/avatar/default.jpg', id: 52eb667ab71cd7e4be000004 },
-event: { id: 52f8f6a86946870000000009, calendar: 52f8f6a86946870000000004,
-date_init: Mon Apr 14 2014 09:00:00 GMT+0200 (CEST), date_finish: Mon Apr 14
-2014 11:00:00 GMT+0200 (CEST), name: 'BilboStack updated', description: 'This
-event is bilboStack', place: 52f8f6a86946870000000008, assistents: [
-52eb667ab71cd7e4be000004 ], created_at: Mon Feb 10 2014 16:56:24 GMT+0100
-(CET), tags: [ learn ], guest: [ 52eb667ab71cd7e4be000004,
-52eb667ab71cd7e4be000008 ] }, calendar: { id: 52f8f6a86946870000000004, name:
-'Mi calendario updated', color: '\#FA58F4', created_at: Mon Feb 10 2014
-16:56:24 GMT+0100 (CET), owner: 52eb667ab71cd7e4be00000b, shared: [ ] }, owner:
-{ id: 52eb667ab71cd7e4be00000c, username: 'u1net', mail: 'a1@appnima.com',
-avatar: 'http://api.appnima.com/avatar/default.jpg', name: 'name' } } ] ```
+```json
+	activities:
+		[
+			{
+				"id"         : "ACTIVITY_ID",
+				"message"    : "Has invited the event to Cata",
+				"created_at" : "Mon Feb 10 2014 16:56:25 GMT+0100 (CET)",
+				"profile":
+					{ 
+						"username" : "USER_NICKNAME",
+						"name"     : "Catalina Oyaneder",
+						"mail"     : "USER_MAIL",
+						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+						"id"       : "USER_ID" 
+					},
+				"event":
+					{
+						"id"          : "EVENT_ID",
+						"calendar"    : "CALENDAR_ID",
+						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+						"name"        : "BilboStack updated",
+						"description" : "This event is BilboStack",
+						"place"       : "PLACE_ID",
+						"assistents"  : ["USER_ID"],
+						"created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+						"tags"        : [ "learn" ],
+						"guest"       : [ "USER_ID_1", "USER_ID_2"]
+					},
+				"calendar":
+					{
+						"id"         : "CALENDAR_ID",
+						"name"       : "Mi calendario updated",
+						"color"      : "#FA58F4",
+						"created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+						"owner"      : "OWNER_ID",
+						"shared"     : []
+					},
+				"owner":
+					{
+						"id"       : "OWNER_ID",
+						"username" : "OWNER_NICKNAME",
+						"mail"     : "OWNER_MAIL",
+						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+						"name"     : "Oihane Merino"
+					}
+				}
+			]
+```
 
 El evento y el calendario, es dónde se ha realizado la actividad. El campo
 "owner" es la persona que realiza la actividad y el campo "profile", es la
@@ -1797,8 +2160,13 @@ pasarle como parámetro un objeto (el mensaje puede ser cualquier tipo de dato).
 Este mensaje llegará a todos los usuarios conectados a la sala, emisor incluido,
 se recibirá a través del listener `onMessage` y tendrá el siguiente formato:
 
-``` { user: {"usuario que envía el mensaje"}, message: {"mensaje enviado"},
-created_at: "2013-05-23T12:01:02.736Z" } ```
+```json
+{
+	"user"       : "USER_ID",
+	"message"    : "Mensaje enviado",
+	"created_at" : "2013-05-23T12:01:02.736Z"
+}
+```
 
 #### broadcastMessage
 
@@ -1842,9 +2210,20 @@ Un usuario puede obtener el listado de salas de sockets en las que participa,
 para ello bastaría con llamar al recurso y se obtendría un mensaje `200 Ok`
 junto con un listado como el siguiente:
 
-``` [{ id: "ba54", name: "amigos", created_at: "2013-05-23T12:01:02.736Z" }, {
-id: "asf9a76y2t3ub", name: "appnima friends", created_at:
-"2013-02-23T12:01:02.736Z" } ] ```
+```json
+[
+	{
+		"id"         : "ROOM_ID",
+		"name"       : "Amigos",
+		"created_at" : "2013-05-23T12:01:02.736Z"
+	},
+	{
+		"id"         : "ROOM_ID",
+		"name"       : "Appnima friends",
+		"created_at" : "2013-02-23T12:01:02.736Z"
+	}
+]
+```
 
 WebRTC
 ------
@@ -1972,7 +2351,12 @@ parametro el nombre del recurso.
 Envía notificaciones push mediante este recurso. Junto con la petición, envía
 los siguientes parámetros:
 
-``` { user: 23094392049024, title: "Texto a mostrar en la notificación",
-message": "Es mi message" } ```
+```json
+{
+	"user"    : "USER_ID",
+	"title"   : "Texto a mostrar en la notificación",
+	"message" : "Es mi message"
+}
+```
 
 En caso de éxito se devolverá el código `200 Ok`.
