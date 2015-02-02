@@ -138,7 +138,7 @@ Response returns the following object:
 
 ```json
     {
-        "access_token"  : ACCESS_TOKEN,
+        "access_token"  : "ACCESS_TOKEN",
         "expires_in"    : "2013-08-06T06:58:37.298Z",
         "refresh_token" : "REFRESH_TOKEN",
         "scope"         : [ "profile" ]
@@ -755,11 +755,11 @@ If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will
 	"application" : "APPLICATION_ID",
 	"content"     : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
 	"title"       : "Lorem ipsum",
-	"create_at"   : "2013-12-02 08:00:58.784Z"
+	"create_at"   : "2013-12-02 08:00:58.784Z",
 	"image"       : "http://IMAGE_URL",
 	"owner"       :
 		{
-			"_id"        : "OWNER_ID"
+			"_id"        : "OWNER_ID",
 			"avatar"     : "http://AVATAR_URL",
 			"created_at" : "2013-12-02 08:00:58.784Z",
 			"mail"       : "OWNER_MAIL",
@@ -865,7 +865,7 @@ To do this, you must send the following parameters:
 ```json
 {
 	"page"        : "0",
-	"num_results" : "5"
+	"num_results" : "5",
 	"last_data"   : "2013-12-02 08:00:58.784Z"
 }
 ```
@@ -1020,7 +1020,7 @@ Responses are returned with `200 Ok` and the place detail:
 						"rating": 1,
 						"type"  : "service"
 					}
-				]
+				],
 			"author_name": "AUTHOR_NAME",
 			"author_url" : "https://plus.google.com/101519756922440365704",
 			"text"       : "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
@@ -1121,7 +1121,7 @@ If the request was successful App/nima returns `200 Ok` and the user data:
 ```json
 {
 	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
-	"id"       : "USER_ID"
+	"id"       : "USER_ID",
 	"name"     : "Cata"
 	"username" : "USER_MAIL"
 }
@@ -1143,8 +1143,8 @@ You can use this resource to obtain the last user location stored. Just sends th
 
 ```json
 {
-	latitude  : "-33.9250334",
-	longitude : "18.423883499999988"
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988"
 }
 ```
 
@@ -1153,8 +1153,8 @@ If you need save user position use this resource. Sends the request with latitud
 
 ```json
 {
-	latitude  : "-33.9250334",
-	longitude : "18.423883499999988"
+	"latitude"  : "-33.9250334",
+	"longitude" : "18.423883499999988"
 }
 ```
 If the request was successful, App/nima will return `201 Created` message.
@@ -1200,9 +1200,9 @@ To disconnect from a room just call the method `leave`.
 To send a message to a room just call the method `sendMessage` with an object as parameter (a message can be any type of data). This message will be received by all the room's users, also the sender, through a listener called `onMessage` and it will have the following format:
 ```json
 {
-	user       : "User that sends the message",
-	message    : "Message sent",
-	created_at : "2013-05-23T12:01:02.736Z"
+	"user"       : "User that sends the message",
+	"message"    : "Message sent",
+	"created_at" : "2013-05-23T12:01:02.736Z"
 }
 ```
 
