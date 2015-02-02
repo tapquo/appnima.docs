@@ -23,21 +23,21 @@ de la lógica horizontal:
 
 [1]: <http://tapquo.com>
 
--   Servicio OAuth 2 para la autentificación [link](#anchor1)
+-   [Servicio OAuth 2 para la autentificación](#oauth2)
 
--   Gestión de usuarios
+-   [Gestión de usuarios](#usuarios)
 
--   Red social de usuarios
+-   [Red social de usuarios](#social)
 
--   Servicio de mensajeria para enviar emails, SMS, llamadas y mensajes privados
+-   [Servicio de mensajeria para enviar emails, SMS, llamadas y mensajes privados](#messenger)
 
--   Localizar/Geoposicionar lugares
+-   [Localizar/Geoposicionar lugares](#location)
 
--   Localizar/Geoposicionar a otros usuarios
+-   [Localizar/Geoposicionar a otros usuarios](#places)
 
--   Tener Real-time por medio de sockets
+-   [Tener Real-time por medio de sockets](#sockets)
 
--   Notificaciones Push para las plataformas: iOS, Android o Blackberry
+-   [Notificaciones Push para las plataformas: iOS, Android o Blackberry](#push)
 
 -   Saber como se comportan nuestros usuarios
 
@@ -74,7 +74,7 @@ necesites ni tu propio Backend. Cada servicio lógico esta alojado en servidores
 diferentes para obtener la mayor escalabilidad e independiente, a lo largo de la
 documentación conoceremos las rutas de cada servicio.
 
-### Oauth 2
+### [Oauth 2](id:oauth2)
 
 Todos los servicios de Appnima utilizan el protocolo de autentificación [OAuth
 2][4] buscando la mayor compatibilidad con herramientas de terceros. Si no eres
@@ -110,7 +110,7 @@ envianoslo en las posteriores peticiones como *If-None-Match* y
 Modified* como respuesta, que te ahorra tiempo y ancho de banda (porque ya
 tienes ese recurso).
 
-### [Manejando errores](id:anchor1)
+### Manejando errores
 
 Si Appnima tiene algun problema, es posible que veas un error 5xx. 500 significa
 que la aplicación esta totalmente caída, pero tambien puedes ver un 502 *Bad
@@ -162,7 +162,7 @@ Y si son peticiones con el `ACCESS_TOKEN` de un usuario:
   "authorization" : "bearer USER_ACCESS_TOKEN"
 ```
 
-USER
+[USER](id:usuarios)
 ----
 
 Este módulo recoge toda la funcionalidad para incluir y gestionar un usuario de
@@ -663,7 +663,7 @@ parámetros el ID del ticket y el texto con la respuesta de la siguiente manera:
 }
 ```
 
-Network
+[Network](id:social)
 -------
 
 Este modulo recoge toda la funcionalidad para crear una red social dentro de tu aplicación:
@@ -1069,7 +1069,7 @@ con los campos que se desea modificar.
 
 Este recurso elimina un comentario, hay que enviar el id del comentario.
 
-Messenger
+[Messenger](id:messenger)
 ---------
 
 Este módulo recoge toda la funcionalidad de mensajería:
@@ -1221,7 +1221,7 @@ confirmación:
 ```
 
 
-Location
+[Location](id:location)
 --------
 
 Este módulo te permite obtener toda la funcionalidad respecto a la
@@ -1240,7 +1240,7 @@ identificadas con tu `Appnima.key` o bien con el par de datos `client` y
 indica el tipo de petición (GET, POST, UPDATE, DELETE …) y el segundo el nombre
 del recurso.
 
-### Places
+### Places(id:places)
 
 #### GET /places
 
@@ -2095,7 +2095,7 @@ El evento y el calendario, es dónde se ha realizado la actividad. El campo
 "owner" es la persona que realiza la actividad y el campo "profile", es la
 persona a la que va dirigida la actividad.
 
-Socket
+[Socket](id:sockets)
 ------
 
 Appnima te permite trabajar con sockets donde puedes tener con salas de
@@ -2332,7 +2332,7 @@ realizado la llamada le llegará la información de los nuevos servidores ICE.
 
 Método lanzado cuando ocurre algún error en el servidor.
 
-Push
+[Push](id:push)
 ----
 
 Con este módulo puedes enviar notificaciones a los terminales registrados de los
