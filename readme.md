@@ -345,14 +345,14 @@ Retrieves information about what devices accessed to your application. Like **GE
 ```json
 [
 	{
-    	"_id"     : "USER_ID"
+    	"_id"     : "USER_ID",
        	"type"    : "phone",
        	"os"      : "ios",
        	"token"   : "USER_TOKEN",
        	"version" : "6.0"
     },
     {
-        "_id"     : "USER_ID"
+        "_id"     : "USER_ID",
         "type"    : "desktop",
         "os"      : "macos",
         "token"   : "USER_TOKEN",
@@ -365,7 +365,7 @@ Retrieves information about what devices accessed to your application. Like **GE
 Updadtes the device information with this resource. Just send:
 ```json
 {
-	"terminal" : "TERMINAL_ID"
+	"terminal" : "TERMINAL_ID",
     "type"     : "phone",
     "os"       : "ios",
     "version"  : "6.0"
@@ -806,15 +806,15 @@ In this example, APP/NIMA will return all *posts* in its field *content* have th
 ```json
 [
 	{
-		"_id"         : "POST_ID"
+		"_id"         : "POST_ID",
 		"application" : "APPLICATION_ID",
 		"content"     : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
 		"title"       : "Lorem ipsum",
-		"create_at"   : "2013-12-02 08:00:58.784Z"
+		"create_at"   : "2013-12-02 08:00:58.784Z",
 		"image"       : "http://IMAGE_URL",
 		"owner":
 			{
-				"_id"        : "OWNER_ID"
+				"_id"        : "OWNER_ID",
 				"avatar"     : "http://AVATAR_URL",
 				"created_at" : "2013-12-02 08:00:58.784Z",
 				"mail"       : "OWNER_MAIL",
@@ -823,15 +823,15 @@ In this example, APP/NIMA will return all *posts* in its field *content* have th
 			}
 	},
 	{
-		"_id"         : "POST_ID"
+		"_id"         : "POST_ID",
 		"application" : "APPLICATION_ID",
 		"content"     : "Loremipsum es un ejemplo.",
 		"title"       : "Lorem ipsum",
-		"create_at"   : "2013-12-02 08:00:58.784Z"
+		"create_at"   : "2013-12-02 08:00:58.784Z",
 		"image"       : "http://IMAGE_URL",
 		"owner":
 			{
-				"_id"        : "OWNER_ID"
+				"_id"        : "OWNER_ID",
 				"avatar"     : "http://AVATAR_URL",
 				"created_at" : "2013-12-02 08:00:58.784Z",
 				"mail"       : "OWNER_MAIL",
@@ -1120,9 +1120,9 @@ Shown to your users information about friends near to a point. You just need sen
 If the request was successful App/nima returns `200 Ok` and the user data:
 ```json
 {
-	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg"
+	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg",
 	"id"       : "USER_ID",
-	"name"     : "Cata"
+	"name"     : "Cata",
 	"username" : "USER_MAIL"
 }
 ```
