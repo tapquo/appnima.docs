@@ -110,7 +110,7 @@ envianoslo en las posteriores peticiones como *If-None-Match* y
 Modified* como respuesta, que te ahorra tiempo y ancho de banda (porque ya
 tienes ese recurso).
 
-### Manejando errores[This is an example](id:anchor1)
+### Manejando errores(id:anchor1)
 
 Si Appnima tiene algun problema, es posible que veas un error 5xx. 500 significa
 que la aplicación esta totalmente caída, pero tambien puedes ver un 502 *Bad
