@@ -464,11 +464,14 @@ tienes que enviar los parámetros:
 
 ```json
 {
-  "type"    : "phone", /* computer, tablet, phone, tv */,
-  "os"      : "ios", /* windows, macos, linux, ios, android, blackberry, firefoxos, windowsphone, other */
-  "version" : "6.0" /* ?.? */
+  "type"    : "phone",
+  "os"      : "ios",
+  "version" : "6.0"
 }
 ```
+
+**type**: computer, tablet, phone, tv
+**os**: ios, windows, macos, linux, android, blackberry, firefoxox, windowsphone, other
 
 En el caso de que haya ido todo bien se devolverá el código `201`.
 
@@ -505,12 +508,14 @@ tienes que enviar los parámetros:
 
 ```json
 {
-  terminal: "TERMINAL_ID",
-  type    : "phone", /* computer, tablet, phone, tv */,
-  os      : "ios", /* windows, macos, linux, ios, android, blackberry, firefoxos, windowsphone, other */,
-  version : "6.0" /* ?.? */
+  "terminal" : "TERMINAL_ID",
+  "type"     : "phone",
+  "os"       : "ios",
+  "version"  : "6.0"
 }
 ```
+**type**: computer, tablet, phone, tv
+**os**: windows, macos, linux, ios, android, blackberry, firefoxos, windowsphone, other
 
 ### Suscripciones
 
@@ -530,7 +535,7 @@ Si el parámetro es correcto se recibe un `200 Ok` junto con el objeto:
 
 ```json
 {
-  "message": 'Request accepted.'
+  "message": "Request accepted."
 }
 ```
 
@@ -557,19 +562,25 @@ hay que mandar la ID del ticket que se quiere obtener.
 Si todo ha ido bien, Appnima devuelve `200` y el siguiente objeto:
 
 ```json
-{ ticket:
-   { "id"   : 'TICKET_ID',
-     "user" :
-      { "id"      : 'USER_ID',
-        "name"    : 'Bob',
-        "username": 'bob',
-        "mail"    : 'USER_MAIL',
-        "avatar"  : 'http://api.appnima.com/img/avatar.jpg' },
-     "type"   : 'QUERY',
-     "title"  : 'Consulta: Scopes disponibles',
-     "description": '¿Cuáles son los scopes disponibles en Appnima?',
-     "updated_at": '2015-01-14T06:45:05.625Z',
-     "created_at": '2015-01-14T06:45:05.625Z' } }
+{
+	ticket:
+   		{
+   			"id"   : "TICKET_ID",
+     		"user" :
+     			{
+     				"id"      : "USER_ID",
+        			"name"    : "Bob",
+        			"username": "USER_NICKNAME",
+        			"mail"    : "USER_MAIL",
+       			 	"avatar"  : "http://api.appnima.com/img/avatar.jpg"
+       			 },
+     		"type"       : "QUERY",
+     		"title"      : "Consulta: Scopes disponibles",
+     		"description": "¿Cuáles son los scopes disponibles en Appnima?",
+     		"updated_at" : "2015-01-14T06:45:05.625Z",
+     		"created_at" : "2015-01-14T06:45:05.625Z"
+     	}
+}
 ```
 
 #### GET /user/ticket/search
