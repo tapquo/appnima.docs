@@ -77,15 +77,15 @@ The object you will receive in both cases is:
 
 ```json
 {
-  id            : "USER_ID",
-  mail          : "USER_MAIL",
-  username      : "USER_NICKNAME",
-  name          : "USER_NAME",
-  avatar        : "http://USER_AVATAR_URL",
-  bio           : "Founder & CTO at @tapquo",
-  phone         : "PHONE_NUMBER",
-  token         : "USER_TOKEN",
-  refresh_token : "REFRESH_TOKEN"
+  "id"            : "USER_ID",
+  "mail"          : "USER_MAIL",
+  "username"      : "USER_NICKNAME",
+  "name"          : "USER_NAME",
+  "avatar"        : "http://USER_AVATAR_URL",
+  "bio"           : "Founder & CTO at @tapquo",
+  "phone"         : "PHONE_NUMBER",
+  "token"         : "USER_TOKEN",
+  "refresh_token" : "REFRESH_TOKEN"
 }
 ```
 
@@ -923,19 +923,19 @@ If the calendar does not exist, it returns a 404 error, If on the contrary exist
 ```json
   "calendar":
     {
-      id         : "CALENDAR_ID",
-      name       : "Mi nuevo calendario",
-      color      : "#FF66CC",
-      created_at : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
-      owner:
+      "id"         : "CALENDAR_ID",
+      "name"       : "Mi nuevo calendario",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
+      "owner":
         {
-          id       : "USER_ID",
-          username : "USER_NICKNAME",
-          mail     : "USER_MAIL",
-          avatar   : "http://appnima.com/img/avatar.jpg",
-          name     : "USER_NAME"
+          "id"       : "USER_ID",
+          "username" : "USER_NICKNAME",
+          "mail"     : "USER_MAIL",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "name"     : "USER_NAME"
         },
-      shared: []
+      "shared": []
     }
 ```
 
