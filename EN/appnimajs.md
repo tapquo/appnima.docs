@@ -77,7 +77,7 @@ The object you will receive in both cases is:
 
 ```json
 {
-  id            : "USER_ID"
+  id            : "USER_ID",
   mail          : "USER_MAIL",
   username      : "USER_NICKNAME",
   name          : "USER_NAME",
@@ -172,18 +172,18 @@ The data you will receive will be like:
 ```json
 [
   {
-    id      : "TERMINAL_ID"
-    type    : "phone",
-    os      : "ios",
-    token   : "TERMINAL_TOKEN",
-    version : "6.0"
+    "id"      : "TERMINAL_ID",
+    "type"    : "phone",
+    "os"      : "ios",
+    "token"   : "TERMINAL_TOKEN",
+    "version" : "6.0"
   },
   {
-    id      : "TERMINAL_ID"
-    type    : "desktop",
-    os      : "macos",
-    token   : "TERMINAL_TOKEN",
-    version : "10.8"
+    "id"      : "TERMINAL_ID"
+    "type"    : "desktop",
+    "os"      : "macos",
+    "token"   : "TERMINAL_TOKEN",
+    "version" : "10.8"
   }
 ]
 ```
@@ -360,22 +360,22 @@ The server returns `200 Ok` and the list that contains the query:
 ```json
 [
   {
-    avatar   : "http://appnima.com/img/avatar.jpg",
-    id       : "USER_ID",
-    name     : "USER_NAME",
-    username : "USER_NICKNAME"
+    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "id"       : "USER_ID",
+    "name"     : "USER_NAME",
+    "username" : "USER_NICKNAME"
   },
   {
-    avatar   : "http://appnima.com/img/avatar.jpg",
-    id       : "USER_ID",
-    name     : "USER_NAME",
-    username : "USER_NICKNAME"
+    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "id"       : "USER_ID",
+    "name"     : "USER_NAME",
+    "username" : "USER_NICKNAME"
   },
   {
-    avatar   : "http://appnima.com/img/avatar.jpg",
-    id       : "USER_ID",
-    name     : "null",
-    username : "USER_NICKNAME"
+    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "id"       : "USER_ID",
+    "name"     : "null",
+    "username" : "USER_NICKNAME"
   }
 ]
 ```
@@ -436,11 +436,11 @@ The server returns `200 Ok` and the next object:
 ```json
 [
   {
-    avatar   : "http://AVATAR_URL",
-    id       : "USER_ID",
-    mail     : "USER_MAIL",
-    name     : "USER_NAME",
-    username : "USER_NICKNAME"
+    "avatar"   : "http://AVATAR_URL",
+    "id"       : "USER_ID",
+    "mail"     : "USER_MAIL",
+    "name"     : "USER_NAME",
+    "username" : "USER_NICKNAME"
   }
 ]
 ```
@@ -455,8 +455,8 @@ The server returns `200 Ok` and the next object:
 
 ```json
 {
-  following : "true",
-  follower  : "false"
+  "following" : "true",
+  "follower"  : "false"
 }
 ```
 
@@ -966,19 +966,19 @@ If the calendar does not exist, it returns a 404 error. If you have not been err
 ```json
   "calendar":
     {
-      id         : "CALENDAR_ID",
-      name       : "Mi nuevo calendario",
-      color      : "#FF66CC",
-      created_at : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
-      owner:
+      "id"         : "CALENDAR_ID",
+      "name"       : "Mi nuevo calendario",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
+      "owner":
         {
-          id       : "USER_ID",
-          username : "USER_NICKNAME",
-          mail     : "USER_MAIL",
-          avatar   : "http://appnima.com/img/avatar.jpg",
-          name     : "USER_NAME"
+          "id"       : "USER_ID",
+          "username" : "USER_NICKNAME",
+          "mail"     : "USER_MAIL",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "name"     : "USER_NAME"
         },
-      shared: [USER_ID]
+      "shared": ["USER_ID"]
     }
 ```
 
@@ -993,19 +993,19 @@ Returns an array of calendars:
   "calendar":
     [
       {
-        id         : "CALENDAR_ID",
-        name       : "Mi nuevo calendario",
-        color      : "#FF66CC",
-        created_at : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
-        owner:
+        "id"         : "CALENDAR_ID",
+        "name"       : "Mi nuevo calendario",
+        "color"      : "#FF66CC",
+        "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
+        "owner":
           {
-            id       : "USER_ID",
-            username : "USER_NICKNAME",
-            mail     : "USER_MAIL",
-            avatar   : "http://appnima.com/img/avatar.jpg",
-            name     : "USER_NAME"
+            "id"       : "USER_ID",
+            "username" : "USER_NICKNAME",
+            "mail"     : "USER_MAIL",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "name"     : "USER_NAME"
           },
-        shared: [USER_ID]
+        "shared": ["USER_ID"]
       }
     ]
 ```
@@ -1238,7 +1238,7 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
             "description" : "This event is company dinner",
             "place"       : "PLACE_ID",
             "assistents"  : [],
-            "guest"       : [ "USER_ID" ]
+            "guest"       : [ "USER_ID" ],
             "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
             "tags"        : [ "dinner", "enjoy" ],
             "owner":
@@ -1274,7 +1274,7 @@ If the event does not exist, it returns a 404 error.  If on the contrary exists,
             "description" : "This event is company dinner",
             "place"       : "PLACE_ID",
             "assistents"  : ["USER_ID"],
-          "guest"       : [ "USER_ID" ]
+          "guest"       : [ "USER_ID" ],
             "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
             "tags"        : [ "dinner", "enjoy" ],
             "owner":
@@ -1542,8 +1542,8 @@ If the process ends correctly you mus receive this information:
 
 ```json
 {
-  id     : "CREDIT_CARD_ID",
-  number : "xxxxxxxxxxxx4242"
+  "id"     : "CREDIT_CARD_ID",
+  "number" : "xxxxxxxxxxxx4242"
 }
 ```
 
@@ -1599,8 +1599,8 @@ If all goes right Appnima will send us a unique purchase token and the amount of
 
 ```json
 {
-  token  : "PURCHASE_SECRET_TOKEN",
-  amount : 0
+  "token"  : "PURCHASE_SECRET_TOKEN",
+  "amount" : 0
 }
 ```
 
@@ -1618,9 +1618,9 @@ If all goes right Appnima will send us the purchase information back with state 
 
 ```json
 {
-  id       : "PURCHASE_ID",
-  payed_at : "PURCHASE_CONFIRMATION_DATE",
-  state    : "PURCHASE_STATE" "
+  "id"       : "PURCHASE_ID",
+  "payed_at" : "PURCHASE_CONFIRMATION_DATE",
+  "state"    : "PURCHASE_STATE" "
 }
 ```
 
@@ -1640,8 +1640,8 @@ If the purchase was successfuly created App/nima returns:
 
 ```json
 {
-  token  : "PURCHASE_SECRET_TOKEN",
-  amount : 120
+  "token"  : "PURCHASE_SECRET_TOKEN",
+  "amount" : 120
 }
 ```
 
@@ -1654,9 +1654,9 @@ If the purchase was successfuly confirmed App/nima returns:
 
 ```json
 {
-  id       : "PURCHASE_ID",
-  payed_at : "PURCHASE_CONFIRMATION_DATE",
-  state    : "PURCHASE_STATE"
+  "id"       : "PURCHASE_ID",
+  "payed_at" : "PURCHASE_CONFIRMATION_DATE",
+  "state"    : "PURCHASE_STATE"
 }
 ```
 
