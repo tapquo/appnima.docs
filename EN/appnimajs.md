@@ -1087,15 +1087,15 @@ Through the following function can create an event to a calendar. Should be sent
     calendar    : CALENDAR_ID
     name        : "partido de futbol"
     description : "quedada para jugar un partido de fútbol"
-      init        : "04-14-2014 09:00"
-      finish      : "04-14-2014 11:00"
-        address     : "c/ San Mames"
-      locality    : "Bilbao
-        country     : "España"
-        latitude    : "23.23"
-        longitude   : "-2.29"
-        guest       : null
-        tags        : "futbol,deporte"
+    init        : "04-14-2014 09:00"
+    finish      : "04-14-2014 11:00"
+    address     : "c/ San Mames"
+    locality    : Bilbao
+    country     : "España"
+    latitude    : "23.23"
+    longitude   : "-2.29"
+    guest       : null
+    tags        : "futbol,deporte"
   Appnima.Calendar.event(data)
 ```
 
@@ -1112,7 +1112,7 @@ This function returns the new event:
             "name"        : "Partido de fútbol",
             "place":
               {
-                  "address"    : "c/ San Mames",
+                    "address"    : "c/ San Mames",
                     "locality"   : "Bilbao",
                     "country"    : "Spain",
                     "id"         : "PLACE_ID",                            "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
@@ -1194,7 +1194,7 @@ As  result is obtained a list of events :
   "events":
     [
           {
-              "id"          : "EVENT_ID",
+                "id"          : "EVENT_ID",
                 "calendar"    : "CALENDAR_ID",
                 "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
                 "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
@@ -1207,10 +1207,10 @@ As  result is obtained a list of events :
                 "owner":
                   {
                       "id"       : "OWNER_ID",
-                        "username" : "OWNER_NICKNAME",
-                        "mail"     : "OWNER_MAIL",
+                      "username" : "OWNER_NICKNAME",
+                      "mail"     : "OWNER_MAIL",
                       "avatar"   : "http://appnima.com/img/avatar.jpg",
-                        "name"     : "OWNER_NAME"
+                      "name"     : "OWNER_NAME"
                     }
           }
         ]
@@ -1232,7 +1232,7 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
         {
             "id"          : "EVENT_ID",
             "calendar"    : "CALENDAR_ID",
-          "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
+            "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
             "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
             "name"        : "Company dinner",
             "description" : "This event is company dinner",
@@ -1246,8 +1246,8 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
                   "id"       : "OWNER_ID",
                   "username" : "OWNER_NICKNAME",
                   "mail"     : "OWNER_MAIL",
-                    "avatar"   : "http://appnima.com/img/avatar.jpg",
-                    "name"     : "OWNER_NAME"
+                  "avatar"   : "http://appnima.com/img/avatar.jpg",
+                  "name"     : "OWNER_NAME"
                 }
         }
 ```
@@ -1268,13 +1268,13 @@ If the event does not exist, it returns a 404 error.  If on the contrary exists,
         {
             "id"          : "EVENT_ID",
             "calendar"    : "CALENDAR_ID",
-          "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
+            "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
             "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
             "name"        : "Company dinner",
             "description" : "This event is company dinner",
             "place"       : "PLACE_ID",
             "assistents"  : ["USER_ID"],
-          "guest"       : [ "USER_ID" ],
+            "guest"       : [ "USER_ID" ],
             "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
             "tags"        : [ "dinner", "enjoy" ],
             "owner":
@@ -1282,8 +1282,8 @@ If the event does not exist, it returns a 404 error.  If on the contrary exists,
                   "id"       : "OWNER_ID",
                   "username" : "OWNER_NICKNAME",
                   "mail"     : "OWNER_MAIL",
-                    "avatar"   : "http://appnima.com/img/avatar.jpg",
-                    "name"     : "OWNER_NAME"
+                  "avatar"   : "http://appnima.com/img/avatar.jpg",
+                  "name"     : "OWNER_NAME"
                 }
         }
 ```
@@ -1300,7 +1300,7 @@ The function returns a list of events satisfying these matches:
   "events":
     [
           {
-              "id"          : "EVENT_ID",
+                "id"          : "EVENT_ID",
                 "calendar"    : "CALENDAR_ID",
                 "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
                 "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
@@ -1313,10 +1313,10 @@ The function returns a list of events satisfying these matches:
                 "owner":
                   {
                       "id"       : "OWNER_ID",
-                        "username" : "OWNER_NICKNAME",
-                        "mail"     : "OWNER_MAIL",
+                      "username" : "OWNER_NICKNAME",
+                      "mail"     : "OWNER_MAIL",
                       "avatar"   : "http://appnima.com/img/avatar.jpg",
-                        "name"     : "OWNER_NAME"
+                      "name"     : "OWNER_NAME"
                     }
           }
         ]
@@ -1360,24 +1360,24 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
             "id"          : "EVENT_ID",
             "calendar"    : "CALENDAR_ID",
             "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-                      "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-                        "name"        : "BilboStack updated",
-                        "description" : "This event is bilboStack",
-                      "place"       : "PLACE_ID",
-                      "assistents"  : [ "USER_ID" ],
-                        "created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
-                        "tags"        : [ "learn" ],
-                        "guest"       : [ "USER_ID_1", "USER_ID_2" ]
-                    },
+            "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+            "name"        : "BilboStack updated",
+            "description" : "This event is bilboStack",
+            "place"       : "PLACE_ID",
+            "assistents"  : [ "USER_ID" ],
+            "created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+            "tags"        : [ "learn" ],
+            "guest"       : [ "USER_ID_1", "USER_ID_2" ]
+           },
         "calendar":
           {
-                      "id"         : "CALENDAR_ID",
-                      "name"       : "Mi calendario updated",
-                        "color"      : "#FA58F4",
-                        "created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
-                      "owner"      : "OWNER_ID",
-                        "shared"     : []
-                    },
+             "id"         : "CALENDAR_ID",
+             "name"       : "Mi calendario updated",
+             "color"      : "#FA58F4",
+             "created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+             "owner"      : "OWNER_ID",
+             "shared"     : []
+           },
         "owner":
           {
             "id"       : "OWNER_ID",

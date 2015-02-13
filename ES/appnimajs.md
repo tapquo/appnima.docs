@@ -452,7 +452,7 @@ Obtienes la lista de tu usuario loqueado. Si llamas al recurso pasando como par√
 Si todo ha salido bien el servicio devolver√° un `200 Ok` junto con el objeto:
 ```json
 {
-  count: 2,
+  "count": 2,
   [
     {
       "avatar"  : "http://AVATAR_URL",
@@ -1114,7 +1114,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
             "assistents"  : [ "USER_ID" ],
             "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
             "tags"        : [ "learn" ],
-            "guest        : [ "USER_ID_1", "USER_ID_2" ]
+            "guest"       : [ "USER_ID_1", "USER_ID_2" ]
           },
         "calendar":
           {
