@@ -526,8 +526,8 @@ En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con e
 
 ```json
 {
-  following : "true",
-  follower  : "false"
+  "following" : "true",
+  "follower"  : "false"
 }
 ```
 
