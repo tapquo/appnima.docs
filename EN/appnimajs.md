@@ -705,7 +705,7 @@ This call return following array of objects:
         "created_at" : "CREATED_AT",
         "owner":
           {
-            "avatar"   : "http://AVATAR_UR"L,
+            "avatar"   : "http://AVATAR_URL",
             "id"       : "OWNER_ID",
             "name"     : "OWNER_NAME",
             "username" : "OWNER_NICKNAME"
