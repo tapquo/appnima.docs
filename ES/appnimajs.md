@@ -48,9 +48,9 @@ Basic
 #### Signup
 Puedes registrar un usuario en App/nima por e-mail o username. Por lo tanto, las llamadas a la aplicación pueden ser:
 ```javascript
-	Appnima.User.signup("USER_MAIL", "USER_PASSWORD", "USER_NICKNAME");
-	Appnima.User.signup("null", "USER_PASSWORD", "USER_NICKNAME");
-	Appnima.User.signup("USER_MAIL", "USER_PASSWORD");
+  Appnima.User.signup("USER_MAIL", "USER_PASSWORD", "USER_NICKNAME");
+  Appnima.User.signup("null", "USER_PASSWORD", "USER_NICKNAME");
+  Appnima.User.signup("USER_MAIL", "USER_PASSWORD");
 ```
 
 #### Login
@@ -74,16 +74,16 @@ Llama a este usuario para obtener el tojen del usuario y gestionar su sesión:
 El servidor devuelve un `200` y el objeto:
 ```json
 {
-	"id"       : "USER_ID",
-	"mail"     : "USER_MAIL",
-	"username" : "USER_NICKNAME",
-	"name"     : "Javi Jimenez",
-	"avatar"   : "http://appnima.com/img/avatar.jpg",
-	"language" : "spanish",
-	"country"  : "ES",
-	"bio"      : "Founder & CTO at @tapquo",
-	"phone"    : "PHONE_NUMBER",
-	"site"     : "http://USER_URL"
+  "id"       : "USER_ID",
+  "mail"     : "USER_MAIL",
+  "username" : "USER_NICKNAME",
+  "name"     : "Javi Jimenez",
+  "avatar"   : "http://appnima.com/img/avatar.jpg",
+  "language" : "spanish",
+  "country"  : "ES",
+  "bio"      : "Founder & CTO at @tapquo",
+  "phone"    : "PHONE_NUMBER",
+  "site"     : "http://USER_URL"
 }
 ```
 
@@ -101,16 +101,16 @@ El objeto que obtienes en ambos casos, es como el siguiente:
 
 ```json
 {
-	"id"       : "USER_ID",
-	"mail"     : "USER_MAIL",
-	"username" : "USER_NICKNAME",
-	"name"     : "Javi Jimenez",
-	"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-	"language" : "spanish",
-	"country"  : "ES",
-	"bio"      : "Founder & CTO at @tapquo",
-	"phone"    : "PHONE_NUMBER",
-	"site"     : "http://USER_URL"
+  "id"       : "USER_ID",
+  "mail"     : "USER_MAIL",
+  "username" : "USER_NICKNAME",
+  "name"     : "Javi Jimenez",
+  "avatar"   : "http://api.appnima.com/avatar/default.jpg",
+  "language" : "spanish",
+  "country"  : "ES",
+  "bio"      : "Founder & CTO at @tapquo",
+  "phone"    : "PHONE_NUMBER",
+  "site"     : "http://USER_URL"
 }
 ```
 
@@ -118,13 +118,13 @@ El objeto que obtienes en ambos casos, es como el siguiente:
 Para actualizar cualquier campo del perfil del usuario debes enviar un objeto con el par de atributo-valor a la petición:
 
 ```javascript
-	attributes = {
-		"username" : "USER_NICKNAME",
-		"name"     : "Javi",
-		"bio"      : "Founder & CTO at @tapquo",
-		"phone"    : "PHONE_NUMBER",
-		"site"     : "http://USER_URL"
-	}
+  attributes = {
+    "username" : "USER_NICKNAME",
+    "name"     : "Javi",
+    "bio"      : "Founder & CTO at @tapquo",
+    "phone"    : "PHONE_NUMBER",
+    "site"     : "http://USER_URL"
+  }
 ```
 
     Appnima.User.update(attributes);
@@ -177,13 +177,13 @@ Terminal
 Con este recurso puedes registrar o actualizar el dispositivo con el que tu usuario accede a tu aplicación. La petición se realiza de la siguiente forma:
 
 ```javascript
-	parameters = {
-		"os"      : "Android",
-		"type"    : "Phone",
-		"token"   : "TOKEN",
-		"version" : "4.1"
-	}
-	Appnima.User.terminal(parameters);
+  parameters = {
+    "os"      : "Android",
+    "type"    : "Phone",
+    "token"   : "TOKEN",
+    "version" : "4.1"
+  }
+  Appnima.User.terminal(parameters);
 ```
 
 El token se trata de la clave que recibes del GCM.
@@ -197,20 +197,20 @@ La información que recibirás será de la forma:
 
 ```json
 [
-	{
-		"_id"     : "TERMINAL_ID",
-		"type"    : "phone",
-		"os"      : "ios",
-		"token"   : "TOKEN",
-		"version" : "6.0"
-	},
-	{
-		"_id"     : "TERMINAL_ID",
-		"type"    : "desktop",
-		"os"      : "macos",
-		"token"   : "TOKEN",
-		"version" : "10.8"
-	}
+  {
+    "_id"     : "TERMINAL_ID",
+    "type"    : "phone",
+    "os"      : "ios",
+    "token"   : "TOKEN",
+    "version" : "6.0"
+  },
+  {
+    "_id"     : "TERMINAL_ID",
+    "type"    : "desktop",
+    "os"      : "macos",
+    "token"   : "TOKEN",
+    "version" : "10.8"
+  }
 ]
 ```
 
@@ -226,12 +226,12 @@ Tickets
 -------
 Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
 ```javascript
-	parameters = {
-		"title"       : "[QUESTION]: How can I do this?",
-		"description" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
-		"reference"   : "REFERENCE_ID",
-		"type"        : "2"
-	}
+  parameters = {
+    "title"       : "[QUESTION]: How can I do this?",
+    "description" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+    "reference"   : "REFERENCE_ID",
+    "type"        : "2"
+  }
 ```
 El campo reference se utiliza por si se quiere añadir la ID de cualquier otro modelo, ya sea de APPNIMA o de otra base de datos.
 El campo type puede ser 0, 1 o 2. Si no se manda este campo, por defecto es 0.
@@ -248,9 +248,9 @@ La primera sería poder modificar los datos del ticket. Esto es solo posible cua
 
 La otra opción es contestar a un ticket. Para ello habría que mandar el siguiente objeto:
 ```javascript
-	parameters = {
-		"response": "Lorem ipsum"
-	}
+  parameters = {
+    "response": "Lorem ipsum"
+  }
 ```
 Una vez respondido al ticket, se envía un email al creador de dicho ticket.
 Para ambos casos habría que enviar los datos a la siguiente llamada:
@@ -260,9 +260,9 @@ Para ambos casos habría que enviar los datos a la siguiente llamada:
 Si se desea obtener un ticket en concreto, habría que mandar la ID del ticket a la siguiente llamada de AppnimaJS:
 
 ```javascript
-	parameters = {
-		"id": "TICKET_ID"
-	}
+  parameters = {
+    "id": "TICKET_ID"
+  }
 ```
 
     Appnima.User.getTicket(parameters);
@@ -270,12 +270,12 @@ Si se desea obtener un ticket en concreto, habría que mandar la ID del ticket a
 También existe la opción de buscar un conjunto de tickets. Para ello habría que enviar los siguientes parámetros:
 
 ```javascript
-	parameters = {
-		"reference" : "REFERENCE_ID",
-		"type"      : 0,
-		"solved"    : "true",
-		"user"      : "USER_ID"
-	}
+  parameters = {
+    "reference" : "REFERENCE_ID",
+    "type"      : 0,
+    "solved"    : "true",
+    "user"      : "USER_ID"
+  }
 ```
 
 El ejemplo anterior sería la opción de enviar todos los parámetros posibles. El atributo `solved` puede ser `true` o `false`o puede no enviarse. Si se envía a `true`se está diciendo que se desean los tickets que ya están contestados. Si se envía a `false` sería los que están pendientes de responder, y si no se envía ese atributo es porque se desea obtener cualquier ticket, ya sea respondido o no. Cualquiera de los atributos del objeto podría no enviarse.
@@ -287,14 +287,14 @@ La llamada que hay que hacer para buscar los tickets sería la siguiente:
 Se puede utilizar paginación añadiendo dos atributos al objeto anterior:
 
 ```javascript
-	parameters = {
-		"reference"   : "REFERENCE_ID",
-		"type"        : 0,
-		"solved"      : "true",
-		"user"        : "USER_ID",
-		"num_results" : 10,
-		"page"        : 2
-	}
+  parameters = {
+    "reference"   : "REFERENCE_ID",
+    "type"        : 0,
+    "solved"      : "true",
+    "user"        : "USER_ID",
+    "num_results" : 10,
+    "page"        : 2
+  }
 ```
 
 La forma de paginación es igual que la paginación de los post pero no hay que enviar el atributo "last_data".
@@ -310,10 +310,10 @@ Mail
 Los usuarios de tu aplicación pueden enviar e-mail a otros usuarios del sistema mediante este recurso. Para ello, el parámetro que recibe es un objeto con los siguientes datos: el ID del usuario al que se le envía el e-mail, el asunto y el cuerpo del mensaje:
 
 ```coffeescript
-	parameters =
-		user    : "USER_ID",
-		subject : "Reunión",
-		message : "Hoy a las 5"
+  parameters =
+    user    : "USER_ID",
+    subject : "Reunión",
+    message : "Hoy a las 5"
 ```
 
     Appnima.Messenger.mail(parameters);
@@ -324,9 +324,9 @@ SMS
 APP/NIMA también proporciona servicio de SMS. Así que para utilizar este recurso se necesita enviar un objeto con los parámetros siguientes: el ID del usuario destinatario y el mensaje:
 
 ```coffeescript
-	parameters =
-		user    : "USER_ID",
-		message : "Recuerda tu cita de la tarde"
+  parameters =
+    user    : "USER_ID",
+    message : "Recuerda tu cita de la tarde"
 ```
 
     Appnima.Messenger.sms(parameters);
@@ -339,10 +339,10 @@ Mensajes
 Para utilizar el sistema de mensajería privada de APP/NIMA en tu aplicación, basta con llamar al recurso pasando un objeto con los siguientes parámetros: ID del usuario al que se le envía el mensaje, el cuerpo del mensaje y opcionalmente al asunto del mensaje:
 
 ```coffeescript
-	parameters =
-		user    : "USER_ID",
-		subject : "Donde estás?",
-		message : "Donde estás? Estoy aquí esperando."
+  parameters =
+    user    : "USER_ID",
+    subject : "Donde estás?",
+    message : "Donde estás? Estoy aquí esperando."
 ```
 
     Appnima.Messenger.message(parameters);
@@ -395,24 +395,24 @@ Los usuarios de tu aplicación pueden buscar a otros usuarios mediante este recu
 En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok` junto con una lista de usuarios que coinciden con la búsqueda:
 ```json
 [
-	{
-		"avatar"   : "http://appnima.com/img/avatar.jpg",
-		"id"       : "USER_ID",
-		"name"     : "Javi",
-		"username" : "USER_NICKNAME"
-	},
-	{
-		"avatar"   : "http://appnima.com/img/avatar.jpg",
-		"id"       : "USER_ID",
-		"name"     : "Javier",
-		"username" : "USER_NICKNAME"
-	},
-	{
-		"avatar"   : "http://appnima.com/img/avatar.jpg",
-		"id"       : "USER_ID",
-		"name"     : "null",
-		"username" : "USER_NICKNAME"
-	}
+  {
+    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "id"       : "USER_ID",
+    "name"     : "Javi",
+    "username" : "USER_NICKNAME"
+  },
+  {
+    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "id"       : "USER_ID",
+    "name"     : "Javier",
+    "username" : "USER_NICKNAME"
+  },
+  {
+    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "id"       : "USER_ID",
+    "name"     : "null",
+    "username" : "USER_NICKNAME"
+  }
 ]
 ```
 
@@ -452,33 +452,33 @@ Obtienes la lista de tu usuario loqueado. Si llamas al recurso pasando como par�
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
 {
-	count: 2,
-	[
-		{
-			"avatar"  : "http://AVATAR_URL",
-			"id"      : "USER_ID",
-			"mail"    : "USER_MAIL",
-			"name"    : "Oihane",
-			"username": "USER_NICKNAME"
-		},
-		{
-			"avatar"  : "http://AVATAR_URL",
-			"id"      : "USER_ID",
-			"mail"    : "USER_MAIL",
-			"name"    : "Cata",
-			"username": "USER_NICKNAME"
-		}
-	]
+  count: 2,
+  [
+    {
+      "avatar"  : "http://AVATAR_URL",
+      "id"      : "USER_ID",
+      "mail"    : "USER_MAIL",
+      "name"    : "Oihane",
+      "username": "USER_NICKNAME"
+    },
+    {
+      "avatar"  : "http://AVATAR_URL",
+      "id"      : "USER_ID",
+      "mail"    : "USER_MAIL",
+      "name"    : "Cata",
+      "username": "USER_NICKNAME"
+    }
+  ]
 }
 ```
 
 Por otro lado, también existe la opción de que te devuelva la lista de gente a la que sigues con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de usuarios. Para ello unicamente se debe enviar dos variables más junto con la id del usuario del que quieres obtener los datos:
 
 ```coffeescript
-	parameters =
-		user        : "USER_ID"
-		page        : 0
-		num_results : 4
+  parameters =
+    user        : "USER_ID"
+    page        : 0
+    num_results : 4
 ```
 
     Appnima.Network.following(parameteres);
@@ -506,13 +506,13 @@ También se pueden obtener los amigos del usuario de la sesión, es decir, aquel
 Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
 [
-	{
-		"avatar"   : "http://AVATAR_URL",
-		"id"       : "FRIEND_ID",
-		"mail"     : "FRIEND_MAIL",
-		"name"     : "Oihane",
-		"username" : "FRIEND_NICKNAME"
-	}
+  {
+    "avatar"   : "http://AVATAR_URL",
+    "id"       : "FRIEND_ID",
+    "mail"     : "FRIEND_MAIL",
+    "name"     : "Oihane",
+    "username" : "FRIEND_NICKNAME"
+  }
 ]
 ```
 
@@ -526,8 +526,8 @@ En el caso de que todo haya ido correctamente devolverá un `200 Ok` junto con e
 
 ```json
 {
-	following : "true",
-	follower  : "false"
+  following : "true",
+  follower  : "false"
 }
 ```
 
@@ -563,6 +563,7 @@ Esta llamada te devolverá un objeto con los datos del nuevo post como el siguie
         comments   : [],
         likes      : [],
         is_liked   : false,
+        updated_at : POST_UPDATED_DATA,
         created_at : POST_CREATED_DATA
     }
 
@@ -605,14 +606,14 @@ En el segundo caso, se quiere modificar el contenido y el título, y como la ima
 
 En este caso solo se quiere modificar el contenido y por lo tanto, las demás variables que van detrás no haría falta mandarlas en nulo.
 
-Este método devolverá ```message: "Successful"``` si todo ha ido bien:
+Este método devolverá ```message: "Ok"``` si todo ha ido bien:
 
 #### Borrar
 El usuario que ha creado un post puede borrarlo. Para ello solamente tiene que enviar la id del post que desea borrar:
 
     Appnima.Network.Post.remove(POST_ID);
 
-Como en el método anterior, si todo ha ido bien devolverá un mensaje de ```message: "Successful"```
+Como en el método anterior, si todo ha ido bien devolverá un mensaje de ```message: "Ok"```
 
 #### Obtener un post
 El usuario puede obtener la información de un post concreto enviando la ```id``` de dicho post.
@@ -622,51 +623,51 @@ El usuario puede obtener la información de un post concreto enviando la ```id``
 Esta llamada devolverá el siguiente objeto:
 
 ```json
-	post:
-		{
-			"id"      : "POST_ID",
-			"content" : "Lorem Ipsum",
-			"image"   : "http://IMAGE_URL",
-			"owner"   :
-				{
-					"id"       : "OWNER_ID",
-					"name"     : "Cata",
-					"username" : "OWNER_NICKNAME",
-					"avatar"   : "http://AVATAR_URL"
-				},
-        	"comments":
-        		[
-					{
-						"id"         : "COMMENT_ID",
-						"content"    : "Comment 1",
-						"created_at" : "CREATED_AT",
-						"owner":
-							{
-								"avatar"   : "http://AVATAR_URL",
-								"id"       : "OWNER_ID",
-								"name"     : "Cata",
-								"username" : "OWNER_NICKNAME"
-							}
-					}
-				],
-			"likes":
-				[
-					{
-						"avatar"   : "http://AVATAR_URL",
-						"id"       : "LIKE_ID",
-						"name"     : "Oihane",
-						"username" : "USER_NICKNAME"
-					},
-					{
-						"avatar"   : "http://AVATAR_URL",
-						"id"       : "LIKE_ID",
-						"name"     : "Javi",
-						"username" : "USER_NICKNAME"
-					}
-				],
-			"is_liked"   : "false",
-			"created_at" : "CREATED_AT"
-		}
+  post:
+    {
+      "id"      : "POST_ID",
+      "content" : "Lorem Ipsum",
+      "image"   : "http://IMAGE_URL",
+      "owner"   :
+        {
+          "name"     : "Cata",
+          "username" : "OWNER_NICKNAME",
+          "avatar"   : "http://AVATAR_URL"
+        },
+          "comments":
+            [
+          {
+            "id"         : "COMMENT_ID",
+            "content"    : "Comment 1",
+            "created_at" : "CREATED_AT",
+            "owner":
+              {
+                "avatar"   : "http://AVATAR_URL",
+                "id"       : "OWNER_ID",
+                "name"     : "Cata",
+                "username" : "OWNER_NICKNAME"
+              }
+          }
+        ],
+      "likes":
+        [
+          {
+            "avatar"   : "http://AVATAR_URL",
+            "id"       : "LIKE_ID",
+            "name"     : "Oihane",
+            "username" : "USER_NICKNAME"
+          },
+          {
+            "avatar"   : "http://AVATAR_URL",
+            "id"       : "LIKE_ID",
+            "name"     : "Javi",
+            "username" : "USER_NICKNAME"
+          }
+        ],
+      "is_liked"   : "false",
+      "updated_at" : "UPDATED_AT",
+      "created_at" : "CREATED_AT"
+    }
 ```
 
 La lista de likes se trata de los usuarios que han hecho ```like``` a ese post.
@@ -746,7 +747,7 @@ Con el siguiente método se puede modificar el comentario.
 
     Appnima.Network.Post.updateComment(parameters);
 
-La llamada devolverá ```message: "Successful"```.
+La llamada devolverá ```message: "Ok"```.
 
 #### Borrar comentario
 El usuario que ha creado un comentario también tiene la posibilidad de borrarlo. Para ello deberá llamar a la siguiente función:
@@ -759,38 +760,38 @@ Hay que pasarle la id del comentario que se desea borrar y la API devolverá ```
 #### Obtener comentario
 Para obtener los comentarios de un post en concreto el usuario debe usar el siguiente recurso pasándole la id del post:
 
-    Appnima.Network.Post.comments(COMMENT_ID);
+    Appnima.Network.Post.comments(POST_ID);
 
 Esta llamada devolverá el siguiente array de objetos:
 
 ```json
-	"comments":
-		[
-			{
-				"id"         : "COMMENT_ID",
-				"content"    : "COMMENT_CONTENT",
-				"created_at" : "CREATED_AT",
-				"owner":
-					{
-						"avatar"   : "http://AVATAR_URL",
-						"id"       : "OWNER_ID",
-						"name"     : "Cata",
-						"username" : "OWNER_NICKNAME"
-					}
-			},
-			{
-				"id"         : "COMMENT_ID",
-				"content"    : "COMMENT_CONTENT",
-				"created_at" : "CREATED_AT",
-				"owner":
-					{
-						"avatar"   : "http://AVATAR_URL",
-						"id"       : "OWNER_ID",
-						"name"     : "Oihane",
-						"username" : "OWNER_NICKNAME"
-					}
-			}
-		]
+  "comments":
+    [
+      {
+        "id"         : "COMMENT_ID",
+        "content"    : "COMMENT_CONTENT",
+        "created_at" : "CREATED_AT",
+        "owner":
+          {
+            "avatar"   : "http://AVATAR_URL",
+            "id"       : "OWNER_ID",
+            "name"     : "Cata",
+            "username" : "OWNER_NICKNAME"
+          }
+      },
+      {
+        "id"         : "COMMENT_ID",
+        "content"    : "COMMENT_CONTENT",
+        "created_at" : "CREATED_AT",
+        "owner":
+          {
+            "avatar"   : "http://AVATAR_URL",
+            "id"       : "OWNER_ID",
+            "name"     : "Oihane",
+            "username" : "OWNER_NICKNAME"
+          }
+      }
+    ]
 ```
 
 #### Hacer favorito un post
@@ -799,7 +800,7 @@ El usuario puede hacer favorito un post, o quitar dicho "like". Para ello el usu
     Appnima.Network.Post.like(POST_ID);
 
 Si es la primera vez que hace favorito un post, este se creará, pero por el contrario, si este post ya tiene favorito, ese favorito desaparecerá y la próxima vez que se llame a este método volverá a ser para hacer favorito.
-Si todo ha ido bien devolverá ```message: "Successful"```.
+Si todo ha ido bien devolverá ```message: "Ok"```.
 
 #### Obtener los usuarios que han hecho favorito un post
 Si el usuario desea obtener todos los usuarios que han hecho favorito a un post en concreto, simplemente debe enviar la id de dicho post junto con la siguiente llamada:
@@ -810,15 +811,15 @@ Este método devolverá un array de objetos con todos los usuarios.
 
 ```json
     "users":
-		[
-			{
-				"id"       : "USER_ID",
-				"name"     : "Javi",
-				"username" : "USER_NICKNAME",
-				"avatar"   : "http://AVATAR_URL",
-				"bio"      : "USER_BIO"
-			}
-		]
+    [
+      {
+        "id"       : "USER_ID",
+        "name"     : "Javi",
+        "username" : "USER_NICKNAME",
+        "avatar"   : "http://AVATAR_URL",
+        "bio"      : "USER_BIO"
+      }
+    ]
 ```
 
 #### Obtener todos los post favoritos de un usuario
@@ -848,19 +849,19 @@ La precisión y el radio de búsqueda son valores opciones la precision se espec
 
 Ejemplos:
 
-	parameters =
-		latitude  : 3.1667
-		longitude : 101.7
-		precision : 2
+  parameters =
+    latitude  : 3.1667
+    longitude : 101.7
+    precision : 2
 
-	Appnima.Location.places(parameters);
+  Appnima.Location.places(parameters);
 
-	parameters =
-		latitude  : 3.1667
-		longitude : 101.7
-		radius    : 15
+  parameters =
+    latitude  : 3.1667
+    longitude : 101.7
+    radius    : 15
 
-	Appnima.Location.places(parameters);
+  Appnima.Location.places(parameters);
 
 
 #### Información
@@ -872,19 +873,19 @@ Obtén información detallada de un establecimiento o lugar utilizando este recu
 #### Añadir
 En APP/NIMA puedes agregar un sitio y añadir información relevante como el nombre, la dirección, el teléfono,… Para ello tienes que pasar como mínimo la información de "name", "address", "locality", "postal_code", "country", "latitude" y "longitude":
 
-	place =
-		name        : "Tapquo S.L."
-		address     : "C/ Ibañez de Bilbao 28 8º"
-		locality    : "Bilbao"
-		postal_code : POSTAL_CODE
-		country     : "España"
-		latitude    : 43.2658947
-		longitude   : -2.925888299999997
-		mail        : PLACE_ID
-		phone       : PLACE_PHONE
-		webiste     : "http://tapquo.com"
+  place =
+    name        : "Tapquo S.L."
+    address     : "C/ Ibañez de Bilbao 28 8º"
+    locality    : "Bilbao"
+    postal_code : POSTAL_CODE
+    country     : "España"
+    latitude    : 43.2658947
+    longitude   : -2.925888299999997
+    mail        : PLACE_ID
+    phone       : PLACE_PHONE
+    webiste     : "http://tapquo.com"
 
-	Appnima.Location.add(place);
+  Appnima.Location.add(place);
 
 Opcionalmente puedes añadir información sobre e-mail, teléfono y Web del sitio.
 
@@ -903,36 +904,36 @@ Personas
 #### Amigos
 Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cerca, para ello es necesaria la latitud, longitud y el radio de busqueda en metros:
 
-	parameters =
-		latitude  : 43.6525842
-		longitude : -79.3834173
-		radius    : 1000
-		
-	Appnima.Location.friends(parameters);
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+    radius    : 1000
+
+  Appnima.Location.friends(parameters);
 
 
 #### Desconocidos
 APP/NIMA también te permite obtener un listado de personas cercanas al usuario que consulta. La petición es similar a la anterior:
 
-	parameters =
-		latitude  : 43.6525842
-		longitude : -79.3834173
-		radius    : 1000
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
+    radius    : 1000
 
-	Appnima.Location.people(parameters);
+  Appnima.Location.people(parameters);
 
 #### Usuario
 APP/NIMA te permite cambiar tu ubicación permanentemente. Para ello solo tienes que enviar los siguientes parámetros junto con la petición:
 
-	parameters =
-		latitude  : 43.6525842
-		longitude : -79.3834173
+  parameters =
+    latitude  : 43.6525842
+    longitude : -79.3834173
 
-	Appnima.Location.user(parameters)
+  Appnima.Location.user(parameters)
 
 En cambio si lo que quieres saber es tu posición actual, tienes que realizar la misma llamada pero sin paramétros y te devolverá la longitud y latitud que está guardada actualmente.
 
-	Appnima.Location.user()
+  Appnima.Location.user()
 
 
 Calendario
@@ -943,9 +944,9 @@ APP/NIMA permite a los usuarios tener un sistema de calendarios donde gestionar 
 
 Para crear un nuevo calendario, se utiliza el siguiente comando que envía como parámetro el nombre y el color del nuevo calendario.
 
-	parameters =
-		name  : CALENDAR_NAME,
-		color : "#FF66CC"
+  parameters =
+    name  : CALENDAR_NAME,
+    color : "#FF66CC"
 
 
     Appnima.Calendar.create(parameters)
@@ -953,93 +954,93 @@ Para crear un nuevo calendario, se utiliza el siguiente comando que envía como 
 Esta función nos devuelve el nuevo calendario:
 
 ```json
-	"calendar":
-		{
-			"id"         : "CALENDAR_ID",
-			"name"       : "CALENDAR_NAME",
-			"color"      : "#FF66CC",
-			"created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
-			"owner":
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://appnima.com/img/avatar.jpg",
-					"name"     : "Javi"
-				},
-			"shared": []
-		}
+  "calendar":
+    {
+      "id"         : "CALENDAR_ID",
+      "name"       : "CALENDAR_NAME",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
+      "owner":
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "name"     : "Javi"
+        },
+      "shared": []
+    }
 ```
 
 #### Modificar
 Tambien tenemos la opción de modificar los atributos de un calendario ya creado, tanto el nombre, como el color. Para ello, se utiliza la siguiente función que envía como parámetro la "id" del calendario a modificar, el nuevo nombre y el nuevo color.
 
-	parameters =
-		id    : CALENDAR_ID,
-		name  : "Mi nuevo nombre de calendario",
-		color : "#FF33CC"
-		
-	Appnima.Calendar.update(parameters)
+  parameters =
+    id    : CALENDAR_ID,
+    name  : "Mi nuevo nombre de calendario",
+    color : "#FF33CC"
+
+  Appnima.Calendar.update(parameters)
 
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados:
 
 ```json
-	"calendar":
-		{
-			"id"         : "CALENDAR_ID",
-			"name"       : "Mi nuevo nombre de calendario",
-			"color"      : "#FF66CC",
-			"created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
-			"owner":
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://appnima.com/img/avatar.jpg",
-					"name"     : "Oihane"
-				},
-			"shared": []
-		}
+  "calendar":
+    {
+      "id"         : "CALENDAR_ID",
+      "name"       : "Mi nuevo nombre de calendario",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
+      "owner":
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "name"     : "Oihane"
+        },
+      "shared": []
+    }
 ```
 
 #### Compartir
 Cabe la posibilidad de compartir un calendario con otros usuarios, para que así, ellos también puedan ver los eventos que hay en dicho calendario. Para ello, sólo hay que realizar la llamada a la función que se muestra a continuación, enviando como parámetro la "id" del calendario, la "id" del usuario a invitar, y "add".
 
-	parameters =
-		id      : CALENDAR_ID
-		profile : USER_ID
-		state   : "add"
+  parameters =
+    id      : CALENDAR_ID
+    profile : USER_ID
+    state   : "add"
 
-	Appnima.Calendar.shared(parameters)
+  Appnima.Calendar.shared(parameters)
 O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos, para que ese usuario deje de ver dichos eventos. Para ello, la llamada a la función es la misma que la de compartir, sólo que como tercer paramentro se envía "remove"
 
-	parameters =
-		id      : CALENDAR_ID,
-		profile : USER_ID,
-		state   : "remove"
+  parameters =
+    id      : CALENDAR_ID,
+    profile : USER_ID,
+    state   : "remove"
 
-	Appnima.Calendar.shared(parameters)
+  Appnima.Calendar.shared(parameters)
 
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bién devolverá el calendario actualizado. El atributo "shared" corresponde con la lista de usuarios a los que se les ha compartido el calendario.
 
 ```json
-	"calendar":
-		{
-			"id"         : "CALENDAR_ID",
-			"name"       : "CALENDAR_NAME",
-			"color"      : "#FF66CC",
-			"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
-			"owner":
-				{
-					"id"       : "OWNER_ID",
-					"mail"     : "OWNER_MAIL",
-					"username" : "OWNER_NICKNAME",
-					"name"     : "OWNER_NAME",
-					"avatar"   : "http://appnima.com/img/avatar.jpg",
-				},
-			"shared": [ "USER_ID" ]
-		}
+  "calendar":
+    {
+      "id"         : "CALENDAR_ID",
+      "name"       : "CALENDAR_NAME",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
+      "owner":
+        {
+          "id"       : "OWNER_ID",
+          "mail"     : "OWNER_MAIL",
+          "username" : "OWNER_NICKNAME",
+          "name"     : "OWNER_NAME",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+        },
+      "shared": [ "USER_ID" ]
+    }
 ```
 
 #### Listar
@@ -1050,24 +1051,24 @@ APP/NIMA nos da la opción de obtener todos los calendarios de los que el usuari
 Devuelve un array de calendarios:
 
 ```json
-	"calendar":
-		[
-			{
-				"id"         : "CALENDAR_ID",
-				"name"       : "CALENDAR_NAME",
-				"color"      : "#FF66CC",
-				"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
-				"owner":
-					{
-						"id"       : "OWNER_ID",
-						"mail"     : "OWNER_MAIL",
-						"username" : "OWNER_NICKNAME",
-						"name"     : "OWNER_NAME",
-						"avatar"   : "http://appnima.com/img/avatar.jpg",
-					},
-				"shared": [ "USER_ID" ]
-			}
-		]
+  "calendar":
+    [
+      {
+        "id"         : "CALENDAR_ID",
+        "name"       : "CALENDAR_NAME",
+        "color"      : "#FF66CC",
+        "created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
+        "owner":
+          {
+            "id"       : "OWNER_ID",
+            "mail"     : "OWNER_MAIL",
+            "username" : "OWNER_NICKNAME",
+            "name"     : "OWNER_NAME",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+          },
+        "shared": [ "USER_ID" ]
+      }
+    ]
 ```
 
 #### Borrar
@@ -1087,53 +1088,53 @@ APP/NIMA también nos ofrece información de qué ha sucedido en un calendario. 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que haya ido bien, nos devuelve un listado de actividades con la estructura que se muestra a continuación
 
 ```json
-	"activities":
-		[
-			{
-				"id"         : "ACTIVITY_ID",
-				"message"    : "ACTIVITY_MESSAGE",
-				"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-				"profile"    :
-					{
-						"username" : "USER_NICKNAME",
-						"name"     : "USER_NAME",
-						"mail"     : "USER_MAIL",
-						"avatar"   : "http://appnima.com/img/avatar.jpg",
-						"id"       : "USER_ID"
-					},
-				"event":
-					{
-						"id"          : "EVENT_ID",
-						"calendar"    : "CALENDAR_ID",
-						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-						"name"        : "BilboStack updated",
-						"description" : "This event is bilboStack",
-						"place"       : "PLACE_ID",
-						"assistents"  : [ "USER_ID" ],
-						"created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-						"tags"        : [ "learn" ],
-						"guest        : [ "USER_ID_1", "USER_ID_2" ]
-					},
-				"calendar":
-					{
-						"id"         : "CALENDAR_ID",
-						"name"       : "Mi calendario updated",
-						"color"      : "#FA58F4",
-						"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-						"owner"      : "OWNER_ID",
-						"shared"     : []
-					},
-				"owner":
-					{
-						"id"       : "OWNER_ID",
-						"username" : "OWNER_NICKNAME",
-						"mail"     : "OWNER_MAIL",
-						"avatar"   : "http://appnima.com/img/avatar.jpg",
-						"name"     : "OWNER_NAME"
-					}
-			}
-		]
+  "activities":
+    [
+      {
+        "id"         : "ACTIVITY_ID",
+        "message"    : "ACTIVITY_MESSAGE",
+        "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+        "profile"    :
+          {
+            "username" : "USER_NICKNAME",
+            "name"     : "USER_NAME",
+            "mail"     : "USER_MAIL",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "id"       : "USER_ID"
+          },
+        "event":
+          {
+            "id"          : "EVENT_ID",
+            "calendar"    : "CALENDAR_ID",
+            "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+            "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+            "name"        : "BilboStack updated",
+            "description" : "This event is bilboStack",
+            "place"       : "PLACE_ID",
+            "assistents"  : [ "USER_ID" ],
+            "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+            "tags"        : [ "learn" ],
+            "guest        : [ "USER_ID_1", "USER_ID_2" ]
+          },
+        "calendar":
+          {
+            "id"         : "CALENDAR_ID",
+            "name"       : "Mi calendario updated",
+            "color"      : "#FA58F4",
+            "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+            "owner"      : "OWNER_ID",
+            "shared"     : []
+          },
+        "owner":
+          {
+            "id"       : "OWNER_ID",
+            "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "name"     : "OWNER_NAME"
+          }
+      }
+    ]
 ```
 
 El evento y el calendario, es dónde se ha realizado la actividad. En caso de que el evento es null, es por que la actividad únicamente afecta al calendario. El campo "owner" es la persona que realiza la actividad y el campo "profile", es la persona a la que va dirigida la actividad.
@@ -1162,35 +1163,35 @@ A través de la siguiente función se puede crear un evento para un calendario. 
 Esta función devuelve el nuevo evento:
 
 ```json
-	"event":
-		{
-			"id"          : "EVENT_ID",
-			"calendar"    : "CALENDAR_ID",
-			"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-			"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-			"description" : "Quedada para jugar un partido de fútbol",
-			"name"        : "Partido de fútbol",
-			"place"       :
-				{
-					"address"    : "c/ San Mames",
-					"locality"   : "Bilbao",
-					"country"    : "Spain",
-					"id"         : "PLACE_ID",
-					"created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
-					"position"   : [ -2.29, 23.23 ]
-				},
-			"assistents" : [],
-			"created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
-			"tags"       : ["futbol", "deporte"],
-			"owner"      :
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://appnima.com/img/avatar.jpg",
-					"name"     : "OWNER_NAME"
-				}
-		}
+  "event":
+    {
+      "id"          : "EVENT_ID",
+      "calendar"    : "CALENDAR_ID",
+      "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+      "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+      "description" : "Quedada para jugar un partido de fútbol",
+      "name"        : "Partido de fútbol",
+      "place"       :
+        {
+          "address"    : "c/ San Mames",
+          "locality"   : "Bilbao",
+          "country"    : "Spain",
+          "id"         : "PLACE_ID",
+          "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+          "position"   : [ -2.29, 23.23 ]
+        },
+      "assistents" : [],
+      "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+      "tags"       : ["futbol", "deporte"],
+      "owner"      :
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "name"     : "OWNER_NAME"
+        }
+    }
 ```
 
 #### Modificar un evento
@@ -1249,29 +1250,29 @@ Si lo que se quiere es listar los eventos de un día, se le envía como primer p
 Como resultado se obtiene una lista de eventos:
 
 ```json
-	"events":
-		[
-			{
-				"id"          : "EVENT_ID",
-				"calendar"    : "CALENDAR_ID",
-				"date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
-				"date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-				"name"        : "Company dinner",
-				"description" : "This event is company dinner",
-				"place"       : "PLACE_ID",
-				"assistents"  : [],
-				"created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
-				"tags"        : [ "dinner", "enjoy" ],
-				"owner":
-					{
-						"id"       : "OWNER_ID",
-						"username" : "OWNER_NICKNAME",
-						"mail"     : "OWNER_MAIL",
-						"avatar"   : "http://appnima.com/img/avatar.jpg",
-						"name"     : "OWNER_NAME"
-					}
-			}
-		]
+  "events":
+    [
+      {
+        "id"          : "EVENT_ID",
+        "calendar"    : "CALENDAR_ID",
+        "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
+        "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
+        "name"        : "Company dinner",
+        "description" : "This event is company dinner",
+        "place"       : "PLACE_ID",
+        "assistents"  : [],
+        "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
+        "tags"        : [ "dinner", "enjoy" ],
+        "owner":
+          {
+            "id"       : "OWNER_ID",
+            "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "name"     : "OWNER_NAME"
+          }
+      }
+    ]
 ```
 
 #### Invitar a un evento.
@@ -1281,34 +1282,34 @@ Otra funcionalidad que es posible, es la de invitar a un usuario a un evento, pa
         event   : EVENT_ID,
         profile : USER_ID,
         state   : "add"
-        
+
     Appnima.Calendar.guestEvent(parameters)
 
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devuelve el evento actualizado. El atributo "guest" corresponde con la lista de usuarios a los que se les ha invitado al evento.
 
 ```json
-	"event":
-		{
-			"id"          : "EVENT_ID",
-			"calendar"    : "CALENDAR_ID",
-			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
-			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-			"name"        : "Meting osakidetza updated",
-			"description" : "Meeting to discuss changes in the implementation",
-			"place"       : "PLACE_ID",
-			"assistents"  : [],
-			"created_at"  : "Tue Feb 04 2014 15:10:59 GMT+0100 (CET)",
-			"tags"        : [ "app", "osakidetza" ],
-			"guest"       : [ "USER_ID" ],
-			"owner"       :
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://appnima.com/img/avatar.jpg",
-					"name"     : "OWNER_NAME"
-				}
-		}
+  "event":
+    {
+      "id"          : "EVENT_ID",
+      "calendar"    : "CALENDAR_ID",
+      "date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
+      "date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
+      "name"        : "Meting osakidetza updated",
+      "description" : "Meeting to discuss changes in the implementation",
+      "place"       : "PLACE_ID",
+      "assistents"  : [],
+      "created_at"  : "Tue Feb 04 2014 15:10:59 GMT+0100 (CET)",
+      "tags"        : [ "app", "osakidetza" ],
+      "guest"       : [ "USER_ID" ],
+      "owner"       :
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "name"     : "OWNER_NAME"
+        }
+    }
 ```
 
 #### Asistir a un evento.
@@ -1323,28 +1324,28 @@ Para confirmar la asistencia a un evento o para eliminarla se utiliza esta funci
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "assistents" corresponde con la lista de usuarios que van a asistir al evento.
 
 ```json
-	"event":
-		{
-			"id"          : "EVENT_ID",
-			"calendar"    : "CALENDAR_ID",
-			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
-			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-			"name"        : "Meeting osakidetza updated",
-			"description" : "Meeting to discuss changes in the implementation",
-			"place"       : "PLACE_ID",
-			"assistents"  : [ "USER_ID" ],
-			"created_at"  : "Tue Feb 04 2014 15:25:07 GMT+0100 (CET)",
-			"tags"        : [ "app", "osakidetza" ],
-			"guest"       : [ "USER_ID" ],
-			"owner"       :
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://appnima.com/img/avatar.jpg",
-					"name"     : "OWNER_NAME"
-				}
-		}
+  "event":
+    {
+      "id"          : "EVENT_ID",
+      "calendar"    : "CALENDAR_ID",
+      "date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
+      "date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
+      "name"        : "Meeting osakidetza updated",
+      "description" : "Meeting to discuss changes in the implementation",
+      "place"       : "PLACE_ID",
+      "assistents"  : [ "USER_ID" ],
+      "created_at"  : "Tue Feb 04 2014 15:25:07 GMT+0100 (CET)",
+      "tags"        : [ "app", "osakidetza" ],
+      "guest"       : [ "USER_ID" ],
+      "owner"       :
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "name"     : "OWNER_NAME"
+        }
+    }
 ```
 
 #### Búsqueda de eventos.
@@ -1355,30 +1356,30 @@ APP/NIMA te permite buscar eventos. La función envía como parámetro una palab
 La función devuelve una lista de eventos que cumplan dichas coincidencias:
 
 ```json
-	"events":
-		[
-			{
-				"id"          : "EVENT_ID",
-				"calendar"    : "CALENDAR_ID",
-				"date_init"   : "Sat Feb 22 2014 11:00:00 GMT+0100 (CET)",
-				"date_finish" : "Sat Feb 22 2014 12:00:00 GMT+0100 (CET)",
-				"name"        : "Meeting with Juanjo",
-				"description" : "Meeting with Juanjo in Near",
-				"place"       : "PLACE_ID",
-				"assistents"  : [],
-				"created_at"  : "Tue Feb 04 2014 15:35:10 GMT+0100 (CET)",
-				"tags"        : [ "near" ],
-				"guest"       : [],
-				"owner":
-					{
-						"id"       : "OWNER_ID",
-						"username" : "OWNER_NICKNAME",
-						"mail"     : "OWNER_MAIL",
-						"avatar"   : "http://appnima.com/img/avatar.jpg",
-						"name"     : "OWNER_NAME"
-					}
-			}
-		]
+  "events":
+    [
+      {
+        "id"          : "EVENT_ID",
+        "calendar"    : "CALENDAR_ID",
+        "date_init"   : "Sat Feb 22 2014 11:00:00 GMT+0100 (CET)",
+        "date_finish" : "Sat Feb 22 2014 12:00:00 GMT+0100 (CET)",
+        "name"        : "Meeting with Juanjo",
+        "description" : "Meeting with Juanjo in Near",
+        "place"       : "PLACE_ID",
+        "assistents"  : [],
+        "created_at"  : "Tue Feb 04 2014 15:35:10 GMT+0100 (CET)",
+        "tags"        : [ "near" ],
+        "guest"       : [],
+        "owner":
+          {
+            "id"       : "OWNER_ID",
+            "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "name"     : "OWNER_NAME"
+          }
+      }
+    ]
 ```
 
 #### Borrar un evento
@@ -1398,53 +1399,53 @@ Al igual que con un calendario, APP/NIMA también nos ofrece información de qu�
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bien, nos devuelve un listado de actividades con la estructura que se muestra a continuación
 
 ```json
-	"activities":
-		[
-			{
-				"id"         : "ACTIVITY_ID",
-				"message"    : "Has invited the event to user",
-				"created_at" : "Mon Feb 10 2014 16:56:25 GMT+0100 (CET)",
-				"profile"    :
-					{
-						"username" : "USER_NICKNAME",
-						"name"     : "USER_NAME",
-						"mail"     : "USER_MAIL",
-						"avatar"   : "http://appnima.com/img/avatar.jpg",
-						"id"       : "USER_ID"
-					},
-				"event":
-					{
-						"id"          : "EVENT_ID",
-						"calendar"    : "CALENDAR_ID",
-						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-						"name"        : "BilboStack updated",
-						"description" : "This event is bilboStack",
-						"place"       : "PLACE_ID",
-						"assistents"  : [ "USER_ID" ],
-						"created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
-						"tags"        : [ "learn" ],
-						"guest"       : [ "USER_ID_1", "USER_ID_2" ]
-					},
-				"calendar":
-					{
-						"id"         : "CALENDAR_ID",
-						"name"       : "Mi calendario updated",
-						"color"      : "#FA58F4",
-						"created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
-						"owner"      : "OWNER_ID",
-						"shared"     : []
-					},
-				"owner":
-					{
-						"id"       : "OWNER_ID",
-						"username" : "OWNER_NICKNAME",
-						"mail"     : "OWNER_MAIL",
-						"avatar"   : "http://appnima.com/img/avatar.jpg",
-						"name"     : "OWNER_NAME"
-					}
-			}
-		]
+  "activities":
+    [
+      {
+        "id"         : "ACTIVITY_ID",
+        "message"    : "Has invited the event to user",
+        "created_at" : "Mon Feb 10 2014 16:56:25 GMT+0100 (CET)",
+        "profile"    :
+          {
+            "username" : "USER_NICKNAME",
+            "name"     : "USER_NAME",
+            "mail"     : "USER_MAIL",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "id"       : "USER_ID"
+          },
+        "event":
+          {
+            "id"          : "EVENT_ID",
+            "calendar"    : "CALENDAR_ID",
+            "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+            "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+            "name"        : "BilboStack updated",
+            "description" : "This event is bilboStack",
+            "place"       : "PLACE_ID",
+            "assistents"  : [ "USER_ID" ],
+            "created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+            "tags"        : [ "learn" ],
+            "guest"       : [ "USER_ID_1", "USER_ID_2" ]
+          },
+        "calendar":
+          {
+            "id"         : "CALENDAR_ID",
+            "name"       : "Mi calendario updated",
+            "color"      : "#FA58F4",
+            "created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+            "owner"      : "OWNER_ID",
+            "shared"     : []
+          },
+        "owner":
+          {
+            "id"       : "OWNER_ID",
+            "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "name"     : "OWNER_NAME"
+          }
+      }
+    ]
 ```
 
 El evento y el calendario, es dónde se ha realizado la actividad. El campo "owner" es la persona que realiza la actividad y el campo "profile", es la persona a la que va dirigida la actividad.
@@ -1454,13 +1455,13 @@ Push
 ====
 Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto de la notificación y el contenido en un objeto como el siguiente:
 
-	parameters = 
-		user    : USER_ID
-		title   : "Título de mi push"
-		message : "Message de mi push"
-    
+  parameters =
+    user    : USER_ID
+    title   : "Título de mi push"
+    message : "Message de mi push"
 
-	Appnima.Push.send(parameters);
+
+  Appnima.Push.send(parameters);
 
 
 Socket

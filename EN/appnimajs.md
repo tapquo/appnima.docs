@@ -537,7 +537,7 @@ In the second case, you want to change the content and the title and image as th
 
 In this case you only want to modify the content and therefore, other variables that go behind would not need to send in null.
 
-This method returns ```message:" Successful "``` if all went well.
+This method returns ```message:" Ok "``` if all went well.
 
 #### Delete
 The user can delete created post.
@@ -545,7 +545,7 @@ El usuario que ha creado un post puede borrarlo. To do this only has to send the
 
     Appnima.Network.Post.remove(POST_ID);
 
-As in the previous method, if all went well return a message ```message: "Successful"```
+As in the previous method, if all went well return a message ```message: "Ok"```
 
 #### Get a post
 The user can get the information of a concrete post sending ```id``` of that post.
@@ -667,7 +667,7 @@ Posts may have comments, and with this call user can do comments.
 
   Appnima.Network.Post.createComment(parameters);
 
-Call returns ```message: "Successful"```.
+Call returns ```message: "Ok"```.
 
 #### Update comment
 User can update its comment.
@@ -679,7 +679,7 @@ User can update its comment.
 
     Appnima.Network.Post.updateComment(parameters);
 
-Call returns ```message: "Successful"```.
+Call returns ```message: "Ok"```.
 
 
 #### Delete comment
@@ -687,7 +687,7 @@ The user who created a comment can delete his comments with following method sen
 
     Appnima.Network.Post.deleteComment(COMMENT_ID);
 
-Call returns ```message: "Successful"```.
+Call returns ```message: "Ok"```.
 
 #### Get comment
 To obtain all comments of post the user may to call this method sending ```id```of post:
