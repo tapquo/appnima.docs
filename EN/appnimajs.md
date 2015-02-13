@@ -507,7 +507,7 @@ The user can update created post. To do this, user must send the following param
     title   : "Lorem Ipsum update title",
     image   : "http://IMAGE_URL"
 
-    Appnima.Network.Post.update(parameters);
+  Appnima.Network.Post.update(parameters);
 
 Not required to send the data that will not be modified. Two examples of this would be:
 
@@ -531,7 +531,7 @@ In the second case, you want to change the content and the title and image as th
 
   parameters =
     id      : "POST_ID",
-        content : "Lorem ipsum new"
+    content : "Lorem ipsum new"
 
   Appnima.Network.Post.update(parameters);
 
@@ -549,7 +549,6 @@ As in the previous method, if all went well return a message ```message: "Ok"```
 
 #### Get a post
 The user can get the information of a concrete post sending ```id``` of that post.
-
 
     Appnima.Network.Post.get(POST_ID);
 
@@ -1017,7 +1016,7 @@ Also allowed to delete a calendar, at the same time all your events are removed.
 
 If the calendar does not exist, it returns a 404 error. If it goes well, it returns a success message.
 
-  {message: Successful}
+  {message: ok}
 
 #### Activity
 APP/NIMA also provides us information on what has happened in a calendar. If we use the function shown below sending as a parameter the "id" of a calendar, provides a list of activities that have happened in it, such as: to update calendar, to create, modify or delete an event belonging to the calendar, share your calendar or delete someone from the list of shared users, invite someone to take the guest list, or the confirm to  assistance to a event.
@@ -1330,7 +1329,7 @@ It is possible to delete an event, you just have to run the following function, 
 
 If the event does not exist, it returns a 404 error. If it goes well, it returns a success message.
 
-  {message: Successful}
+  {message: Ok}
 
 #### Actividad
 
@@ -1555,7 +1554,7 @@ You can also add an alias parameter to the appnima request to identify better yo
     expiration_date : CREDIT_CARD_EXPIRATION_DATE
     alias           : CREDIT_CARD_ALIAS
 
-    Appnima.Payments.createCreditCard(parameters)
+  Appnima.Payments.createCreditCard(parameters)
 
 ### Check a user Credit Cards
 To see all the credit cards a user has attached to his account you only have to call getCreditCards method.
@@ -1574,7 +1573,7 @@ If all goes right Appnima will return a code 200 Succesfull message.
 ### Modify a Credit Card
 For same security reasons to update a credit card you must do it with the ID of the credit card. Send the id  and the parameters you want to change through the method updateCreditCard and the CreditCard information will be updated.
 
-  paramters =
+  parameters =
     id     : CREDIT_CARD_ID
     number : CREDIT_CARD_NUMBER
 

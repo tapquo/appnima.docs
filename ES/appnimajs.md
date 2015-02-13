@@ -867,7 +867,7 @@ Ejemplos:
 #### Información
 Obtén información detallada de un establecimiento o lugar utilizando este recurso:
 
-    Appnima.Location.place(place_id: PLACE_ID);
+  Appnima.Location.place(place_id: PLACE_ID);
 
 
 #### Añadir
@@ -1012,6 +1012,7 @@ Cabe la posibilidad de compartir un calendario con otros usuarios, para que así
     state   : "add"
 
   Appnima.Calendar.shared(parameters)
+
 O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos, para que ese usuario deje de ver dichos eventos. Para ello, la llamada a la función es la misma que la de compartir, sólo que como tercer paramentro se envía "remove"
 
   parameters =
@@ -1078,7 +1079,7 @@ Tambien se nos permite eliminar un calendario, eliminando al mismo tiempo, todos
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de que vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
 
-    message: Successful
+    {message: ok}
 
 #### Actividad
 APP/NIMA también nos ofrece información de qué ha sucedido en un calendario. Si usamos la función que se muestra a continuación enviando como parámetro la "id" de un calendario, nos ofrece una lista de actividades que han sucedido en él, como son, modificar el calendario, crear, modificar o borrar un evento perteneciente al calendario, compartir el calendario o borrar a alguien de la lista de usuarios compartidos, invitar a alguien o quitarle de la lista de invitados de un evento de dicho calendario ó la asistencia o desasistencia de un usuario a un evento.
@@ -1143,21 +1144,21 @@ El evento y el calendario, es dónde se ha realizado la actividad. En caso de qu
 A través de la siguiente función se puede crear un evento para un calendario. Se le debe envíar como parametros un objeto que contenga los siguientes parámetros: la "id" del calendario al que se desea que pertenezca el nuevo evento, el nombre del evento, la descripción, la fecha inicial y final en formato mm-dd-yyyy hh:mm, una string con una lista de "id" de usuarios separados por "," que corresponde con los usuarios con los que quieres compartir dicho evento, una string con una lista de tags separados por "," para poder taguear el evento, la dirección de donde se va a realizar el evento, la localidad, el país, la latitud y la longitud
 
 
-    data =
-      calendar    : "CALENDAR_ID"
-      name        : "partido de futbol"
-      description : "quedada para jugar un partido de fútbol"
-      init        : "04-14-2014 09:00"
-      finish      : "04-14-2014 11:00"
-      address     : "c/ San Mames"
-      locality    : "Bilbao
-      country     : "España"
-      latitude    : "23.23"
-      longitude   : "-2.29"
-      guest       : null
-      tags        : "futbol,deporte"
+  data =
+    calendar    : "CALENDAR_ID"
+    name        : "partido de futbol"
+    description : "quedada para jugar un partido de fútbol"
+    init        : "04-14-2014 09:00"
+    finish      : "04-14-2014 11:00"
+    address     : "c/ San Mames"
+    locality    : "Bilbao
+    country     : "España"
+    latitude    : "23.23"
+    longitude   : "-2.29"
+    guest       : null
+    tags        : "futbol,deporte"
 
-    Appnima.Calendar.event(data)
+  Appnima.Calendar.event(data)
 
 
 Esta función devuelve el nuevo evento:
@@ -1389,7 +1390,7 @@ Cabe la posibilidad de eliminar un evento, para ello basta con ejecutar la sigui
 
 En caso de que el calendario no exista, devuelve un error 404. En caso de haya vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
 
-    message: Successful
+    {message: ok}
 
 #### Actividad
 Al igual que con un calendario, APP/NIMA también nos ofrece información de qué ha sucedido en un evento en concreto. Con la función que se muestra a continuación enviando como parámetro la "id" de un evento, nos ofrece una lista de actividades que han sucedido en él, como son, modificar ese evento, invitar a alguien o quitarle de la lista de invitados o asistencia o desasistencia de un usuario.
