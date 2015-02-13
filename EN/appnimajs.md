@@ -756,20 +756,22 @@ This method return following data:
 #### Get all favorite posts from an user
 If you want to get the favorite post of user, you want to do this method sending user username:
 
+```javascript
   Appnima.Network.Post.userLike({username: USER_NICKNAME});
+```
 
 The API will return a list of post, which are favorites for the username's user.
 
 They can also be obtained by pagination:
 
+```javascript
   parameters =
     username    : USER_NICKNAME,
     page        : 1,
     num_results : 12,
     last_data   : LAST_DATA
-
   Appnima.Network.Post.userLike(parameters);
-
+```
 Location
 ========
 Places
@@ -777,97 +779,103 @@ Places
 #### Search
 Using the users latitude and longitude or any point you can get the nearest places such as museums, restaurants, public buildings… You also can provide a search radius or precision to get a more accurate search. To do this use this respource  with the latitude, longitude and radius/precision. The precision is a numeric value ( 0,1 or 2) and the radius is a numeric value in meters:
 
+```javascript
   parameters =
-    latitude  : 3.1667
-    longitude : 101.7
+    latitude  : 3.1667,
+    longitude : 101.7,
     precision : 2
-
   Appnima.Location.places(parameters);
-
+```
+```javascript
   parameters =
-    latitude  : 3.1667
-    longitude : 101.7
+    latitude  : 3.1667,
+    longitude : 101.7,
     radius    : 15
-
   Appnima.Location.places(parameters);
-
+```
 
 #### Info
 Get detailed information from a place using this resource. Send the `ID` and `REFERENCE` with the request:
 
+```javascript
   Appnima.Location.place(place_id: PLACE_ID );
-
+```
 
 #### Add
 In APP/NIMA you can add a place and add relevant information such as name, address, phone number… To do this yo have to use this resource with the following parameters: Name, address, locality, Postal Code, Country, latitude and longitude:
 
+```javascript
   place =
-    name        : "Tapquo S.L."
-    address     : "C/ Ibañez de Bilbao 28 8º"
-    locality    : "Bilbao"
-    postal_code : POST_CODE
-    country     : "España"
-    latitude    : 43.2658947
-    longitude   : -2.925888299999997
-    mail        : "hello@tapquo.com"
-    phone       : "609326913"
+    name        : "Tapquo S.L.",
+    address     : "C/ Ibañez de Bilbao 28 8º",
+    locality    : "Bilbao",
+    postal_code : POST_CODE,
+    country     : "España",
+    latitude    : 43.2658947,
+    longitude   : -2.925888299999997,
+    mail        : "hello@tapquo.com",
+    phone       : "609326913",
     webiste     : "http://tapquo.com"
-
   Appnima.Location.add(place);
+```
 
 Optionally you can add email, phone and web site data.
 
 
 #### Checkins
 You users can register the places where they are. Send the `ID` and `REFERENCE` with the request:
-
+```
   Appnima.Location.checkin(PLACE_ID);
-
+```
 You can get the list of checkins with this resource. The unique parameter needed is the user's id:
-
+```
   Appnima.Location.checkins(USER_ID);
-
+```
 
 People
 ------
 #### Friends around
 You can ask APP/NIMA for the friends that are near to you. The parameters needed are the latitude, longitude and radius:
 
+```
   parameters =
     latitude  : 43.6525842
     longitude : -79.3834173
     radius    : 1000
-
   Appnima.Location.friends(parameters);
+```
 
 #### People around
 You can ask APP/NIMA for the people that is near to you. The parameters needed are the latitude, longitude and radius:
-
+```
   parameters =
     latitude  : 43.6525842
     longitude : -79.3834173
     radius    : 1000
-
   Appnima.Location.people(parameters);
-
+```
 #### User
 You can change your location with APP/NIMA. The parameters needed are the latitude and the longitude:
 
+```
   parameters =
     latitude  : 43.6525842
     longitude : -79.3834173
-
   Appnima.Location.user(parameters)
+```
 
 And if you can know what is your current position, only do the previous call without parameters.
 
+```
   Appnima.Location.user()
+```
 
 Push
 ====
 To send push notifications to the devices that the users have registered the data needed is: User's ID, the notification text, and the content of the notification.
-
+```
   Appnima.Push.send(USER_ID, "Mensaje", {"title": "JSON con los campos necesarios", "text": "Hola App/nima!"});
+```
 
 Calendar
 ==========
@@ -878,12 +886,12 @@ APP/NIMA allows users to have a calendars system where you can manage your event
 
 To create a new calendar, you need to sent an object with the name and color of the new calendar:
 
+```
   parameters =
     name  : "mi calendario",
     color : "#FF66CC"
-
-
   Appnima.Calendar.create(parameters)
+```
 
 This function returns the new calendar:
 
@@ -910,12 +918,13 @@ This function returns the new calendar:
 
 We also have the option to change the name and color of a calendar already created. You have to send the "id" of the calendar, the new name and the new color.
 
+```
   parameters =
     id    : CALENDAR_ID,
     name  : "mi nuevo nombre de calendario",
     color : "#FF33CC"
-
   Appnima.Calendar.update(parameters)
+```
 
 If the calendar does not exist, it returns a 404 error, If on the contrary exists, returns the calendar with the changed fields:
 
@@ -944,21 +953,23 @@ It is possible to share a calendar with other users, so that they too can see th
 
 To do this, you must send as parameter the id of calendar, the id of the user to invite, and "add";
 
+```
   parameters =
     id      : "CALEDNAR_ID",
     profile : "USER_ID",
     state   : "add"
-
   Appnima.Calendar.shared(parameters)
+```
 
 Or on the contrary, you can also remove a user from the list of shared users, so that the user no longer see such events. For this, the function call is the same as the share, only that third paramentro is "remove":
 
+```
   parameters =
     id      : "CALENDAR_ID",
     profile : "USER_ID",
     state   : "remove"
-
   Appnima.Calendar.shared(parameters)
+```
 
 If the calendar does not exist, it returns a 404 error. If you have not been errors return the updated calendar. The "shared" attribute corresponds to the list of users who have shared their calendar.
 
@@ -984,7 +995,9 @@ If the calendar does not exist, it returns a 404 error. If you have not been err
 #### List
 APP/NIMA gives us the option to get all the calendars that the user owns, and those who have shared. To do this, simply run the following function:
 
-    Appnima.Calendar.list()
+```
+  Appnima.Calendar.list()
+```
 
 Returns an array of calendars:
 
@@ -1012,16 +1025,20 @@ Returns an array of calendars:
 #### Borrar
 Also allowed to delete a calendar, at the same time all your events are removed. To do this, you must send the "id" calendar to be deleted
 
+```
   Appnima.Calendar.remove(CALENDAR_ID)
-
+```
 If the calendar does not exist, it returns a 404 error. If it goes well, it returns a success message.
-
+```
   {message: ok}
+```
 
 #### Activity
 APP/NIMA also provides us information on what has happened in a calendar. If we use the function shown below sending as a parameter the "id" of a calendar, provides a list of activities that have happened in it, such as: to update calendar, to create, modify or delete an event belonging to the calendar, share your calendar or delete someone from the list of shared users, invite someone to take the guest list, or the confirm to  assistance to a event.
 
+```
   Appnima.Calendar.activityCalendar(CALENDAR_ID)
+```
 
 If the calendar does not exist, it returns a 404 error. If it went well, it returns a list of activities with the structure shown below
 
@@ -1151,41 +1168,44 @@ It also allows us to modify an event. You must send an object containing as para
     guest       : null
     tags        : "futbol,deporte"
 ```
-
+```
     Appnima.Calendar.updateEvent(data)
-
+```
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the event with the fields modified with the structure of the object that is returned in the create event.
 
 #### List events
 
 Through the following function can be obtained events calendars that the user owns, events calendars that have been shared, and the events to which you have been invited. Must filter events by time. If you want to list the events of a month, as the first parameter is sent "month", as the second parameter is sent the year, and the third parameter is the number of the month that you want to list the events.
 
+```
   parameters =
     time  : "month",
     year  : "2014",
     month : "02"
-
   Appnima.Calendar.listEvents(parameters)
+```
 
 For list the events of a week, is sent as first "week" parameter, as second parameter the year of the week, as the third parameter the number of the month of week and day as the fourth parameter. This date corresponds to a day of the week you want to get the events:
 
+```
   parameters =
     time  : "week",
     year  : "2014",
     month : "02",
     day   : "14"
-
   Appnima.Calendar.listEvents(parameteres)
+```
 
 For list the events of the day, is sent as the first parameter "day" parameter as the second year of day, as third parameter the number of the month and day as the fourth parameter.
 
+```
   parameters =
     time  : "day",
     year  : "2014",
     month : "02",
     day   : "14"
-
   Appnima.Calendar.listEvents(parameters)
+```
 
 As  result is obtained a list of events :
 
@@ -1218,11 +1238,13 @@ As  result is obtained a list of events :
 #### Invite to event.
 Another feature that is possible, is to invite a user to an event, so that he too can see the event. Or on the contrary, remove an invitation to that user no longer see the event. To do this, simply run the following function shown below, sending as parameters, the "id" of the event, the "id" to invite the user, and "add" or "remove" if you want to add invitation , "add" is sent if instead you want to remove, is sent "remove".
 
+```
   parameters =
     event   : "EVENT_ID",
     profile : "USER_ID",
     state   : "add"
   Appnima.Calendar.guestEvent(parameters)
+```
 
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
 
@@ -1253,11 +1275,12 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
 #### Assist to event.
 To confirm your assistance at an event or to eliminate is used this function, in which is sent as parameter the "id" of the event, the "id" of the user, and "add" or "remove". If you want to confirm asistencia, "add", if instead you want to remove "remove".
 
+```
   parameters =
     event : "EVENT_ID",
     state : "add"
-
   Appnima.Calendar.assistentEvent(parameters)
+```
 
 If the event does not exist, it returns a 404 error.  If on the contrary exists, return the updated event. The "assistents" attribute corresponds to the list of users who assist the event.
 
@@ -1289,9 +1312,9 @@ If the event does not exist, it returns a 404 error.  If on the contrary exists,
 
 #### Search events
 APP/NIMA allows you to search for events. The function sends a word as a parameter, and looks for a match with that word in the name and description of the events that you have access. That is, those who are on a calendar where you're the owner or have you shared and those events that you have been invited.
-
+```
     Appnima.Calendar.search("meeting")
-
+```
 The function returns a list of events satisfying these matches:
 
 
@@ -1325,18 +1348,22 @@ The function returns a list of events satisfying these matches:
 #### Delete event
 It is possible to delete an event, you just have to run the following function, sending as parameter the "id" of the event:
 
+```
   Appnima.Calendar.deleteEvent(EVENT_ID)
+```
 
 If the event does not exist, it returns a 404 error. If it goes well, it returns a success message.
 
+```
   {message: Ok}
+```
 
 #### Actividad
 
 As with a calendar, APP / NIMA also provides us with information on what has happened on a particular event. With the function below, sending as parameter the "id" of an event, provides a list of activities that have happened in it, such as: modify the event, invite someone or taking off of the guest list or corfirm assistance or delete  the corfirm assistance.
-
+```
   Appnima.Calendar.activityEvent(EVENT_ID)
-
+```
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the updated event. The "guest" attribute corresponds to the list of users that have been invited to the event.
 
 ```json
@@ -1398,90 +1425,112 @@ Groups
 ------
 The groups are persistent rooms from 1 to N users. In the groups only allowed users can connect and send data. To work with groups an instance of group must be created:
 
+```
     group = new Appnima.Socket.Group();
+```
 
 Create a group:
 
+```
     group.create("name", ["2387569328yvc2","21y89ch3x8hg2032","2938tyh2g0ghh0i2bg8"]);
+```
 
 Get the groups I take part:
 
+```
     group.list().then(function(error, groups){[code]});
+```
 
 Remove group:
 
+```
     group.remove("id");
+```
 
 Change the name of the group:
 
+```
     group.rename("id", "name");
+```
 
 Get the messages of the group. The second parameter is the page number, the first page is 0 and each page have 50 messages:
 
+```
     group.messages("id", 0);
+```
 
 Delete unread messages count, the first parameter is the group id:
 
+```
     group.deleteUnreadCount("id");
+```
 
 Chat
 ----
 Chats are rooms from 1 to N users without persistence. In chats, as happens in the groups, only allowed users can connect and send data.To work with Chats first of all a instance of Chat must be created:
 
+```
     chat = new Appnima.Socket.Chat();
+```
 
 Create a room:
 
+```
     chat.create("name", ["2387569328yvc2","21y89ch3x8hg2032","2938tyh2g0ghh0i2bg8"]);
-
+```
 
 Emiter & Listener
 -----------------
 #### Emiter
 The emiter is a room in which the autor of it is the only person allowed to send messages and the receivers must connect to it using `Appnima.Socket.Listener`. To create it the first thing is creating an instance of Emiter:
 
+```
     room = new Appnima.Socket.Emiter();
+```
 
 Create a room:
-
+```
     room.create("context");
-
+```
 
 #### Listener
 The listener connects to rooms created with emiter and receives it messages. To create it the first thing is creating en instance and it will connect automatically to the room:
-
+```
     listener = new Appnima.Socket.Listener("context");
-
+```
 
 Application
 -----------
 The application channel allows the users of an application to communicate with others. To connect to it just create an instance of the application:
 
+```
     application = new Appnima.Socket.Application();
-
+```
 
 Inbox
 -----
 The inbox allows a user to receive messages from other users. The messages will only be received by the room author, but any user can send data.To do this create an instance of Inbox:
 
+```
     inbox = new Appnima.Socket.Inbox();
+```
 
 Get the unread messages count by group:
-
+```
     inbox.unreadCount(callback);
-
+```
 Get online friends:
-
+```
     inbox.onOnlineFriends(callback);
-
+```
 Friend connection/disconnection:
-
+```
     inbox.onFriendStatusChange(callback);
-
+```
 Send data to an user:
-
+```
     inbox.sendToUser(user_id, data);
-
+```
 
 Methods
 -------
@@ -1529,13 +1578,13 @@ To make payments posible Appnima stores your CreditCards information in a secure
 
 ### Create a Credit Card
 To create a new credit card you only have to send credit card info with a valid session. Calling createCreditCard will attach a new credit card to a users profile only if it is not previously created.The cvc is an optional parameter.
-
+```
   parameters =
     number          : CREDIT_CARD_NUMBER
     cvc             : CREDIT_CARD_CVC
     expiration_date : CREDIT_CARD_EXPIRATION_DATE
-
   Appnima.Payments.createCreditCard(parameters)
+```
 
 If the process ends correctly you mus receive this information:
 
@@ -1547,37 +1596,37 @@ If the process ends correctly you mus receive this information:
 ```
 
 You can also add an alias parameter to the appnima request to identify better your cards.
-
+```
   parameters =
     number          : CREDIT_CARD_NUMBER
     cvc             : CREDIT_CARD_CVC
     expiration_date : CREDIT_CARD_EXPIRATION_DATE
     alias           : CREDIT_CARD_ALIAS
-
   Appnima.Payments.createCreditCard(parameters)
+```
 
 ### Check a user Credit Cards
 To see all the credit cards a user has attached to his account you only have to call getCreditCards method.
-
+```
     Appnima.Payments.getCreditCards()
-
+```
 It will return us an array with all the credit cards information.
 
 ### Delete a Credit Card
 For security reasons to delete a credit card you must do it with the ID of the credit card. Send the id through the method deleteCreditCard and the CreditCard will be erased.
-
+```
     Appnima.Payments.deleteCreditCard({id: "CREDIT_CARD_ID"})
-
+```
 If all goes right Appnima will return a code 200 Succesfull message.
 
 ### Modify a Credit Card
 For same security reasons to update a credit card you must do it with the ID of the credit card. Send the id  and the parameters you want to change through the method updateCreditCard and the CreditCard information will be updated.
-
+```
   parameters =
     id     : CREDIT_CARD_ID
     number : CREDIT_CARD_NUMBER
-
   Appnima.Payments.updateCreditCard(parameters)
+```
 
 Once again If all goes right Appnima will return a code 200 Succesfull message.
 
@@ -1591,9 +1640,9 @@ To choose between this 3 options you only have to change the provider parameter.
 ### Create a free purchase
 
 To make purchases that doesnt need money you can create free purchase just calling:
-
+```
     Appnima.Payments.purchase();
-
+```
 If all goes right Appnima will send us a unique purchase token and the amount of the purchase.
 
 ```json
@@ -1604,14 +1653,15 @@ If all goes right Appnima will send us a unique purchase token and the amount of
 ```
 
 If you want you can add a reference object with the structure you want encoded into a string chain with JSON.stringify. It must be a valid JSON.
-
+```
   Appnima.Payments.purchase({reference: '{ "id":"example id", "content": "example content"}'})
-
+```
 ### Confirm a purchase
 
 When we receive the token and amount from appnima it means that the purchase is pending of confirmation. You must confirm it with the same parameters you have received.
-
+```
     Appnima.Payments.confirm({token: "purchase_secret_token", amount: 0});
+```
 
 If all goes right Appnima will send us the purchase information back with state set to 3.
 
@@ -1626,7 +1676,7 @@ If all goes right Appnima will send us the purchase information back with state 
 ### Make a stripe purchase
 
 To make a purchase through stripe you should send provider parameter set to 0, and the credit card id with the cvc. Remember the amount currency is in EUR.
-
+```
     Appnima.Payments.purchase({
         provider    : 0,
         credit_card : CREDIT_CARD_ID,
@@ -1634,6 +1684,7 @@ To make a purchase through stripe you should send provider parameter set to 0, a
         amount      : 120,
         reference   : '{ "id_stripe":"id stripe", "test_content": "stripe content", "number": 6161 }'
         });
+```
 
 If the purchase was successfuly created App/nima returns:
 
@@ -1661,9 +1712,10 @@ If the purchase was successfuly confirmed App/nima returns:
 
 ### Generate a PayPal purchase
 To create a paypal purchase you only have to set the provider parameter set to 1 and the amount needed, If you include the reference object with a description, description value will be shown in the Paypal gateway as purchase information.
-
+```
     Appnima.Payments.purchase({
         provider          : 1,
         amount            : 120,
         reference         : '{ "id_stripe":"id paypal", "description": "boat: 10000€", "number": 6161 }'
         });
+```
