@@ -77,8 +77,8 @@ El servidor devuelve un `200` y el objeto:
   "id"       : "USER_ID",
   "mail"     : "USER_MAIL",
   "username" : "USER_NICKNAME",
-  "name"     : "Javi Jimenez",
-  "avatar"   : "http://appnima.com/img/avatar.jpg",
+  "name"     : "USER_NAME",
+  "avatar"   : "USER_AVATAR",
   "language" : "spanish",
   "country"  : "ES",
   "bio"      : "Founder & CTO at @tapquo",
@@ -104,8 +104,8 @@ El objeto que obtienes en ambos casos, es como el siguiente:
   "id"       : "USER_ID",
   "mail"     : "USER_MAIL",
   "username" : "USER_NICKNAME",
-  "name"     : "Javi Jimenez",
-  "avatar"   : "http://api.appnima.com/avatar/default.jpg",
+  "name"     : "USER_NAME",
+  "avatar"   : "USER_AVATAR",
   "language" : "spanish",
   "country"  : "ES",
   "bio"      : "Founder & CTO at @tapquo",
@@ -120,7 +120,7 @@ Para actualizar cualquier campo del perfil del usuario debes enviar un objeto co
 ```javascript
   attributes = {
     "username" : "USER_NICKNAME",
-    "name"     : "Javi",
+    "name"     : "USER_NAME",
     "bio"      : "Founder & CTO at @tapquo",
     "phone"    : "PHONE_NUMBER",
     "site"     : "http://USER_URL"
@@ -398,13 +398,13 @@ En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok`
   {
     "avatar"   : "http://appnima.com/img/avatar.jpg",
     "id"       : "USER_ID",
-    "name"     : "Javi",
+    "name"     : "USER_NAME",
     "username" : "USER_NICKNAME"
   },
   {
     "avatar"   : "http://appnima.com/img/avatar.jpg",
     "id"       : "USER_ID",
-    "name"     : "Javier",
+    "name"     : "USER_NAME",
     "username" : "USER_NICKNAME"
   },
   {
@@ -458,14 +458,14 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
       "avatar"  : "http://AVATAR_URL",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "Oihane",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     },
     {
       "avatar"  : "http://AVATAR_URL",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "Cata",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     }
   ]
@@ -510,7 +510,7 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
     "avatar"   : "http://AVATAR_URL",
     "id"       : "FRIEND_ID",
     "mail"     : "FRIEND_MAIL",
-    "name"     : "Oihane",
+    "name"     : "USER_NAME",
     "username" : "FRIEND_NICKNAME"
   }
 ]
@@ -550,13 +550,13 @@ Solo el campo ```content``` es obligatorio. Un ejemplo de como crear un ```post`
 Esta llamada te devolverá un objeto con los datos del nuevo post como el siguiente:
 ```
     post = {
-        id         : 4234325425234,
+        id         : POST_ID,
         content    : "Lorem Ipsum",
         image      : "http://IMAGE_URL",
         owner      : {
             id       : 423423432423,
-            name     : user1,
-            username : username1,
+            name     : USER_NAME,
+            username : USER_NICKNAME,
             avatar   : http://AVATAR_URL
         },
         comments   : [],
@@ -570,7 +570,7 @@ Esta llamada te devolverá un objeto con los datos del nuevo post como el siguie
 El usuario puede moficiar los post que haya creado. Para ello tiene que enviar los siguientes parámetros:
 ```
     parameters =
-        id      : "124523132",
+        id      : "POST_ID",
         content : "Lorem Ipsum update content",
         title   : "Lorem Ipsum update title",
         image   : "http://IMAGE_URL"
@@ -579,16 +579,16 @@ El usuario puede moficiar los post que haya creado. Para ello tiene que enviar l
 No es obligatorio mandar los datos que no se vayan a modificar. Dos ejemplos de esto sería:
 ```
     parameters =
-        id      : "123421434",
-        content : "Lorem Ipsum",
+        id      : "POST_ID",
+        content : "POST_CONTENT",
         image   : "HTTP://IMAGE_URL"
     Appnima.Network.Post.update(parameters);
 ```
 ```
     parameters =
-        id      : "34324234321423",
-        content : "Lorem ipsum",
-        title   : "Lorem title"
+        id      : "POST_ID",
+        content : "POST_CONTENT",
+        title   : "POST_TITLE"
     Appnima.Network.Post.update(parameters);
 ```
 Como se puede observar, en el primer caso, se quiere modificar el contenido y la imagen pero el título no, por lo que ese campo hay que mandarlo a nulo.
@@ -596,8 +596,8 @@ Como se puede observar, en el primer caso, se quiere modificar el contenido y la
 En el segundo caso, se quiere modificar el contenido y el título, y como la imagen es el último parámetro no hace falta pasarlo a nulo. Lo mismo pasaría en el siguiente caso:
 ```
     parameters =
-        id      : "34234324",
-        content : "Lorem ipsum"
+        id      : "POST_ID",
+        content : "POST_CONTENT"
     Appnima.Network.Post.update(parameters);
 ```
 En este caso solo se quiere modificar el contenido y por lo tanto, las demás variables que van detrás no haría falta mandarlas en nulo.
@@ -622,11 +622,11 @@ Esta llamada devolverá el siguiente objeto:
   post:
     {
       "id"      : "POST_ID",
-      "content" : "Lorem Ipsum",
+      "content" : "POST_CONTENT",
       "image"   : "http://IMAGE_URL",
       "owner"   :
         {
-          "name"     : "Cata",
+          "name"     : "OWNER_NAME",
           "username" : "OWNER_NICKNAME",
           "avatar"   : "http://AVATAR_URL"
         },
@@ -634,13 +634,13 @@ Esta llamada devolverá el siguiente objeto:
             [
           {
             "id"         : "COMMENT_ID",
-            "content"    : "Comment 1",
+            "content"    : "POST_CONTENT",
             "created_at" : "CREATED_AT",
             "owner":
               {
                 "avatar"   : "http://AVATAR_URL",
                 "id"       : "OWNER_ID",
-                "name"     : "Cata",
+                "name"     : "OWNER_NAME",
                 "username" : "OWNER_NICKNAME"
               }
           }
@@ -650,13 +650,13 @@ Esta llamada devolverá el siguiente objeto:
           {
             "avatar"   : "http://AVATAR_URL",
             "id"       : "LIKE_ID",
-            "name"     : "Oihane",
+            "name"     : "USER_NAME",
             "username" : "USER_NICKNAME"
           },
           {
             "avatar"   : "http://AVATAR_URL",
             "id"       : "LIKE_ID",
-            "name"     : "Javi",
+            "name"     : "USER_NAME",
             "username" : "USER_NICKNAME"
           }
         ],
@@ -768,7 +768,7 @@ Esta llamada devolverá el siguiente array de objetos:
           {
             "avatar"   : "http://AVATAR_URL",
             "id"       : "OWNER_ID",
-            "name"     : "Cata",
+            "name"     : "OWNER_NAME",
             "username" : "OWNER_NICKNAME"
           }
       },
@@ -780,7 +780,7 @@ Esta llamada devolverá el siguiente array de objetos:
           {
             "avatar"   : "http://AVATAR_URL",
             "id"       : "OWNER_ID",
-            "name"     : "Oihane",
+            "name"     : "OWNER_NAME",
             "username" : "OWNER_NICKNAME"
           }
       }
@@ -807,7 +807,7 @@ Este método devolverá un array de objetos con todos los usuarios.
     [
       {
         "id"       : "USER_ID",
-        "name"     : "Javi",
+        "name"     : "USER_NAME",
         "username" : "USER_NICKNAME",
         "avatar"   : "http://AVATAR_URL",
         "bio"      : "USER_BIO"
@@ -981,7 +981,7 @@ En caso de que el calendario no exista, devuelve un error 404. Si por el contrar
           "username" : "OWNER_NICKNAME",
           "mail"     : "OWNER_MAIL",
           "avatar"   : "http://appnima.com/img/avatar.jpg",
-          "name"     : "Oihane"
+          "name"     : "OWNER_NAME"
         },
       "shared": []
     }
