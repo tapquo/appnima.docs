@@ -77,11 +77,11 @@ The following explains how to get token using this method.
 #### Step 1: GET /oauth/authorize
 User will be redirected to another URL. This resource is called with the following parameters:
 ``` json
-	"response_type" : "type of request. Should be code.",
-	"client_id"     : "your public ID application.",
-	"scope"         : "token permissions",
-	"redirect_uri"  : "URL to redirect. It will be the same as you provide when you registered your application.",
-	"state"         : "state parameter with response to identify the operation."
+    "response_type" : "type of request. Should be code.",
+    "client_id"     : "your public ID application.",
+    "scope"         : "token permissions",
+    "redirect_uri"  : "URL to redirect. It will be the same as you provide when you registered your application.",
+    "state"         : "state parameter with response to identify the operation."
 ```
 
 The URL will be like this:
@@ -173,8 +173,8 @@ You can send additional fields like:
     {
         ...
         "username" : "USER_NICKNAME",
-        "name"     : "Javi Jimenez",
-        "avatar"   : "http://USER_AVATAR_URL"
+        "name"     : "USER_NAME",
+        "avatar"   : "USER_AVATAR"
     }
 ```
 Responses are returned with `201 Created` and the object:
@@ -183,8 +183,8 @@ Responses are returned with `201 Created` and the object:
         "id"       : "USER_ID",
         "mail"     : "USER_MAIL",
         "username" : "USER_NICKNAME",
-        "name"     : "Javi Jimenez",
-        "avatar"   : "http://USER_AVATAR_URL"
+        "name"     : "USER_NAME",
+        "avatar"   : "USER_AVATAR"
     }
 ```
 
@@ -192,8 +192,8 @@ Responses are returned with `201 Created` and the object:
 #### POST /oauth2/token
 The second step is get the token Oauth2 authentication. It will be the key for all requests into App/nima. So, send the following parameters within the header "http basic authorization"(client_id:client_secret Base64 encoded):
 ```json
-	"Authorization" : "basic",
-	"client_id"     : "CLIENT_ID"
+    "Authorization" : "basic",
+    "client_id"     : "CLIENT_ID"
 ```
 
 ```json
@@ -237,13 +237,13 @@ Get user data with this resource. Then, just wait the response `200 Ok` and APP/
         "id"       : "USER_ID",
         "mail"     : "USER_MAIL",
         "username" : "USER_NICKNAME",
-        "name"     : "Javi Jimenez",
-        "avatar"   : "http://USER_AVATAR_URL",
+        "name"     : "USER_NAME",
+        "avatar"   : "USER_AVATAR",
         "language" : "spanish",
         "country"  : "ES",
-        "bio"      : "Founder & CTO at @tapquo",
+        "bio"      : "USER_BIO",
         "phone"    : "USER_PHONE",
-        "site"     : "http://USER_URL"
+        "site"     : "USER_SITE"
     }
 ```
 
@@ -254,10 +254,9 @@ This resource is used to modify the personal data of a user within your applicat
     {
         "mail"     : "USER_MAIL",
         "username" : "USER_NICKNAME",
-        "name"     : "Javi Jimenez",
-        "avatar"   : "http://USER_AVATAR_URL",
-        "picture"  : "http://USER_PICTURE_URL",
-        "bio"      : "Founder & CTO at @tapquo",
+        "name"     : "USER_NAME",
+        "avatar"   : "USER_AVATAR",
+        "bio"      : "USER_BIO",
         "phone"    : "USER_PHONE"
     }
 ```
@@ -314,9 +313,9 @@ This resource is used to create comments on a `post`. The idea of ​​this res
 
 ```json
 {
-	"text"    : "Lorem ipsum",
-	"post"    : "POST_ID",
-	"message" : "MESSAGE_ID"
+    "text"    : "POST_TEXT",
+    "post"    : "POST_ID",
+    "message" : "MESSAGE_ID"
 }
 ```
 
@@ -328,9 +327,9 @@ This resource is used to get all the comments from a post. You just have to send
 This resource allows you register the user device. Sends the request and the following parameters:
 ```json
 {
-	"type"    : "phone",
-	"os"      : "ios",
-	"version" : "6.0"
+    "type"    : "phone",
+    "os"      : "ios",
+    "version" : "6.0"
 }
 ```
 
@@ -344,12 +343,12 @@ Responses are returned with `201 RESOURCE CREATED`.
 Retrieves information about what devices accessed to your application. Like **GET /user/info** you do not need any parameter. App/nima returns `200 Ok` and the following object:
 ```json
 [
-	{
-    	"_id"     : "USER_ID",
-       	"type"    : "phone",
-       	"os"      : "ios",
-       	"token"   : "USER_TOKEN",
-       	"version" : "6.0"
+    {
+        "_id"     : "USER_ID",
+        "type"    : "phone",
+        "os"      : "ios",
+        "token"   : "USER_TOKEN",
+        "version" : "6.0"
     },
     {
         "_id"     : "USER_ID",
@@ -365,7 +364,7 @@ Retrieves information about what devices accessed to your application. Like **GE
 Updadtes the device information with this resource. Just send:
 ```json
 {
-	"terminal" : "TERMINAL_ID",
+    "terminal" : "TERMINAL_ID",
     "type"     : "phone",
     "os"       : "ios",
     "version"  : "6.0"
@@ -383,7 +382,7 @@ Registered e-mail of users who want to receive information from your application
 
 ```json
 {
-	"mail": "USER_MAIL"
+    "mail": "USER_MAIL"
 }
 ```
 
@@ -391,7 +390,7 @@ Responses are returned with `200 Ok` and the object:
 
 ```json
 {
-	"message": "Request accepted."
+    "message": "Request accepted."
 }
 ```
 
@@ -401,7 +400,7 @@ Responses are returned with `200 Ok` and the object:
 Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. Envía como parámetro junto a la petición el texto de la consulta:
 ```json
 {
-	"question": "[SUGGESTION] Bigger buttons."
+    "question": "[SUGGESTION] Bigger buttons."
 }
 ```
 
@@ -423,36 +422,36 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 Search people into App/nima using this resource. You just need one parameter:
 ```json
 {
-	"query": "USER_MAIL"
+    "query": "USER_MAIL"
 }
 ```
 
 Responses are returned with `200 Ok` and a list of users that match the search:
 ```json
 [
-	{
-		"id"        : "USER_ID",
-      	"username"  : "USER_NICKNAME",
-       	"name"      : "Javi",
-       	"avatar"    : "AVATAR_URL",
-       	"follower"  : "true",
-       	"following" : "false"
+    {
+        "id"        : "USER_ID",
+        "username"  : "USER_NICKNAME",
+        "name"      : "USER_NAME",
+        "avatar"    : "USER_AVATAR",
+        "follower"  : "true",
+        "following" : "false"
     },
     {
-       	"id"        : "USER_ID",
-       	"username"  : "USER_NICKNAME",
-       	"name"      : "Catalina",
-       	"avatar"    : "AVATAR_URL",
-       	"follower"  : "true",
-       	"following" : "true"
+        "id"        : "USER_ID",
+        "username"  : "USER_NICKNAME",
+        "name"      : "USER_NAME",
+        "avatar"    : "USER_AVATAR",
+        "follower"  : "true",
+        "following" : "true"
     },
     {
-       	"id"        : "USER_ID",
-       	"username"  : "USER_NICKNAME",
-       	"name"      : "Iñigo",
-       	"avatar"    : "AVATAR_URL",
-       	"follower"  : "false",
-    	"following" : "false"
+        "id"        : "USER_ID",
+        "username"  : "USER_NICKNAME",
+        "name"      : "USER_NAME",
+        "avatar"    : "USER_AVATAR",
+        "follower"  : "false",
+        "following" : "false"
     }
     ]
 ```
@@ -500,17 +499,17 @@ Retrieves the list of followings of a user. Sends the request and ID user:
 App/nima returns `200 Ok` and the list:
 ```json
 [
-	{
-       	"id"       : "USER_ID",
-       	"username" : "USER_NICKNAME",
-       	"name"     : "Javi",
-       	"avatar"   : "AVATAR_URL"
+    {
+        "id"       : "USER_ID",
+        "username" : "USER_NICKNAME",
+        "name"     : "USER_NAME",
+        "avatar"   : "USER_AVATAR"
     },
     {
-       	"id"       : "USER_ID",
-       	"username" : "USER_NICKNAME",
-       	"name"     : "Catalina",
-       	"avatar"   : "AVATAR_URL"
+        "id"       : "USER_ID",
+        "username" : "USER_NICKNAME",
+        "name"     : "USER_NAME",
+        "avatar"   : "USER_AVATAR"
     }
 ]
 ```
@@ -520,9 +519,9 @@ Like in *timeline* of resource ```MESSENGER```, there is the option of getting t
 
 ```json
 {
-	"user"        : "USER_ID",
-	"page"        : "0",
-	"num_results" : "5"
+    "user"        : "USER_ID",
+    "page"        : "0",
+    "num_results" : "5"
 }
 ```
 
@@ -536,26 +535,26 @@ As **GET /following** you can retrieve a list of followers of a user.
 Retrieves the list of followings of a user. Sends the request and ID user:
 ```json
 {
-	"user": "USER_ID"
+    "user": "USER_ID"
 }
 ```
 
 App/nima returns `200 Ok` and the list:
 ```json
 [
-	{
-		"id"        : "USER_ID",
-		"username"  : "USER_NICKNAME",
-		"name"      : "Javi",
-		"avatar"    : "AVATAR_URL",
-		"is_follow" : "true"
+    {
+        "id"        : "USER_ID",
+        "username"  : "USER_NICKNAME",
+        "name"      : "USER_NAME",
+        "avatar"    : "USER_AVATAR",
+        "is_follow" : "true"
     },
     {
-		"id"        : "USER_ID",
-		"username"  : "USER_NICKNAME",
-		"name"      : "Iñigo",
-		"avatar"    : "AVATAR_URL",
-		"is_follow" : "false"
+        "id"        : "USER_ID",
+        "username"  : "USER_NICKNAME",
+        "name"      : "USER_NAME",
+        "avatar"    : "USER_AVATAR",
+        "is_follow" : "false"
     }
 ]
 ```
@@ -569,27 +568,27 @@ As can be seen, in this case, the call returns one more variable in each object.
 Get an overview about users network. Use this resource and ID user:
 ```json
 {
-	"user": "USER_ID"
+    "user": "USER_ID"
 }
 ```
 
 App/nima returns `200 Ok` and user total *followers* and *followings* and list of both:
 ```json
 following:
-	"users":
-		[
-			{
-				"name"     : "Javi",
-				"username" : "USER_NICKNAME",
-				"bio"      : "USER_BIO",
-				"mail"     : "USER_MAIL"
-			}
-		]
-	"count": "1",
-	"followers": {
-		"users": [],
-		"count": "0"
-	}
+    "users":
+        [
+            {
+                "name"     : "USER_NAME",
+                "username" : "USER_NICKNAME",
+                "bio"      : "USER_BIO",
+                "mail"     : "USER_MAIL"
+            }
+        ]
+    "count": "1",
+    "followers": {
+        "users": [],
+        "count": "0"
+    }
 ```
 
 
@@ -597,15 +596,15 @@ following:
 If you need to know about relationship with another user, use this resource and his ID user:
 ```json
 {
-	"user": "USER_ID"
+    "user": "USER_ID"
 }
 ```
 
 If the query was successful App/nima returns `200 Ok` and the object which describes the relationship between both users:
 ```json
 {
-	"following" : "true",
-	"follower"  : "false"
+    "following" : "true",
+    "follower"  : "false"
 }
 ```
 
@@ -626,16 +625,16 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 With this resource your users can send e-mail. You just need sends the request with the next parameters (subject is optional):
 ```json
 {
-	"user"    : "USER_ID",
-	"subject" : "Appnima.com",
-	"message" : "Welcome to appnima.messenger [MAIL]"
+    "user"    : "USER_ID",
+    "subject" : "Appnima.com",
+    "message" : "Welcome to appnima.messenger [MAIL]"
 }
 ```
 
 Responses are returned with `201 Created` and the object:
 ```json
 {
-	"message": "E-mail sent successfully."
+    "message": "E-mail sent successfully."
 }
 ```
 
@@ -644,15 +643,15 @@ Responses are returned with `201 Created` and the object:
 Also, App/nima provides SMS messaging. Your application can send messages to users who have phone number registered into the platform. Sends the request and the following parameters:
 ```json
 {
-	"user"    : "USER_ID",
-	"message" : "Welcome to appnima.messenger [SMS]"
+    "user"    : "USER_ID",
+    "message" : "Welcome to appnima.messenger [SMS]"
 }
 ```
 
 Responses are returned with `201 Created` and the object:
 ```json
 {
-	"message": "SMS sent successfully."
+    "message": "SMS sent successfully."
 }
 ```
 
@@ -662,16 +661,16 @@ Responses are returned with `201 Created` and the object:
 If you need, App/nima gives private messaging between users on your application. Sends the request with the next parameters:
 ```json
 {
-	"user"    : "USER_ID",
-	"subject" : "Appnima.com",
-	"body"    : "Welcome to appnima.messenger [MESSAGE]"
+    "user"    : "USER_ID",
+    "subject" : "Appnima.com",
+    "body"    : "Welcome to appnima.messenger [MESSAGE]"
 }
 ```
 
 The field subject is optional and App/nima returns `201 Created` and the object:
 ```json
 {
-	"message": "Message sent successfully."
+    "message": "Message sent successfully."
 }
 ```
 
@@ -679,20 +678,20 @@ The field subject is optional and App/nima returns `201 Created` and the object:
 Users of your application can retrieves messages sent. Just use this resource with the next parameter:
 ```json
 {
-	"context": "outbox"
+    "context": "outbox"
 }
 ```
 
 App/nima returns `200 Ok` and a list of messages:
 ```json
 {
-	"_id"         : "MESSAGE_ID",
-	"from"        : "USER_FROM_ID",
-	"to"          : "USER_TO_ID",
-	"application" : "APPLICATION_ID",
-	"subject"     : "Appnima.com",
-	"body"        : "Welcome to appnima.messenger [MESSAGE]",
-	"state"       : "SENT"
+    "_id"         : "MESSAGE_ID",
+    "from"        : "USER_FROM_ID",
+    "to"          : "USER_TO_ID",
+    "application" : "APPLICATION_ID",
+    "subject"     : "Appnima.com",
+    "body"        : "Welcome to appnima.messenger [MESSAGE]",
+    "state"       : "SENT"
 }
 ```
 
@@ -701,20 +700,20 @@ App/nima returns `200 Ok` and a list of messages:
 As **GET /message/outbox** shown to your users a list received messages. Just change de context:
 ```json
 {
-	"context": "inbox"
+    "context": "inbox"
 }
 ```
 
 And App/nima returns `200 Ok` and a list of messages:
 ```json
 {
-	"_id"         : "MESSAGE_ID",
-	"from"        : "USER_FROM_ID",
-	"to"          : "USER_TO_ID",
-	"application" : "APPLICATION_ID",
-	"subject"     : "Appnima.com",
-	"body"        : "Welcome to appnima.messenger [MESSAGE]",
-	"state"       : "READ"
+    "_id"         : "MESSAGE_ID",
+    "from"        : "USER_FROM_ID",
+    "to"          : "USER_TO_ID",
+    "application" : "APPLICATION_ID",
+    "subject"     : "Appnima.com",
+    "body"        : "Welcome to appnima.messenger [MESSAGE]",
+    "state"       : "READ"
 }
 ```
 
@@ -722,8 +721,8 @@ And App/nima returns `200 Ok` and a list of messages:
 Modify the state of a message using this resource. Sends the request and the following parameters:
 ```json
 {
-	"message" : "MESSAGE_ID",
-	"state"   : "READ"
+    "message" : "MESSAGE_ID",
+    "state"   : "READ"
 }
 ```
 **read**: READ or DELETED
@@ -731,7 +730,7 @@ Modify the state of a message using this resource. Sends the request and the fol
 Responses are returned with `200 Ok` and the object:
 ```json
 {
-	"message": "Resource READ."
+    "message": "Resource READ."
 }
 ```
 
@@ -741,9 +740,9 @@ A post is a public message and the user can create with this resource. Only have
 
 ```json
 {
-	"title"   : "Lorem Ipsum",
-	"content" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-	"image"   : "http://IMAGE_URL
+    "title"   : "POST_TITLE",
+    "content" : "POST_CONTENT",
+    "image"   : "POST_IMAGE"
 }
 ```
 The only required field when creating a post is ```content``` that it is the content of the message.
@@ -751,21 +750,21 @@ The only required field when creating a post is ```content``` that it is the con
 If all goes well you only have to wait for the answer `200 ok` and APP/NIMA will returns the following parameters:
 ```json
 {
-	"id"          : "POST_ID",
-	"application" : "APPLICATION_ID",
-	"content"     : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-	"title"       : "Lorem ipsum",
-	"create_at"   : "2013-12-02 08:00:58.784Z",
-	"image"       : "http://IMAGE_URL",
-	"owner"       :
-		{
-			"_id"        : "OWNER_ID",
-			"avatar"     : "http://AVATAR_URL",
-			"created_at" : "2013-12-02 08:00:58.784Z",
-			"mail"       : "OWNER_MAIL",
-			"name"       : "Javi",
-			"username"   : "OWNER_NICKNAME"
-		}
+    "id"          : "POST_ID",
+    "application" : "APPLICATION_ID",
+    "content"     : "POST_CONTENT",
+    "title"       : "POST_TITLE",
+    "create_at"   : "2013-12-02 08:00:58.784Z",
+    "image"       : "POST_IMAGE",
+    "owner"       :
+        {
+            "_id"        : "OWNER_ID",
+            "avatar"     : "OWNER_AVATAR",
+            "created_at" : "2013-12-02 08:00:58.784Z",
+            "mail"       : "OWNER_MAIL",
+            "name"       : "OWNER_NAME",
+            "username"   : "OWNER_NICKNAME"
+        }
 }
 ```
 
@@ -774,10 +773,10 @@ This resource is used to modify a previously created post. To do this, the user 
 
 ```json
 {
-	"id"      : "POST_ID",
-	"title"   : "Lorem Ipsum",
-	"content" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-	"image"   : "http://IMAGE_URL
+    "id"      : "POST_ID",
+    "title"   : "POST_TITLE",
+    "content" : "POST_CONTENT",
+    "image"   : "POST_IMAGE"
 }
 ```
 
@@ -791,7 +790,7 @@ This resource is used to obtain counter of user's list of posts. If you want to 
 
 ```json
 {
-	"user": "USER_ID"
+    "user": "USER_ID"
 }
 ```
 
@@ -799,46 +798,46 @@ This resource is used to obtain counter of user's list of posts. If you want to 
 This resource is used to find the *posts* that having in its content a particular word. You have to send the word that you want to search:
 ```json
 {
-	"query": "Lorem"
+    "query": "Lorem"
 }
 ```
 In this example, APP/NIMA will return all *posts* in its field *content* have the word "Lorem". An example would be:
 ```json
 [
-	{
-		"_id"         : "POST_ID",
-		"application" : "APPLICATION_ID",
-		"content"     : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-		"title"       : "Lorem ipsum",
-		"create_at"   : "2013-12-02 08:00:58.784Z",
-		"image"       : "http://IMAGE_URL",
-		"owner":
-			{
-				"_id"        : "OWNER_ID",
-				"avatar"     : "http://AVATAR_URL",
-				"created_at" : "2013-12-02 08:00:58.784Z",
-				"mail"       : "OWNER_MAIL",
-				"name"       : "Javi",
-				"username"   : "OWNER_NICKNAME"
-			}
-	},
-	{
-		"_id"         : "POST_ID",
-		"application" : "APPLICATION_ID",
-		"content"     : "Loremipsum es un ejemplo.",
-		"title"       : "Lorem ipsum",
-		"create_at"   : "2013-12-02 08:00:58.784Z",
-		"image"       : "http://IMAGE_URL",
-		"owner":
-			{
-				"_id"        : "OWNER_ID",
-				"avatar"     : "http://AVATAR_URL",
-				"created_at" : "2013-12-02 08:00:58.784Z",
-				"mail"       : "OWNER_MAIL",
-				"name"       : "Javi",
-				"username"   : "ONWER_NICKNAME"
-			}
-	}
+    {
+        "_id"         : "POST_ID",
+        "application" : "APPLICATION_ID",
+        "content"     : "POST_CONTENT",
+        "title"       : "POST_TITLE",
+        "create_at"   : "2013-12-02 08:00:58.784Z",
+        "image"       : "POST_IMAGE",
+        "owner":
+            {
+                "_id"        : "OWNER_ID",
+                "avatar"     : "OWNER_AVATAR",
+                "created_at" : "2013-12-02 08:00:58.784Z",
+                "mail"       : "OWNER_MAIL",
+                "name"       : "OWNER_NAME",
+                "username"   : "OWNER_NICKNAME"
+            }
+    },
+    {
+        "_id"         : "POST_ID",
+        "application" : "APPLICATION_ID",
+        "content"     : "POST_CONTENT",
+        "title"       : "POST_TITLE",
+        "create_at"   : "2013-12-02 08:00:58.784Z",
+        "image"       : "POST_IMAGE",
+        "owner":
+            {
+                "_id"        : "OWNER_ID",
+                "avatar"     : "OWNER_AVATAR",
+                "created_at" : "2013-12-02 08:00:58.784Z",
+                "mail"       : "OWNER_MAIL",
+                "name"       : "OWNER_NAME",
+                "username"   : "ONWER_NICKNAME"
+            }
+    }
 ]
 ```
 
@@ -851,7 +850,7 @@ This resource is used to get the list of posts of concrete user. If you want to 
 But if you want to get another user posts or only your own, you must send the following parameters:
 ```json
 {
-	"id": "USER_ID" 
+    "id": "USER_ID"
 }
 ```
 
@@ -864,9 +863,9 @@ There is also the option for you to return the list of posts with pagination, th
 To do this, you must send the following parameters:
 ```json
 {
-	"page"        : "0",
-	"num_results" : "5",
-	"last_data"   : "2013-12-02 08:00:58.784Z"
+    "page"        : "0",
+    "num_results" : "5",
+    "last_data"   : "2013-12-02 08:00:58.784Z"
 }
 ```
 
@@ -892,18 +891,18 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 Use this resource to get places around a point. You can determinate the range result with precision or radius. If you like to work with precision, send 0 (hight precision), 1 or 2 (less precision). If you prefere work with radius make the request like:
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"radio"     : "500"
+    "latitude"  : "-33.9250334",
+    "longitude" : "18.423883499999988",
+    "radio"     : "500"
 }
 ```
 
 To work with precision, type:
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"precision" : "1"
+    "latitude"  : "-33.9250334",
+    "longitude" : "18.423883499999988",
+    "precision" : "1"
 }
 ```
 
@@ -911,63 +910,63 @@ To work with precision, type:
 Responses are returned with `200 Ok` and the list of places:
 ```json
 [
-	{
-		"address"  : "Neurketa Kalea, 8, Mungia, Spain",
-		"country"  : "ES",
-		"id"       : "PLACE_ID",
-		"locality" : "Mungia",
-		"name"     : "Frus Surf",
-		"phone"    : "+34 946 15 57 71",
-		"position" :
-			{
-				"latitude"  : 43.356091,
-				"longitude" : -2.847759
-			},
-		"postal_code" : "POSTAL_CODE",
-		"reference"   : null,
-		"types":
-			{
-				"0": "establishment"
-			},
-		"website": "http://shop.frussurf.com/"
-	},
-	{
-		"address"  : "Neurketa Kalea, 3, Mungia, Spain",
-		"country"  : "ES",
-		"id"       : "PLACE_ID",
-		"locality" : "Mungia",
-		"name"     : "Inmobiliaria Urrutia",
-		"phone"    : "PLACE_PHONE",
-		"position" :
-			{
-				"latitude"  : 43.35618,
-				"longitude" : -2.847939
-			},
-		"postal_code" : "POSTAL_CODE",
-		"reference"   : null,
-		"types":
-			{
-				"0": "establishment"
+    {
+        "address"  : "Neurketa Kalea, 8, Mungia, Spain",
+        "country"  : "ES",
+        "id"       : "PLACE_ID",
+        "locality" : "Mungia",
+        "name"     : "Frus Surf",
+        "phone"    : "+34 946 15 57 71",
+        "position" :
+            {
+                "latitude"  : 43.356091,
+                "longitude" : -2.847759
             },
-		"website": "http://www.inmobiliariaurrutia.com/"
-	},
-	{
-		"address"  : "Neurketa Kalea, 8, Mungia",
-		"country"  : null,
-		"id"       : "PLACE_ID",
-		"locality" : null,
-		"name"     : "Bar Aketxe",
-		"phone"    : null,
-		"position" :
-			{
-				"latitude"  : 43.356091,
-				"longitude" : -2.847759
-           	},
-		"postal_code" : null,
-		"reference"   : "REFERENCE_ID",
-		"types"       : [],
-		"website"     : null
-	}
+        "postal_code" : "POSTAL_CODE",
+        "reference"   : null,
+        "types":
+            {
+                "0": "establishment"
+            },
+        "website": "http://shop.frussurf.com/"
+    },
+    {
+        "address"  : "Neurketa Kalea, 3, Mungia, Spain",
+        "country"  : "ES",
+        "id"       : "PLACE_ID",
+        "locality" : "Mungia",
+        "name"     : "Inmobiliaria Urrutia",
+        "phone"    : "PLACE_PHONE",
+        "position" :
+            {
+                "latitude"  : 43.35618,
+                "longitude" : -2.847939
+            },
+        "postal_code" : "POSTAL_CODE",
+        "reference"   : null,
+        "types":
+            {
+                "0": "establishment"
+            },
+        "website": "http://www.inmobiliariaurrutia.com/"
+    },
+    {
+        "address"  : "Neurketa Kalea, 8, Mungia",
+        "country"  : null,
+        "id"       : "PLACE_ID",
+        "locality" : null,
+        "name"     : "Bar Aketxe",
+        "phone"    : null,
+        "position" :
+            {
+                "latitude"  : 43.356091,
+                "longitude" : -2.847759
+            },
+        "postal_code" : null,
+        "reference"   : "REFERENCE_ID",
+        "types"       : [],
+        "website"     : null
+    }
 ]
 ```
 
@@ -976,8 +975,8 @@ With this resource you can request more details about a particular establishment
 
 ```json
 {
-	"id"        : "PLACE_ID",
-	"reference" : "REFERENCE_ID"
+    "id"        : "PLACE_ID",
+    "reference" : "REFERENCE_ID"
 }
 ```
 
@@ -985,73 +984,73 @@ If the place has not `reference` sends the request like:
 
 ```json
 {
-	"id": "PLACE_ID"
+    "id": "PLACE_ID"
 }
 ```
 
 Responses are returned with `200 Ok` and the place detail:
 ```json
 {
-	"address"  : "Neurketa Kalea, 8, Mungia, Spain",
-	"country"  : "ES",
-	"id"       : "PLACE_ID",
-	"locality" : "Mungia",
-	"name"     : "Bar Aketxe",
-	"phone"    : "PLACE_PHONE",
-	"position" :
-		{
-			"latitude"  : 43.356091,
-			"longitude" : -2.847759
-		},
-	"postal_code" : "POSTAL_CODE",
-	"reviews"     :
-		{
-			"aspects":
-				[
-					{
-						"rating": 1,
-						"type"  : "food"
-					},
-					{
-						"rating": 1,
-						"type"  : "decor"
-					},
-         			{
-						"rating": 1,
-						"type"  : "service"
-					}
-				],
-			"author_name": "AUTHOR_NAME",
-			"author_url" : "https://plus.google.com/101519756922440365704",
-			"text"       : "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
-		},
-	"types":
-		{
-			"0": "bar",
-           	"1": "establishment"
-		}
+    "address"  : "Neurketa Kalea, 8, Mungia, Spain",
+    "country"  : "ES",
+    "id"       : "PLACE_ID",
+    "locality" : "Mungia",
+    "name"     : "Bar Aketxe",
+    "phone"    : "PLACE_PHONE",
+    "position" :
+        {
+            "latitude"  : 43.356091,
+            "longitude" : -2.847759
+        },
+    "postal_code" : "POSTAL_CODE",
+    "reviews"     :
+        {
+            "aspects":
+                [
+                    {
+                        "rating": 1,
+                        "type"  : "food"
+                    },
+                    {
+                        "rating": 1,
+                        "type"  : "decor"
+                    },
+                    {
+                        "rating": 1,
+                        "type"  : "service"
+                    }
+                ],
+            "author_name": "AUTHOR_NAME",
+            "author_url" : "https://plus.google.com/101519756922440365704",
+            "text"       : "BUENAS CORTEZAS DE CERDO, Y MUY BUENAS RABAS."
+        },
+    "types":
+        {
+            "0": "bar",
+            "1": "establishment"
+        }
 }
 ```
 #### POST /place
 Use this resource to create place data profile. . Sends the request with the next parameters:
 ```json
 {
-	"name"        : "San Mames",
-	"address"     : "Felipe Serrate, s/n",
-	"locality"    : "Bilbao",
-	"postal_code" : "POSTAL_CODE",
-	"country"     : "ES",
-	"latitude"    : "43.26",
-	"longitude"   : "-2.94"
+    "name"        : "San Mames",
+    "address"     : "Felipe Serrate, s/n",
+    "locality"    : "Bilbao",
+    "postal_code" : "POSTAL_CODE",
+    "country"     : "ES",
+    "latitude"    : "43.26",
+    "longitude"   : "-2.94"
 }
 ```
 
 Optionally you can add the next information:
 ```json
 {
-	"mail"    : "PLACE_MAIL",
-	"phone"   : "PLACE_PHONE",
-	"website" : "www.sanmames.com"
+    "mail"    : "PLACE_MAIL",
+    "phone"   : "PLACE_PHONE",
+    "website" : "www.sanmames.com"
 }
 ```
 
@@ -1063,14 +1062,14 @@ Responses are returned with `201 Created`.
 Users from your applicaction can register visits into a place. Use this resource with the parameter id:
 ```json
 {
-	"id": "PLACE_ID"
+    "id": "PLACE_ID"
 }
 ```
 
 Responses are returned with `200 Ok` and the object:
 ```json
 {
-	"status": "ok"
+    "status": "ok"
 }
 ```
 
@@ -1078,31 +1077,31 @@ Responses are returned with `200 Ok` and the object:
 Get a list of saved places by your users. Just send the user id:
 ```json
 {
-	"id": "USER_ID"
+    "id": "USER_ID"
 }
 ```
 
 Responses are returned with `200 Ok` and the object:
 ```json
 {
-	"address"  : "Calle de Trobika, 1, Mungia, Spain",
-	"country"  : "ES",
-	"id"       : "PLACE_ID",
-	"locality" : "Mungia",
-	"name"     : "Policía Municipal",
-	"phone"    : "PLACE_PHONE",
-	"position" :
-		{
-			"latitude" : 43.354551,
-			"longitude": -2.846533
-		},
-	"postal_code" : "POSTAL_CODE",
-	"reviews"     : [],
-	"types":
-		{
-			"0": "police",
-			"1": "establishment"
-		}
+    "address"  : "Calle de Trobika, 1, Mungia, Spain",
+    "country"  : "ES",
+    "id"       : "PLACE_ID",
+    "locality" : "Mungia",
+    "name"     : "Policía Municipal",
+    "phone"    : "PLACE_PHONE",
+    "position" :
+        {
+            "latitude" : 43.354551,
+            "longitude": -2.846533
+        },
+    "postal_code" : "POSTAL_CODE",
+    "reviews"     : [],
+    "types":
+        {
+            "0": "police",
+            "1": "establishment"
+        }
 }
 ```
 
@@ -1111,19 +1110,19 @@ Responses are returned with `200 Ok` and the object:
 Shown to your users information about friends near to a point. You just need send with de request the following parametrs:
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"radio"     : "500"
+    "latitude"  : "-33.9250334",
+    "longitude" : "18.423883499999988",
+    "radio"     : "500"
 }
 ```
 
 If the request was successful App/nima returns `200 Ok` and the user data:
 ```json
 {
-	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg",
-	"id"       : "USER_ID",
-	"name"     : "Cata",
-	"username" : "USER_MAIL"
+    "avatar"   : "USER_AVATAR",
+    "id"       : "USER_ID",
+    "name"     : "USER_NAME",
+    "username" : "USER_MAIL"
 }
 ```
 
@@ -1131,9 +1130,9 @@ If the request was successful App/nima returns `200 Ok` and the user data:
 As **GET /friends** you can provides information about people who are not into users list friends. The request is made with the same parameters:
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"radio"     : "500"
+    "latitude"  : "-33.9250334",
+    "longitude" : "18.423883499999988",
+    "radio"     : "500"
 }
 ```
 
@@ -1143,8 +1142,8 @@ You can use this resource to obtain the last user location stored. Just sends th
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988"
+    "latitude"  : "-33.9250334",
+    "longitude" : "18.423883499999988"
 }
 ```
 
@@ -1153,8 +1152,8 @@ If you need save user position use this resource. Sends the request with latitud
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988"
+    "latitude"  : "-33.9250334",
+    "longitude" : "18.423883499999988"
 }
 ```
 If the request was successful, App/nima will return `201 Created` message.
@@ -1200,9 +1199,9 @@ To disconnect from a room just call the method `leave`.
 To send a message to a room just call the method `sendMessage` with an object as parameter (a message can be any type of data). This message will be received by all the room's users, also the sender, through a listener called `onMessage` and it will have the following format:
 ```json
 {
-	"user"       : "User that sends the message",
-	"message"    : "Message sent",
-	"created_at" : "2013-05-23T12:01:02.736Z"
+    "user"       : "User that sends the message",
+    "message"    : "Message sent",
+    "created_at" : "2013-05-23T12:01:02.736Z"
 }
 ```
 
@@ -1230,16 +1229,16 @@ There are several room types, each one has different permissions depending the u
 Get a list of rooms where a user is participant. You just need call the resource and if the query was successful App/nima returns `200 Ok` and the list like this:
 ```json
 [
-	{
-		"id"         : "ROOM_ID",
-		"name"       : "Amigos",
-		"created_at" : "2013-05-23T12:01:02.736Z"
-	},
-	{
-		"id"         : "ROOM_ID",
-		"name"       : "Appnima friends",
-		"created_at" : "2013-02-23T12:01:02.736Z"
-	}
+    {
+        "id"         : "ROOM_ID",
+        "name"       : "Amigos",
+        "created_at" : "2013-05-23T12:01:02.736Z"
+    },
+    {
+        "id"         : "ROOM_ID",
+        "name"       : "Appnima friends",
+        "created_at" : "2013-02-23T12:01:02.736Z"
+    }
 ]
 ```
 
@@ -1259,9 +1258,9 @@ So, the first parameter is the type of request (GET, POST, UPDATE, DELETE …) a
 This resource allows you to send push notifications to the user device. Sends the request and the following parameters:
 ```json
 {
-	"user"    : "USER_ID",
-	"title"   : "Texto a mostrar en la notificación",
-	"message" : "El message de la push"
+    "user"    : "USER_ID",
+    "title"   : "Texto a mostrar en la notificación",
+    "message" : "El message de la push"
 }
 ```
 If the notification was successful App/nima returns `200 Ok`.
