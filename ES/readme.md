@@ -215,8 +215,8 @@ Opcionalmente también puedes enviar:
 ```json
 {
   ...
-  "username"  : "soyjavi",
-  "name"      : "Javi Jimenez"
+  "username"  : "USER_NICKNAME",
+  "name"      : "USER_NAME"
 }
 ```
 
@@ -262,7 +262,7 @@ los datos del usuario:
   "id"            : "USER_ID",
   "mail"          : "USER_MAIL",
   "usenarme"      : "USER_NICKNAME",
-  "name"          : "Javi Jimenez",
+  "name"          : "USER_NAME",
   "avatar"        : "http://api.appnima.com/avatar/default.jpg",
   "access_token"  : "ACCESS_TOKEN",
   "refresh_token" : "REFRESH_TOKEN",
@@ -342,13 +342,13 @@ devuelve los siguientes parámetros:
   "id"      : "USER_ID",
   "mail"    : "USER_MAIL",
   "username": "USER_NICKNAME",
-  "name"    : "Javi Jimenez",
+  "name"    : "USER_NAME",
   "avatar"  : "http://api.appnima.com/avatar/default.jpg",
   "language": "spanish",
   "country" : "ES",
   "bio"     : "Founder & CTO at [@tapquo]",
   "phone"   : "PHONE_NUMBER",
-  "site"    : "http://soyjavi.com"
+  "site"    : "USER_SITE"
 }
 ```
 
@@ -361,14 +361,14 @@ aparecen a continuación (aunque no es obligatorio enviarlos todos):
 
 ```json
 {
-  "name"    : "Javi",
+  "name"    : "USER_NAME",
   "mail"    : "USER_MAIL",
-  "avatar"  : "AVATAR",
+  "avatar"  : "USER_AVATAR",
   "language": "spanish",
   "country" : "Spain",
   "phone"   : "PHONE_NUMBER",
-  "site"    : "http://soyjavi.com",
-  "bio"     : "Founder & CTO at [@tapquo]"
+  "site"    : "USER_SITE",
+  "bio"     : "USER_BIO"
 }
 ```
 
@@ -719,19 +719,19 @@ junto con una lista de usuarios que coinciden con la búsqueda:
 ```json
   [
     {
-      "avatar"  : "http://api.appnima.com/avatar/default.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
-      "name"    : "javi",
+      "name"    : "USER_NAME",
       "username": "USER_MAIL"
     },
     {
-      "avatar"  : "http://api.appnima.com/avatar/default.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
-      "name"    : "javier",
+      "name"    : "USER_NAME",
       "username": "USER_MAIL"
     },
     {
-      "avatar"  : "http://api.appnima.com/avatar/default.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "name"    : null,
       "username": "USER_MAIL"
@@ -804,24 +804,24 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
   "count" : 4
   [
     {
-      "avatar"  : "http://cata.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "cata",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     },
     {
-      "avatar"  : "http://a1.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "a1",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     },
     {
-      "avatar"  : "http://avatar.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "a2",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     }
 ]
@@ -862,24 +862,24 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
   "count": 3
   [
     {
-      "avatar"  : "http://cata.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "cata",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     },
     {
-      "avatar"  : "http://javi.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "javi",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     },
     {
-      "avatar"  : "http://a1.jpg",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
-      "name"    : "oihane",
+      "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     }
   ]
@@ -914,10 +914,10 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
 [
   {
-    "avatar"  : "http://oihi.jpg",
+    "avatar"  : "USER_AVATAR",
     "id"      : "USER_ID",
     "mail"    : "USER_MAIL",
-    "name"    : "oihi",
+    "name"    : "USER_NAME",
     "username": "USER_NICKNAME"
   }
 ]
@@ -1372,7 +1372,7 @@ Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto
             "rating"   : 4,
             "language" : "en",
             "author_name" : "A Google User",
-            "aspects" : [ 
+            "aspects" : [
                 {
                     "type" : "overall",
                     "rating" : 2
@@ -1486,9 +1486,9 @@ Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 
 ```json
 {
-	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg",
+	"avatar"   : "FRIEND_AVATAR",
 	"id"       : "FRIEND_ID",
-	"name"     : "Cata",
+	"name"     : "FRIEND_NAME",
 	"username" : "FRIEND_NICKNAME"
 }
 ```
@@ -1511,9 +1511,9 @@ Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 
 ```json
 {
-	"avatar"   : "http://appnima-dashboard.eu01.aws.af.cm/static/images/avatar.jpg",
+	"avatar"   : "FRIEND_AVATAR",
 	"id"       : "FRIEND_ID",
-	"name"     : "Cata",
+	"name"     : "FRIEND_NAME",
 	"username" : "FRIEND_NICKNAME"
 }
 ```
@@ -1560,7 +1560,7 @@ continuación se explica la manera de hacerlo.
 Con este recurso el usuario crea un calendario. Junto con la petición hace falta
 enviar su nombre y el color que le quieras asignar:
 
-```json 
+```json
 {
 	"name"  : "Calendario de trabajo",
 	"color" : "#3300FF"
@@ -1573,7 +1573,7 @@ si todo va bien, devueve el calendario creado:
 	caledar:
 		{
 			"id"         : "CALENDAR_ID",
-			"name"       : "mi calendario",
+			"name"       : "CALENDAR_NAME",
 			"color"      : "#FF66CC",
 			"created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
 			"owner":
@@ -1581,8 +1581,8 @@ si todo va bien, devueve el calendario creado:
 					"id"       : "OWNER_ID",
 					"username" : "OWNER_NICKNAME",
 					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-					"name"     : "Catalina Oyaneder"
+					"avatar"   : "OWNER_AVATAR",
+					"name"     : "OWNER_NAME"
 				},
 			"shared": []
 		}
@@ -1598,7 +1598,7 @@ nuevo color.
 {
 	"id"    : "CALENDAR_ID",
 	"color" : "#3300FF",
-	"name"  : "Calendario de trabajo modificado"
+	"name"  : "CALENDAR_NAME"
 }
 ```
 
@@ -1616,8 +1616,8 @@ contrario existe, devuelve el calendario con los campos modificados:
 					"id"       : "OWNER_ID",
 					"username" : "OWNER_NICKNAME",
 					"mail"     : "OWNER_MAIL",
-					"avatar"   : 'http://api.appnima.com/avatar/default.jpg',
-					"name"     : "Oihane Merino"},
+					"avatar"   : "OWNER_AVATAR",
+					"name"     : "ONWER_NAME"},
 					"shared"   : []
 }
 ```
@@ -1649,14 +1649,14 @@ calendario.
 			"id"         : "CALENDAR_ID",
 			"name"       : "slid.us",
 			"color"      : "#FF66CC",
-			"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)", 
+			"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
 			"owner" :
 				{
 					"id"       : "OWNER_ID",
 					"mail"     : "OWNER_MAIL",
 					"username" : "OWNER_NICKNAME",
-					"name"     : "Oihane Merino",
-					"avatar"   : "http://api.appnima.com/avatar/default.jpg"
+					"name"     : "ONWER_NAME",
+					"avatar"   : "OWNER_AVATAR"
 				},
 			"shared": [ "USER_ID_1", "USER_ID_2" ]
 		}
@@ -1673,7 +1673,7 @@ de calendarios.
 		[
 			{
 				"id"         : "CALENDAR_ID",
-				"name"       : "slid.us",
+				"name"       : "CALENDAR_NAME",
 				"color"      : "#FF66CC",
 				"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
 				"owner" :
@@ -1681,8 +1681,8 @@ de calendarios.
 						"id"       : "OWNER_ID",
 						"mail"     : "OWNER_MAIL",
 						"username" : "OWNER_NICKNAME",
-						"name"     : "Catalina Oyaneder",
-						"avatar"   : "http://api.appnima.com/avatar/default.jpg"
+						"name"     : "ONWER_NAME",
+						"avatar"   : "OWNER_AVATAR"
 					},
 				"shared": [ "USER_ID_1", "USER_ID_2" ]
 			}
@@ -1734,9 +1734,9 @@ muestra a continuación
 				"profile"    :
 					{
 						"username" : "USER_NICKNAME",
-						"name"     : "Javier Jimenez",
+						"name"     : "USER_NAME",
 						"mail"     : "USER_MAIL",
-						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
+						"avatar"   : "USER_AVATAR",
 						"id"       : "USER_ID"
 					},
 				"event":
@@ -1745,8 +1745,8 @@ muestra a continuación
 						"calendar"    : "CALENDAR_ID",
 						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
 						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-						"name"        : "BilboStack updated",
-						"description" : "This event is bilboStack",
+						"name"        : "EVENT_NAME",
+						"description" : "EVENT_DESCRIPTION",
 						"place"       : "PLACE_ID",
 						"assistents"  : ["USER_ID_1", "USER_ID_2"],
 						"created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
@@ -1756,7 +1756,7 @@ muestra a continuación
 				"calendar":
 					{
 						"id"         : "CALENDAR_ID",
-						"name"       : "Mi calendario updated",
+						"name"       : "CALENDAR_NAME",
 						"color"      : "#FA58F4",
 						"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
 						"owner"      : "OWNER_ID",
@@ -1767,8 +1767,8 @@ muestra a continuación
 						"id"       : "OWNER_ID",
 						"username" : "OWNER_NICKNAME",
 						"mail"     : "OWNER_MAIL",
-						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-						"name"     : "Oihane Merino"
+						"avatar"   : "OWNER_AVATAR",
+						"name"     : "OWNER_NAME"
 					}
 				}
 			]
@@ -1816,8 +1816,8 @@ Esta función devuelve el nuevo evento:
 			"calendar"    : "CALENDAR_ID",
 			"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
 			"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-			"description" : "Quedada para jugar un partido de fútbol",
-			"name"        : "Partido de futbol",
+			"description" : "EVENT_DESCRIPTION",
+			"name"        : "EVENT_NAME",
 			"place":
 				{
 					"address"    : "c/ San Mames",
@@ -1835,8 +1835,8 @@ Esta función devuelve el nuevo evento:
 					"id"       : "OWNER_ID",
 					"username" : "OWNER_NICKNAME",
 					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-					"name"     : "Oihane Merino"
+					"avatar"   : "OWNER_AVATAR",
+					"name"     : "OWNER_NAME"
 				}
 			}
 ```
@@ -1908,8 +1908,8 @@ Como resultado se obtiene una lista de eventos:
             		"calendar"    : "CALENDAR_ID",
             		"date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
             		"date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-            		"name"        : "Company dinner",
-            		"description" : "This event is company dinner",
+            		"name"        : "EVENT_NAME",
+            		"description" : "EVENT_DESCRIPTION",
             		"place"       : "PLACE_ID",
             		"assistents"  : [],
             		"created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
@@ -1919,8 +1919,8 @@ Como resultado se obtiene una lista de eventos:
                         	"id"       : "OWNER_ID",
                         	"username" : "OWNER_NICKNAME",
                         	"mail"     : "OWNER_MAIL",
-                        	"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-                        	"name"     : "Oihane Merino"
+                        	"avatar"   : "EVENT_AVATAR",
+                        	"name"     : "EVENT_NAME"
                     	}
         		}
         	]
@@ -1955,20 +1955,20 @@ lista de usuarios a los que se les ha invitado al evento.
 			"calendar"    : "CALENDAR_ID",
 			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
 			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-			"name"        : "Meeting osakidetza updated",
-			"description" : "Meeting to discuss changes in the implementation",
+			"name"        : "EVENT_NAME",
+			"description" : "EVENT_DESCRIPTION",
 			"place"       : "PLACE_ID",
 			"assistents"  : [],
 			"created_at"  : "Tue Feb 04 2014 15:10:59 GMT+0100 (CET)",
 			"tags"        : ["app", "osakidetza"],
 			"guest"       : ["USER_ID"],
-			"owner"       : 
+			"owner"       :
 				{
 					"id"       : "OWNER_ID",
 					"username" : "OWNER_NICKNAME",
 					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-					"name"     : "Catalina Oyaneder"
+					"avatar"   : "OWNER_AVATAR",
+					"name"     : "OWNER_NAME"
 				}
 			}
 ```
@@ -1999,8 +1999,8 @@ con la lista de usuarios que van a asistir al evento.
 			"calendar"    : "CALENDAR_ID",
 			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
 			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-			"name"        : "Meeting osakidetza updated",
-			"description" : "Meeting to discuss changes in the implementation",
+			"name"        : "EVENT_NAME",
+			"description" : "EVENT_DESCRIPTION",
 			"place"       : "PLACE_ID",
 			"assistents"  : ["USER_ID_1", "USER_ID_2"],
 			"created_at"  : "Tue Feb 04 2014 15:25:07 GMT+0100 (CET)",
@@ -2011,8 +2011,8 @@ con la lista de usuarios que van a asistir al evento.
 					"id"       : "OWNER_ID",
 					"username" : "OWNER_NICKNAME",
 					"mail"     : "OWNER_MAIL",
-					"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-					"name"     : "Javier Jimenez"
+					"avatar"   : "OWNER_AVATAR",
+					"name"     : "OWNER_NAME"
 				}
 			}
 ```
@@ -2037,8 +2037,8 @@ La función devuelve una lista de eventos que cumplan dichas coincidencias:
 				"calendar"    : "CALENDAR_ID",
 				"date_init"   : "Sat Feb 22 2014 11:00:00 GMT+0100 (CET)",
 				"date_finish" : "Sat Feb 22 2014 12:00:00 GMT+0100 (CET)",
-				"name"        : "Meeting with Juanjo",
-				"description" : "Meeting with Juanjo in Near",
+				"name"        : "EVENT_NAME",
+				"description" : "EVENT_DESCRIPTION",
 				"place"       : "PLACE_ID",
 				"assistents"  : [],
 				"created_at"  : "Tue Feb 04 2014 15:35:10 GMT+0100 (CET)",
@@ -2049,8 +2049,8 @@ La función devuelve una lista de eventos que cumplan dichas coincidencias:
 						"id"       : "OWNER_ID",
 						"username" : "OWNER_NICKNAME",
 						"mail"     : "OWNER_MAIL",
-						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-						"name"     : "Catalina Oyaneder"
+						"avatar"   : "OWNER_AVATAR",
+						"name"     : "OWNER_NAME"
 					}
 				}
 			]
@@ -2090,12 +2090,12 @@ muestra a continuación
 				"message"    : "Has invited the event to Cata",
 				"created_at" : "Mon Feb 10 2014 16:56:25 GMT+0100 (CET)",
 				"profile":
-					{ 
+					{
 						"username" : "USER_NICKNAME",
-						"name"     : "Catalina Oyaneder",
+						"name"     : "USER_NAME",
 						"mail"     : "USER_MAIL",
-						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-						"id"       : "USER_ID" 
+						"avatar"   : "USER_AVATAR",
+						"id"       : "USER_ID"
 					},
 				"event":
 					{
@@ -2103,8 +2103,8 @@ muestra a continuación
 						"calendar"    : "CALENDAR_ID",
 						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
 						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-						"name"        : "BilboStack updated",
-						"description" : "This event is BilboStack",
+						"name"        : "EVENT_NAME",
+						"description" : "EVENT_DESCRIPTION",
 						"place"       : "PLACE_ID",
 						"assistents"  : ["USER_ID"],
 						"created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
@@ -2114,7 +2114,7 @@ muestra a continuación
 				"calendar":
 					{
 						"id"         : "CALENDAR_ID",
-						"name"       : "Mi calendario updated",
+						"name"       : "CALENDAR_NAME",
 						"color"      : "#FA58F4",
 						"created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
 						"owner"      : "OWNER_ID",
@@ -2125,8 +2125,8 @@ muestra a continuación
 						"id"       : "OWNER_ID",
 						"username" : "OWNER_NICKNAME",
 						"mail"     : "OWNER_MAIL",
-						"avatar"   : "http://api.appnima.com/avatar/default.jpg",
-						"name"     : "Oihane Merino"
+						"avatar"   : "OWNER_AVATAR",
+						"name"     : "OWNER_NAME"
 					}
 				}
 			]

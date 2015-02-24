@@ -81,9 +81,9 @@ El servidor devuelve un `200` y el objeto:
   "avatar"   : "USER_AVATAR",
   "language" : "spanish",
   "country"  : "ES",
-  "bio"      : "Founder & CTO at @tapquo",
-  "phone"    : "PHONE_NUMBER",
-  "site"     : "http://USER_URL"
+  "bio"      : "USER_BIO",
+  "phone"    : "USER_PHONE",
+  "site"     : "USER_SITE"
 }
 ```
 
@@ -108,9 +108,9 @@ El objeto que obtienes en ambos casos, es como el siguiente:
   "avatar"   : "USER_AVATAR",
   "language" : "spanish",
   "country"  : "ES",
-  "bio"      : "Founder & CTO at @tapquo",
-  "phone"    : "PHONE_NUMBER",
-  "site"     : "http://USER_URL"
+  "bio"      : "USER_BIO",
+  "phone"    : "USER_PHONE",
+  "site"     : "USER_SITE"
 }
 ```
 
@@ -121,9 +121,9 @@ Para actualizar cualquier campo del perfil del usuario debes enviar un objeto co
   attributes = {
     "username" : "USER_NICKNAME",
     "name"     : "USER_NAME",
-    "bio"      : "Founder & CTO at @tapquo",
-    "phone"    : "PHONE_NUMBER",
-    "site"     : "http://USER_URL"
+    "bio"      : "USER_BIO",
+    "phone"    : "USER_PHONE",
+    "site"     : "USER_SITE"
   }
 ```
 ```
@@ -396,19 +396,19 @@ En el caso de que la respuesta haya sido satisfactoria se devolverá un `200 Ok`
 ```json
 [
   {
-    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "avatar"   : "USER_AVATAR",
     "id"       : "USER_ID",
     "name"     : "USER_NAME",
     "username" : "USER_NICKNAME"
   },
   {
-    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "avatar"   : "USER_AVATAR",
     "id"       : "USER_ID",
     "name"     : "USER_NAME",
     "username" : "USER_NICKNAME"
   },
   {
-    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "avatar"   : "USER_AVATAR",
     "id"       : "USER_ID",
     "name"     : "null",
     "username" : "USER_NICKNAME"
@@ -455,14 +455,14 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
   "count": 2,
   [
     {
-      "avatar"  : "http://AVATAR_URL",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
       "name"    : "USER_NAME",
       "username": "USER_NICKNAME"
     },
     {
-      "avatar"  : "http://AVATAR_URL",
+      "avatar"  : "USER_AVATAR",
       "id"      : "USER_ID",
       "mail"    : "USER_MAIL",
       "name"    : "USER_NAME",
@@ -507,7 +507,7 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 ```json
 [
   {
-    "avatar"   : "http://AVATAR_URL",
+    "avatar"   : "FRIEND_AVATAR",
     "id"       : "FRIEND_ID",
     "mail"     : "FRIEND_MAIL",
     "name"     : "USER_NAME",
@@ -551,13 +551,13 @@ Esta llamada te devolverá un objeto con los datos del nuevo post como el siguie
 ```
     post = {
         id         : POST_ID,
-        content    : "Lorem Ipsum",
-        image      : "http://IMAGE_URL",
+        content    : "POST_CONTENT",
+        image      : "POST_IMAGE",
         owner      : {
-            id       : 423423432423,
+            id       : USER_ID,
             name     : USER_NAME,
             username : USER_NICKNAME,
-            avatar   : http://AVATAR_URL
+            avatar   : USER_AVATAR
         },
         comments   : [],
         likes      : [],
@@ -571,8 +571,8 @@ El usuario puede moficiar los post que haya creado. Para ello tiene que enviar l
 ```
     parameters =
         id      : "POST_ID",
-        content : "Lorem Ipsum update content",
-        title   : "Lorem Ipsum update title",
+        content : "POST_CONTENT",
+        title   : "POST_TITLE",
         image   : "http://IMAGE_URL"
     Appnima.Network.Post.update(parameters);
 ```
@@ -581,7 +581,7 @@ No es obligatorio mandar los datos que no se vayan a modificar. Dos ejemplos de 
     parameters =
         id      : "POST_ID",
         content : "POST_CONTENT",
-        image   : "HTTP://IMAGE_URL"
+        image   : "POST_IMAGE"
     Appnima.Network.Post.update(parameters);
 ```
 ```
@@ -623,12 +623,12 @@ Esta llamada devolverá el siguiente objeto:
     {
       "id"      : "POST_ID",
       "content" : "POST_CONTENT",
-      "image"   : "http://IMAGE_URL",
+      "image"   : "POST_IMAGE",
       "owner"   :
         {
           "name"     : "OWNER_NAME",
           "username" : "OWNER_NICKNAME",
-          "avatar"   : "http://AVATAR_URL"
+          "avatar"   : "OWNER_AVATAR"
         },
           "comments":
             [
@@ -638,7 +638,7 @@ Esta llamada devolverá el siguiente objeto:
             "created_at" : "CREATED_AT",
             "owner":
               {
-                "avatar"   : "http://AVATAR_URL",
+                "avatar"   : "OWNER_AVATAR",
                 "id"       : "OWNER_ID",
                 "name"     : "OWNER_NAME",
                 "username" : "OWNER_NICKNAME"
@@ -648,13 +648,13 @@ Esta llamada devolverá el siguiente objeto:
       "likes":
         [
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "USER_AVATAR",
             "id"       : "LIKE_ID",
             "name"     : "USER_NAME",
             "username" : "USER_NICKNAME"
           },
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "USER_AVATAR",
             "id"       : "LIKE_ID",
             "name"     : "USER_NAME",
             "username" : "USER_NICKNAME"
@@ -766,7 +766,7 @@ Esta llamada devolverá el siguiente array de objetos:
         "created_at" : "CREATED_AT",
         "owner":
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "OWNER_AVATAR",
             "id"       : "OWNER_ID",
             "name"     : "OWNER_NAME",
             "username" : "OWNER_NICKNAME"
@@ -778,7 +778,7 @@ Esta llamada devolverá el siguiente array de objetos:
         "created_at" : "CREATED_AT",
         "owner":
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "OWNER_AVATAR",
             "id"       : "OWNER_ID",
             "name"     : "OWNER_NAME",
             "username" : "OWNER_NICKNAME"
@@ -809,7 +809,7 @@ Este método devolverá un array de objetos con todos los usuarios.
         "id"       : "USER_ID",
         "name"     : "USER_NAME",
         "username" : "USER_NICKNAME",
-        "avatar"   : "http://AVATAR_URL",
+        "avatar"   : "USER_AVATAR",
         "bio"      : "USER_BIO"
       }
     ]
@@ -950,8 +950,8 @@ Esta función nos devuelve el nuevo calendario:
           "id"       : "OWNER_ID",
           "username" : "OWNER_NICKNAME",
           "mail"     : "OWNER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
-          "name"     : "Javi"
+          "avatar"   : "OWNER_AVATAR",
+          "name"     : "OWNER_NAME"
         },
       "shared": []
     }
@@ -972,7 +972,7 @@ En caso de que el calendario no exista, devuelve un error 404. Si por el contrar
   "calendar":
     {
       "id"         : "CALENDAR_ID",
-      "name"       : "Mi nuevo nombre de calendario",
+      "name"       : "CALENDAR_NAME",
       "color"      : "#FF66CC",
       "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
       "owner":
@@ -980,7 +980,7 @@ En caso de que el calendario no exista, devuelve un error 404. Si por el contrar
           "id"       : "OWNER_ID",
           "username" : "OWNER_NICKNAME",
           "mail"     : "OWNER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "OWNER_AVATAR",
           "name"     : "OWNER_NAME"
         },
       "shared": []
@@ -1020,7 +1020,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
           "mail"     : "OWNER_MAIL",
           "username" : "OWNER_NICKNAME",
           "name"     : "OWNER_NAME",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "OWNER_AVATAR",
         },
       "shared": [ "USER_ID" ]
     }
@@ -1047,7 +1047,7 @@ Devuelve un array de calendarios:
             "mail"     : "OWNER_MAIL",
             "username" : "OWNER_NICKNAME",
             "name"     : "OWNER_NAME",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "OWNER_AVATAR",
           },
         "shared": [ "USER_ID" ]
       }
@@ -1082,7 +1082,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
             "username" : "USER_NICKNAME",
             "name"     : "USER_NAME",
             "mail"     : "USER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "USER_AVATAR",
             "id"       : "USER_ID"
           },
         "event":
@@ -1091,8 +1091,8 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
             "calendar"    : "CALENDAR_ID",
             "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
             "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-            "name"        : "BilboStack updated",
-            "description" : "This event is bilboStack",
+            "name"        : "EVENT_NAME",
+            "description" : "EVENT_DESCRIPTION",
             "place"       : "PLACE_ID",
             "assistents"  : [ "USER_ID" ],
             "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
@@ -1102,7 +1102,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
         "calendar":
           {
             "id"         : "CALENDAR_ID",
-            "name"       : "Mi calendario updated",
+            "name"       : "CALENDAR_NAME",
             "color"      : "#FA58F4",
             "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
             "owner"      : "OWNER_ID",
@@ -1113,7 +1113,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que ha
             "id"       : "OWNER_ID",
             "username" : "OWNER_NICKNAME",
             "mail"     : "OWNER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "OWNER_AVATAR",
             "name"     : "OWNER_NAME"
           }
       }
@@ -1151,8 +1151,8 @@ Esta función devuelve el nuevo evento:
       "calendar"    : "CALENDAR_ID",
       "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
       "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-      "description" : "Quedada para jugar un partido de fútbol",
-      "name"        : "Partido de fútbol",
+      "description" : "EVENT_DESCRIPTION",
+      "name"        : "EVENT_NAME",
       "place"       :
         {
           "address"    : "c/ San Mames",
@@ -1170,7 +1170,7 @@ Esta función devuelve el nuevo evento:
           "id"       : "OWNER_ID",
           "username" : "OWNER_NICKNAME",
           "mail"     : "OWNER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "OWNER_AVATAR",
           "name"     : "OWNER_NAME"
         }
     }
@@ -1235,8 +1235,8 @@ Como resultado se obtiene una lista de eventos:
         "calendar"    : "CALENDAR_ID",
         "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
         "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-        "name"        : "Company dinner",
-        "description" : "This event is company dinner",
+        "name"        : "EVENT_NAME",
+        "description" : "EVENT_DESCRIPTION",
         "place"       : "PLACE_ID",
         "assistents"  : [],
         "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
@@ -1246,7 +1246,7 @@ Como resultado se obtiene una lista de eventos:
             "id"       : "OWNER_ID",
             "username" : "OWNER_NICKNAME",
             "mail"     : "OWNER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "OWNER_AVATAR",
             "name"     : "OWNER_NAME"
           }
       }
@@ -1271,8 +1271,8 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
       "calendar"    : "CALENDAR_ID",
       "date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
       "date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-      "name"        : "Meting osakidetza updated",
-      "description" : "Meeting to discuss changes in the implementation",
+      "name"        : "EVENT_NAME",
+      "description" : "EVENT_DESCRIPTION",
       "place"       : "PLACE_ID",
       "assistents"  : [],
       "created_at"  : "Tue Feb 04 2014 15:10:59 GMT+0100 (CET)",
@@ -1283,7 +1283,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
           "id"       : "OWNER_ID",
           "username" : "OWNER_NICKNAME",
           "mail"     : "OWNER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "OWNER_AVATAR",
           "name"     : "OWNER_NAME"
         }
     }
@@ -1306,8 +1306,8 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
       "calendar"    : "CALENDAR_ID",
       "date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
       "date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-      "name"        : "Meeting osakidetza updated",
-      "description" : "Meeting to discuss changes in the implementation",
+      "name"        : "EVENT_NAME",
+      "description" : "EVENT_DESCRIPTION",
       "place"       : "PLACE_ID",
       "assistents"  : [ "USER_ID" ],
       "created_at"  : "Tue Feb 04 2014 15:25:07 GMT+0100 (CET)",
@@ -1318,7 +1318,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
           "id"       : "OWNER_ID",
           "username" : "OWNER_NICKNAME",
           "mail"     : "OWNER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "OWNER_AVATAR",
           "name"     : "OWNER_NAME"
         }
     }
@@ -1339,8 +1339,8 @@ La función devuelve una lista de eventos que cumplan dichas coincidencias:
         "calendar"    : "CALENDAR_ID",
         "date_init"   : "Sat Feb 22 2014 11:00:00 GMT+0100 (CET)",
         "date_finish" : "Sat Feb 22 2014 12:00:00 GMT+0100 (CET)",
-        "name"        : "Meeting with Juanjo",
-        "description" : "Meeting with Juanjo in Near",
+        "name"        : "EVENT_NAME",
+        "description" : "EVENT_DESCRIPTION",
         "place"       : "PLACE_ID",
         "assistents"  : [],
         "created_at"  : "Tue Feb 04 2014 15:35:10 GMT+0100 (CET)",
@@ -1351,7 +1351,7 @@ La función devuelve una lista de eventos que cumplan dichas coincidencias:
             "id"       : "OWNER_ID",
             "username" : "OWNER_NICKNAME",
             "mail"     : "OWNER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "OWNER_AVATAR",
             "name"     : "OWNER_NAME"
           }
       }
@@ -1386,7 +1386,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
             "username" : "USER_NICKNAME",
             "name"     : "USER_NAME",
             "mail"     : "USER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "USER_AVATAR",
             "id"       : "USER_ID"
           },
         "event":
@@ -1395,8 +1395,8 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
             "calendar"    : "CALENDAR_ID",
             "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
             "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-            "name"        : "BilboStack updated",
-            "description" : "This event is bilboStack",
+            "name"        : "EVENT_NAME",
+            "description" : "EVENT_DESCRIPTION",
             "place"       : "PLACE_ID",
             "assistents"  : [ "USER_ID" ],
             "created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
@@ -1406,7 +1406,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
         "calendar":
           {
             "id"         : "CALENDAR_ID",
-            "name"       : "Mi calendario updated",
+            "name"       : "CALENDAR_NAME",
             "color"      : "#FA58F4",
             "created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
             "owner"      : "OWNER_ID",
@@ -1417,7 +1417,7 @@ En caso de que el evento no exista, devuelve un error 404. En caso de que haya i
             "id"       : "OWNER_ID",
             "username" : "OWNER_NICKNAME",
             "mail"     : "OWNER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "OWNER_AVATAR",
             "name"     : "OWNER_NAME"
           }
       }
