@@ -1100,13 +1100,13 @@ Through the following function can create an event to a calendar. Should be sent
 
 ```coffeescript
   data =
-    calendar    : CALENDAR_ID
-    name        : "partido de futbol"
-    description : "quedada para jugar un partido de fútbol"
+    calendar    : "CALENDAR_ID"
+    name        : "EVENT_NAME"
+    description : "EVENT_DESCRIPTION"
     init        : "04-14-2014 09:00"
     finish      : "04-14-2014 11:00"
-    address     : "c/ San Mames"
-    locality    : Bilbao
+    address     : "EVENT_ADDRESS"
+    locality    : "EVENT_LOCALITY"
     country     : "España"
     latitude    : "23.23"
     longitude   : "-2.29"
@@ -1154,14 +1154,14 @@ It also allows us to modify an event. You must send an object containing as para
 
 ```coffeescript
   data =
-    event       : EVENT_ID
-    calendar    : CALENDAR_ID
-    name        : "Partido de baloncesto"
-    description : "Quedada para jugar un partido de baloncesto"
+    event       : "EVENT_ID"
+    calendar    : "CALENDAR_ID"
+    name        : "EVENT_NAME"
+    description : "EVENT_DESCRIPTION"
     init        : "04-14-2014 09:00"
     finish      : "04-14-2014 11:00"
-    address     : "c/ San Mames"
-    locality    : "Bilbao
+    address     : "EVENT_ADDRESS"
+    locality    : "EVENT_LOCALITY"
     country     : "España"
     latitude    : "23.23"
     longitude   : "-2.29"

@@ -1128,13 +1128,13 @@ A través de la siguiente función se puede crear un evento para un calendario. 
 ```
   data =
     calendar    : "CALENDAR_ID"
-    name        : "partido de futbol"
-    description : "quedada para jugar un partido de fútbol"
+    name        : "EVENT_NAME"
+    description : "EVENT_DESCRIPTION"
     init        : "04-14-2014 09:00"
     finish      : "04-14-2014 11:00"
-    address     : "c/ San Mames"
-    locality    : "Bilbao
-    country     : "España"
+    address     : "EVENT_ADDRESS"
+    locality    : "EVENT_LOCALITY"
+    country     : "EVENT_COUNTRY"
     latitude    : "23.23"
     longitude   : "-2.29"
     guest       : null
@@ -1155,9 +1155,9 @@ Esta función devuelve el nuevo evento:
       "name"        : "EVENT_NAME",
       "place"       :
         {
-          "address"    : "c/ San Mames",
-          "locality"   : "Bilbao",
-          "country"    : "Spain",
+          "address"    : "PLACE_ADDRESS",
+          "locality"   : "PLACE_LOCALITY",
+          "country"    : "PLACE_COUNTRY",
           "id"         : "PLACE_ID",
           "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
           "position"   : [ -2.29, 23.23 ]
@@ -1182,13 +1182,13 @@ También se nos permite modificar un evento. Se le debe envíar un objeto que ll
     data =
       event       : "EVENT_ID"
       calendar    : "CALENDAR_ID"
-      name        : "Partido de baloncesto"
-      description : "Quedada para jugar un partido de baloncesto"
+      name        : "EVENT_NAME"
+      description : "EVENT_DESCRIPTION"
       init        : "04-14-2014 09:00"
       finish      : "04-14-2014 11:00"
-      address     : "c/ San Mames"
-      locality    : "Bilbao
-      country     : "España"
+      address     : "EVENT_ADDRESS"
+      locality    : "EVENT_LOCALITY"
+      country     : "EVENT_COUNTRY"
       latitude    : "23.23"
       longitude   : "-2.29"
       guest       : null
@@ -1432,7 +1432,7 @@ Push
 Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto de la notificación y el contenido en un objeto como el siguiente:
 ```
   parameters =
-    user    : USER_ID
+    user    : "USER_ID"
     title   : "PUSH_TITLE"
     message : "PUSH_MESSAGE"
   Appnima.Push.send(parameters);
