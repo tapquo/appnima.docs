@@ -227,8 +227,8 @@ Tickets
 Utiliza este recurso como sistema de gestión de tickets para la resolución de las consultas e incidencias de tus usuarios. La petición necesita un objeto como el siguiente:
 ```javascript
   parameters = {
-    "title"       : "[QUESTION]: How can I do this?",
-    "description" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+    "title"       : "TICKET_TITLE",
+    "description" : "TICKET_DESCRIPTION",
     "reference"   : "REFERENCE_ID",
     "type"        : "2"
   }
@@ -538,9 +538,9 @@ Posts
 Los usuarios pueden crear mensajes (post) dentro de una aplicación. Para ello tienen que mandar el siguiente objeto con los parámetros junto con la petición:
 ```
     parameters =
-        title   : "Lorem Ipsum"
-        content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        image   : "http://IMAGE_URL"
+        title   : "POST_TITLE"
+        content : "POST_CONTENT"
+        image   : "POST_IMAGE"
     Appnima.Network.Post.create(parameters);
 ```
 Solo el campo ```content``` es obligatorio. Un ejemplo de como crear un ```post```unicamente con el contenido es el siguiente:
@@ -725,8 +725,8 @@ En este caso se está obteniendo el timeline de un usuario en concreto, esto es,
 Un post puede tener comentarios, y con esta llamada se puede realizar.
 ```
     parameters =
-        id      : "POST_ID"
-        content : "Este es mi comentario"
+        id      : "COMMENT_ID"
+        content : "COMMENT_CONTENT"
     Appnima.Network.Post.createComment(parameters);
 ```
 En este caso es obligatorio mandarle ambos campos y la llamada devolverá ```message: "Successful"```.
@@ -736,8 +736,8 @@ Con el siguiente método se puede modificar el comentario.
 ```
     parameters =
         id      : "COMMENT_ID"
-        title   : "Este es mi comentario modificado"
-        content : "Este es mi comentario modificado"
+        title   : "COMMENT_TITLE"
+        content : "COMMENT_CONTENT"
     Appnima.Network.Post.updateComment(parameters);
 ```
 La llamada devolverá ```message: "Ok"```.
@@ -962,7 +962,7 @@ Tambien tenemos la opción de modificar los atributos de un calendario ya creado
 ```
   parameters =
     id    : CALENDAR_ID,
-    name  : "Mi nuevo nombre de calendario",
+    name  : "CALENDAR_NAME",
     color : "#FF33CC"
   Appnima.Calendar.update(parameters)
 ```
@@ -1433,8 +1433,8 @@ Para enviar notificaciones push a los dispositivos registrados de tus usuarios �
 ```
   parameters =
     user    : USER_ID
-    title   : "Título de mi push"
-    message : "Message de mi push"
+    title   : "PUSH_TITLE"
+    message : "PUSH_MESSAGE"
   Appnima.Push.send(parameters);
 ```
 

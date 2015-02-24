@@ -562,23 +562,23 @@ hay que mandar la ID del ticket que se quiere obtener.
 Si todo ha ido bien, Appnima devuelve `200` y el siguiente objeto:
 
 ```json
-	ticket:
-   		{
-   			"id"   : "TICKET_ID",
-     		"user" :
-     			{
-     				"id"      : "USER_ID",
-        			"name"    : "Bob",
-        			"username": "USER_NICKNAME",
-        			"mail"    : "USER_MAIL",
-       			 	"avatar"  : "http://api.appnima.com/img/avatar.jpg"
-       			 },
-     		"type"       : "QUERY",
-     		"title"      : "Consulta: Scopes disponibles",
-     		"description": "¿Cuáles son los scopes disponibles en Appnima?",
-     		"updated_at" : "2015-01-14T06:45:05.625Z",
-     		"created_at" : "2015-01-14T06:45:05.625Z"
-     	}
+  ticket:
+      {
+        "id"   : "TICKET_ID",
+        "user" :
+          {
+            "id"      : "USER_ID",
+              "name"    : "Bob",
+              "username": "USER_NICKNAME",
+              "mail"    : "USER_MAIL",
+              "avatar"  : "http://api.appnima.com/img/avatar.jpg"
+             },
+        "type"       : "QUERY",
+        "title"      : "Consulta: Scopes disponibles",
+        "description": "¿Cuáles son los scopes disponibles en Appnima?",
+        "updated_at" : "2015-01-14T06:45:05.625Z",
+        "created_at" : "2015-01-14T06:45:05.625Z"
+      }
 ```
 
 #### GET /user/ticket/search
@@ -1050,8 +1050,8 @@ comentario hay que enviar los siguientes parámetros:
 
 ```json
 {
-  "id"      : "POST_ID",
-  "content" : "Lorem Impsum..."
+  "id"      : "COMMENT_ID",
+  "content" : "COMMENT_CONTENT"
 }
 ```
 
@@ -1069,8 +1069,8 @@ con los campos que se desea modificar.
 ```json
 {
   "id"      : "COMMENT_ID",
-  "content" : "Lorem Impsum... updated",
-  "title"   : "Lorem Impsum… updated"
+  "content" : "COMMENT_CONTENT",
+  "title"   : "COMMENT_TITLE"
 }
 ```
 
@@ -1263,9 +1263,9 @@ Filtro por `radio`:
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"radio"     : "500"
+  "latitude"  : "-33.9250334",
+  "longitude" : "18.423883499999988",
+  "radio"     : "500"
 }
 ```
 
@@ -1273,9 +1273,9 @@ Filtro por `precisión`:
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"precision" : "1"
+  "latitude"  : "-33.9250334",
+  "longitude" : "18.423883499999988",
+  "precision" : "1"
 }
 ```
 
@@ -1284,51 +1284,51 @@ lugares e información relacionada:
 
 ```json
 [
-	{
-		"address"  : "Neurketa Kalea, 8, Mungia, Spain",
-		"country"  : "ES",
-		"id"       : "PLACE_ID",
-		"locality" : "Mungia",
-		"name"     : "Frus Surf",
-		"phone"    : "+34 946 15 57 71",
-		"position" : {
-			"latitude" : "43.356091",
-			"longitude": "-2.847759"
-		},
-		"postal_code" : "POSTAL_CODE",
-		"reference"   : null,
-		"website" : "http://shop.frussurf.com/"
-	},
-	{
-		"address"  : "Neurketa Kalea, 3, Mungia, Spain",
-		"country"  : "ES",
-		"id"       : "PLACE_ID",
-		"locality" : "Mungia",
-		"name"     : "Inmobiliaria Urrutia",
-		"phone"    : "+34 946 15 66 95",
-		"position" : {
-			"latitude" : 43.35618,
-			"longitude": -2.847939
-		},
-		"postal_code" : "POSTAL_CODE",
-		"reference"	  : null,
-		"website"     : "http://www.inmobiliariaurrutia.com/"
-	},
-	{
-		"address"  : "Neurketa Kalea, 8, Mungia",
-		"country"  : null,
-		"id"       : "PLACE_ID",
-		"locality" : null,
-		"name"     : "Bar Aketxe",
-		"phone"    : null,
-		"position" : {
-			"latitude" : 43.356091,
-			"longitude": -2.847759
-		},
-		"postal_code": null,
-		"reference"  : "REFERENCE_ID",
-		"website"    : null
-	}
+  {
+    "address"  : "Neurketa Kalea, 8, Mungia, Spain",
+    "country"  : "ES",
+    "id"       : "PLACE_ID",
+    "locality" : "Mungia",
+    "name"     : "Frus Surf",
+    "phone"    : "+34 946 15 57 71",
+    "position" : {
+      "latitude" : "43.356091",
+      "longitude": "-2.847759"
+    },
+    "postal_code" : "POSTAL_CODE",
+    "reference"   : null,
+    "website" : "http://shop.frussurf.com/"
+  },
+  {
+    "address"  : "Neurketa Kalea, 3, Mungia, Spain",
+    "country"  : "ES",
+    "id"       : "PLACE_ID",
+    "locality" : "Mungia",
+    "name"     : "Inmobiliaria Urrutia",
+    "phone"    : "+34 946 15 66 95",
+    "position" : {
+      "latitude" : 43.35618,
+      "longitude": -2.847939
+    },
+    "postal_code" : "POSTAL_CODE",
+    "reference"   : null,
+    "website"     : "http://www.inmobiliariaurrutia.com/"
+  },
+  {
+    "address"  : "Neurketa Kalea, 8, Mungia",
+    "country"  : null,
+    "id"       : "PLACE_ID",
+    "locality" : null,
+    "name"     : "Bar Aketxe",
+    "phone"    : null,
+    "position" : {
+      "latitude" : 43.356091,
+      "longitude": -2.847759
+    },
+    "postal_code": null,
+    "reference"  : "REFERENCE_ID",
+    "website"    : null
+  }
 ]
 ```
 
@@ -1345,8 +1345,8 @@ Si el place tiene `reference` envía la petición de la siguiente forma:
 
 ```json
 {
-	"id"        : "PLACE_ID",
-	"reference" : "REFERENCE_ID"
+  "id"        : "PLACE_ID",
+  "reference" : "REFERENCE_ID"
 }
 ```
 
@@ -1354,18 +1354,18 @@ Si la consulta ha obtenido respuesta se devuelve un `200 Ok` junto con el objeto
 
 ```json
 {
-	"address"  : "Neurketa Kalea, 8, Mungia, Spain",
-	"country"  : "ES",
-	"id"       : "PLACE_ID",
-	"locality" : "Mungia",
-	"name"     : "Bar Aketxe",
-	"phone"    : "+34 946 74 18 40",
-	"position" : {
-		"latitude": 43.356091,
-		"longitude": -2.847759
-	},
-	"postal_code" : "POSTAL_CODE",
-	"reviews"     :	[
+  "address"  : "Neurketa Kalea, 8, Mungia, Spain",
+  "country"  : "ES",
+  "id"       : "PLACE_ID",
+  "locality" : "Mungia",
+  "name"     : "Bar Aketxe",
+  "phone"    : "+34 946 74 18 40",
+  "position" : {
+    "latitude": 43.356091,
+    "longitude": -2.847759
+  },
+  "postal_code" : "POSTAL_CODE",
+  "reviews"     : [
         {
             "time"     : "REVIEW_TIME",
             "text"     : "REVIEW_TEXT",
@@ -1390,13 +1390,13 @@ siguientes parámetros:
 
 ```json
 {
-	"name"        : "San Mames",
-	"address"     : "Felipe Serrate, s/n",
-	"locality"    : "Bilbao",
-	"postal_code" : "POSTAL_CODE",
-	"country"     : "ES",
-	"latitude"    :	"﻿43.26",
-	"longitude"   : "-2.94"
+  "name"        : "San Mames",
+  "address"     : "Felipe Serrate, s/n",
+  "locality"    : "Bilbao",
+  "postal_code" : "POSTAL_CODE",
+  "country"     : "ES",
+  "latitude"    : "﻿43.26",
+  "longitude"   : "-2.94"
 }
 ```
 
@@ -1404,9 +1404,9 @@ Opcionalmente se pueden añadir los siguientes parámetros:
 
 ```json
 {
-	"mail"    : "PLACE_MAIL",
-	"phone"   : "+34 946 74 18 40",
-	"website" : "www.sanmames.com"
+  "mail"    : "PLACE_MAIL",
+  "phone"   : "+34 946 74 18 40",
+  "website" : "www.sanmames.com"
 }
 ```
 
@@ -1421,7 +1421,7 @@ ello utiliza este recurso pasando el parámetro id:
 
 ```json
 {
-	"id": "USER_ID"
+  "id": "USER_ID"
 }
 ```
 
@@ -1429,7 +1429,7 @@ Si todo ha salido bien, se devuelve un `200 Ok` junto con el objeto:
 
 ```json
 {
-	"status": "ok"
+  "status": "ok"
 }
 ```
 
@@ -1440,7 +1440,7 @@ Obtén la lista de sitios guardados por tus usuarios con este recurso. Para ello
 
 ```json
 {
-	"id": "USER_ID"
+  "id": "USER_ID"
 }
 ```
 
@@ -1448,22 +1448,22 @@ Si ha salido todo bien, obtienes un `200 Ok` junto con el objeto:
 
 ```json
 {
-	"address"  : "Calle de Trobika, 1, Mungia, Spain",
-	"country"  : "ES",
-	"id"       : "PLACE_ID",
-	"locality" : "Mungia",
-	"name"     : "Policía Municipal",
-	"phone"    : "+34 946 15 66 77",
-	"position" : {
-		"latitude"  : 43.354551,
-		"longitude" : -2.846533
-	},
-	"postal_code" : "POSTAL_CODE",
-	"reviews"     : [],
-	"types": {
-		"0": "police",
-		"1": "establishment"
-	}
+  "address"  : "Calle de Trobika, 1, Mungia, Spain",
+  "country"  : "ES",
+  "id"       : "PLACE_ID",
+  "locality" : "Mungia",
+  "name"     : "Policía Municipal",
+  "phone"    : "+34 946 15 66 77",
+  "position" : {
+    "latitude"  : 43.354551,
+    "longitude" : -2.846533
+  },
+  "postal_code" : "POSTAL_CODE",
+  "reviews"     : [],
+  "types": {
+    "0": "police",
+    "1": "establishment"
+  }
 }
 ```
 
@@ -1476,9 +1476,9 @@ determinado. Para ello utiliza este recurso pasando los siguientes parámetros:
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"radio"     : "500"
+  "latitude"  : "-33.9250334",
+  "longitude" : "18.423883499999988",
+  "radio"     : "500"
 }
 ```
 
@@ -1486,10 +1486,10 @@ Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 
 ```json
 {
-	"avatar"   : "FRIEND_AVATAR",
-	"id"       : "FRIEND_ID",
-	"name"     : "FRIEND_NAME",
-	"username" : "FRIEND_NICKNAME"
+  "avatar"   : "FRIEND_AVATAR",
+  "id"       : "FRIEND_ID",
+  "name"     : "FRIEND_NAME",
+  "username" : "FRIEND_NICKNAME"
 }
 ```
 
@@ -1501,9 +1501,9 @@ petición se realiza con los mismos parámetros:
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988",
-	"radio"     : "500"
+  "latitude"  : "-33.9250334",
+  "longitude" : "18.423883499999988",
+  "radio"     : "500"
 }
 ```
 
@@ -1511,10 +1511,10 @@ Si todo ha salido bien, se recibe un `200 Ok` junto con el objeto:
 
 ```json
 {
-	"avatar"   : "FRIEND_AVATAR",
-	"id"       : "FRIEND_ID",
-	"name"     : "FRIEND_NAME",
-	"username" : "FRIEND_NICKNAME"
+  "avatar"   : "FRIEND_AVATAR",
+  "id"       : "FRIEND_ID",
+  "name"     : "FRIEND_NAME",
+  "username" : "FRIEND_NICKNAME"
 }
 ```
 
@@ -1529,8 +1529,8 @@ objeto:
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988"
+  "latitude"  : "-33.9250334",
+  "longitude" : "18.423883499999988"
 }
 ```
 
@@ -1541,8 +1541,8 @@ la petición su latitud y longitud:
 
 ```json
 {
-	"latitude"  : "-33.9250334",
-	"longitude" : "18.423883499999988"
+  "latitude"  : "-33.9250334",
+  "longitude" : "18.423883499999988"
 }
 ```
 
@@ -1562,30 +1562,30 @@ enviar su nombre y el color que le quieras asignar:
 
 ```json
 {
-	"name"  : "Calendario de trabajo",
-	"color" : "#3300FF"
+  "name"  : "Calendario de trabajo",
+  "color" : "#3300FF"
 }
 ```
 
 si todo va bien, devueve el calendario creado:
 
 ```json
-	caledar:
-		{
-			"id"         : "CALENDAR_ID",
-			"name"       : "CALENDAR_NAME",
-			"color"      : "#FF66CC",
-			"created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
-			"owner":
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "OWNER_AVATAR",
-					"name"     : "OWNER_NAME"
-				},
-			"shared": []
-		}
+  caledar:
+    {
+      "id"         : "CALENDAR_ID",
+      "name"       : "CALENDAR_NAME",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
+      "owner":
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "OWNER_AVATAR",
+          "name"     : "OWNER_NAME"
+        },
+      "shared": []
+    }
 ```
 
 #### PUT /calendar
@@ -1596,9 +1596,9 @@ nuevo color.
 
 ```json
 {
-	"id"    : "CALENDAR_ID",
-	"color" : "#3300FF",
-	"name"  : "CALENDAR_NAME"
+  "id"    : "CALENDAR_ID",
+  "color" : "#3300FF",
+  "name"  : "CALENDAR_NAME"
 }
 ```
 
@@ -1606,19 +1606,19 @@ En caso de que el calendario no exista, devuelve un error 404. Si por el
 contrario existe, devuelve el calendario con los campos modificados:
 ```json
  calendar:
-		{
-			"id"         : "CALENDAR_ID",
-			"name"       : "Calendario de trabajo modificado",
-			"color"      : "#FF66CC",
-			"created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
-			"owner":
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "OWNER_AVATAR",
-					"name"     : "ONWER_NAME"},
-					"shared"   : []
+    {
+      "id"         : "CALENDAR_ID",
+      "name"       : "Calendario de trabajo modificado",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
+      "owner":
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "OWNER_AVATAR",
+          "name"     : "ONWER_NAME"},
+          "shared"   : []
 }
 ```
 
@@ -1632,9 +1632,9 @@ add, si se le quiere invitar o "remove" si se le quiere eliminar.
 
 ```json
 {
-	"id"      : "CALENDAR_ID",
-	"profile" : "USER_ID",
-	"state"   : "add"
+  "id"      : "CALENDAR_ID",
+  "profile" : "USER_ID",
+  "state"   : "add"
 }
 ```
 
@@ -1644,22 +1644,22 @@ corresponde con la lista de usuarios a los que se les ha compartido el
 calendario.
 
 ```json
-	calendar:
-		{
-			"id"         : "CALENDAR_ID",
-			"name"       : "slid.us",
-			"color"      : "#FF66CC",
-			"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
-			"owner" :
-				{
-					"id"       : "OWNER_ID",
-					"mail"     : "OWNER_MAIL",
-					"username" : "OWNER_NICKNAME",
-					"name"     : "ONWER_NAME",
-					"avatar"   : "OWNER_AVATAR"
-				},
-			"shared": [ "USER_ID_1", "USER_ID_2" ]
-		}
+  calendar:
+    {
+      "id"         : "CALENDAR_ID",
+      "name"       : "slid.us",
+      "color"      : "#FF66CC",
+      "created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
+      "owner" :
+        {
+          "id"       : "OWNER_ID",
+          "mail"     : "OWNER_MAIL",
+          "username" : "OWNER_NICKNAME",
+          "name"     : "ONWER_NAME",
+          "avatar"   : "OWNER_AVATAR"
+        },
+      "shared": [ "USER_ID_1", "USER_ID_2" ]
+    }
 ```
 
 #### GET /calendar
@@ -1669,24 +1669,24 @@ logueado es dueño, y aquellos que se le han compartido. Esto devuelve un "array
 de calendarios.
 
 ```json
-	calendar:
-		[
-			{
-				"id"         : "CALENDAR_ID",
-				"name"       : "CALENDAR_NAME",
-				"color"      : "#FF66CC",
-				"created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
-				"owner" :
-					{
-						"id"       : "OWNER_ID",
-						"mail"     : "OWNER_MAIL",
-						"username" : "OWNER_NICKNAME",
-						"name"     : "ONWER_NAME",
-						"avatar"   : "OWNER_AVATAR"
-					},
-				"shared": [ "USER_ID_1", "USER_ID_2" ]
-			}
-		]
+  calendar:
+    [
+      {
+        "id"         : "CALENDAR_ID",
+        "name"       : "CALENDAR_NAME",
+        "color"      : "#FF66CC",
+        "created_at" : "Tue Feb 04 2014 12:52:55 GMT+0100 (CET)",
+        "owner" :
+          {
+            "id"       : "OWNER_ID",
+            "mail"     : "OWNER_MAIL",
+            "username" : "OWNER_NICKNAME",
+            "name"     : "ONWER_NAME",
+            "avatar"   : "OWNER_AVATAR"
+          },
+        "shared": [ "USER_ID_1", "USER_ID_2" ]
+      }
+    ]
 ```
 
 #### DELETE /calendar
@@ -1696,7 +1696,7 @@ recurso. Únicamente hay que enviar como parámetro la "id" de dicho calendario.
 
 ```json
 {
-	"id": "CALENDAR_ID"
+  "id": "CALENDAR_ID"
 }
 ```
 
@@ -1704,7 +1704,7 @@ En caso de que el calendario no exista, devuelve un error 404. En caso de que
 vaya bien, devuelve un mensaje indicando que todo ha ido satisfactoriamente.
 ```json
 {
-	"message": "Successful"
+  "message": "Successful"
 }
 ```
 
@@ -1716,7 +1716,7 @@ la "id" del calendario.
 
 ```json
 {
-	"id": "CALENDAR_ID"
+  "id": "CALENDAR_ID"
 }
 ```
 
@@ -1725,53 +1725,53 @@ haya ido bien, nos devuelve un listado de actividades con la estructura que se
 muestra a continuación
 
 ```json
-	activities:
-		[
-			{
-				"id"         : "ACTIVITY_ID",
-				"message"    : "The user has created the event",
-				"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-				"profile"    :
-					{
-						"username" : "USER_NICKNAME",
-						"name"     : "USER_NAME",
-						"mail"     : "USER_MAIL",
-						"avatar"   : "USER_AVATAR",
-						"id"       : "USER_ID"
-					},
-				"event":
-					{
-						"id"          : "EVENT_ID",
-						"calendar"    : "CALENDAR_ID",
-						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-						"name"        : "EVENT_NAME",
-						"description" : "EVENT_DESCRIPTION",
-						"place"       : "PLACE_ID",
-						"assistents"  : ["USER_ID_1", "USER_ID_2"],
-						"created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-						"tags"        : ["learn"],
-						"guest"       : ["USER_ID_1", "USER_ID_2", "USER_ID_3"]
-					},
-				"calendar":
-					{
-						"id"         : "CALENDAR_ID",
-						"name"       : "CALENDAR_NAME",
-						"color"      : "#FA58F4",
-						"created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-						"owner"      : "OWNER_ID",
-						"shared"     : []
-					},
-				"owner":
-					{
-						"id"       : "OWNER_ID",
-						"username" : "OWNER_NICKNAME",
-						"mail"     : "OWNER_MAIL",
-						"avatar"   : "OWNER_AVATAR",
-						"name"     : "OWNER_NAME"
-					}
-				}
-			]
+  activities:
+    [
+      {
+        "id"         : "ACTIVITY_ID",
+        "message"    : "The user has created the event",
+        "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+        "profile"    :
+          {
+            "username" : "USER_NICKNAME",
+            "name"     : "USER_NAME",
+            "mail"     : "USER_MAIL",
+            "avatar"   : "USER_AVATAR",
+            "id"       : "USER_ID"
+          },
+        "event":
+          {
+            "id"          : "EVENT_ID",
+            "calendar"    : "CALENDAR_ID",
+            "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+            "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+            "name"        : "EVENT_NAME",
+            "description" : "EVENT_DESCRIPTION",
+            "place"       : "PLACE_ID",
+            "assistents"  : ["USER_ID_1", "USER_ID_2"],
+            "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+            "tags"        : ["learn"],
+            "guest"       : ["USER_ID_1", "USER_ID_2", "USER_ID_3"]
+          },
+        "calendar":
+          {
+            "id"         : "CALENDAR_ID",
+            "name"       : "CALENDAR_NAME",
+            "color"      : "#FA58F4",
+            "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+            "owner"      : "OWNER_ID",
+            "shared"     : []
+          },
+        "owner":
+          {
+            "id"       : "OWNER_ID",
+            "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+            "avatar"   : "OWNER_AVATAR",
+            "name"     : "OWNER_NAME"
+          }
+        }
+      ]
 ```
 
 El evento y el calendario, es dónde se ha realizado la actividad. En caso de que
@@ -1792,53 +1792,53 @@ localidad, el país, la latitud y la longitud:
 
 ```json
 {
-	"calendar"    : "CALENDAR_ID",
-	"name"        : "Partido de fútbol",
-	"description" : "Quedada para jugar un partido de fútbol",
-	"init"        : "04-14-2014 09:00",
-	"finish"      : "04-14-2014 11:00",
-	"address"     : "c/ San Mames",
-	"locality"    : "Bilbao",
-	"country"     : "España",
-	"latitude"    : "23.23",
-	"longitude"   : "-2.29",
-	"guest"       : null,
-	"tags"        : "futbol,deporte"
+  "calendar"    : "CALENDAR_ID",
+  "name"        : "Partido de fútbol",
+  "description" : "Quedada para jugar un partido de fútbol",
+  "init"        : "04-14-2014 09:00",
+  "finish"      : "04-14-2014 11:00",
+  "address"     : "c/ San Mames",
+  "locality"    : "Bilbao",
+  "country"     : "España",
+  "latitude"    : "23.23",
+  "longitude"   : "-2.29",
+  "guest"       : null,
+  "tags"        : "futbol,deporte"
 }
 ```
 
 Esta función devuelve el nuevo evento:
 
 ```json
-	event:
-		{
-			"id"          : "EVENT_ID",
-			"calendar"    : "CALENDAR_ID",
-			"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-			"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-			"description" : "EVENT_DESCRIPTION",
-			"name"        : "EVENT_NAME",
-			"place":
-				{
-					"address"    : "c/ San Mames",
-					"locality"   : "Bilbao",
-					"country"    : "Spain",
-					"_id"        : "PLACE_ID",
-					"created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
-					"position"   : [ -2.29, 23.23 ]
-				},
-			"assistents" : [],
-			"created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
-			"tags"       : ["futbol", "sport"],
-			"owner"      :
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "OWNER_AVATAR",
-					"name"     : "OWNER_NAME"
-				}
-			}
+  event:
+    {
+      "id"          : "EVENT_ID",
+      "calendar"    : "CALENDAR_ID",
+      "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+      "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+      "description" : "EVENT_DESCRIPTION",
+      "name"        : "EVENT_NAME",
+      "place":
+        {
+          "address"    : "c/ San Mames",
+          "locality"   : "Bilbao",
+          "country"    : "Spain",
+          "_id"        : "PLACE_ID",
+          "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+          "position"   : [ -2.29, 23.23 ]
+        },
+      "assistents" : [],
+      "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+      "tags"       : ["futbol", "sport"],
+      "owner"      :
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "OWNER_AVATAR",
+          "name"     : "OWNER_NAME"
+        }
+      }
 ```
 
 #### PUT calendar/event
@@ -1853,19 +1853,19 @@ se va a realizar el evento, la localidad, el país, la latitud y la longitud.
 
 ```json
 {
-	"event"       : "EVENT_ID",
-	"calendar"    : "CALENDAR_ID",
-	"name"        : "Partido de baloncesto",
-	"description" : "Quedada para jugar un partido de baloncesto",
-	"init"        : "04-14-2014 09:00",
-	"finish"      : "04-14-2014 11:00",
-	"address"     : "c/ San Mames",
-	"locality"    : "Bilbao",
-	"country"     : "Spain",
-	"latitude"    : "23.23",
-	"longitude"   : "-2.29",
-	"guest"       : null,
-	"tags"        : "futbol,sport"
+  "event"       : "EVENT_ID",
+  "calendar"    : "CALENDAR_ID",
+  "name"        : "Partido de baloncesto",
+  "description" : "Quedada para jugar un partido de baloncesto",
+  "init"        : "04-14-2014 09:00",
+  "finish"      : "04-14-2014 11:00",
+  "address"     : "c/ San Mames",
+  "locality"    : "Bilbao",
+  "country"     : "Spain",
+  "latitude"    : "23.23",
+  "longitude"   : "-2.29",
+  "guest"       : null,
+  "tags"        : "futbol,sport"
 }
 ```
 
@@ -1891,39 +1891,39 @@ en concreto "time" deberá tener como valor "day" y se debe enviar también
 
 ```json
 {
-	"time"  : "day",
-	"year"  : "2014",
-	"month" : "04",
-	"day"   : "20"
+  "time"  : "day",
+  "year"  : "2014",
+  "month" : "04",
+  "day"   : "20"
 }
 ```
 
 Como resultado se obtiene una lista de eventos:
 
 ```json
-		events:
-			[
-				{
-            		"id"          : "EVENT_ID",
-            		"calendar"    : "CALENDAR_ID",
-            		"date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
-            		"date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-            		"name"        : "EVENT_NAME",
-            		"description" : "EVENT_DESCRIPTION",
-            		"place"       : "PLACE_ID",
-            		"assistents"  : [],
-            		"created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
-            		"tags"        : ["dinner", "enjoy"],
-            		"owner":
-                    	{
-                        	"id"       : "OWNER_ID",
-                        	"username" : "OWNER_NICKNAME",
-                        	"mail"     : "OWNER_MAIL",
-                        	"avatar"   : "EVENT_AVATAR",
-                        	"name"     : "EVENT_NAME"
-                    	}
-        		}
-        	]
+    events:
+      [
+        {
+                "id"          : "EVENT_ID",
+                "calendar"    : "CALENDAR_ID",
+                "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
+                "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
+                "name"        : "EVENT_NAME",
+                "description" : "EVENT_DESCRIPTION",
+                "place"       : "PLACE_ID",
+                "assistents"  : [],
+                "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
+                "tags"        : ["dinner", "enjoy"],
+                "owner":
+                      {
+                          "id"       : "OWNER_ID",
+                          "username" : "OWNER_NICKNAME",
+                          "mail"     : "OWNER_MAIL",
+                          "avatar"   : "EVENT_AVATAR",
+                          "name"     : "EVENT_NAME"
+                      }
+            }
+          ]
 ```
 
 #### PUT calendar/event/guest
@@ -1938,9 +1938,9 @@ por el contrario se quiere eliminar, se envía "remove".
 
 ```json
 {
-	"event"   : "EVENT_ID",
-	"profile" : "USER_ID",
-	"state"   : "add"
+  "event"   : "EVENT_ID",
+  "profile" : "USER_ID",
+  "state"   : "add"
 }
 ```
 
@@ -1949,28 +1949,28 @@ ido bién devuelve el evento actualizado. El atributo "guest" corresponde con la
 lista de usuarios a los que se les ha invitado al evento.
 
 ```json
-	event:
-		{
-			"id"          : "EVENT_ID",
-			"calendar"    : "CALENDAR_ID",
-			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
-			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-			"name"        : "EVENT_NAME",
-			"description" : "EVENT_DESCRIPTION",
-			"place"       : "PLACE_ID",
-			"assistents"  : [],
-			"created_at"  : "Tue Feb 04 2014 15:10:59 GMT+0100 (CET)",
-			"tags"        : ["app", "osakidetza"],
-			"guest"       : ["USER_ID"],
-			"owner"       :
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "OWNER_AVATAR",
-					"name"     : "OWNER_NAME"
-				}
-			}
+  event:
+    {
+      "id"          : "EVENT_ID",
+      "calendar"    : "CALENDAR_ID",
+      "date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
+      "date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
+      "name"        : "EVENT_NAME",
+      "description" : "EVENT_DESCRIPTION",
+      "place"       : "PLACE_ID",
+      "assistents"  : [],
+      "created_at"  : "Tue Feb 04 2014 15:10:59 GMT+0100 (CET)",
+      "tags"        : ["app", "osakidetza"],
+      "guest"       : ["USER_ID"],
+      "owner"       :
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "OWNER_AVATAR",
+          "name"     : "OWNER_NAME"
+        }
+      }
 ```
 
 #### PUT calendar/event/assistent
@@ -1982,9 +1982,9 @@ contrario se quiere eliminar la confirmación de asistencia, se envía "remove".
 
 ```json
 {
-	"event"   : "EVENT_ID",
-	"profile" : "USER_ID",
-	"state"   : "add"
+  "event"   : "EVENT_ID",
+  "profile" : "USER_ID",
+  "state"   : "add"
 }
 ```
 
@@ -1993,28 +1993,28 @@ ido bién devolverá el evento actualizado. El atributo "assistents" corresponde
 con la lista de usuarios que van a asistir al evento.
 
 ```json
-	event:
-		{
-			"id"          : "EVENT_ID",
-			"calendar"    : "CALENDAR_ID",
-			"date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
-			"date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
-			"name"        : "EVENT_NAME",
-			"description" : "EVENT_DESCRIPTION",
-			"place"       : "PLACE_ID",
-			"assistents"  : ["USER_ID_1", "USER_ID_2"],
-			"created_at"  : "Tue Feb 04 2014 15:25:07 GMT+0100 (CET)",
-			"tags"        : ["app", "osakidetza"],
-			"guest"       : [ "USER_ID_1"],
-			"owner"       :
-				{
-					"id"       : "OWNER_ID",
-					"username" : "OWNER_NICKNAME",
-					"mail"     : "OWNER_MAIL",
-					"avatar"   : "OWNER_AVATAR",
-					"name"     : "OWNER_NAME"
-				}
-			}
+  event:
+    {
+      "id"          : "EVENT_ID",
+      "calendar"    : "CALENDAR_ID",
+      "date_init"   : "Sat Feb 15 2014 16:00:00 GMT+0100 (CET)",
+      "date_finish" : "Sat Feb 15 2014 17:00:00 GMT+0100 (CET)",
+      "name"        : "EVENT_NAME",
+      "description" : "EVENT_DESCRIPTION",
+      "place"       : "PLACE_ID",
+      "assistents"  : ["USER_ID_1", "USER_ID_2"],
+      "created_at"  : "Tue Feb 04 2014 15:25:07 GMT+0100 (CET)",
+      "tags"        : ["app", "osakidetza"],
+      "guest"       : [ "USER_ID_1"],
+      "owner"       :
+        {
+          "id"       : "OWNER_ID",
+          "username" : "OWNER_NICKNAME",
+          "mail"     : "OWNER_MAIL",
+          "avatar"   : "OWNER_AVATAR",
+          "name"     : "OWNER_NAME"
+        }
+      }
 ```
 
 #### GET calendar/event/search
@@ -2030,30 +2030,30 @@ aquellos eventos a los que te hayan invitado:
 La función devuelve una lista de eventos que cumplan dichas coincidencias:
 
 ```json
-	events:
-		[
-			{
-				"id"          : "EVENT_ID",
-				"calendar"    : "CALENDAR_ID",
-				"date_init"   : "Sat Feb 22 2014 11:00:00 GMT+0100 (CET)",
-				"date_finish" : "Sat Feb 22 2014 12:00:00 GMT+0100 (CET)",
-				"name"        : "EVENT_NAME",
-				"description" : "EVENT_DESCRIPTION",
-				"place"       : "PLACE_ID",
-				"assistents"  : [],
-				"created_at"  : "Tue Feb 04 2014 15:35:10 GMT+0100 (CET)",
-				"tags"        : ["near"],
-				"guest"       : [],
-				"owner"       :
-					{
-						"id"       : "OWNER_ID",
-						"username" : "OWNER_NICKNAME",
-						"mail"     : "OWNER_MAIL",
-						"avatar"   : "OWNER_AVATAR",
-						"name"     : "OWNER_NAME"
-					}
-				}
-			]
+  events:
+    [
+      {
+        "id"          : "EVENT_ID",
+        "calendar"    : "CALENDAR_ID",
+        "date_init"   : "Sat Feb 22 2014 11:00:00 GMT+0100 (CET)",
+        "date_finish" : "Sat Feb 22 2014 12:00:00 GMT+0100 (CET)",
+        "name"        : "EVENT_NAME",
+        "description" : "EVENT_DESCRIPTION",
+        "place"       : "PLACE_ID",
+        "assistents"  : [],
+        "created_at"  : "Tue Feb 04 2014 15:35:10 GMT+0100 (CET)",
+        "tags"        : ["near"],
+        "guest"       : [],
+        "owner"       :
+          {
+            "id"       : "OWNER_ID",
+            "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+            "avatar"   : "OWNER_AVATAR",
+            "name"     : "OWNER_NAME"
+          }
+        }
+      ]
 ```
 
 #### DELETE calendar/event
@@ -2083,53 +2083,53 @@ ido bien, nos devuelve un listado de actividades con la estructura que se
 muestra a continuación
 
 ```json
-	activities:
-		[
-			{
-				"id"         : "ACTIVITY_ID",
-				"message"    : "Has invited the event to Cata",
-				"created_at" : "Mon Feb 10 2014 16:56:25 GMT+0100 (CET)",
-				"profile":
-					{
-						"username" : "USER_NICKNAME",
-						"name"     : "USER_NAME",
-						"mail"     : "USER_MAIL",
-						"avatar"   : "USER_AVATAR",
-						"id"       : "USER_ID"
-					},
-				"event":
-					{
-						"id"          : "EVENT_ID",
-						"calendar"    : "CALENDAR_ID",
-						"date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-						"date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-						"name"        : "EVENT_NAME",
-						"description" : "EVENT_DESCRIPTION",
-						"place"       : "PLACE_ID",
-						"assistents"  : ["USER_ID"],
-						"created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
-						"tags"        : [ "learn" ],
-						"guest"       : [ "USER_ID_1", "USER_ID_2"]
-					},
-				"calendar":
-					{
-						"id"         : "CALENDAR_ID",
-						"name"       : "CALENDAR_NAME",
-						"color"      : "#FA58F4",
-						"created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
-						"owner"      : "OWNER_ID",
-						"shared"     : []
-					},
-				"owner":
-					{
-						"id"       : "OWNER_ID",
-						"username" : "OWNER_NICKNAME",
-						"mail"     : "OWNER_MAIL",
-						"avatar"   : "OWNER_AVATAR",
-						"name"     : "OWNER_NAME"
-					}
-				}
-			]
+  activities:
+    [
+      {
+        "id"         : "ACTIVITY_ID",
+        "message"    : "Has invited the event to Cata",
+        "created_at" : "Mon Feb 10 2014 16:56:25 GMT+0100 (CET)",
+        "profile":
+          {
+            "username" : "USER_NICKNAME",
+            "name"     : "USER_NAME",
+            "mail"     : "USER_MAIL",
+            "avatar"   : "USER_AVATAR",
+            "id"       : "USER_ID"
+          },
+        "event":
+          {
+            "id"          : "EVENT_ID",
+            "calendar"    : "CALENDAR_ID",
+            "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+            "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+            "name"        : "EVENT_NAME",
+            "description" : "EVENT_DESCRIPTION",
+            "place"       : "PLACE_ID",
+            "assistents"  : ["USER_ID"],
+            "created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+            "tags"        : [ "learn" ],
+            "guest"       : [ "USER_ID_1", "USER_ID_2"]
+          },
+        "calendar":
+          {
+            "id"         : "CALENDAR_ID",
+            "name"       : "CALENDAR_NAME",
+            "color"      : "#FA58F4",
+            "created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
+            "owner"      : "OWNER_ID",
+            "shared"     : []
+          },
+        "owner":
+          {
+            "id"       : "OWNER_ID",
+            "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+            "avatar"   : "OWNER_AVATAR",
+            "name"     : "OWNER_NAME"
+          }
+        }
+      ]
 ```
 
 El evento y el calendario, es dónde se ha realizado la actividad. El campo
@@ -2203,9 +2203,9 @@ se recibirá a través del listener `onMessage` y tendrá el siguiente formato:
 
 ```json
 {
-	"user"       : "USER_ID",
-	"message"    : "Mensaje enviado",
-	"created_at" : "2013-05-23T12:01:02.736Z"
+  "user"       : "USER_ID",
+  "message"    : "Mensaje enviado",
+  "created_at" : "2013-05-23T12:01:02.736Z"
 }
 ```
 
@@ -2253,16 +2253,16 @@ junto con un listado como el siguiente:
 
 ```json
 [
-	{
-		"id"         : "ROOM_ID",
-		"name"       : "Amigos",
-		"created_at" : "2013-05-23T12:01:02.736Z"
-	},
-	{
-		"id"         : "ROOM_ID",
-		"name"       : "Appnima friends",
-		"created_at" : "2013-02-23T12:01:02.736Z"
-	}
+  {
+    "id"         : "ROOM_ID",
+    "name"       : "Amigos",
+    "created_at" : "2013-05-23T12:01:02.736Z"
+  },
+  {
+    "id"         : "ROOM_ID",
+    "name"       : "Appnima friends",
+    "created_at" : "2013-02-23T12:01:02.736Z"
+  }
 ]
 ```
 
@@ -2394,9 +2394,9 @@ los siguientes parámetros:
 
 ```json
 {
-	"user"    : "USER_ID",
-	"title"   : "Texto a mostrar en la notificación",
-	"message" : "Es mi message"
+  "user"    : "USER_ID",
+  "title"   : "Texto a mostrar en la notificación",
+  "message" : "Es mi message"
 }
 ```
 

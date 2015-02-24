@@ -81,9 +81,9 @@ The object you will receive in both cases is:
   "mail"          : "USER_MAIL",
   "username"      : "USER_NICKNAME",
   "name"          : "USER_NAME",
-  "avatar"        : "http://USER_AVATAR_URL",
-  "bio"           : "Founder & CTO at @tapquo",
-  "phone"         : "PHONE_NUMBER",
+  "avatar"        : "USER_AVATAR",
+  "bio"           : "USER_BIO",
+  "phone"         : "USER_PHONE",
   "token"         : "USER_TOKEN",
   "refresh_token" : "REFRESH_TOKEN"
 }
@@ -98,9 +98,9 @@ The `update` resource also allows users to update their data. To do this just ca
     mail     : "USER_MAIL"
     username : "USER_NICKNAME"
     name     : "USER_NAME"
-    avatar   : "http://AVATAR_URL"
+    avatar   : "USER_AVATAR"
     phone    : "USER_PHONE"
-    site     : "http://tapquo.com",
+    site     : "USER_SITE",
     bio      : "USER_BIO"
   Appnima.User.update(data);
 ```
@@ -202,8 +202,8 @@ Use this resource as ticket managing system to resolve incidences or attend cons
 
 ```coffeescript
   parameters =
-    title       : "[QUESTION]: How can I do this?"
-    description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+    title       : "TICKET_TITLE"
+    description : "TICKET_DESCRIPTION"
     reference   : "REFERENCE_ID"
     type        : "2"
 ```
@@ -360,19 +360,19 @@ The server returns `200 Ok` and the list that contains the query:
 ```json
 [
   {
-    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "avatar"   : "USER_AVATAR",
     "id"       : "USER_ID",
     "name"     : "USER_NAME",
     "username" : "USER_NICKNAME"
   },
   {
-    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "avatar"   : "USER_AVATAR",
     "id"       : "USER_ID",
     "name"     : "USER_NAME",
     "username" : "USER_NICKNAME"
   },
   {
-    "avatar"   : "http://appnima.com/img/avatar.jpg",
+    "avatar"   : "USER_AVATAR",
     "id"       : "USER_ID",
     "name"     : "null",
     "username" : "USER_NICKNAME"
@@ -436,7 +436,7 @@ The server returns `200 Ok` and the next object:
 ```json
 [
   {
-    "avatar"   : "http://AVATAR_URL",
+    "avatar"   : "USER_AVATAR",
     "id"       : "USER_ID",
     "mail"     : "USER_MAIL",
     "name"     : "USER_NAME",
@@ -466,9 +466,9 @@ Posts
 Users can create posts within an application. For this they have to send the following object with wants parameters with the request:
 
   parameters =
-    title   : "Lorem Ipsum",
-    content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-    image   : "http://IMAGE_URL"
+    title   : "POST_TITLE",
+    content : "POST_CONTENT",
+    image   : "POST_IMAGE"
 
   Appnima.Network.Post.create(parameters);
 
@@ -482,14 +482,14 @@ This call will return an object with information on the new post:
   "post":
     {
       "id"      : "POST_ID",
-      "content" : "Lorem Ipsum",
-      "image"   : "http://IMAGE_URL",
+      "content" : "POST_CONTENT",
+      "image"   : "POST_IMAGE",
       "owner"   :
         {
           "id"       : "OWNER_ID",
           "name"     : "OWNER_NAME",
           "username" : "OWNER_NICKNAME",
-          "avatar"   : "http://AVATAR_URL"
+          "avatar"   : "OWNER_AVATAR"
         },
       "comments"   : [],
       "likes"      : [],
@@ -503,9 +503,9 @@ The user can update created post. To do this, user must send the following param
 
   parameters =
     id      : "POST_ID",
-    content : "Lorem Ipsum update content",
-    title   : "Lorem Ipsum update title",
-    image   : "http://IMAGE_URL"
+    content : "POST_CONTENT",
+    title   : "POST_TITLE",
+    image   : "POST_IMAGE"
 
   Appnima.Network.Post.update(parameters);
 
@@ -513,15 +513,15 @@ Not required to send the data that will not be modified. Two examples of this wo
 
   parameters =
     id      : "POST_ID",
-    content : "Lorem Ipsum 2",
-    image   : "http://IMAGE_URL2"
+    content : "POST_CONTENT",
+    image   : "POST_IMAGE"
 
   Appnima.Network.Post.update(parameters);
 
   parameters =
     id      : "POST_ID",
-    content : "Lorem Ipsum 1",
-    title   : "Lorem ipsum 2"
+    content : "POST_CONTENT",
+    title   : "POST_TITLE"
 
   Appnima.Network.Post.update(parameters);
 
@@ -531,7 +531,7 @@ In the second case, you want to change the content and the title and image as th
 
   parameters =
     id      : "POST_ID",
-    content : "Lorem ipsum new"
+    content : "POST_CONTENT"
 
   Appnima.Network.Post.update(parameters);
 
@@ -558,24 +558,24 @@ This call return following data:
   "post":
     {
       "id"      : "POST_ID",
-      "content" : "Lorem Ipsum",
-      "image"   : "http://IMAGE_URL",
+      "content" : "POST_CONTENT",
+      "image"   : "POST_IMAGE",
       "owner"   :
         {
           "id"       : "OWNER_ID",
           "name"     : "OWNER_NAME",
           "username" : "OWNER_NICKNAME",
-          "avatar"   : "http://AVATAR_URL"
+          "avatar"   : "OWNER_AVATAR"
         },
       "comments":
         [
           {
             "id"         : "COMMENT_ID",
-            "content"    : "Comment 1",
+            "content"    : "COMMENT_CONTENT",
             "created_at" : "CREATED_AT",
             "owner"      :
               {
-                "avatar"   : "http://AVATAR_URL",
+                "avatar"   : "OWNER_AVATAR",
                 "id"       : "OWNER_ID",
                 "name"     : "OWNER_NAME",
                 "username" : "OWNER_NICKNAME"
@@ -585,13 +585,13 @@ This call return following data:
       "likes":
         [
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "USER_AVATAR",
             "id"       : "USER_ID",
             "name"     : "USER_NAME",
             "username" : "USER_NICKNAME"
           },
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "USER_AVATAR",
             "id"       : "USER_ID",
             "name"     : "USER_NAME",
             "username" : "USER_NICKNAME"
@@ -661,8 +661,8 @@ In this case you are getting the timeline of a specific user, the post he has wr
 Posts may have comments, and with this call user can do comments.
 
   parameters =
-    id      : POST_ID,
-    content : "Este es mi comentario"
+    id      : "COMMENT_ID",
+    content : "COMMENT_CONTENT"
 
   Appnima.Network.Post.createComment(parameters);
 
@@ -673,8 +673,8 @@ User can update its comment.
 
     parameters =
         id      : "COMMENT_ID",
-        content : "Este es mi comentario modificado",
-        title   : "Este es el título modificado."
+        content : "COMMENT_CONTENT",
+        title   : "COMMENT_TITLE"
 
     Appnima.Network.Post.updateComment(parameters);
 
@@ -700,11 +700,11 @@ This call return following array of objects:
     [
       {
         "id"         : "COMMENT_ID",
-        "content"    : "Comment 1",
+        "content"    : "COMMENT_CONTENT",
         "created_at" : "CREATED_AT",
         "owner":
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "OWNER_AVATAR",
             "id"       : "OWNER_ID",
             "name"     : "OWNER_NAME",
             "username" : "OWNER_NICKNAME"
@@ -712,11 +712,11 @@ This call return following array of objects:
       },
       {
         "id"         : "COMMENT_ID",
-        "content"    : "Comment 2",
+        "content"    : "COMMENT_CONTENT",
         "created_at" : "CREATED_AT",
         "owner":
           {
-            "avatar"   : "http://AVATAR_URL",
+            "avatar"   : "OWNER_AVATAR",
             "id"       : "OWNER_ID",
             "name"     : "OWNER_NAME",
             "username" : "OWNER_NICKNAME"
@@ -747,7 +747,7 @@ This method return following data:
         "id"       : "USER_ID",
         "name"     : "USER_NAME",
         "username" : "USER_NICKNAME",
-        "avatar"   : "http://AVATAR_URL",
+        "avatar"   : "USER_AVATAR",
         "bio"      : "USER_BIO"
       }
     ]
@@ -888,7 +888,7 @@ To create a new calendar, you need to sent an object with the name and color of 
 
 ```
   parameters =
-    name  : "mi calendario",
+    name  : "CALENDAR_NAME",
     color : "#FF66CC"
   Appnima.Calendar.create(parameters)
 ```
@@ -899,7 +899,7 @@ This function returns the new calendar:
   "calendar":
     {
       "id"         : "CALENDAR_ID",
-      "name"       : "Mi calendario",
+      "name"       : "CALENDAR_NAME",
       "color"      : "#FF66CC",
       "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
       "owner"      :
@@ -907,7 +907,7 @@ This function returns the new calendar:
           "id"       : "OWNER_ID",
           "username" : "OWNER_NICKNAME",
           "mail"     : "OWNER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "OWNER_AVATAR",
           "name"     : "OWNER_NAME"
         },
       "shared": []
@@ -920,8 +920,8 @@ We also have the option to change the name and color of a calendar already creat
 
 ```
   parameters =
-    id    : CALENDAR_ID,
-    name  : "mi nuevo nombre de calendario",
+    id    : "CALENDAR_ID",
+    name  : "CALENDAR_NAME",
     color : "#FF33CC"
   Appnima.Calendar.update(parameters)
 ```
@@ -932,7 +932,7 @@ If the calendar does not exist, it returns a 404 error, If on the contrary exist
   "calendar":
     {
       "id"         : "CALENDAR_ID",
-      "name"       : "Mi nuevo calendario",
+      "name"       : "CALENDAR_NAME",
       "color"      : "#FF66CC",
       "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
       "owner":
@@ -940,7 +940,7 @@ If the calendar does not exist, it returns a 404 error, If on the contrary exist
           "id"       : "USER_ID",
           "username" : "USER_NICKNAME",
           "mail"     : "USER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "USER_AVATAR",
           "name"     : "USER_NAME"
         },
       "shared": []
@@ -977,7 +977,7 @@ If the calendar does not exist, it returns a 404 error. If you have not been err
   "calendar":
     {
       "id"         : "CALENDAR_ID",
-      "name"       : "Mi nuevo calendario",
+      "name"       : "CALENDAR_NAME",
       "color"      : "#FF66CC",
       "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
       "owner":
@@ -985,7 +985,7 @@ If the calendar does not exist, it returns a 404 error. If you have not been err
           "id"       : "USER_ID",
           "username" : "USER_NICKNAME",
           "mail"     : "USER_MAIL",
-          "avatar"   : "http://appnima.com/img/avatar.jpg",
+          "avatar"   : "USER_AVATAR",
           "name"     : "USER_NAME"
         },
       "shared": ["USER_ID"]
@@ -1006,7 +1006,7 @@ Returns an array of calendars:
     [
       {
         "id"         : "CALENDAR_ID",
-        "name"       : "Mi nuevo calendario",
+        "name"       : "CALENDAR_NAME",
         "color"      : "#FF66CC",
         "created_at" : "Tue Feb 04 2014 13:19:06 GMT+0100 (CET)",
         "owner":
@@ -1014,7 +1014,7 @@ Returns an array of calendars:
             "id"       : "USER_ID",
             "username" : "USER_NICKNAME",
             "mail"     : "USER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "USER_AVATAR",
             "name"     : "USER_NAME"
           },
         "shared": ["USER_ID"]
@@ -1054,27 +1054,27 @@ If the calendar does not exist, it returns a 404 error. If it went well, it retu
             "username" : "USER_NICKNAME",
             "name"     : "USER_NAME",
             "mail"     : "USER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "USER_AVATAR",
             "id"       : "USER_ID"
           },
         "event":
           {
-            "id"          : "EVENT_ID",
+        "id"          : "EVENT_ID",
             "calendar"    : "CALENDAR_ID",
-                        "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-                "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-                      "name"        : "BilboStack updated",
-                      "description" : "This event is bilboStack",
-                      "place"       : "PLACE_ID",
-                      "assistents"  : [ "USER_ID" ],
-                        "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-                        "tags"        : [ "learn" ],
-                        "guest"       : [ "USER_ID_1", "USER_ID_2" ]
+        "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+              "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+          "name"        : "EVENT_NAME",
+              "description" : "EVENT_DESCRIPTION",
+              "place"       : "PLACE_ID",
+            "assistents"  : [ "USER_ID" ],
+          "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+            "tags"        : [ "learn" ],
+            "guest"       : [ "USER_ID_1", "USER_ID_2" ]
                   },
               "calendar":
                 {
                       "id"         : "CALENDAR_ID",
-                        "name"       : "Mi calendario updated",
+                        "name"       : "CALENDAR_NAME",
                       "color"      : "#FA58F4",
                         "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
                         "owner"      : "OWNER_ID",
@@ -1085,7 +1085,7 @@ If the calendar does not exist, it returns a 404 error. If it went well, it retu
                       "id"       : "OWNER_ID",
                       "username" : "OWNER_NICKNAME",
                         "mail"     : "OWNER_MAIL",
-                        "avatar"   : "http://appnima.com/img/avatar.jpg",
+                        "avatar"   : "OWNER_AVATAR",
                         "name"     : "OWNER_NAME"
                     }
             }
@@ -1124,8 +1124,8 @@ This function returns the new event:
           "calendar"    : "CALENDAR_ID",
             "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
           "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-          "description" : "Quedada para jugar un partido de fútbol",
-            "name"        : "Partido de fútbol",
+          "description" : "EVENT_DESCRIPTION",
+            "name"        : "EVENT_NAME",
             "place":
               {
                     "address"    : "c/ San Mames",
@@ -1142,7 +1142,7 @@ This function returns the new event:
                   "id"       : "OWNER_ID",
                     "username" : "OWNER_NICKNAME",
                     "mail"     : "OWNER_MAIL",
-                    "avatar"   : "http://appnima.com/img/avatar.jpg",
+                    "avatar"   : "OWNER_AVATAR",
                     "name"     : "OWNER_NAME"
                 }
       }
@@ -1217,8 +1217,8 @@ As  result is obtained a list of events :
                 "calendar"    : "CALENDAR_ID",
                 "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
                 "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-                "name"        : "Company dinner",
-                "description" : "This event is company dinner",
+                "name"        : "EVENT_NAME",
+                "description" : "EVENT_DESCRIPTION",
                 "place"       : "PLACE_ID",
                 "assistents"  : [],
                 "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
@@ -1228,7 +1228,7 @@ As  result is obtained a list of events :
                       "id"       : "OWNER_ID",
                       "username" : "OWNER_NICKNAME",
                       "mail"     : "OWNER_MAIL",
-                      "avatar"   : "http://appnima.com/img/avatar.jpg",
+                      "avatar"   : "ONWER_AVATAR",
                       "name"     : "OWNER_NAME"
                     }
           }
@@ -1255,8 +1255,8 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
             "calendar"    : "CALENDAR_ID",
             "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
             "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-            "name"        : "Company dinner",
-            "description" : "This event is company dinner",
+            "name"        : "EVENT_NAME",
+            "description" : "EVENT_DESCRIPTION",
             "place"       : "PLACE_ID",
             "assistents"  : [],
             "guest"       : [ "USER_ID" ],
@@ -1267,7 +1267,7 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
                   "id"       : "OWNER_ID",
                   "username" : "OWNER_NICKNAME",
                   "mail"     : "OWNER_MAIL",
-                  "avatar"   : "http://appnima.com/img/avatar.jpg",
+                  "avatar"   : "OWNER_AVATAR",
                   "name"     : "OWNER_NAME"
                 }
         }
@@ -1292,8 +1292,8 @@ If the event does not exist, it returns a 404 error.  If on the contrary exists,
             "calendar"    : "CALENDAR_ID",
             "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
             "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-            "name"        : "Company dinner",
-            "description" : "This event is company dinner",
+            "name"        : "EVENT_NAME",
+            "description" : "EVENT_DESCRIPTION",
             "place"       : "PLACE_ID",
             "assistents"  : ["USER_ID"],
             "guest"       : [ "USER_ID" ],
@@ -1304,7 +1304,7 @@ If the event does not exist, it returns a 404 error.  If on the contrary exists,
                   "id"       : "OWNER_ID",
                   "username" : "OWNER_NICKNAME",
                   "mail"     : "OWNER_MAIL",
-                  "avatar"   : "http://appnima.com/img/avatar.jpg",
+                  "avatar"   : "OWNER_AVATAR",
                   "name"     : "OWNER_NAME"
                 }
         }
@@ -1326,8 +1326,8 @@ The function returns a list of events satisfying these matches:
                 "calendar"    : "CALENDAR_ID",
                 "date_init"   : "Sun Apr 20 2014 09:00:00 GMT+0200 (CEST)",
                 "date_finish" : "Thu Mar 20 2014 11:00:00 GMT+0100 (CET)",
-                "name"        : "Company dinner",
-                "description" : "This event is company dinner",
+                "name"        : "EVENT_NAME",
+                "description" : "EVENT_DESCRIPTION",
                 "place"       : "PLACE_ID",
                 "assistents"  : [],
                 "created_at"  : "Tue Feb 04 2014 14:39:04 GMT+0100 (CET)",
@@ -1337,7 +1337,7 @@ The function returns a list of events satisfying these matches:
                       "id"       : "OWNER_ID",
                       "username" : "OWNER_NICKNAME",
                       "mail"     : "OWNER_MAIL",
-                      "avatar"   : "http://appnima.com/img/avatar.jpg",
+                      "avatar"   : "OWNER_AVATAR",
                       "name"     : "OWNER_NAME"
                     }
           }
@@ -1378,7 +1378,7 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
             "username" : "USER_NICKNAME",
             "name"     : "USER_NAME",
             "mail"     : "USER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "USER_AVATAR",
             "id"       : "USER_ID"
           },
         "event":
@@ -1387,8 +1387,8 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
             "calendar"    : "CALENDAR_ID",
             "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
             "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-            "name"        : "BilboStack updated",
-            "description" : "This event is bilboStack",
+            "name"        : "EVENT_NAME",
+            "description" : "EVENT_DESCRIPTION",
             "place"       : "PLACE_ID",
             "assistents"  : [ "USER_ID" ],
             "created_at"  : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
@@ -1398,7 +1398,7 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
         "calendar":
           {
              "id"         : "CALENDAR_ID",
-             "name"       : "Mi calendario updated",
+             "name"       : "CALENDAR_NAME",
              "color"      : "#FA58F4",
              "created_at" : "Mon Feb 10 2014 16:56:24 GMT+0100 (CET)",
              "owner"      : "OWNER_ID",
@@ -1409,7 +1409,7 @@ If the event does not exist, it returns a 404 error. If on the contrary exists, 
             "id"       : "OWNER_ID",
             "username" : "OWNER_NICKNAME",
             "mail"     : "OWNER_MAIL",
-            "avatar"   : "http://appnima.com/img/avatar.jpg",
+            "avatar"   : "OWNER_AVATAR",
             "name"     : "OWNER_NAME"
           }
       }
