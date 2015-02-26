@@ -1068,7 +1068,7 @@ APP/NIMA also provides us information on what has happened in a calendar. If we 
 
 If the calendar does not exist, it returns a 404 error. If it went well, it returns a list of activities with the structure shown below
 
-```json
+```
   "activities": [
     {
       "id"         : "ACTIVITY_ID",
