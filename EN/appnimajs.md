@@ -691,14 +691,18 @@ Call returns ```message: "Ok"```.
 #### Delete comment
 The user who created a comment can delete his comments with following method sending comment ```id```:
 
+```
     Appnima.Network.Post.deleteComment(COMMENT_ID);
+```
 
 Call returns ```message: "Ok"```.
 
 #### Get comment
 To obtain all comments of post the user may to call this method sending ```id```of post:
 
+```
     Appnima.Network.Post.comments(POST_ID);
+```
 
 This call return following array of objects:
 
@@ -735,7 +739,9 @@ This call return following array of objects:
 #### Do like post
 The user can do favorite a concret post, or remove that "like". For this, the user must send the id of the post along with the call:
 
+```
   Appnima.Network.Post.like(POST_ID);
+```
 
 If it is the first time that user do like a post, this will be created, but on the contrary, if this post already has favorite, the favorite will disappear and the next time this method is called again to be favorite.
 If all went well return ```message:" Successful "```.
@@ -743,7 +749,9 @@ If all went well return ```message:" Successful "```.
 #### Get users who have made a post favorite
 If the user wants to get all users who have a favorite post in particular, you simply send the id of the post along with the following call:
 
+```
   Appnima.Network.Post.likeUsers(POST_ID);
+```
 
 This method return following data:
 
@@ -787,17 +795,19 @@ Places
 Using the users latitude and longitude or any point you can get the nearest places such as museums, restaurants, public buildings… You also can provide a search radius or precision to get a more accurate search. To do this use this respource  with the latitude, longitude and radius/precision. The precision is a numeric value ( 0,1 or 2) and the radius is a numeric value in meters:
 
 ```javascript
+
   parameters =
     latitude  : 3.1667,
     longitude : 101.7,
     precision : 2
+
   Appnima.Location.places(parameters);
-```
-```javascript
+
   parameters =
     latitude  : 3.1667,
     longitude : 101.7,
     radius    : 15
+
   Appnima.Location.places(parameters);
 ```
 
@@ -823,6 +833,7 @@ In APP/NIMA you can add a place and add relevant information such as name, addre
     mail        : "hello@tapquo.com",
     phone       : "609326913",
     webiste     : "http://tapquo.com"
+
   Appnima.Location.add(place);
 ```
 
@@ -834,6 +845,7 @@ You users can register the places where they are. Send the `ID` and `REFERENCE` 
 ```
   Appnima.Location.checkin(PLACE_ID);
 ```
+
 You can get the list of checkins with this resource. The unique parameter needed is the user's id:
 ```
   Appnima.Location.checkins(USER_ID);
@@ -849,6 +861,7 @@ You can ask APP/NIMA for the friends that are near to you. The parameters needed
     latitude  : 43.6525842
     longitude : -79.3834173
     radius    : 1000
+
   Appnima.Location.friends(parameters);
 ```
 
@@ -859,6 +872,7 @@ You can ask APP/NIMA for the people that is near to you. The parameters needed a
     latitude  : 43.6525842
     longitude : -79.3834173
     radius    : 1000
+
   Appnima.Location.people(parameters);
 ```
 #### User
@@ -868,6 +882,7 @@ You can change your location with APP/NIMA. The parameters needed are the latitu
   parameters =
     latitude  : 43.6525842
     longitude : -79.3834173
+
   Appnima.Location.user(parameters)
 ```
 
@@ -897,6 +912,7 @@ To create a new calendar, you need to sent an object with the name and color of 
   parameters =
     name  : "CALENDAR_NAME",
     color : "#FF66CC"
+
   Appnima.Calendar.create(parameters)
 ```
 
@@ -930,6 +946,7 @@ We also have the option to change the name and color of a calendar already creat
     id    : "CALENDAR_ID",
     name  : "CALENDAR_NAME",
     color : "#FF33CC"
+
   Appnima.Calendar.update(parameters)
 ```
 
@@ -965,6 +982,7 @@ To do this, you must send as parameter the id of calendar, the id of the user to
     id      : "CALEDNAR_ID",
     profile : "USER_ID",
     state   : "add"
+
   Appnima.Calendar.shared(parameters)
 ```
 
@@ -975,6 +993,7 @@ Or on the contrary, you can also remove a user from the list of shared users, so
     id      : "CALENDAR_ID",
     profile : "USER_ID",
     state   : "remove"
+
   Appnima.Calendar.shared(parameters)
 ```
 
@@ -1050,53 +1069,51 @@ APP/NIMA also provides us information on what has happened in a calendar. If we 
 If the calendar does not exist, it returns a 404 error. If it went well, it returns a list of activities with the structure shown below
 
 ```json
-  "activities":
-    [
-      {
-        "id"         : "ACTIVITY_ID",
+"activities": [
+  {
+    "id"         : "ACTIVITY_ID",
         "message"    : "User has created the event",
         "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
         "profile"    :
-          {
-            "username" : "USER_NICKNAME",
-            "name"     : "USER_NAME",
-            "mail"     : "USER_MAIL",
-            "avatar"   : "USER_AVATAR",
-            "id"       : "USER_ID"
-          },
-        "event":
-          {
+      {
+        "username" : "USER_NICKNAME",
+              "name"     : "USER_NAME",
+              "mail"     : "USER_MAIL",
+              "avatar"   : "USER_AVATAR",
+              "id"       : "USER_ID"
+      },
+    "event":
+      {
         "id"          : "EVENT_ID",
             "calendar"    : "CALENDAR_ID",
-        "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+            "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
               "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-          "name"        : "EVENT_NAME",
+            "name"        : "EVENT_NAME",
               "description" : "EVENT_DESCRIPTION",
               "place"       : "PLACE_ID",
-            "assistents"  : [ "USER_ID" ],
-          "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-            "tags"        : [ "learn" ],
-            "guest"       : [ "USER_ID_1", "USER_ID_2" ]
-                  },
-              "calendar":
-                {
-                      "id"         : "CALENDAR_ID",
-                        "name"       : "CALENDAR_NAME",
-                      "color"      : "#FA58F4",
-                        "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-                        "owner"      : "OWNER_ID",
-                        "shared"     : []
-                    },
-              "owner":
-                {
-                      "id"       : "OWNER_ID",
-                      "username" : "OWNER_NICKNAME",
-                        "mail"     : "OWNER_MAIL",
-                        "avatar"   : "OWNER_AVATAR",
-                        "name"     : "OWNER_NAME"
-                    }
-            }
-    ]
+              "assistents"  : [ "USER_ID" ],
+            "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+              "tags"        : [ "learn" ],
+              "guest"       : [ "USER_ID_1", "USER_ID_2" ]
+      },
+    "calendar":
+      {
+        "id"         : "CALENDAR_ID",
+              "name"       : "CALENDAR_NAME",
+            "color"      : "#FA58F4",
+            "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+              "owner"      : "OWNER_ID",
+              "shared"     : []
+          },
+      "owner":
+      {
+            "id"       : "OWNER_ID",
+              "username" : "OWNER_NICKNAME",
+            "mail"     : "OWNER_MAIL",
+              "avatar"   : "OWNER_AVATAR",
+              "name"     : "OWNER_NAME"
+      }
+  }]
 ```
 
 The event and calendar is where the activity was performed. If the event is null, is that only affects the calendar. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted the activity.
@@ -1119,40 +1136,41 @@ Through the following function can create an event to a calendar. Should be sent
     longitude   : "-2.29"
     guest       : null
     tags        : "futbol,deporte"
+
   Appnima.Calendar.event(data)
 ```
 
 This function returns the new event:
 
 ```json
-  "event":
+"event": {
+  "id"          : "EVENT_ID",
+  "calendar"    : "CALENDAR_ID",
+  "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+  "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+  "description" : "EVENT_DESCRIPTION",
+  "name"        : "EVENT_NAME",
+  "place":
     {
-          "id"          : "EVENT_ID",
-          "calendar"    : "CALENDAR_ID",
-            "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-          "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-          "description" : "EVENT_DESCRIPTION",
-            "name"        : "EVENT_NAME",
-            "place":
-              {
-                    "address"    : "c/ San Mames",
-                    "locality"   : "Bilbao",
-                    "country"    : "Spain",
-                    "id"         : "PLACE_ID",                            "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
-                    "position"   : [ -2.29, 23.23 ]
-                },
-            "assistents" : [],
-            "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
-            "tags"       : ["futbol", "sport"],
-            "owner":
-              {
-                  "id"       : "OWNER_ID",
-                    "username" : "OWNER_NICKNAME",
-                    "mail"     : "OWNER_MAIL",
-                    "avatar"   : "OWNER_AVATAR",
-                    "name"     : "OWNER_NAME"
-                }
-      }
+      "address"    : "c/ San Mames",
+      "locality"   : "Bilbao",
+      "country"    : "Spain",
+      "id"         : "PLACE_ID",
+      "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+      "position"   : [ -2.29, 23.23 ]
+    },
+  "assistents" : [],
+  "created_at" : "Tue Feb 04 2014 13:49:42 GMT+0100 (CET)",
+  "tags"       : ["futbol", "sport"],
+  "owner":
+    {
+      "id"       : "OWNER_ID",
+      "username" : "OWNER_NICKNAME",
+      "mail"     : "OWNER_MAIL",
+      "avatar"   : "OWNER_AVATAR",
+      "name"     : "OWNER_NAME"
+    }
+}
 ```
 
 #### Update event
@@ -1160,7 +1178,7 @@ This function returns the new event:
 It also allows us to modify an event. You must send an object containing as parameters the "id" of the event to be modified, the event name, description, start and end dates in formarto mm-dd-yyyy hh:mm:, a string with a list of "id" separated "," corresponding to the users you want to share this event, a string with a list separated by "," address at which to hold the event tags, location, users the country, the latitude and longitude.
 
 ```coffeescript
-  data =
+data =
     event       : "EVENT_ID"
     calendar    : "CALENDAR_ID"
     name        : "EVENT_NAME"
@@ -1174,9 +1192,8 @@ It also allows us to modify an event. You must send an object containing as para
     longitude   : "-2.29"
     guest       : null
     tags        : "futbol,deporte"
-```
-```
-    Appnima.Calendar.updateEvent(data)
+
+Appnima.Calendar.updateEvent(data)
 ```
 If the event does not exist, it returns a 404 error. If on the contrary exists, returns the event with the fields modified with the structure of the object that is returned in the create event.
 
@@ -1189,6 +1206,7 @@ Through the following function can be obtained events calendars that the user ow
     time  : "month",
     year  : "2014",
     month : "02"
+
   Appnima.Calendar.listEvents(parameters)
 ```
 
@@ -1200,6 +1218,7 @@ For list the events of a week, is sent as first "week" parameter, as second para
     year  : "2014",
     month : "02",
     day   : "14"
+
   Appnima.Calendar.listEvents(parameteres)
 ```
 
@@ -1211,6 +1230,7 @@ For list the events of the day, is sent as the first parameter "day" parameter a
     year  : "2014",
     month : "02",
     day   : "14"
+
   Appnima.Calendar.listEvents(parameters)
 ```
 
@@ -1250,6 +1270,7 @@ Another feature that is possible, is to invite a user to an event, so that he to
     event   : "EVENT_ID",
     profile : "USER_ID",
     state   : "add"
+
   Appnima.Calendar.guestEvent(parameters)
 ```
 
@@ -1286,6 +1307,7 @@ To confirm your assistance at an event or to eliminate is used this function, in
   parameters =
     event : "EVENT_ID",
     state : "add"
+
   Appnima.Calendar.assistentEvent(parameters)
 ```
 
@@ -1590,6 +1612,7 @@ To create a new credit card you only have to send credit card info with a valid 
     number          : CREDIT_CARD_NUMBER
     cvc             : CREDIT_CARD_CVC
     expiration_date : CREDIT_CARD_EXPIRATION_DATE
+
   Appnima.Payments.createCreditCard(parameters)
 ```
 
@@ -1609,6 +1632,7 @@ You can also add an alias parameter to the appnima request to identify better yo
     cvc             : CREDIT_CARD_CVC
     expiration_date : CREDIT_CARD_EXPIRATION_DATE
     alias           : CREDIT_CARD_ALIAS
+
   Appnima.Payments.createCreditCard(parameters)
 ```
 
@@ -1632,6 +1656,7 @@ For same security reasons to update a credit card you must do it with the ID of 
   parameters =
     id     : CREDIT_CARD_ID
     number : CREDIT_CARD_NUMBER
+
   Appnima.Payments.updateCreditCard(parameters)
 ```
 
