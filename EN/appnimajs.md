@@ -100,7 +100,7 @@ The `update` resource also allows users to update their data. To do this just ca
     name     : "USER_NAME"
     avatar   : "USER_AVATAR"
     phone    : "USER_PHONE"
-    site     : "USER_SITE",
+    site     : "USER_SITE"
     bio      : "USER_BIO"
   Appnima.User.update(data);
 ```
@@ -151,11 +151,11 @@ Terminal
 #### Register or Update
 With this resource you can register or update the device the user is using to access the application. The request is done in the following way:
 
-```coffeescript
+```
     parameters =
-        os      : "Android"
-        type    : "Phone"
-        token   : "TERMINAL_TOKEN"
+        os      : "Android",
+        type    : "Phone",
+        token   : "TERMINAL_TOKEN",
         version : "4.1"
     Appnima.User.terminal(parameters);
 ```
@@ -179,7 +179,7 @@ The data you will receive will be like:
     "version" : "6.0"
   },
   {
-    "id"      : "TERMINAL_ID"
+    "id"      : "TERMINAL_ID",
     "type"    : "desktop",
     "os"      : "macos",
     "token"   : "TERMINAL_TOKEN",
@@ -418,11 +418,12 @@ The first variable is the page number you want to obtain, that is, the part of t
 
 #### Followers
 With this resource you can get the list of people that follow a user. It works as the previous parameter, accepting an optional user id parameter:
-
+```
   Appnima.Network.followers();
-
+``
+```
   Appnima.Network.followers({user: USER_ID});
-
+```
 Like as explained above, it is also possible to obtain results with pagination. The mode of this is the same as getting the users you follow.
 
 In this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
@@ -500,40 +501,40 @@ This call will return an object with information on the new post:
 
 #### Update
 The user can update created post. To do this, user must send the following parameters:
-
+```
   parameters =
     id      : "POST_ID",
     content : "POST_CONTENT",
     title   : "POST_TITLE",
     image   : "POST_IMAGE"
-
   Appnima.Network.Post.update(parameters);
+```
 
 Not required to send the data that will not be modified. Two examples of this would be:
-
+````
   parameters =
     id      : "POST_ID",
     content : "POST_CONTENT",
     image   : "POST_IMAGE"
-
   Appnima.Network.Post.update(parameters);
-
+```
+```
   parameters =
     id      : "POST_ID",
     content : "POST_CONTENT",
     title   : "POST_TITLE"
-
   Appnima.Network.Post.update(parameters);
+```
 
 As can be seen, in the first case, you want to change the content and the image but not the title, so you must send that field to null.
 
 In the second case, you want to change the content and the title and image as the last parameter is not necessary to pass null. The same would happen in the following case:
-
+```
   parameters =
     id      : "POST_ID",
     content : "POST_CONTENT"
-
   Appnima.Network.Post.update(parameters);
+```
 
 In this case you only want to modify the content and therefore, other variables that go behind would not need to send in null.
 
@@ -606,32 +607,35 @@ The list of likes are users who have made like this post.
 
 #### Search
 The user can search for a particular post by the text of its content, or if it sends just a word, it will return all posts that contain that word in their content.
-
+```
   parameters =
     query       : "lorem",
     page        : 1,
     num_results : 12,
     last_data   : LAST_DATA
-
   Appnima.Network.Post.search(parameters);
+```
 
 As can be seen, in this case the results are to be obtained by pagination, as explained above. But if it does not wish to use it, you simply have to make the call as follows:
-
+```
   Appnima.Network.Post.search({query: "Lorem"});
+```
 
 In this case, both methods return an array of the post has been found, or an empty array if none match.
 
 #### Counter
 This method is used to obtain the counter of post that user created. The answer is ```posts_count:8 ```. In this example, the user of the session would have created eight post.
 
+```
   Appnima.Network.Post.counter();
   Appnima.Network.Post.counter(USER_ID);
+```
 
 If user sends an user id, method return counter of that user.
 
 #### Timeline
 This method is used to obtain a list of post. There would be two different ways of creating two different results. A case would be:
-
+```
   parameters =
     page        : page,
     num_results : 12,
@@ -639,12 +643,13 @@ This method is used to obtain a list of post. There would be two different ways 
 
   Appnima.Network.Post.timeline();
   Appnima.Network.Post.timeline(parameters);
+```
 
 In this case, the first call would get the ```timeline``` of session user. This is a list of post that user created and those who user follow. (Easy example to understand is the timeline of ```Twitter```).
 
 In second call is the same, only to be get posts by pagination.
 The other case would be:
-
+```
   Appnima.Network.Post.timeline({username: "my_username"});
 
   parameters =
@@ -654,30 +659,32 @@ The other case would be:
     last_data   : LAST_DATA
 
   Appnima.Network.Post.timeline(parameters);
+```
 
 In this case you are getting the timeline of a specific user, the post he has written. (Next to the example of Twitter, this case would be when you enter in to the profile of a particular user). As you can see, you can also do by pagination.
 
 #### Create comment
 Posts may have comments, and with this call user can do comments.
-
+```
   parameters =
     id      : "COMMENT_ID",
     content : "COMMENT_CONTENT"
 
   Appnima.Network.Post.createComment(parameters);
+```
 
 Call returns ```message: "Ok"```.
 
 #### Update comment
 User can update its comment.
-
+```
     parameters =
         id      : "COMMENT_ID",
         content : "COMMENT_CONTENT",
         title   : "COMMENT_TITLE"
 
     Appnima.Network.Post.updateComment(parameters);
-
+```
 Call returns ```message: "Ok"```.
 
 
