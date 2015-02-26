@@ -255,6 +255,7 @@ El campo type puede ser 0, 1 o 2. Si no se manda este campo, por defecto es 0.
 **0** -> "question"
 **1** -> "bug"
 **3** -> "support"
+
 ```
     Appnima.User.ticket(parameters);
 ```
