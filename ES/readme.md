@@ -471,7 +471,7 @@ tienes que enviar los parámetros:
 ```
 
 **type**: computer, tablet, phone, tv
-**os**: ios, windows, macos, linux, android, blackberry, firefoxox, windowsphone, other
+**os**: ios, windows, macos, linux, android, blackberry, firefoxOS, windowsphone, other
 
 En el caso de que haya ido todo bien se devolverá el código `201`.
 
@@ -515,7 +515,7 @@ tienes que enviar los parámetros:
 }
 ```
 **type**: computer, tablet, phone, tv
-**os**: windows, macos, linux, ios, android, blackberry, firefoxos, windowsphone, other
+**os**: windows, macos, linux, ios, android, blackberry, firefoxOS, windowsphone, other
 
 ### Suscripciones
 
