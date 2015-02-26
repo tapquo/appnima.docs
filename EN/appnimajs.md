@@ -1069,51 +1069,51 @@ APP/NIMA also provides us information on what has happened in a calendar. If we 
 If the calendar does not exist, it returns a 404 error. If it went well, it returns a list of activities with the structure shown below
 
 ```json
-"activities": [
-  {
-    "id"         : "ACTIVITY_ID",
-        "message"    : "User has created the event",
-        "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-        "profile"    :
-      {
-        "username" : "USER_NICKNAME",
-              "name"     : "USER_NAME",
-              "mail"     : "USER_MAIL",
-              "avatar"   : "USER_AVATAR",
-              "id"       : "USER_ID"
-      },
-    "event":
-      {
-        "id"          : "EVENT_ID",
-            "calendar"    : "CALENDAR_ID",
-            "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
-              "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
-            "name"        : "EVENT_NAME",
-              "description" : "EVENT_DESCRIPTION",
-              "place"       : "PLACE_ID",
-              "assistents"  : [ "USER_ID" ],
-            "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-              "tags"        : [ "learn" ],
-              "guest"       : [ "USER_ID_1", "USER_ID_2" ]
-      },
-    "calendar":
-      {
-        "id"         : "CALENDAR_ID",
-              "name"       : "CALENDAR_NAME",
-            "color"      : "#FA58F4",
-            "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
-              "owner"      : "OWNER_ID",
-              "shared"     : []
-          },
-      "owner":
-      {
-            "id"       : "OWNER_ID",
-              "username" : "OWNER_NICKNAME",
-            "mail"     : "OWNER_MAIL",
-              "avatar"   : "OWNER_AVATAR",
-              "name"     : "OWNER_NAME"
-      }
-  }]
+  "activities": [
+    {
+      "id"         : "ACTIVITY_ID",
+          "message"    : "User has created the event",
+          "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+          "profile"    :
+        {
+          "username" : "USER_NICKNAME",
+                "name"     : "USER_NAME",
+                "mail"     : "USER_MAIL",
+                "avatar"   : "USER_AVATAR",
+                "id"       : "USER_ID"
+        },
+      "event":
+        {
+          "id"          : "EVENT_ID",
+              "calendar"    : "CALENDAR_ID",
+              "date_init"   : "Mon Apr 14 2014 09:00:00 GMT+0200 (CEST)",
+                "date_finish" : "Mon Apr 14 2014 11:00:00 GMT+0200 (CEST)",
+              "name"        : "EVENT_NAME",
+                "description" : "EVENT_DESCRIPTION",
+                "place"       : "PLACE_ID",
+                "assistents"  : [ "USER_ID" ],
+              "created_at"  : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+                "tags"        : [ "learn" ],
+                "guest"       : [ "USER_ID_1", "USER_ID_2" ]
+        },
+      "calendar":
+        {
+          "id"         : "CALENDAR_ID",
+                "name"       : "CALENDAR_NAME",
+              "color"      : "#FA58F4",
+              "created_at" : "Mon Feb 10 2014 16:25:54 GMT+0100 (CET)",
+                "owner"      : "OWNER_ID",
+                "shared"     : []
+            },
+        "owner":
+        {
+              "id"       : "OWNER_ID",
+                "username" : "OWNER_NICKNAME",
+              "mail"     : "OWNER_MAIL",
+                "avatar"   : "OWNER_AVATAR",
+                "name"     : "OWNER_NAME"
+        }
+    }]
 ```
 
 The event and calendar is where the activity was performed. If the event is null, is that only affects the calendar. The field "owner" is the person performing the activity and the "profile" field is the person who is targeted the activity.
