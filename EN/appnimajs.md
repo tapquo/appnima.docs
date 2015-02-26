@@ -420,18 +420,19 @@ The first variable is the page number you want to obtain, that is, the part of t
 With this resource you can get the list of people that follow a user. It works as the previous parameter, accepting an optional user id parameter:
 ```
   Appnima.Network.followers();
-``
-```
+
   Appnima.Network.followers({user: USER_ID});
 ```
+
 Like as explained above, it is also possible to obtain results with pagination. The mode of this is the same as getting the users you follow.
 
 In this case, the call returns one more variable in each object. This variable indicate that user is loggued is follow or not that user.
 
 #### Friends
 You can also obtain the session's friends, a friend is considered the user having a reinforced relationship (follower / following)
-
+```
   Appnima.Network.friends();
+```
 
 The server returns `200 Ok` and the next object:
 ```json
@@ -449,9 +450,9 @@ The server returns `200 Ok` and the next object:
 
 #### Check
 With this resource yoa can get information about logged user's realtionship with other user, if I am following him and if he is my follower:
-
+```
   Appnima.Network.check(USER_ID);
-
+``
 The server returns `200 Ok` and the next object:
 
 ```json
