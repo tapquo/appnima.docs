@@ -5,8 +5,9 @@ Descubre como dar alma a tus aplicaciones con el primer LaaS en el mundo.
 *Version Actual: [1.06.16]()*
 
 Para tener appnima.js listo para trabajar solo tienes que fijar el valor de la variable `Appnima.key` con la key que te proporciona APP/NIMA al crear una aplicación en tu [**panel de gestión**](http://appnima.tapquo.com):
-
+```
     Appnima.key = "TU_CLAVE";
+```
 
 App/nima te proporciona recursos para mantener en memoria la información de sesión de tu usuario.
 
@@ -47,9 +48,12 @@ Basic
 -----
 #### Signup
 Puedes registrar un usuario en App/nima por e-mail o username. Por lo tanto, las llamadas a la aplicación pueden ser:
+
 ```javascript
   Appnima.User.signup("USER_MAIL", "USER_PASSWORD", "USER_NICKNAME");
+
   Appnima.User.signup("null", "USER_PASSWORD", "USER_NICKNAME");
+
   Appnima.User.signup("USER_MAIL", "USER_PASSWORD");
 ```
 
@@ -58,6 +62,7 @@ Realizar el login de un usuario es tan sencillo como llamar al recurso con los p
 
 ```javascript
     Appnima.User.login("USER_MAIL", "USER_PASSWORD");
+
     Appnima.User.login("null", "USER_PASSWORD", "USER_NICKNAME");
 ```
 
@@ -72,6 +77,7 @@ Llama a este usuario para obtener el tojen del usuario y gestionar su sesión:
     Appnima.User.session()
 ```
 El servidor devuelve un `200` y el objeto:
+
 ```json
 {
   "id"       : "USER_ID",
@@ -125,8 +131,7 @@ Para actualizar cualquier campo del perfil del usuario debes enviar un objeto co
     "phone"    : "USER_PHONE",
     "site"     : "USER_SITE"
   }
-```
-```
+
     Appnima.User.update(attributes);
 ```
 El atributo `AVATAR` puede ser enviado de dos maneras: puedes transformar la imagen a base64 o en el formato que te proporciona la conversión `new Image()`
@@ -144,30 +149,40 @@ El primer parámetro se trata del ```mail```del usuario de APP/NIMA. El segundo 
 
 Esta función envia un mail al usuario propietario del token de parte de APP/NIMA con una URL de la siguiente forma:
 Si se envía dominio la URL quedaría así:
+
 ```
     http://application_domain/forgot?forgot_key=CODIGO"
 ```
+
 Si por el contrario, no se envía un dominio, la URL quedaría así:
+
 ```
     http://appnima.com/forgot/APPLICATION_ID?forgot_key=CODIGO"
 ```
+
 El código lo genera APP/NIMA y sirve para identificar la petición de qué usuario ha pedido recordar la contraseña. Para esto, como se puede observar, es necesario generar un endpoint en el backend de la aplicación con dicha URL en la que haya un formulario donde rellenar la nueva contraseña deseada. Por lo tanto habría que llamar al siguiente método:
+
 ```
     Appnima.User.resetPassword("REMEMBER_CODE", "NEW_PASSWORD");
 ```
+
 El primer parámetro es el código de la URL generada en el paso anterior y el segundo parámetro es la nueva contraseña que el usuario quiere regenerar. Una vez hecho esto, APP/NIMA envía un email al usuario avisándole de que su contraseña ha sido modificada.
 
 En el caso de no tener backend en la aplicación, APP/NIMA le ofrece una vista en la que regenerar la contraseña al usuario. Para ello se debería llamar al método:
+
 ```
     Appnima.User.rememberPassword("USER_TOKEN");
 ```
+
 Pasándole únicamente el token del usuario del que se quiere regenerar el password y APP/NIMA le enviará un mail con la URL propia donde regenerar el password.
 
 #### Cambiar contraseña
 Con esta función se puede cambiar la contraseña directamente. El único requisito es que el usuario esté logueado con APP/NIMA, y después habría que llamar al siguiente método:
+
 ```
     Appnima.User.changePassword("OLD_PASSWORD", "NEW_PASSWORD");
 ```
+
 El primer parámetro se trata de la vieja contraseña y el segundo de la nueva por la que se desea cambiar.
 
 
@@ -183,6 +198,7 @@ Con este recurso puedes registrar o actualizar el dispositivo con el que tu usua
     "token"   : "TOKEN",
     "version" : "4.1"
   }
+
   Appnima.User.terminal(parameters);
 ```
 
@@ -263,9 +279,8 @@ Si se desea obtener un ticket en concreto, habría que mandar la ID del ticket a
   parameters = {
     "id": "TICKET_ID"
   }
-```
-```
-    Appnima.User.getTicket(parameters);
+
+  Appnima.User.getTicket(parameters);
 ```
 También existe la opción de buscar un conjunto de tickets. Para ello habría que enviar los siguientes parámetros:
 
@@ -309,27 +324,25 @@ Mail
 ----
 Los usuarios de tu aplicación pueden enviar e-mail a otros usuarios del sistema mediante este recurso. Para ello, el parámetro que recibe es un objeto con los siguientes datos: el ID del usuario al que se le envía el e-mail, el asunto y el cuerpo del mensaje:
 
-```coffeescript
+```
   parameters =
     user    : "USER_ID",
     subject : "Reunión",
     message : "Hoy a las 5"
-```
-```
-    Appnima.Messenger.mail(parameters);
+
+  Appnima.Messenger.mail(parameters);
 ```
 
 SMS
 ---
 APP/NIMA también proporciona servicio de SMS. Así que para utilizar este recurso se necesita enviar un objeto con los parámetros siguientes: el ID del usuario destinatario y el mensaje:
 
-```coffeescript
+```
   parameters =
     user    : "USER_ID",
     message : "Recuerda tu cita de la tarde"
-```
-```
-    Appnima.Messenger.sms(parameters);
+
+  Appnima.Messenger.sms(parameters);
 ```
 
 Mensajes
@@ -338,14 +351,13 @@ Mensajes
 #### Enviar
 Para utilizar el sistema de mensajería privada de APP/NIMA en tu aplicación, basta con llamar al recurso pasando un objeto con los siguientes parámetros: ID del usuario al que se le envía el mensaje, el cuerpo del mensaje y opcionalmente al asunto del mensaje:
 
-```coffeescript
+```
   parameters =
     user    : "USER_ID",
     subject : "Donde estás?",
     message : "Donde estás? Estoy aquí esperando."
-```
-```
-    Appnima.Messenger.message(parameters);
+
+  Appnima.Messenger.message(parameters);
 ```
 
 #### Recibidos
@@ -474,14 +486,13 @@ Si todo ha salido bien el servicio devolverá un `200 Ok` junto con el objeto:
 
 Por otro lado, también existe la opción de que te devuelva la lista de gente a la que sigues con paginación; esto es, que en cada llamada a la API te vaya devolviendo parte de la lista de usuarios. Para ello unicamente se debe enviar dos variables más junto con la id del usuario del que quieres obtener los datos:
 
-```coffeescript
+```
   parameters =
     user        : "USER_ID"
     page        : 0
     num_results : 4
-```
-```
-    Appnima.Network.following(parameteres);
+
+  Appnima.Network.following(parameteres);
 ```
 El primer valor se trata del número de página que deseas obtener; esto es, el trozo de la lista de usuarios que deseas. La segunda variable es el numero de resultados que quieres obtener. En la primera llamada, esa variable será multiplicada por 2, y en los demás casos, se devulverá dicha cifra de usuarios.
 
@@ -538,9 +549,10 @@ Posts
 Los usuarios pueden crear mensajes (post) dentro de una aplicación. Para ello tienen que mandar el siguiente objeto con los parámetros junto con la petición:
 ```
     parameters =
-        title   : "POST_TITLE"
-        content : "POST_CONTENT"
+        title   : "POST_TITLE",
+        content : "POST_CONTENT",
         image   : "POST_IMAGE"
+
     Appnima.Network.Post.create(parameters);
 ```
 Solo el campo ```content``` es obligatorio. Un ejemplo de como crear un ```post```unicamente con el contenido es el siguiente:
@@ -574,6 +586,7 @@ El usuario puede moficiar los post que haya creado. Para ello tiene que enviar l
         content : "POST_CONTENT",
         title   : "POST_TITLE",
         image   : "http://IMAGE_URL"
+
     Appnima.Network.Post.update(parameters);
 ```
 No es obligatorio mandar los datos que no se vayan a modificar. Dos ejemplos de esto sería:
@@ -582,13 +595,14 @@ No es obligatorio mandar los datos que no se vayan a modificar. Dos ejemplos de 
         id      : "POST_ID",
         content : "POST_CONTENT",
         image   : "POST_IMAGE"
+
     Appnima.Network.Post.update(parameters);
-```
-```
+
     parameters =
         id      : "POST_ID",
         content : "POST_CONTENT",
         title   : "POST_TITLE"
+
     Appnima.Network.Post.update(parameters);
 ```
 Como se puede observar, en el primer caso, se quiere modificar el contenido y la imagen pero el título no, por lo que ese campo hay que mandarlo a nulo.
@@ -598,6 +612,7 @@ En el segundo caso, se quiere modificar el contenido y el título, y como la ima
     parameters =
         id      : "POST_ID",
         content : "POST_CONTENT"
+
     Appnima.Network.Post.update(parameters);
 ```
 En este caso solo se quiere modificar el contenido y por lo tanto, las demás variables que van detrás no haría falta mandarlas en nulo.
@@ -676,6 +691,7 @@ El usuario puede buscar un post en concreto mediante el texto de su contenido, o
         page        : 1,
         num_results : 12,
         last_data   : "LAST_DATA"
+
     Appnima.Network.Post.search(parameteres);
 ```
 Como se puede observar, en este caso se desean obtener los resultados mediante paginación, como se ha explicado anteriormente. Pero si no se desease usarla, simplemente habría que hacer la llamada de la siguiente manera:
@@ -688,6 +704,7 @@ En este caso, ambas formas devolverán un array con los post que ha encontrado, 
 Este método se usa para obtener el contador de los post que el usuario tiene. La respuesta sería ```posts_count: 8```. En este ejemplo, el usuario de la sesión habría creado 8 post.
 ```
     Appnima.Network.Post.counter();
+
     Appnima.Network.Post.counter(USER_ID);
 ```
 Si al método se le envía una id de un usuario, devolverá el contador de dicho usuario.
@@ -696,12 +713,12 @@ Si al método se le envía una id de un usuario, devolverá el contador de dicho
 Este método sirve para obtener un listado de post. Habría dos formas diferentes de obtenerlos con dos resultados diferentes. Un caso sería el siguiente:
 ```
     Appnima.Network.Post.timeline();
-```
-```
+
     parameters =
         page        : 1,
         num_results : 12,
         last_data   : LAST_DATA
+
     Appnima.Network.Post.timeline(parameters);
 ```
 En este caso, en la primera llamada se obtendría el ```timeline```del usuario de la sesión. Esto es, una lista de post creados por el y por los usuarios a los que sigue. (Un ejemplo fácil de entender sería el timeline de ```Twitter```).
@@ -710,13 +727,13 @@ En la seguna llamada es lo mismo, solo que se desea obtener los posts mediante p
 El otro caso sería el siguiente:
 ```
     Appnima.Network.Post.timeline({username: USER_NICKNAME});
-```
-```
+
     parameters =
         username    : USER_NICKNAME,
         page        : 1,
         num_results : 12,
         last_data   : LAST_DATA
+
     Appnima.Network.Post.timeline(parameters);
 ```
 En este caso se está obteniendo el timeline de un usuario en concreto, esto es, los post que él ha escrito. (Siguiente con el ejemplo de Twitter, este caso sería cuando entras en el perfil de un usuario en concreto). Como se puede observar, también se puede hacer mediante paginación.
@@ -727,8 +744,10 @@ Un post puede tener comentarios, y con esta llamada se puede realizar.
     parameters =
         id      : "COMMENT_ID"
         content : "COMMENT_CONTENT"
+
     Appnima.Network.Post.createComment(parameters);
 ```
+
 En este caso es obligatorio mandarle ambos campos y la llamada devolverá ```message: "Successful"```.
 
 #### Modificar comentarios
@@ -738,6 +757,7 @@ Con el siguiente método se puede modificar el comentario.
         id      : "COMMENT_ID"
         title   : "COMMENT_TITLE"
         content : "COMMENT_CONTENT"
+
     Appnima.Network.Post.updateComment(parameters);
 ```
 La llamada devolverá ```message: "Ok"```.
@@ -828,6 +848,7 @@ También se pueden obtener mediante paginación. La llamada seria:
         page        : 1,
         num_results : 12,
         last_data   : LAST_DATA
+
     Appnima.Network.Post.userLike(parameters);
 ```
 Geolocalización
@@ -845,13 +866,14 @@ Ejemplos:
     latitude  : 3.1667
     longitude : 101.7
     precision : 2
+
   Appnima.Location.places(parameters);
-```
-```
+
   parameters =
     latitude  : 3.1667
     longitude : 101.7
     radius    : 15
+
   Appnima.Location.places(parameters);
 ```
 
@@ -875,6 +897,7 @@ En APP/NIMA puedes agregar un sitio y añadir información relevante como el nom
     mail        : PLACE_ID
     phone       : PLACE_PHONE
     webiste     : "http://tapquo.com"
+
   Appnima.Location.add(place);
 ```
 Opcionalmente puedes añadir información sobre e-mail, teléfono y Web del sitio.
@@ -898,6 +921,7 @@ Si lo necesitas APP/NIMA puede ofrecer una lista de amigos que se encuentran cer
     latitude  : 43.6525842
     longitude : -79.3834173
     radius    : 1000
+
   Appnima.Location.friends(parameters);
 ```
 
@@ -908,6 +932,7 @@ APP/NIMA también te permite obtener un listado de personas cercanas al usuario 
     latitude  : 43.6525842
     longitude : -79.3834173
     radius    : 1000
+
   Appnima.Location.people(parameters);
 ```
 #### Usuario
@@ -916,6 +941,7 @@ APP/NIMA te permite cambiar tu ubicación permanentemente. Para ello solo tienes
   parameters =
     latitude  : 43.6525842
     longitude : -79.3834173
+
   Appnima.Location.user(parameters)
 ```
 En cambio si lo que quieres saber es tu posición actual, tienes que realizar la misma llamada pero sin paramétros y te devolverá la longitud y latitud que está guardada actualmente.
@@ -934,6 +960,7 @@ Para crear un nuevo calendario, se utiliza el siguiente comando que envía como 
   parameters =
     name  : CALENDAR_NAME,
     color : "#FF66CC"
+
   Appnima.Calendar.create(parameters)
 ```
 Esta función nos devuelve el nuevo calendario:
@@ -964,6 +991,7 @@ Tambien tenemos la opción de modificar los atributos de un calendario ya creado
     id    : CALENDAR_ID,
     name  : "CALENDAR_NAME",
     color : "#FF33CC"
+
   Appnima.Calendar.update(parameters)
 ```
 En caso de que el calendario no exista, devuelve un error 404. Si por el contrario existe, devuelve el calendario con los campos modificados:
@@ -994,6 +1022,7 @@ Cabe la posibilidad de compartir un calendario con otros usuarios, para que así
     id      : CALENDAR_ID
     profile : USER_ID
     state   : "add"
+
   Appnima.Calendar.shared(parameters)
 ```
 O por el contrario, también se puede eliminar a un usuario de la lista de usuarios compartidos, para que ese usuario deje de ver dichos eventos. Para ello, la llamada a la función es la misma que la de compartir, sólo que como tercer paramentro se envía "remove"
@@ -1002,6 +1031,7 @@ O por el contrario, también se puede eliminar a un usuario de la lista de usuar
     id      : CALENDAR_ID,
     profile : USER_ID,
     state   : "remove"
+
   Appnima.Calendar.shared(parameters)
 ```
 
@@ -1139,6 +1169,7 @@ A través de la siguiente función se puede crear un evento para un calendario. 
     longitude   : "-2.29"
     guest       : null
     tags        : "futbol,deporte"
+
   Appnima.Calendar.event(data)
 ```
 
@@ -1193,6 +1224,7 @@ También se nos permite modificar un evento. Se le debe envíar un objeto que ll
       longitude   : "-2.29"
       guest       : null
       tags        : "futbol,deporte"
+
     Appnima.Calendar.updateEvent(data)
 ```
 En caso de que el evento no exista, devuelve un error 404. Si por el contrario existe, devuelve el evento con los campos modificados con la estructura del objeto que se devuelve en la función de crear evento.
@@ -1204,6 +1236,7 @@ A través de la siguiente función se pueden obtener los eventos de los calendar
         time  : "month",
         year  : "2014",
         month : "02"
+
     Appnima.Calendar.listEvents(parameters)
 ```
 Si lo que se quiere es listar los eventos de una semana, se le envía como primer parámetro "week", como segundo parámetro el año de la semana, como tercer parámetro el número del mes de la semana, y como cuarto parámetro el día. Esta fecha corresponde con un día de la semana de la que se quiere obtener los eventos
@@ -1213,6 +1246,7 @@ Si lo que se quiere es listar los eventos de una semana, se le envía como prime
         year  : "2014",
         month : "02",
         day   : "14"
+
     Appnima.Calendar.listEvents(parameters)
 ```
 
@@ -1223,6 +1257,7 @@ Si lo que se quiere es listar los eventos de un día, se le envía como primer p
         year  : "2014",
         month : "02",
         day   : "14"
+
     Appnima.Calendar.listEvents(parameters)
 ```
 Como resultado se obtiene una lista de eventos:
@@ -1260,6 +1295,7 @@ Otra funcionalidad que es posible, es la de invitar a un usuario a un evento, pa
         event   : EVENT_ID,
         profile : USER_ID,
         state   : "add"
+
     Appnima.Calendar.guestEvent(parameters)
 ```
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devuelve el evento actualizado. El atributo "guest" corresponde con la lista de usuarios a los que se les ha invitado al evento.
@@ -1295,6 +1331,7 @@ Para confirmar la asistencia a un evento o para eliminarla se utiliza esta funci
     parameters =
         event: EVENT_ID,
         state: "add"
+
     Appnima.Calendar.assistentEvent(parameters)
 ```
 En caso de que el evento no exista, devuelve un error 404. En caso de que haya ido bién devolverá el evento actualizado. El atributo "assistents" corresponde con la lista de usuarios que van a asistir al evento.
@@ -1432,9 +1469,10 @@ Push
 Para enviar notificaciones push a los dispositivos registrados de tus usuarios únicamente necesitas enviar la ID del usuario, el texto de la notificación y el contenido en un objeto como el siguiente:
 ```
   parameters =
-    user    : "USER_ID"
-    title   : "PUSH_TITLE"
+    user    : "USER_ID",
+    title   : "PUSH_TITLE",
     message : "PUSH_MESSAGE"
+
   Appnima.Push.send(parameters);
 ```
 
@@ -1874,6 +1912,7 @@ Para renombrar un fichero, envía un objecto con los parámetros ID del fichero 
     parameters =
         id: "38837382",
         name: "Mi file"
+
     Appnima.Storage.renameFile(parameters);
 ```
 
